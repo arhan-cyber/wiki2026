@@ -25,13 +25,13 @@ export default function Footer({ bgColor = '#181830' }: FooterProps) {
             />
           </div>
 
-          {/* Center: Aureolyze logo + Sponsors */}
+          {/* Center: BiFrost logo + Sponsors */}
           <div className={styles.middle}>
-            <div className={styles.aureolyzeBox}>
+            <div className={styles.bifrostBox}>
               <img
-                src="/aureolyze-logo.png"
-                alt="Aureolyze"
-                className={styles.aureolyzeLogo}
+                src="/bifrost-logo.svg"
+                alt="BiFrost"
+                className={styles.bifrostLogo}
               />
             </div>
             <p className={styles.sponsorsLabel}>SPONSORS</p>

@@ -45,7 +45,7 @@
   filter: brightness(1.4);
 }
 
-/* Middle: Aureolyze + Sponsors */
+/* Middle: BiFrost + Sponsors */
 .middle {
   display: flex;
   flex-direction: column;
@@ -53,16 +53,16 @@
   gap: 0.6rem;
 }
 
-.aureolyzeBox {
+.bifrostBox {
   width: 100%;
-  max-width: 260px;
+  max-width: 312px;
   aspect-ratio: 16 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.aureolyzeLogo {
+.bifrostLogo {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -74,6 +74,7 @@
   color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  margin-top: 1.5rem;
 }
 
 .sponsorsBox {
