@@ -6,6 +6,10 @@ import AttributionPage from './pages/AttributionPage';
 import SustainabilityPage from './pages/SustainabilityPage';
 import IhpPage from './pages/IhpPage';
 import EducationPage from './pages/EducationPage';
+import ProtocolsPage from './pages/wetlab/ProtocolsPage';
+import NotebookPage from './pages/wetlab/NotebookPage';
+import PartsPage from './pages/wetlab/PartsPage';
+import SafetyPage from './pages/wetlab/SafetyPage';
 
 export default function App() {
   return (
@@ -18,6 +22,10 @@ export default function App() {
         <Route path="/sustainability" element={<SustainabilityPage />} />
         <Route path="/human-practices/ihp" element={<IhpPage />} />
         <Route path="/education" element={<EducationPage />} />
+        <Route path="/wet-lab/protocols" element={<ProtocolsPage />} />
+        <Route path="/wet-lab/notebook" element={<NotebookPage />} />
+        <Route path="/wet-lab/parts" element={<PartsPage />} />
+        <Route path="/wet-lab/safety" element={<SafetyPage />} />
       </Routes>
     </div>
   );

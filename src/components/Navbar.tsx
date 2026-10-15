@@ -22,7 +22,7 @@ const navigation: NavItem[] = [
     href: '/project',
     subnav: [
       { label: 'Description', href: '/#project-description' },
-      { label: 'Safety', href: '/#safety' },
+      { label: 'Safety', href: '/wet-lab/safety' },
       { label: 'Design', href: '/#design' },
       { label: 'Contribution', href: '/#contribution' },
       { label: 'Cooling Measurement', href: '/#cooling-measurement' },
@@ -34,9 +34,10 @@ const navigation: NavItem[] = [
     label: 'WetLab',
     href: '/wet-lab',
     subnav: [
-      { label: 'Notebook', href: '/wet-lab#notebook' },
-      { label: 'Protocol', href: '/wet-lab#protocol' },
-      { label: 'Parts', href: '/wet-lab#parts' },
+      { label: 'Protocol', href: '/wet-lab/protocols' },
+      { label: 'Notebook', href: '/wet-lab/notebook' },
+      { label: 'Parts', href: '/wet-lab/parts' },
+      { label: 'Safety', href: '/wet-lab/safety' },
       { label: 'Result', href: '/wet-lab#result' },
       { label: 'DBTL', href: '/wet-lab#dbtl' },
     ],
