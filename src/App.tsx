@@ -14,6 +14,7 @@ import ProtocolsPage from './pages/wetlab/ProtocolsPage';
 import NotebookPage from './pages/wetlab/NotebookPage';
 import PartsPage from './pages/wetlab/PartsPage';
 import SafetyPage from './pages/wetlab/SafetyPage';
+import DryLabPage, { DryLabModelRoute } from './pages/drylab/DryLabPage';
 
 export default function App() {
   return (
@@ -34,6 +35,11 @@ export default function App() {
         <Route path="/wet-lab/notebook" element={<NotebookPage />} />
         <Route path="/wet-lab/parts" element={<PartsPage />} />
         <Route path="/wet-lab/safety" element={<SafetyPage />} />
+        <Route path="/dry-lab" element={<DryLabPage slug="home" />} />
+        <Route path="/dry-lab/model" element={<DryLabPage slug="model" />} />
+        <Route path="/dry-lab/model/:slug" element={<DryLabModelRoute />} />
+        <Route path="/dry-lab/software" element={<DryLabPage slug="software" />} />
+        <Route path="/dry-lab/contribution" element={<DryLabPage slug="contribution" />} />
       </Routes>
     </div>
   );

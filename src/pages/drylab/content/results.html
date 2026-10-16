@@ -1,0 +1,209 @@
+<div class="alert alert-warning" role="alert">
+<p>Every result below is a statement about a model and has <strong>not been validated against wet-lab data</strong>. Full methods, assumptions and numbers are given on the <a href="/dry-lab/model">Model</a> pages.</p>
+</div>
+<details class="acc" open><summary><h2 id="summary-of-findings">Summary of findings</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>In the computer models, yeast can already make pure myristic acid, but only by shortening a longer fatty acid, and no gene deletion tested improved on the unedited strain. The team&rsquo;s own ranking method did not pass its checks. Nothing here has been tested in a laboratory. <strong>[computed]</strong></p>
+</div>
+<ol>
+<li><strong>Wild-type yeast produced pure C14:0 in the model, at a linear growth cost.</strong> No knockout set improved on wild type. <a href="/dry-lab/model/metabolism">Details</a></li>
+<li><strong>The model formed C14:0 only by shortening C16:0 through β-oxidation.</strong> <em>POX1</em> catalyses the committed step. <a href="/dry-lab/model/metabolism">Details</a></li>
+<li><strong>A fatty acid synthase (FAS) early-release reaction raised C14:0 export by 2.6 %.</strong> The limit was NADPH, not chain supply. <a href="/dry-lab/model/bridge">Details</a></li>
+<li><strong>The ScFAS2 residue equivalent to the <em>Yarrowia</em> chain-length residue is V1254.</strong> M1251 was excluded from mutagenesis; the effect of V1254W in <em>S. cerevisiae</em> is an assumption. <a href="/dry-lab/model/sequence">Details</a></li>
+<li><strong>The scoring function did not satisfy its own checks.</strong> The best knockout set exceeded the unedited strain by 0.010 %, and the tool issued no proposals. <a href="/dry-lab/model/trust">Details</a></li>
+<li><strong>A learned search was outperformed by simpler searches.</strong> Brute force and greedy search outperformed the reinforcement-learning agent. <a href="/dry-lab/model/trust">Details</a></li>
+<li><strong>The coolant case is mixed.</strong> <a href="/dry-lab/model/life-cycle-assessment">Details</a></li>
+</ol>
+</div></details>
+<details class="acc" open><summary><h2 id="1-what-the-model-says-is-reachable">Reachable C14:0 under growth constraints</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>In the model, output of pure myristic acid falls in a straight line as more growth is required, from 0.211 at 10 % of normal growth to 0.024 at 90 % (mmol per gram dry weight per hour). No gene deletion improved on this. <strong>[computed]</strong></p>
+</div>
+<p>Table 1 gives the maximum C14:0 export in Yeast9 when growth is held at a fraction of the wild-type rate (analysis A).</p>
+<div class="key">
+<p><em>Table 1. Maximum C14:0 export in Yeast9 at fixed fractions of the wild-type growth rate (analysis A). Model-implied; not validated against wet-lab data.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Growth held at</th>
+<th>C14:0 export (mmol gDW⁻¹ h⁻¹)</th>
+<th>Purity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10 %</td>
+<td>0.211</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>25 %</td>
+<td>0.178</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>50 %</td>
+<td>0.119</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>75 %</td>
+<td>0.060</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>90 %</td>
+<td>0.024</td>
+<td>100 %</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<figure class="figure my-4">
+  <img src="/drylab/figures/feasibility_frontier.png" loading="lazy" class="figure-img img-fluid" alt="Maximum C14 export falls linearly from 0.211 at 10 percent growth to 0.024 at 90 percent; wild type and two knockout sets overlap and POX1 sets are at zero.">
+  <figcaption class="figure-caption"><strong>Figure 1.</strong> Maximum C14 export against the growth rate held (data of Table 1). No knockout set exceeded wild type; sets containing <em>POX1</em> gave exactly zero. Model-implied; not validated against wet-lab data.</figcaption>
+</figure>
+
+<p>A second analysis under different conditions (glucose uptake 1.1 mmol gDW⁻¹ h⁻¹, strain BY4742) gave values about 6–7 % higher with the same shape. The conditions are listed in <a href="/dry-lab/model#m3">Model: Data</a>.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="2-how-c140-is-made-in-the-model">Metabolic route to C14:0</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The model makes myristic acid by one route only: chopping two carbons off palmitic acid, with the gene <em>POX1</em> controlling the key step. Deleting <em>POX1</em> removed all output. <strong>[computed]</strong></p>
+</div>
+<p>The model contained a single unbranched route: C16:0 → hexadecanoyl-CoA → acyl-CoA oxidase (<em>POX1</em>) → enoyl-CoA hydratase → myristoyl-CoA → free C14:0 → export. Deletion of <em>POX1</em> gave exactly zero. Loopless flux balance analysis (FBA) and a forced one-way ligase changed the result by at most 2 %.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="3-what-changed-in-our-plan">Changes to the plan</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Four decisions followed from the models: a planned gene-deletion strategy was dropped, a new reaction was added to the model, five residues were ruled out as mutation sites, and no ranked list of deletions went to the laboratory. <strong>[computed]</strong></p>
+</div>
+<ul>
+<li>The plan to knock down degradation to preserve C14:0 was <strong>dropped</strong>, because degradation is the only C14:0 source in the absence of early release.</li>
+<li>A FAS early-release reaction was <strong>added</strong> as a documented model modification: C14 +2.6 % at 50 % growth, limited by NADPH (Figure 2).</li>
+<li>M1251, C1305, F1646, G1250 and K1413–K1423 were <strong>excluded</strong> from mutagenesis, and <strong>V1254W</strong> was retained as the lead candidate.</li>
+<li>A ranked knockout list was <strong>withheld</strong> from the wet lab because checks D1 and D2 failed.</li>
+</ul>
+<figure class="figure my-4">
+  <img src="/drylab/figures/bridge_early_release.png" loading="lazy" class="figure-img img-fluid" alt="Left: C14 export with and without the early-release reaction at 10, 50 and 90 percent growth, nearly equal. Right: freeing NADPH raises C14 by 150.9 percent; freeing acetyl-CoA or malonyl-CoA changes it by 0.01 percent.">
+  <figcaption class="figure-caption"><strong>Figure 2.</strong> Maximum C14 export with and without the early-release reaction at 10, 50 and 90 % of wild-type growth (left) and the change in maximum C14 export when individual resources were made unconstrained (right; NADPH +150.9 %, acetyl-CoA and malonyl-CoA +0.01 %). The reaction changed the route, not the amount; cofactors set the limit. Model-implied; not validated against wet-lab data.</figcaption>
+</figure>
+
+</div></details>
+<details class="acc" open><summary><h2 id="4-structural-result-site-and-pocket">Structural result: site and pocket</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The matching position in baker&rsquo;s yeast for the <em>Yarrowia</em> chain-length residue is V1254. An early structure prediction suggested a collision with another residue, M1251, but repeat runs did not show it, so this remains a hypothesis. <strong>[hypothesis]</strong></p>
+</div>
+<p>V1254 (ScFAS2) corresponds to I1220 (YlFAS), with a 34-residue offset and no gaps at or beside the key column. In the first constrained Boltz-2 runs, C14 was positioned 4.35 Å from V1254 and 6.91 Å from M1260 and overlapped M1251 at 0.96–1.77 Å, which was interpreted as a closed conformational gate (<strong>[hypothesis]</strong>). Reruns on the laboratory server did not reproduce the overlap, and distances varied with the choice of constrained residues, so these numbers describe the setup as well as the pocket. <a href="/dry-lab/model/fas-interaction">Details</a></p>
+</div></details>
+<details class="acc" open><summary><h2 id="5-our-scoring-failed-its-own-checks">Scoring checks and search benchmark</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Three of six automated checks on the team&rsquo;s scoring method failed, so the tool refused to issue strain proposals. On an artificial test, a greedy search found the best answer 65 % of the time and a learning-based search 10 %. <strong>[computed]</strong></p>
+</div>
+<p>Results of the pre-flight checks are given in Table 2 and of the search benchmark in Table 3.</p>
+<div class="key">
+<p><em>Table 2. Pre-flight checks that failed or warned for the team&rsquo;s scoring function.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1 null-intervention parity</td>
+<td>FAIL: the best knockout set exceeded no edit by 0.010 %</td>
+</tr>
+<tr>
+<td>D2 landscape discrimination</td>
+<td>FAIL: 20 candidates within one measurement band</td>
+</tr>
+<tr>
+<td>D3 scalarisation degeneracy</td>
+<td>FAIL: one product at every weight</td>
+</tr>
+<tr>
+<td>D4–D6</td>
+<td>WARN</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>The verdict was NOT USABLE and no proposals were issued (<a href="/dry-lab/software">Software</a>).</p>
+<p><em>Table 3. Search methods on a synthetic landscape of 10 genes with up to 3 knockouts (20 seeds).</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Finds exact best</th>
+<th>Evaluations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brute force</td>
+<td>100 %</td>
+<td>175</td>
+</tr>
+<tr>
+<td>Greedy</td>
+<td>65 %</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Reinforcement learning</td>
+<td>10 %</td>
+<td>1,204</td>
+</tr>
+</tbody>
+</table></div>
+</div></details>
+<details class="acc" open><summary><h2 id="6-life-cycle-assessment-headline">Life cycle assessment headline</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>A screening life cycle assessment suggests that, in use, the candidate coolant could emit less carbon than a commercial one on a high-carbon grid, but not on a cleaner grid. Making it emits more per kilogram in both cases. The study has not been independently reviewed. <strong>[computed]</strong></p>
+</div>
+<p>In this screening-level study, methyl myristate emitted 5,012 kg CO₂-eq per server-year in use, against 6,071 kg CO₂-eq for an ester-based coolant (−17 %), at an ecoinvent India grid factor of about 1.6 kg CO₂-eq kWh⁻¹. At the CEA factor of 0.716 kg CO₂-eq kWh⁻¹, the optimised process emitted 14 % more than the ester-based coolant. Production per kg was higher for methyl myristate in both cases. The study has not undergone an ISO 14044 critical review. <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a></p>
+</div></details>
+<details class="acc" open><summary><h2 id="what-went-wrong-and-what-we-learned">Setbacks and lessons</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Several early results turned out to be weaker than they looked: a ranking with almost no margin, a structure prediction that depended on setup, and a learning method that lost to a simple loop. <strong>[computed]</strong></p>
+</div>
+<ul>
+<li>The first ranking appeared authoritative but carried no information (margin 0.010 %). The relevant threshold is the resolution of the assay, not the tolerance of the solver.</li>
+<li>Unconstrained Boltz-2 placed the fatty acid poorly in the first run but near the catalytic cysteine in a rerun, so no claim is made either way.</li>
+<li>Three standard remedies (UFF minimisation, sculpting, mutagenesis wizard) did not resolve the M1251 overlap seen in the first runs; the reruns did not show it.</li>
+<li>A reinforcement-learning agent was outperformed by a twenty-line greedy loop.</li>
+<li>The metabolic model could not represent the intended intervention until a reaction was added by hand.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="not-yet-validated">Status of validation</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>No laboratory data exist, the key mutation is an assumption, and several analyses are unfinished. <strong>[pending]</strong></p>
+</div>
+<p>Figure A summarises the status of each step.</p>
+<figure class="figure my-4 key">
+  <img src="/drylab/figures/explainer_validation_status.png" loading="lazy" class="figure-img img-fluid" alt="Table of six rows, Sequence to Process, and four columns: literature, computed, hypothesis and pending, each filled with short entries or none. An orange bar states that no wet-lab data exist for any step.">
+  <figcaption class="figure-caption"><strong>Figure A.</strong> Validation status of each step: what rests on literature, what was computed here, what is a hypothesis and what is pending. No step has wet-lab data. Entries are taken from the step pages and follow their status labels. Model-implied; not validated against wet-lab data.</figcaption>
+</figure>
+
+<ul>
+<li>No wet-lab data. No molecular dynamics. No formal proximity cut-off or cross-model consensus.</li>
+<li>The V1254W route to C14 in <em>S. cerevisiae</em> is an assumption.</li>
+<li>The knockout screen has not been repeated with the early-release reaction, and the growth penalty has not been computed.</li>
+<li>The two FBA analyses differ in conditions and are being reconciled.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="next-steps">Next steps</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Planned work: repeat the main analyses with the new reaction, quantify growth costs, finish the structural controls, test the model against published results, and choose between two candidate coolants. <strong>[pending]</strong></p>
+</div>
+<p>Planned work: repeat the frontier and knockout screen with the early-release reaction; compute growth penalties; finish the structural controls and report per-residue confidence; compare the model with published literature outcomes; and decide between methyl and isopropyl myristate.</p></div></details>

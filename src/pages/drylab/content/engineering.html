@@ -1,0 +1,54 @@
+<p>The modelling work comprised one complete Design, Build, Test, Learn (DBTL) cycle, in which the Test stage indicated that the design should be changed. The cycle is computational: the Test stage is model against model and model against literature, and no wet-lab data closed the loop.</p>
+<details class="acc" open><summary><h2 id="design">Design</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The goal was to choose genetic edits that move yeast&rsquo;s fatty acids toward myristic acid (C14:0). Two ideas were planned: a single mutation in the fatty acid synthase, and gene deletions that reduce fat breakdown, ranked with a metabolic model. <strong>[computed]</strong></p>
+</div>
+<p><strong>Goal.</strong> Selection of genetic edits that shift the fatty-acid profile of <em>Saccharomyces cerevisiae</em> toward C14:0.</p>
+<p><strong>Initial plan.</strong> Two strategies were planned: (1) a FAS2 point mutation to release C14 early (by analogy with <em>Yarrowia lipolytica</em> I1220W), and (2) gene knockouts that reduce fatty-acid degradation, in order to preserve C14:0. Candidate knockouts were to be ranked by agreement between the predicted fatty-acid profile and a target, using flux balance analysis (FBA) on Yeast9.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="build">Build</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Three tools were built: a fast metabolic calculator with a scoring function, three ways of searching gene-deletion combinations, and a pipeline that predicts how a fatty acid sits in the enzyme. <strong>[computed]</strong></p>
+</div>
+<ul>
+<li>A fast FBA evaluator and a scoring function over fatty-acid profiles.</li>
+<li>A search over knockout combinations: brute force, greedy and a reinforcement-learning agent.</li>
+<li>A structural pipeline for the FAS2 ketoacyl synthase (KS) domain: homology-based site identification and Boltz-2 ligand placement.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="test">Test</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The tests undermined the plan. The ranking had almost no margin over the unedited strain, the model showed myristic acid arising only from fat breakdown, a learning-based search lost to simpler ones, and early structure predictions depended on setup. <strong>[computed]</strong></p>
+</div>
+<ul>
+<li>Brute-force evaluation of 175 combinations returned a leading set (FAA1 + FAA4, score 0.202529) against 0.202509 for the unedited strain, a margin of 0.010 %. Gas chromatography–mass spectrometry (GC-MS) composition varies by 1–5 % between replicates, so no experiment could separate the two. Pre-flight, a set of six automated checks, was therefore built, and the team&rsquo;s own scoring function failed three of them.</li>
+<li>Route analysis of the FBA solution showed that the model forms C14:0 only by shortening C16:0 through β-oxidation. Deletion of <em>POX1</em> gave exactly zero.</li>
+<li>Benchmarking of the reinforcement-learning agent over 20 seeds showed that it found the exact best answer in 10 % of runs, compared with 65 % for greedy search and 100 % for brute force.</li>
+<li>The first structural runs suggested that unconstrained Boltz-2 does not place the ligand and that the acyl chain overlaps M1251. Reruns with five samples reproduced neither observation, so both are treated as dependent on the setup.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="learn">Learn</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Five lessons followed: the planned deletion strategy was reversed, no ranked list could be sent to the laboratory, the model needed a hand-added reaction, simple search was sufficient, and one residue was excluded as a likely gate. <strong>[computed]</strong></p>
+</div>
+<ul>
+<li><strong>The degradation-knockdown strategy was inverted.</strong> In the model, degradation is the only source of C14:0, and the strategy was therefore no longer planned.</li>
+<li><strong>The scoring function could not support any ranking</strong>, and no knockout list was passed to the wet lab.</li>
+<li><strong>The metabolic model could not represent the intended intervention.</strong> Yeast9 has no early C14 release from FAS, and a documented reaction was therefore added.</li>
+<li><strong>Simple search was sufficient.</strong> At the present scale, exact enumeration finishes in minutes to under two hours.</li>
+<li><strong>M1251 is probably a gate and not a site for mutation</strong> (<strong>[hypothesis]</strong>), and it was therefore excluded.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="next-iteration">Next iteration</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>After the new reaction was added, myristic acid output rose by 2.6 % and the limit moved to NADPH. The next cycle repeats the analyses with the reaction and compares the model with published results. <strong>[pending]</strong></p>
+</div>
+<p>The early-release reaction was added and the analysis was repeated: C14:0 export increased by 2.6 % and the limit moved to NADPH. The next cycle repeats the frontier and knockout screen with the reaction, computes growth penalties and tests the model against published literature outcomes. See <a href="/dry-lab/model">Model</a> and <a href="/dry-lab/model/results">Results</a>.</p>
+<div class="alert alert-secondary" role="alert">
+<p><strong>Scope.</strong> This cycle is computational. The Test stage is model against model and model against literature; no wet-lab data closed the loop.</p>
+</div></div></details>

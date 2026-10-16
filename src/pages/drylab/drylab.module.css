@@ -1,0 +1,646 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400&display=swap');
+
+/* Dry Lab page shell, in the Wet Lab visual language (gradient page, sketchy title
+   card, white side rail, rounded white cards, Inter, blue headings, pill bars), but
+   fluid rather than a fixed 1440px canvas because the pages are long-form text. */
+
+.page {
+  width: 100%;
+  background: linear-gradient(to bottom, #fafafa 0%, #6db8ea 101.6%);
+}
+
+/* ---------- Title card ---------- */
+
+.hero {
+  padding: 60px 20px 0;
+}
+
+.titleCard {
+  position: relative;
+  max-width: 1103px;
+  aspect-ratio: 1103 / 390;
+  margin: 0 auto;
+}
+
+.titleCardImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.titleInner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8%;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(11px, 1.3vw, 16px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #3f94d2;
+  margin-bottom: 0.4em;
+}
+
+.title {
+  font-family: 'Inria Serif', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 5vw, 70px);
+  line-height: 1.1;
+  color: #000;
+}
+
+.subtitle {
+  max-width: 900px;
+  margin: 28px auto 0;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.55;
+  color: #343a40;
+  text-align: center;
+}
+
+/* ---------- Rail + column (Wet Lab: 201px rail, 23px gap, 950px column) ---------- */
+
+.row {
+  display: flex;
+  gap: 23px;
+  max-width: 1174px;
+  margin: 48px auto 0;
+  padding: 0 20px 120px;
+  box-sizing: content-box;
+}
+
+.rail {
+  flex: none;
+  width: 201px;
+  background: #fafafa;
+}
+
+.column {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 950px;
+}
+
+@media (max-width: 1100px) {
+  .rail {
+    display: none;
+  }
+  .column {
+    margin: 0 auto;
+  }
+}
+
+/* ---------- Model tabs (draft: nav-pills) ---------- */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.tab {
+  display: block;
+  padding: 8px 16px;
+  border-radius: 30px;
+  background: #ebf2ff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #172b4d;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab:hover {
+  background: #d7e5f0;
+}
+
+.tabActive,
+.tabActive:hover {
+  background: #3f94d2;
+  color: #fff;
+}
+
+/* ---------- Reading bar (Brief / Full, Expand / Collapse) ---------- */
+
+.readingBar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #fafafa;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12);
+  font-family: 'Inter', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .readingBar {
+    top: 84px; /* below the sticky 72px site navbar */
+  }
+}
+
+.rbLabel {
+  margin-right: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2a3a57;
+}
+
+.seg {
+  display: inline-flex;
+  border: 1.5px solid #3f94d2;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.seg button {
+  padding: 6px 18px;
+  border: 0;
+  background: #fff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #172b4d;
+  cursor: pointer;
+}
+
+.seg button + button {
+  border-left: 1.5px solid #3f94d2;
+}
+
+.seg button[aria-pressed='true'] {
+  background: #3f94d2;
+  color: #fff;
+}
+
+.lnk {
+  padding: 6px 4px;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #2a73c5;
+  cursor: pointer;
+}
+
+.lnk:hover {
+  text-decoration: underline;
+}
+
+.seg button:focus-visible,
+.lnk:focus-visible,
+.tab:focus-visible {
+  outline: 3px solid #0b57d0;
+  outline-offset: 2px;
+}
+
+@media (max-width: 576px) {
+  .rbLabel {
+    display: none;
+  }
+}
+
+/* ---------- Content card ---------- */
+
+.card {
+  background: #fafafa;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  padding: 36px 44px 40px;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 24px 18px 28px;
+    border-radius: 22px;
+  }
+}
+
+.loading {
+  min-height: 40vh;
+}
+
+/* ---------- Dry Lab note (the draft's footer text) ---------- */
+
+.note {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 28px;
+  margin-top: 24px;
+  padding: 28px 44px;
+  border-radius: 30px;
+  background: #eef8f9;
+  border: 2px solid #85c3ed;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #343a40;
+}
+
+.note h4 {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-size: 18px;
+  color: #2a3a57;
+}
+
+.note ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note li {
+  margin: 2px 0;
+}
+
+.note a {
+  color: #2a73c5;
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.note a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .note {
+    grid-template-columns: 1fr;
+    padding: 22px 20px;
+    gap: 16px;
+  }
+}
+
+/* =====================================================================
+   Rendered page content (HTML produced by the draft's own pipeline).
+   Element rules are needed because Tailwind's preflight resets them.
+   ===================================================================== */
+
+.content {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #343a40;
+  overflow-wrap: break-word;
+}
+
+.content :global(p) {
+  margin: 0 0 1em;
+}
+
+.content :global(strong) {
+  font-weight: 700;
+  color: #1e2a3a;
+}
+
+.content :global(em) {
+  font-style: italic;
+}
+
+.content :global(a) {
+  color: #2a73c5;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.content :global(a:hover) {
+  color: #17569b;
+}
+
+.content :global(ul),
+.content :global(ol) {
+  margin: 0 0 1em;
+  padding-left: 1.6em;
+}
+
+.content :global(ul) {
+  list-style: disc;
+}
+
+.content :global(ol) {
+  list-style: decimal;
+}
+
+.content :global(li) {
+  margin: 0.25em 0;
+}
+
+.content :global(h3) {
+  margin: 1.4em 0 0.6em;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.35;
+  color: #2a3a57;
+}
+
+.content :global(sub),
+.content :global(sup) {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.content :global(sub) {
+  bottom: -0.25em;
+}
+
+.content :global(sup) {
+  top: -0.5em;
+}
+
+.content :global(code) {
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: #e8eff7;
+  font-size: 0.88em;
+  color: #172b4d;
+  overflow-wrap: anywhere; /* long identifiers wrap instead of leaving the card */
+}
+
+.content :global(pre) {
+  margin: 0 0 1.2em;
+  padding: 14px 16px;
+  border: 1px solid #d7e5f0;
+  border-radius: 14px;
+  background: #f3f6fa;
+  overflow-x: auto;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.content :global(pre code) {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+.content :global(hr) {
+  margin: 2em 0 1.2em;
+  border: 0;
+  border-top: 1px solid #c8d8e8;
+}
+
+/* Anchor targets land below the sticky navbar + reading bar. */
+.content :global([id]) {
+  scroll-margin-top: 160px;
+}
+
+/* --- Alerts (draft: Bootstrap .alert) --- */
+
+.content :global(.alert) {
+  margin: 0 0 1.4em;
+  padding: 16px 20px;
+  border: 1px solid;
+  border-radius: 18px;
+}
+
+.content :global(.alert p:last-child) {
+  margin-bottom: 0;
+}
+
+.content :global(.alert-secondary) {
+  background: #ebf2ff;
+  border-color: #c9dbf5;
+  color: #172b4d;
+}
+
+.content :global(.alert-warning) {
+  background: #fff6df;
+  border-color: #f0d28a;
+  color: #4d3a06;
+}
+
+/* --- Sections: <details class="acc"> as Wet Lab pill bars --- */
+
+.content :global(details.acc) {
+  margin: 14px 0 0;
+}
+
+.content :global(details.acc > summary) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: #ebf2ff;
+  cursor: pointer;
+  list-style: none;
+}
+
+.content :global(details.acc > summary::-webkit-details-marker) {
+  display: none;
+}
+
+.content :global(details.acc > summary::after) {
+  content: '';
+  flex: none;
+  width: 11px;
+  height: 11px;
+  margin-top: -5px;
+  border-right: 2.5px solid #172b4d;
+  border-bottom: 2.5px solid #172b4d;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+
+.content :global(details.acc[open] > summary::after) {
+  margin-top: 5px;
+  transform: rotate(-135deg);
+}
+
+.content :global(details.acc > summary:hover) {
+  background: #d7e5f0;
+}
+
+.content :global(details.acc > summary:focus-visible) {
+  outline: 3px solid #0b57d0;
+  outline-offset: 2px;
+}
+
+.content :global(details.acc > summary > h2) {
+  margin: 0;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  color: #172b4d;
+}
+
+.content :global(details.acc.refs > summary) {
+  background: #eef8f9;
+}
+
+.content :global(.acc-body) {
+  padding: 20px 8px 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content :global(details.acc > summary::after) {
+    transition: none;
+  }
+}
+
+/* --- "In brief" boxes --- */
+
+.content :global(.brief) {
+  display: none;
+  margin: 0 0 1.4em;
+  padding: 16px 20px;
+  border: 1px solid #b8d9ed;
+  border-left: 5px solid #3f94d2;
+  border-radius: 16px;
+  background: #eef8f9;
+}
+
+.content :global(.brief-h) {
+  margin-bottom: 0.4em;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2a3a57;
+}
+
+.content :global(.brief p:last-child) {
+  margin-bottom: 0;
+}
+
+/* --- Figures --- */
+
+.content :global(figure.figure) {
+  margin: 1.6em 0;
+}
+
+.content :global(.figure-img) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #d7e5f0;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.content :global(.figure-caption) {
+  margin-top: 0.7em;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #4a5563;
+}
+
+/* --- Tables (Wet Lab parts-table style) --- */
+
+.content :global(.table-wrap) {
+  margin: 0 0 1.4em;
+  overflow-x: auto;
+}
+
+.content :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.content :global(th),
+.content :global(td) {
+  padding: 8px 12px;
+  border: 1px solid #b8d9ed;
+  text-align: left;
+  vertical-align: top;
+}
+
+.content :global(th) {
+  background: #eef8f9;
+  font-weight: 700;
+  color: #172b4d;
+}
+
+.content :global(.ref-table th),
+.content :global(.ref-table td) {
+  font-size: 15px;
+}
+
+/* --- Citations and references --- */
+
+.content :global(sup.r a) {
+  padding: 0 0.05em;
+  font-weight: 700;
+  color: #3f94d2;
+  text-decoration: none;
+}
+
+.content :global(sup.r a:hover) {
+  text-decoration: underline;
+}
+
+.content :global(.ref-list) {
+  font-size: 16px;
+}
+
+.content :global(.ref-list li) {
+  margin-bottom: 0.5em;
+}
+
+.content :global(.ref-list li:target),
+.content :global(.ref-table tr:target) {
+  background: #fff8d6;
+}
+
+/* =====================================================================
+   Brief mode (draft: reading-mode.js + style.css): show each section's
+   heading, its brief box and anything marked .key; hide the rest.
+   ===================================================================== */
+
+.modeBrief .content :global(.brief) {
+  display: block;
+}
+
+.modeBrief .content :global(details.acc:not(.refs) > .acc-body > *) {
+  display: none;
+}
+
+.modeBrief .content :global(details.acc:not(.refs) > .acc-body > .brief),
+.modeBrief .content :global(details.acc:not(.refs) > .acc-body > .key) {
+  display: block;
+}
+
+@media print {
+  .readingBar,
+  .tabs {
+    display: none !important;
+  }
+  .content :global(.brief) {
+    display: none !important;
+  }
+  .modeBrief .content :global(details.acc > .acc-body > *) {
+    display: revert !important;
+  }
+  .modeBrief .content :global(details.acc > .acc-body > .brief) {
+    display: none !important;
+  }
+}

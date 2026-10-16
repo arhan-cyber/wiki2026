@@ -1,0 +1,92 @@
+<div class="alert alert-warning" role="alert">
+<p><strong>Draft status.</strong> This site presents the modelling results as they currently stand. All results are statements about models. <strong>None has been validated against wet-lab data.</strong> Unfinished items are identified on the relevant pages.</p>
+</div>
+<p><strong>Summary.</strong> The IIT Bombay iGEM 2026 dry-lab team modelled the engineering of <em>Saccharomyces cerevisiae</em> to produce a C14:0-rich fatty-acid product (myristic acid) that can be esterified to methyl myristate, a bio-based immersion coolant for data centres. Six linked models were built, from a single residue of fatty acid synthase to a coolant life cycle assessment. In the metabolic model, C14:0 was formed only by shortening C16:0, no gene knockout set exceeded the wild type, and an early-release reaction increased C14 export by 2.6 %. The team&rsquo;s scoring function did not satisfy its own checks, so no strain proposals were issued. The central mutation (V1254W) is an assumption by homology and is untested in <em>S. cerevisiae</em>.</p>
+<details class="acc" open><summary><h2 id="what-our-modelling-did">Overview of the modelling work</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>One question was asked at six scales, from a single amino acid to a coolant&rsquo;s life cycle, and each step passed a result to the next. The key assumption, that one mutation can make yeast release the 14-carbon fatty acid early, is untested. <strong>[hypothesis]</strong></p>
+</div>
+<p>The modelling addressed one question at three scales and then examined whether the answer was reliable and worth acting upon (Figure 1):</p>
+<ol>
+<li><strong>Sequence.</strong> Which residue of yeast fatty acid synthase (FAS) controls chain length?</li>
+<li><strong>FAS interaction.</strong> Does the binding pocket of the enzyme accommodate a C14 chain, and which residues should remain unaltered?</li>
+<li><strong>Bridge.</strong> Can a genome-scale metabolic model represent that mutation?</li>
+<li><strong>Metabolism.</strong> What can the whole cell reach, at what cost to growth, and by which route?</li>
+<li><strong>Trust.</strong> Does the scoring of candidate designs measure anything, and is a learned search better than a simple one?</li>
+<li><strong>Process.</strong> Is the product suitable for its intended use, and how does it compare with other coolants?</li>
+</ol>
+<figure class="figure my-4 key">
+  <img src="/drylab/figures/explainer_overview.png" loading="lazy" class="figure-img img-fluid" alt="Six cards in two rows: Sequence, FAS interaction, Bridge, Metabolism, Trust and Process, read left to right in row 1 and right to left in row 2. Each card lists input, method, result and status tags. A dashed arrow from Bridge to Metabolism notes that Step 4 ran without the early-release reaction added in Step 3.">
+  <figcaption class="figure-caption"><strong>Figure 1.</strong> The six modelling steps, with the input, method, result and status of each. Steps 1 to 3 assume that V1254W releases C14 in <em>S. cerevisiae</em> (assumption A1, a hypothesis). The Step 4 analyses were run without the early-release reaction added in Step 3; the rerun is pending. Process results are screening level and the choice of coolant is pending. Figures and identifiers shown are those reported on the step pages. Model-implied; not validated against wet-lab data.</figcaption>
+</figure>
+
+</div></details>
+<details class="acc" open><summary><h2 id="where-to-read-what">Guide to the pages</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The Model pages give methods and numbers, Results gives the headline findings, Engineering the design cycle, Software the tool for other teams, and Life Cycle Assessment the coolant study.</p>
+</div>
+<p><em>Table 1. Pages of this site and their content.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Methods, assumptions, data, parameters, limits</td>
+<td><a href="/dry-lab/model">Model</a>, with one page per step</td>
+</tr>
+<tr>
+<td>Headline findings and the changes they prompted</td>
+<td><a href="/dry-lab/model/results">Results</a></td>
+</tr>
+<tr>
+<td>The design cycle</td>
+<td><a href="/dry-lab/model/engineering">Engineering</a></td>
+</tr>
+<tr>
+<td>The tool that other teams can run on their own models</td>
+<td><a href="/dry-lab/software">Software</a></td>
+</tr>
+<tr>
+<td>What is offered to the community</td>
+<td><a href="/dry-lab/contribution">Contribution</a></td>
+</tr>
+<tr>
+<td>The coolant life cycle assessment</td>
+<td><a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a></td>
+</tr>
+</tbody>
+</table></div>
+</div></details>
+<details class="acc" open><summary><h2 id="how-to-read-the-status-labels">Status labels</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Every claim is tagged as computed, from the literature, a hypothesis or pending, so that results can be told apart from ideas.</p>
+</div>
+<p>Every claim on this site carries one of four labels:</p>
+<ul>
+<li><strong>[computed]</strong> produced in this study; the numbers originate from the team&rsquo;s own code or documents.</li>
+<li><strong>[literature]</strong> taken from a published source, which is cited.</li>
+<li><strong>[hypothesis]</strong> a reasoned explanation that has not been tested.</li>
+<li><strong>[pending]</strong> planned or in progress; no result is available.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="three-things-to-know-first">Key points</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The main outcome is largely negative: no gene deletion helped and the team&rsquo;s own ranking failed its checks. The key mutation is an assumption, and the coolant case is not settled. <strong>[computed]</strong></p>
+</div>
+<ol>
+<li><strong>The principal result is predominantly negative.</strong> In the metabolic model, no gene knockout set exceeded wild-type C14:0 production, and the scoring setup of the team did not satisfy its checks. Both outcomes are reported.</li>
+<li><strong>The mutation route is an assumption.</strong> The proposal that a FAS2 point mutation can release C14 in <em>S. cerevisiae</em> rests on a <em>Yarrowia lipolytica</em> result<sup class="r"><a href="#ref-1">1</a></sup> and not on <em>S. cerevisiae</em> data. All downstream numbers are conditional on it.</li>
+<li><strong>The coolant case is not settled.</strong> The screening life cycle assessment favours methyl myristate in use under some assumptions and not others, and a separate coolant-selection analysis recommends isopropyl myristate on operability grounds. See <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a>.</li>
+</ol><h2 id="references">References</h2>
+<ol class="ref-list"><li id="ref-1">Rigouin C, Gueroult M, Croux C, Dubois G, Borsenberger V, Barbe S, Marty A, Daboussi F, André I, Bordes F (2017). Production of medium chain fatty acids by Yarrowia lipolytica: combining molecular design and TALEN to engineer the fatty acid synthase. <em>ACS Synthetic Biology</em> 6:1870-1879. <a href="https://doi.org/10.1021/acssynbio.7b00034">doi:10.1021/acssynbio.7b00034</a></li></ol>
+<h3 id="source-table">Source table</h3>
+<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Rigouin C (2017)</td><td><a href="#three-things-to-know-first">Key points</a> &mdash; I1220W in Y. lipolytica (abstract)</td></tr></tbody></table></div>
+</div></details>

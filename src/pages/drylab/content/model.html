@@ -1,0 +1,396 @@
+<div class="alert alert-warning" role="alert">
+<p><strong>Read this first.</strong> Every number on the model pages describes a model. <strong>None has been validated against wet-lab data.</strong> Status labels: <strong>[computed]</strong> produced in this study; <strong>[literature]</strong> taken from a published source; <strong>[hypothesis]</strong> reasoned but untested; <strong>[pending]</strong> not completed.</p>
+</div>
+<details class="acc" open><summary><h2 id="m0">Overview of the modelling chain</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The project asks whether baker&rsquo;s yeast could be engineered to make myristic acid, a 14-carbon fatty acid, for use in a bio-based data-centre coolant. Six linked computer models were built, none tested in the laboratory. The central assumption, that a single mutation (V1254W) releases this fatty acid early, is a hypothesis. <strong>[hypothesis]</strong></p>
+</div>
+<ul>
+<li>The work was organised in six steps, each passing one result to the next: sequence → fatty acid synthase (FAS) interaction → bridge → metabolism → trust → process (figure on the <a href="/dry-lab">home page</a>).</li>
+<li><strong>Central assumption:</strong> a point mutation in <em>Saccharomyces cerevisiae</em> FAS2 (V1254W, by analogy with <em>Yarrowia lipolytica</em> I1220W) can release C14 early. This is a <strong>[hypothesis]</strong> and has not been established.</li>
+<li><strong>Main findings:</strong> the model forms C14:0 only by shortening C16:0 through β-oxidation; no knockout set exceeded wild type; an early-release reaction increased C14 export by only 2.6 % and is limited by NADPH; the team&rsquo;s scoring setup did not satisfy its own checks.</li>
+<li><strong>Navigation:</strong> <a href="#m3">Data</a> · <a href="#m4">Assumptions</a> · <a href="/dry-lab/model/sequence">1 Sequence</a> · <a href="/dry-lab/model/fas-interaction">2 FAS interaction</a> · <a href="/dry-lab/model/bridge">3 Bridge</a> · <a href="/dry-lab/model/metabolism">4 Metabolism</a> · <a href="/dry-lab/model/trust">5 Trust</a> · <a href="/dry-lab/model/process">6 Process</a> · <a href="#m6">Effect on design</a> · <a href="#m7">Limits</a> · <a href="#m8">Reproducibility</a> · <a href="#references">References</a>. Further pages under Model: <a href="/dry-lab/model/engineering">Engineering</a>, <a href="/dry-lab/model/results">Results</a>, <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a>.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="m1">Approach and outputs of each step</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Each step answers one question with one method: a sequence comparison, a protein-ligand prediction, a metabolic-model extension, a flux calculation, checks on the ranking, and heat-flow and life cycle assessments. Flux balance analysis gives upper limits, not predictions. <strong>[computed]</strong></p>
+</div>
+<div class="key">
+<p><em>Table 1. Steps of the modelling chain, the question addressed, the method and the output of each.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Question</th>
+<th>Method</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/dry-lab/model/sequence">1 Sequence</a></td>
+<td>Which ScFAS2 residue corresponds to the <em>Yarrowia</em> chain-length residue?</td>
+<td>EMBOSS Needle global alignment</td>
+<td>A candidate site (V1254W)</td>
+</tr>
+<tr>
+<td><a href="/dry-lab/model/fas-interaction">2 FAS interaction</a></td>
+<td>Does the ketoacyl synthase (KS) pocket accommodate a C14 chain; which residues must not be mutated?</td>
+<td>Boltz-2 on the KS domain with distance constraints; structural comparison</td>
+<td>A residue shortlist and an exclusion list</td>
+</tr>
+<tr>
+<td><a href="/dry-lab/model/bridge">3 Bridge</a></td>
+<td>Can a metabolic model represent the mutation?</td>
+<td>Addition of an early-release reaction to Yeast9</td>
+<td>A model that can simulate the intervention</td>
+</tr>
+<tr>
+<td><a href="/dry-lab/model/metabolism">4 Metabolism</a></td>
+<td>What can the cell reach, and at what growth cost?</td>
+<td>Flux balance analysis (FBA) on Yeast9, COBRApy</td>
+<td>Feasibility frontier, route, knockout screen</td>
+</tr>
+<tr>
+<td><a href="/dry-lab/model/trust">5 Trust</a></td>
+<td>Does the top-ranked design differ from the unedited strain? Is learned search required?</td>
+<td>Six checks on the scoring function; brute force, greedy and reinforcement-learning search</td>
+<td>Rankings that may be relied on</td>
+</tr>
+<tr>
+<td><a href="/dry-lab/model/process">6 Process</a></td>
+<td>Is the product suitable for its intended use?</td>
+<td>Computational fluid dynamics (CFD) of an immersion tank; screening life cycle assessment (LCA)</td>
+<td>Use-phase and production footprint</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><strong>Rationale for the methods.</strong> FBA<sup class="r"><a href="#ref-1">1</a></sup> requires no kinetic parameters and can therefore be applied to a genome-scale model; it yields an upper limit and not a prediction. Boltz-2<sup class="r"><a href="#ref-2">2</a></sup> was used because the KS pocket of the solved ScFAS2 structure (PDB 8PRW)<sup class="r"><a href="#ref-3">3</a></sup> contains no fatty acid, so ligand placement had to be predicted. Brute force was retained as the reference search because it is exact and inexpensive at the present scale. Existing strain-design tools, namely OptKnock,<sup class="r"><a href="#ref-4">4</a></sup> OptGene,<sup class="r"><a href="#ref-5">5</a></sup> OptForce,<sup class="r"><a href="#ref-6">6</a></sup> RobustKnock,<sup class="r"><a href="#ref-7">7</a></sup> cameo,<sup class="r"><a href="#ref-8">8</a></sup> MEWpy,<sup class="r"><a href="#ref-9">9</a></sup> OptFlux<sup class="r"><a href="#ref-10">10</a></sup> and StrainDesign,<sup class="r"><a href="#ref-11">11</a></sup> return designs whether or not the underlying scoring can separate candidates; none of those surveyed by the team checks this first.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="m3">Data and parameters</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Protein structures come from public databases, and the metabolic model is the community yeast model Yeast9. Two flux analyses were run under slightly different conditions, so their numbers differ by 6–7 %, and this has not yet been reconciled. <strong>[pending]</strong></p>
+</div>
+<h3 id="structures-literature">Structures <strong>[literature]</strong></h3>
+<p>The structures used are listed in Table 2.</p>
+<p><em>Table 2. Protein structures used. Resolution in Å.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>PDB</th>
+<th>Contents</th>
+<th>Resolution</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8PRW</td>
+<td>ScFAS2</td>
+<td>1.9 Å</td>
+<td>Primary receptor structure; the KS3 pocket contains no fatty acid</td>
+</tr>
+<tr>
+<td>1F91</td>
+<td><em>E. coli</em> β-ketoacyl-ACP synthase I (KAS I) with capric acid</td>
+<td>2.40 Å</td>
+<td>Reference for an acyl chain in a KS pocket</td>
+</tr>
+<tr>
+<td>2PFF</td>
+<td>Yeast FAS</td>
+<td>4.00 Å</td>
+<td>Retained as a homology template; not used in the final workflow</td>
+</tr>
+<tr>
+<td>2VKZ</td>
+<td>Cerulenin-inhibited ScFAS</td>
+<td>n/a</td>
+<td>Reference for the catalytic state<sup class="r"><a href="#ref-12">12</a></sup></td>
+</tr>
+</tbody>
+</table></div>
+<p>Residue numbering follows UniProt P19097 (FAS2, α subunit) and P07149 (FAS1, β subunit). KS-only models use a local offset of 1122; three model files carry an inserted <code>UNK</code> residue at local position 84 (a shift of +1 downstream). All residue identifiers on this site are converted to full-sequence P19097 numbering.</p>
+<h3 id="metabolic-model-and-run-conditions-computed">Metabolic model and run conditions <strong>[computed]</strong></h3>
+<p>Two FBA analyses exist. They use different conditions, so their numbers differ by design; the conditions are stated with every number (Table 3). Both used GLPK as solver.</p>
+<div class="key">
+<p><em>Table 3. Conditions of the two FBA analyses.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Analysis A (pre-flight / repository)</th>
+<th>Analysis B (FBA report)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model</td>
+<td>Yeast9 (<code>data/models/yeast-GEM.xml</code>)</td>
+<td>Yeast-GEM v9.1.1: 4,105 reactions, 2,748 metabolites, 1,143 genes</td>
+</tr>
+<tr>
+<td>Glucose uptake</td>
+<td>1.0 mmol gDW⁻¹ h⁻¹</td>
+<td>1.1 mmol gDW⁻¹ h⁻¹</td>
+</tr>
+<tr>
+<td>Non-growth-associated maintenance (NGAM)</td>
+<td>0.7 mmol ATP gDW⁻¹ h⁻¹</td>
+<td>0.7 mmol ATP gDW⁻¹ h⁻¹</td>
+</tr>
+<tr>
+<td>Strain</td>
+<td>Wild type</td>
+<td>BY4742 (HIS3, LEU2, LYS2 deleted; His, Leu, Lys supplied)</td>
+</tr>
+<tr>
+<td>Wild-type growth</td>
+<td>0.0811 h⁻¹</td>
+<td>0.09768 h⁻¹</td>
+</tr>
+<tr>
+<td>Fatty-acid-CoA ligases</td>
+<td>Forward-only in the robustness check</td>
+<td>Forward-only (primary); original bounds as sensitivity</td>
+</tr>
+<tr>
+<td>Solver</td>
+<td>GLPK</td>
+<td>GLPK</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="alert alert-secondary" role="alert">
+<p><strong>[pending]</strong> The two analyses remain to be reconciled: the exact model version in each (a team comment names v9.0.2 for one run) and the reason for the growth-rate difference must be confirmed. Glucose uptake differs (1.0 against 1.1 mmol gDW⁻¹ h⁻¹), which probably accounts for most of the difference.</p>
+</div>
+<h3 id="literature-inputs-literature">Literature inputs <strong>[literature]</strong></h3>
+<ul>
+<li>Chain-length control by the KS domain and the <em>Yarrowia</em> I1220W result: Rigouin et al. (2017), in which C14 reached 11.6 % of total fatty acids.<sup class="r"><a href="#ref-13">13</a></sup></li>
+<li>Catalytic and gating residues of ScFAS: Johansson et al. (2008), PDB 2VKZ.<sup class="r"><a href="#ref-12">12</a></sup></li>
+<li>Background fatty-acid profile of <em>S. cerevisiae</em> (CEN.PK113-7D, nitrogen-limited medium, harvested after 120 h; per cent of total fatty acids, n = 2): C16:0 13.7, C16:1 50.0, C18:0 3.5, C18:1 30.0.<sup class="r"><a href="#ref-14">14</a></sup></li>
+<li>Assay noise: replicate variation of GC-MS fatty-acid composition of 1–5 %, taken from the project write-up and not yet checked against the literature.</li>
+</ul>
+</div></details>
+<details class="acc" open><summary><h2 id="m4">Assumptions and their basis</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Eleven assumptions underlie the results. The most important, A1, is that the mutation works in baker&rsquo;s yeast as it does in <em>Yarrowia</em>; if it does not, every downstream number is moot. Published work found by the team reports shorter chains (C6 and C8) instead. <strong>[hypothesis]</strong></p>
+</div>
+<div class="key">
+<p><em>Table 4. Assumptions, their basis, consequence if incorrect, and status.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Assumption</th>
+<th>Basis</th>
+<th>If incorrect</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>A FAS2 point mutation (V1254W) can release C14 in <em>S. cerevisiae</em></td>
+<td>Homology to <em>Yarrowia</em> I1220W. The <em>S. cerevisiae</em> FAS point-mutation literature found by the team reports C6/C8 shifts<sup class="r"><a href="#ref-15">15</a></sup> and not C14</td>
+<td>Every downstream number is moot</td>
+<td><strong>[hypothesis]</strong></td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Only the KS domain needs to be modelled</td>
+<td>The full α subunit (1,887 aa) exceeded GPU memory; the acyl tunnel and residues of interest lie within KS</td>
+<td>β-subunit and chamber context are ignored</td>
+<td>Reviewed by the team; not tested</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>Free myristic acid stands in for the covalent acyl-enzyme intermediate</td>
+<td>A structure of <em>E. coli</em> KAS I with covalently bound C10 and C12 acyl groups (catalytic Cys-Ser mutant) provides a reference for acyl-chain occupancy of a KS pocket<sup class="r"><a href="#ref-16">16</a></sup></td>
+<td>Geometry differs near the catalytic cysteine</td>
+<td><strong>[literature]</strong> precedent (partial)</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>Distance constraints are needed to place the ligand</td>
+<td>The first unconstrained run did not place the chain near the pocket, but a rerun with five samples did</td>
+<td>Constraint choice biases the pose</td>
+<td><strong>[computed]</strong></td>
+</tr>
+<tr>
+<td>A5</td>
+<td>FBA: steady state, no kinetics, no regulation</td>
+<td>Standard FBA assumptions<sup class="r"><a href="#ref-1">1</a></sup></td>
+<td>Results are upper limits, not predictions</td>
+<td><strong>[literature]</strong></td>
+</tr>
+<tr>
+<td>A6</td>
+<td>Fatty-acid-CoA ligases are forward-only in the primary scenario</td>
+<td>The reaction is ATP-driven and strongly unidirectional; reversal gave a thermodynamically questionable route</td>
+<td>Some knockouts appear viable only through reverse flux</td>
+<td><strong>[computed]</strong> (sensitivity shown)</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>Myristate export is a reaction without a gene</td>
+<td>Representation in Yeast9</td>
+<td>The secretion mechanism is not established</td>
+<td><strong>[literature]</strong> model property</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>The model outputs free myristate, not methyl myristate</td>
+<td>Esterification is not in the model</td>
+<td>Titre of the coolant is not predicted</td>
+<td>By construction</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>Assay resolution equals GC-MS replicate noise of 1–5 %</td>
+<td>Project write-up</td>
+<td>Thresholds for separability shift</td>
+<td>Not checked against the literature</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>The search benchmark runs on a synthetic landscape</td>
+<td>The real landscape was flat, so a comparison of searches on it would measure nothing</td>
+<td>The ranking of methods may not transfer</td>
+<td><strong>[computed]</strong></td>
+</tr>
+<tr>
+<td>A11</td>
+<td>Tank CFD uses constant fluid properties</td>
+<td>Simplification</td>
+<td>Temperature-dependent viscosity is not captured</td>
+<td>See <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div></details>
+<details class="acc" open><summary><h2 id="m6">Effect of the results on the design</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The models changed the plan in six ways. A plan to reduce fat breakdown was dropped, some residues were ruled out, and no ranked list of gene deletions was sent to the laboratory. Choosing between two candidate coolants is still open. <strong>[computed]</strong></p>
+</div>
+<ol>
+<li><strong>The plan to knock down degradation in order to preserve C14:0 was dropped.</strong> The model indicates that degradation is the only C14:0 source in the absence of early release, and deletion of <em>POX1</em> gave zero. The rule against sending degradation knockdowns to the wet lab in a first iteration therefore has a mechanistic basis.</li>
+<li><strong>An FAS early-release reaction was added as a documented model modification</strong>, and its effect was measured: +2.6 %, NADPH-limited. This indicates where the model places the limit (cofactors, not chain supply). Acting on this result is <strong>[pending]</strong>.</li>
+<li><strong>M1251, C1305, F1646, G1250 and K1413–K1423 were excluded from mutagenesis</strong>; V1254W was retained as the lead candidate, with M1260 secondary.</li>
+<li><strong>No ranked knockout list was passed to the wet lab</strong>, because checks D1 and D2 failed on the team&rsquo;s own scoring. The tool withheld proposals, and this outcome was accepted.</li>
+<li><strong>Brute-force enumeration is recommended</strong> at the present scale, together with a trivial baseline before any learned search.</li>
+<li><strong>The choice of coolant</strong> between methyl and isopropyl myristate is <strong>[pending]</strong>; it does not alter the upstream strain-design question, since both are esters of the same C14 acid.</li>
+</ol>
+</div></details>
+<details class="acc" open><summary><h2 id="m7">Limitations and validation status</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>There are no laboratory data of any kind, so every number is a statement about a model. Several analyses are unfinished, and the life cycle assessment has not had an independent review. <strong>[pending]</strong></p>
+</div>
+<div class="key">
+<p><em>Table 5. Limitations, their effect on the conclusions and their status.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Effect on conclusions</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No wet-lab data of any kind</td>
+<td>Every number is a statement about a model</td>
+<td>Not available to the team</td>
+</tr>
+<tr>
+<td>The V1254W route to C14 in <em>S. cerevisiae</em> is an assumption</td>
+<td>All downstream numbers are conditional</td>
+<td><strong>[hypothesis]</strong></td>
+</tr>
+<tr>
+<td>The M1251 gate explanation is untested</td>
+<td>The basis for excluding M1251 is a hypothesis; <em>S. cerevisiae</em> strains with G1250S and M1251W substitutions have been reported<sup class="r"><a href="#ref-15">15</a></sup> and may bear on it</td>
+<td><strong>[pending]</strong> assessment against the paper</td>
+</tr>
+<tr>
+<td>No molecular dynamics or relaxed ligand-bound pocket</td>
+<td>Pocket geometry is rigid-receptor</td>
+<td>Large-scale; a short minimisation is feasible</td>
+</tr>
+<tr>
+<td>No formal proximity cut-off; no consensus across models</td>
+<td>The candidate set rests on literature precedent plus inspection</td>
+<td><strong>[pending]</strong></td>
+</tr>
+<tr>
+<td>Conservation and phylogenetic analysis</td>
+<td>Further mutation sites are blocked on it</td>
+<td><strong>[pending]</strong></td>
+</tr>
+<tr>
+<td>Growth penalty not computed</td>
+<td>The cost of each intervention is not quantified</td>
+<td><strong>[pending]</strong></td>
+</tr>
+<tr>
+<td>Knockout screen run without the early-release reaction</td>
+<td>Repetition required</td>
+<td><strong>[pending]</strong></td>
+</tr>
+<tr>
+<td>Two FBA analyses use different conditions</td>
+<td>Numbers differ by 6–7 %</td>
+<td><strong>[pending]</strong> reconciliation</td>
+</tr>
+<tr>
+<td>FBA yields an upper bound, not a probability</td>
+<td>No probability of success is reported anywhere</td>
+<td>By construction</td>
+</tr>
+<tr>
+<td>Free myristate modelled, not methyl myristate</td>
+<td>Coolant titre is not predicted</td>
+<td>By construction</td>
+</tr>
+<tr>
+<td>The RL agent is a simple linear Q-learner; benchmark on a synthetic landscape</td>
+<td>Shows that this agent was outperformed, not that RL cannot work</td>
+<td>Stated</td>
+</tr>
+<tr>
+<td>LCA not critically reviewed; placeholders remain</td>
+<td>Not for public comparative claims</td>
+<td>See Life Cycle Assessment</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><strong>Validation that does not require a wet lab (proposed, not yet planned):</strong> reproduction of known literature outcomes in the modified model (for example the <em>Yarrowia</em> C14 shift or the <em>S. cerevisiae</em> C6/C8 shifts) with a report of the agreement; completion of positive and negative controls for the structural step; and reporting of per-residue confidence for the final models.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="m8">Reproducibility</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The checking tool is open source (MIT licence) and two example scripts reproduce its main outputs. The expected output of the diagnostics script is a refusal to issue proposals, which is the demonstration and not a fault. <strong>[computed]</strong></p>
+</div>
+<p>Code: <a href="https://github.com/Siddhant-Chowdhary/igem-preflight">github.com/Siddhant-Chowdhary/igem-preflight</a> (MIT licence).</p>
+<pre><code>git clone &lt;repository&gt;
+cd &lt;repository&gt;
+pip install -r requirements.txt
+python3 examples/run_feasibility.py     # prints: Wild-type growth: 0.081100 /h ... Verdict: SURVIVES
+python3 examples/run_diagnostics.py     # prints: VERDICT: NOT USABLE, *** NO PROPOSALS ISSUED ***
+</code></pre>
+<p>Python 3.10 or newer is required; GLPK is supplied with COBRApy.<sup class="r"><a href="#ref-17">17</a></sup> The Yeast-GEM model (about 11 MB) is downloaded separately from SysBioChalmers/yeast-GEM.<sup class="r"><a href="#ref-18">18</a></sup> The expected output of the diagnostics script is the demonstration and not a defect.</p><h2 id="references">References</h2>
+<ol class="ref-list"><li id="ref-1">Orth JD, Thiele I, Palsson BØ (2010). What is flux balance analysis?. <em>Nature Biotechnology</em> 28:245-248. <a href="https://doi.org/10.1038/nbt.1614">doi:10.1038/nbt.1614</a></li><li id="ref-2">Passaro S, Corso G, Wohlwend J, et al. (2025). Boltz-2: towards accurate and efficient binding affinity prediction. <em>bioRxiv (preprint)</em>. <a href="https://doi.org/10.1101/2025.06.14.659707">doi:10.1101/2025.06.14.659707</a></li><li id="ref-3">Singh K, Bunzel G, Graf B, Yip KM, Neumann-Schaal M, Stark H, Chari A (2023). Reconstruction of a fatty acid synthesis cycle from acyl carrier protein and cofactor structural snapshots. <em>Cell</em> 186:5054-5067.e16. Cryo-EM structure PDB 8PRW. <a href="https://doi.org/10.1016/j.cell.2023.10.009">doi:10.1016/j.cell.2023.10.009</a></li><li id="ref-4">Burgard A, Pharkya P, Maranas C (2003). OptKnock: a bilevel programming framework for identifying gene knockout strategies for microbial strain optimization. <em>Biotechnology and Bioengineering</em> 84:647-657. <a href="https://doi.org/10.1002/bit.10803">doi:10.1002/bit.10803</a></li><li id="ref-5">Patil K, Rocha I, Förster J, Nielsen J (2005). Evolutionary programming as a platform for in silico metabolic engineering. <em>BMC Bioinformatics</em> 6:308. <a href="https://doi.org/10.1186/1471-2105-6-308">doi:10.1186/1471-2105-6-308</a></li><li id="ref-6">Ranganathan S, Suthers P, Maranas C (2010). OptForce: an optimization procedure for identifying all genetic manipulations leading to targeted overproductions. <em>PLoS Computational Biology</em> 6:e1000744. <a href="https://doi.org/10.1371/journal.pcbi.1000744">doi:10.1371/journal.pcbi.1000744</a></li><li id="ref-7">Tepper N, Shlomi T (2010). Predicting metabolic engineering knockout strategies for chemical production: accounting for competing pathways. <em>Bioinformatics</em> 26:536-543. <a href="https://doi.org/10.1093/bioinformatics/btp704">doi:10.1093/bioinformatics/btp704</a></li><li id="ref-8">Cardoso J, Jensen K, Lieven C, Lærke Hansen A, Galkina S, Beber M, Özdemir E, Herrgård M, Redestig H, Sonnenschein N (2018). Cameo: a Python library for computer aided metabolic engineering and optimization of cell factories. <em>ACS Synthetic Biology</em> 7:1163-1166. <a href="https://doi.org/10.1021/acssynbio.7b00423">doi:10.1021/acssynbio.7b00423</a></li><li id="ref-9">Pereira V, Cruz F, Rocha M (2021). MEWpy: a computational strain optimization workbench in Python. <em>Bioinformatics</em> 37:2494-2496. <a href="https://doi.org/10.1093/bioinformatics/btab013">doi:10.1093/bioinformatics/btab013</a></li><li id="ref-10">Rocha I, Maia P, Evangelista P, Vilaça P, Soares S, Pinto J, Nielsen J, Patil K, Ferreira E, Rocha M (2010). OptFlux: an open-source software platform for in silico metabolic engineering. <em>BMC Systems Biology</em> 4:45. <a href="https://doi.org/10.1186/1752-0509-4-45">doi:10.1186/1752-0509-4-45</a></li><li id="ref-11">Schneider P, Bekiaris P, von Kamp A, Klamt S (2022). StrainDesign: a comprehensive Python package for computational design of metabolic networks. <em>Bioinformatics</em> 38:4981-4983. <a href="https://doi.org/10.1093/bioinformatics/btac632">doi:10.1093/bioinformatics/btac632</a></li><li id="ref-12">Johansson P, Wiltschi B, Kumari P, Kessler B, Vonrhein C, Vonck J, Oesterhelt D, Grininger M (2008). Inhibition of the fungal fatty acid synthase type I multienzyme complex. <em>Proceedings of the National Academy of Sciences USA</em> 105:12803-12808. <a href="https://doi.org/10.1073/pnas.0805827105">doi:10.1073/pnas.0805827105</a></li><li id="ref-13">Rigouin C, Gueroult M, Croux C, Dubois G, Borsenberger V, Barbe S, Marty A, Daboussi F, André I, Bordes F (2017). Production of medium chain fatty acids by Yarrowia lipolytica: combining molecular design and TALEN to engineer the fatty acid synthase. <em>ACS Synthetic Biology</em> 6:1870-1879. <a href="https://doi.org/10.1021/acssynbio.7b00034">doi:10.1021/acssynbio.7b00034</a></li><li id="ref-14">Wei Y, Siewers V, Nielsen J (2017). Cocoa butter-like lipid production ability of non-oleaginous and oleaginous yeasts under nitrogen-limited culture conditions. <em>Applied Microbiology and Biotechnology</em> 101:3577-3585. <a href="https://doi.org/10.1007/s00253-017-8126-7">doi:10.1007/s00253-017-8126-7</a></li><li id="ref-15">Gajewski J, Pavlovic R, Fischer M, Boles E, Grininger M (2017). Engineering fungal de novo fatty acid synthesis for short chain fatty acid production. <em>Nature Communications</em> 8:14650. <a href="https://doi.org/10.1038/ncomms14650">doi:10.1038/ncomms14650</a></li><li id="ref-16">Olsen JG, Kadziola A, von Wettstein-Knowles P, Siggaard-Andersen M, Larsen S (2001). Structures of β-ketoacyl-acyl carrier protein synthase I complexed with fatty acids elucidate its catalytic machinery. <em>Structure</em> 9:233-243. <a href="https://doi.org/10.1016/S0969-2126(01)00583-4">doi:10.1016/S0969-2126(01)00583-4</a></li><li id="ref-17">Ebrahim A, Lerman JA, Palsson BO, Hyduke DR (2013). COBRApy: COnstraints-Based Reconstruction and Analysis for Python. <em>BMC Systems Biology</em> 7:74. <a href="https://doi.org/10.1186/1752-0509-7-74">doi:10.1186/1752-0509-7-74</a></li><li id="ref-18">Zhang C, Sánchez BJ, Li F, Eiden CWQ, Scott WT, Liebal UW, Blank LM, Mengers HG, Anton M, Rangel AT, Mendoza SN, Zhang L, Nielsen J, Lu H, Kerkhoven EJ (2024). Yeast9: a consensus genome-scale metabolic model for S. cerevisiae curated by the community. <em>Molecular Systems Biology</em> 20:1134-1150. <a href="https://doi.org/10.1038/s44320-024-00060-7">doi:10.1038/s44320-024-00060-7</a></li></ol>
+<h3 id="source-table">Source table</h3>
+<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Orth JD (2010)</td><td><a href="#m1">Approach and outputs of each step</a>; <a href="#m4">Assumptions and their basis</a> &mdash; principles and assumptions of FBA</td></tr><tr><td>2</td><td>Passaro S (2025)</td><td><a href="#m1">Approach and outputs of each step</a> &mdash; ligand placement</td></tr><tr><td>3</td><td>Singh K (2023)</td><td><a href="#m1">Approach and outputs of each step</a> &mdash; 8PRW</td></tr><tr><td>4</td><td>Burgard A (2003)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>5</td><td>Patil K (2005)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>6</td><td>Ranganathan S (2010)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>7</td><td>Tepper N (2010)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>8</td><td>Cardoso J (2018)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>9</td><td>Pereira V (2021)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>10</td><td>Rocha I (2010)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>11</td><td>Schneider P (2022)</td><td><a href="#m1">Approach and outputs of each step</a></td></tr><tr><td>12</td><td>Johansson P (2008)</td><td><a href="#structures-literature">Structures [literature]</a>; <a href="#literature-inputs-literature">Literature inputs [literature]</a> &mdash; PDB 2VKZ; catalytic and gating residues</td></tr><tr><td>13</td><td>Rigouin C (2017)</td><td><a href="#literature-inputs-literature">Literature inputs [literature]</a> &mdash; I1220W result (abstract only)</td></tr><tr><td>14</td><td>Wei Y (2017)</td><td><a href="#literature-inputs-literature">Literature inputs [literature]</a> &mdash; Table 3</td></tr><tr><td>15</td><td>Gajewski J (2017)</td><td><a href="#m4">Assumptions and their basis</a>; <a href="#m7">Limitations and validation status</a> &mdash; S. cerevisiae FAS mutants with C6/C8 shifts; G1250S-M1251W strain</td></tr><tr><td>16</td><td>Olsen JG (2001)</td><td><a href="#m4">Assumptions and their basis</a> &mdash; acyl-bound KAS I structures</td></tr><tr><td>17</td><td>Ebrahim A (2013)</td><td><a href="#m8">Reproducibility</a> &mdash; COBRApy</td></tr><tr><td>18</td><td>Zhang C (2024)</td><td><a href="#m8">Reproducibility</a> &mdash; Yeast9</td></tr></tbody></table></div>
+</div></details>

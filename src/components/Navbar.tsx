@@ -48,9 +48,10 @@ const navigation: NavItem[] = [
     label: 'DryLab',
     href: '/dry-lab',
     subnav: [
-      { label: 'Model', href: '#', disabled: true },
-      { label: 'Software', href: '#', disabled: true },
-      { label: 'Hardware', href: '#', disabled: true },
+      { label: 'Home', href: '/dry-lab' },
+      { label: 'Model', href: '/dry-lab/model' },
+      { label: 'Software', href: '/dry-lab/software' },
+      { label: 'Contribution', href: '/dry-lab/contribution' },
     ],
   },
   {
