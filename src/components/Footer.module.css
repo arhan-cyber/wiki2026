@@ -171,8 +171,10 @@
 }
 
 @media (max-width: 768px) {
+  /* Waves start 120px down and crest by ~200px: keep content in the water so
+     the white text stays readable on light page backgrounds. */
   .body {
-    padding: 30px 6% 1rem;
+    padding: 200px 6% 1rem;
   }
 
   .content {

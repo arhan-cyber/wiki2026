@@ -1,0 +1,1870 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project BiFrost — Entrepreneurship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#16222B; --ink-2:#3A4B56; --muted:#6E7A82; --faint:#93A0A8;
+  --paper:#EFF2F3; --card:#FFFFFF; --rule:#CBD5DA; --rule-2:#E3E9EC;
+  --cold:#1B4B73; --cool:#3E8FB0; --chill:#B9D6E6;
+  --pass:#15706A; --pass-bg:#DCEDEB;
+  --fail:#A8342A; --fail-bg:#F6E2DF;
+  --unmeasured:#8A959C; --unmeasured-bg:#E6EAEC;
+  --flag:#B0740F; --flag-bg:#FAEFD9;
+  --measure:74rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+:target{scroll-margin-top:1.5rem}
+.sec{scroll-margin-top:1.5rem}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; font-size:15.5px; line-height:1.62;
+}
+.wrap{max-width:var(--measure); margin:0 auto; padding:0 2rem 6rem}
+@media(max-width:640px){ .wrap{padding:0 1rem 4rem} body{font-size:15px} }
+
+/* Wide figures shrink below legibility on narrow screens, so scroll them at native width instead */
+.fig-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+@media(max-width:720px){
+  .fig-scroll{margin:0 -0.35rem}
+  .fig-scroll svg{min-width:640px}
+  figure{padding:1.1rem .9rem .9rem}
+  .fig-hint{display:block}
+}
+.fig-hint{display:none; font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.66rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-top:.5rem}
+
+/* ---- type ---- */
+h1,h2,h3,h4{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif; font-weight:600; letter-spacing:-0.01em; margin:0}
+h1{font-size:clamp(2.6rem,7vw,4.2rem); line-height:1.02; letter-spacing:-0.03em}
+h2{font-size:clamp(1.55rem,3.4vw,2.1rem); line-height:1.12; margin:0 0 .2rem}
+h3{font-size:1.16rem; line-height:1.3; margin:2.4rem 0 .55rem}
+h4{font-size:.95rem; margin:1.7rem 0 .4rem; font-family:"IBM Plex Sans",sans-serif; font-weight:600}
+p{margin:0 0 1rem; max-width:64ch}
+strong{font-weight:600}
+em{font-style:italic}
+.mono{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace}
+.num{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-variant-numeric:tabular-nums}
+
+/* ---- section machinery ---- */
+.sec{border-top:1.5px solid var(--ink); padding-top:1.1rem; margin-top:4.2rem}
+.sec-no{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.78rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--cold); margin:0 0 .35rem}
+.sec-sub{color:var(--muted); font-size:.95rem; margin:.2rem 0 1.6rem; max-width:60ch}
+.rule{border:0; border-top:1px solid var(--rule); margin:2.6rem 0}
+
+/* ---- hero ---- */
+.hero{padding:4.2rem 0 0}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.76rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 1.1rem}
+.lede{font-size:clamp(1.1rem,2.4vw,1.35rem); color:var(--ink-2); max-width:34ch;
+  margin:1.1rem 0 2.4rem; line-height:1.4}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin-bottom:1.4rem}
+.stat{background:var(--card); padding:1.1rem 1rem 1.2rem}
+.stat-k{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:.55rem}
+.stat-v{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif; font-weight:700;
+  font-size:1.62rem; line-height:1; letter-spacing:-.02em}
+.stat-n{font-size:.8rem; color:var(--muted); line-height:1.38; margin-top:.5rem}
+.stage-line{border-left:2.5px solid var(--cold); padding-left:1rem; color:var(--ink-2); font-size:.98rem}
+
+/* ---- figures ---- */
+figure{margin:2rem 0 2.4rem; background:var(--card); border:1px solid var(--rule); padding:1.4rem 1.3rem 1.1rem}
+figure svg{display:block; width:100%; height:auto}
+figcaption{font-size:.8rem; color:var(--muted); line-height:1.5; margin-top:1rem;
+  padding-top:.75rem; border-top:1px solid var(--rule-2)}
+.fig-t{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--cold); margin-bottom:.9rem}
+
+/* svg text */
+svg text{font-family:"IBM Plex Sans",sans-serif}
+svg .m{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-variant-numeric:tabular-nums}
+.t-lo{fill:var(--muted)} .t-in{fill:var(--ink)} .t-cd{fill:var(--cold)}
+.t-fa{fill:var(--fail)} .t-pa{fill:var(--pass)} .t-fl{fill:var(--flag)}
+.s-rule{stroke:var(--rule-2)} .s-axis{stroke:var(--rule)}
+.s-cold{stroke:var(--cold)} .s-cool{stroke:var(--cool)}
+.s-fail{stroke:var(--fail)} .s-pass{stroke:var(--pass)}
+.f-cold{fill:var(--cold)} .f-cool{fill:var(--cool)} .f-chill{fill:var(--chill)}
+.f-fail{fill:var(--fail)} .f-pass{fill:var(--pass)} .f-flag{fill:var(--flag)}
+.f-un{fill:var(--unmeasured)} .f-card{fill:var(--card)}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto; margin:1.5rem 0 2rem; border:1px solid var(--rule); background:var(--card)}
+table{border-collapse:collapse; width:100%; font-size:.87rem; min-width:520px}
+th{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif; font-weight:600; font-size:.82rem;
+  text-align:left; padding:.62rem .8rem; background:var(--ink); color:#fff;
+  letter-spacing:.02em; vertical-align:bottom}
+td{padding:.6rem .8rem; border-top:1px solid var(--rule-2); vertical-align:top; line-height:1.45}
+tbody tr:nth-child(even) td{background:#FAFCFC}
+td.n{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+caption{caption-side:bottom; text-align:left; font-size:.78rem; color:var(--muted);
+  padding:.7rem .8rem; border-top:1px solid var(--rule-2)}
+
+/* ---- status pills ---- */
+.p{display:inline-block; font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem;
+  letter-spacing:.07em; text-transform:uppercase; padding:.16rem .45rem; white-space:nowrap; font-weight:500}
+.p-pass{background:var(--pass-bg); color:var(--pass)}
+.p-fail{background:var(--fail-bg); color:var(--fail)}
+.p-un{background:var(--unmeasured-bg); color:#5C666C}
+.p-flag{background:var(--flag-bg); color:var(--flag)}
+
+/* ---- additive cards ---- */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin:1.6rem 0 2rem}
+.card{background:var(--card); padding:1.1rem 1.15rem}
+.card-h{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif; font-weight:600; font-size:1.02rem;
+  color:var(--cold); margin-bottom:.55rem}
+.card p{font-size:.88rem; margin:0; max-width:none; line-height:1.55}
+
+/* ---- callouts ---- */
+.note{background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--cold);
+  padding:1rem 1.15rem; margin:1.6rem 0; font-size:.93rem}
+.note p:last-child{margin-bottom:0}
+.note-h{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--cold); margin-bottom:.5rem}
+.note.flag{border-left-color:var(--flag)} .note.flag .note-h{color:var(--flag)}
+.note.fail{border-left-color:var(--fail)} .note.fail .note-h{color:var(--fail)}
+
+/* blocked-visual placeholder */
+.todo{background:repeating-linear-gradient(135deg,#fff,#fff 9px,#F7FAFB 9px,#F7FAFB 18px);
+  border:1.5px dashed var(--faint); padding:1.15rem 1.25rem; margin:1.9rem 0}
+.todo-h{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--cool); margin-bottom:.6rem}
+.todo h4{margin:.1rem 0 .5rem}
+.todo p{font-size:.88rem; margin-bottom:.6rem; max-width:60ch}
+.todo dl{margin:.7rem 0 0; font-size:.85rem}
+.todo dt{font-weight:600; margin-top:.55rem}
+.todo dd{margin:.1rem 0 0 0; color:var(--ink-2)}
+
+/* fill marker */
+.fill{background:var(--flag-bg); border:1px solid #E4CE9C; padding:.75rem .9rem;
+  font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.8rem; line-height:1.55;
+  color:#6E4A08; margin:1.1rem 0; display:block}
+
+ul,ol{max-width:64ch; padding-left:1.15rem; margin:0 0 1.1rem}
+li{margin-bottom:.4rem}
+.ref sup, sup.r{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.68em; color:var(--cold); font-weight:500}
+.vis-list{font-size:.88rem; color:var(--ink-2)}
+.doc-head{background:var(--ink); color:#DCE4E8; padding:1.5rem 1.6rem; margin:2.5rem 0 0; font-size:.9rem}
+.doc-head p{max-width:70ch; margin-bottom:.6rem; color:#C3CFD6}
+.doc-head strong{color:#fff}
+
+/* ================= accordion ================= */
+.sec{border-top:1.5px solid var(--ink); padding-top:0; margin-top:0}
+details.acc{margin:0}
+details.acc > summary{
+  list-style:none; cursor:pointer; display:block; position:relative;
+  padding:1.15rem 3rem 1.3rem 0; -webkit-tap-highlight-color:transparent}
+details.acc > summary::-webkit-details-marker{display:none}
+details.acc > summary:hover h2{color:var(--cold)}
+details.acc > summary:focus-visible{outline:2px solid var(--cold); outline-offset:3px}
+details.acc > summary h2{margin:.15rem 0 .3rem; transition:color .12s}
+.acc-top{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:.15rem}
+.acc-top .sec-no{margin:0}
+.chip{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.68rem; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--ink-2); background:var(--card);
+  border:1px solid var(--rule); padding:.16rem .45rem}
+.acc-line{color:var(--muted); font-size:.95rem; max-width:66ch; margin:0}
+summary::after{
+  content:""; position:absolute; right:.55rem; top:1.75rem; width:11px; height:11px;
+  border-right:2px solid var(--faint); border-bottom:2px solid var(--faint);
+  transform:rotate(45deg); transition:transform .18s, border-color .18s}
+details[open] > summary::after{transform:rotate(-135deg); border-color:var(--cold)}
+summary:hover::after{border-color:var(--cold)}
+details[open] > summary{border-bottom:1px solid var(--rule-2)}
+.acc-body{padding:1.7rem 0 3rem; animation:fade .18s ease-out}
+@keyframes fade{from{opacity:0; transform:translateY(-3px)}to{opacity:1; transform:none}}
+@media(prefers-reduced-motion:reduce){.acc-body{animation:none} summary::after{transition:none}}
+details.acc > .acc-body > .sec-sub{margin-top:0}
+.acc-body > h3:first-of-type{margin-top:.4rem}
+
+/* ================= brief layer ================= */
+.brief{border-left:3px solid var(--cold); background:var(--card); border:1px solid var(--rule);
+  border-left:3px solid var(--cold); padding:1.15rem 1.3rem; margin:0 0 1.9rem}
+.brief-h{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.68rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--cold); margin-bottom:.5rem}
+.brief p{margin:0; max-width:68ch; font-size:.97rem}
+body.mode-full .brief{display:none}
+body.mode-brief .acc-body > *{display:none}
+body.mode-brief .acc-body > .sec-sub,
+body.mode-brief .acc-body > .brief,
+body.mode-brief .acc-body > .key{display:block}
+body.mode-brief .acc-body{padding-bottom:2.2rem}
+
+/* ================= toolbar ================= */
+.bar{position:sticky; top:0; z-index:40; background:var(--paper);
+  border-bottom:1px solid var(--rule); margin:0 0 0; padding:.6rem 0;
+  display:flex; align-items:center; gap:.75rem; flex-wrap:wrap}
+.bar-l{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.68rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); margin-right:auto}
+.seg{display:inline-flex; border:1px solid var(--rule); background:var(--card)}
+.seg button{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.72rem; letter-spacing:.08em;
+  text-transform:uppercase; padding:.42rem .8rem; border:0; background:transparent;
+  color:var(--muted); cursor:pointer}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--ink); color:#fff}
+.bar .lnk{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.72rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--cold); background:none; border:0; cursor:pointer; padding:.42rem .2rem}
+.bar .lnk:hover{text-decoration:underline}
+.prog{position:absolute; left:0; bottom:-1px; height:2px; background:var(--cold); width:0}
+@media(max-width:640px){ .bar-l{display:none} }
+
+/* ================= print ================= */
+@media print{
+  .bar,.rail,.toc{display:none !important}
+  .acc-body{display:block !important; padding:1rem 0 2rem}
+  body.mode-brief .acc-body > *{display:revert !important}
+  .brief{display:none !important}
+  summary::after{display:none}
+  .fig-scroll svg{min-width:0}
+}
+
+/* ---- numeric / company emphasis ---- */
+.nv{color:var(--pass); font-weight:500}
+.co{color:var(--fail); font-weight:500}
+
+.reftable td{font-size:.8rem}
+.reftable td:first-child{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; color:var(--cold); width:2.5rem}
+
+/* ---- cross-reference links ---- */
+a.x{color:var(--cold); text-decoration:none; border-bottom:1px solid var(--chill); font-weight:500}
+a.x:hover{border-bottom-color:var(--cold)}
+
+/* ---- contents ---- */
+.toc{border:1px solid var(--rule); background:var(--card); padding:1.1rem 1.25rem; margin:2.6rem 0 0}
+.toc-h{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:.75rem}
+.toc ol{list-style:none; margin:0; padding:0; max-width:none;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:.35rem 1.6rem}
+.toc li{margin:0; font-size:.9rem}
+.toc a{color:var(--ink); text-decoration:none; display:block; padding:.18rem 0}
+.toc a:hover{color:var(--cold)}
+.toc .n-{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.74rem; color:var(--cold); margin-right:.5rem}
+
+/* ---- sticky section rail, wide screens only ---- */
+.rail{display:none}
+@media(min-width:1180px){
+  .rail{display:block; position:fixed; top:50%; transform:translateY(-50%); left:1.1rem;
+    z-index:20; font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.7rem; line-height:1.1}
+  .rail a{display:block; padding:.3rem .45rem; color:var(--faint); text-decoration:none;
+    border-left:2px solid var(--rule-2); letter-spacing:.06em}
+  .rail a:hover{color:var(--cold); border-left-color:var(--cold); background:var(--card)}
+  .rail a .lbl{display:none}
+  .rail:hover a .lbl{display:inline; margin-left:.5rem; letter-spacing:0;
+    font-family:"IBM Plex Sans",sans-serif; font-size:.76rem}
+  .rail:hover a{background:var(--card); border-left-color:var(--rule)}
+}
+@media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+/* ---- next-step callout: pairs an open item with the work that closes it ---- */
+.next{border:1px solid var(--rule); border-left:3px solid var(--cool); background:var(--card);
+  padding:.85rem 1.1rem; margin:1.1rem 0 1.6rem; font-size:.9rem}
+.next-h{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace; font-size:.68rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--cool); margin-bottom:.4rem}
+.next p{margin:0; max-width:64ch}
+
+/* ---- closing section ---- */
+.ask{background:var(--ink); color:#DCE4E8; padding:1.6rem 1.7rem; margin:2rem 0 0}
+.ask .note-h{color:#8FB6CE}
+.ask p{color:#C3CFD6; max-width:66ch}
+.ask strong{color:#fff}
+.ask ol{color:#C3CFD6; max-width:66ch}
+.ask li{margin-bottom:.55rem}
+
+/* ================= v8: iGEM-wiki layout (sidebar + white rounded cards) ================= */
+:root{ --f:"Lexend","IBM Plex Sans",system-ui,sans-serif; --head:#5AA2D8; --gold:#E3D18A; --paper:#FDF1F0; --rule:#EBDDD0; --rule-2:#F3E9E4;
+  --cold:#2F7DB8; --cool:#5AA2D8; --chill:#CFE4F3; --mint:#DDF4EA; --mint-ink:#5E9A45 }
+body{font-family:var(--f); font-size:16px; line-height:1.75; background:var(--paper)}
+h1,h2,h3,h4,th,.stat-v,.card-h,.eyebrow,.sec-no,.chip,.stat-k,.fig-t,.note-h,.todo-h,.brief-h,.next-h,.p,.toc-h,.seg button,.toc .n-,.fig-hint{font-family:var(--f)!important}
+.nv,.co{color:inherit; font-weight:500}                 /* colour no longer implies pass/fail */
+a{color:#1a6fd1}
+
+/* layout */
+.wrap{max-width:1500px; padding:2rem 2rem 6rem}
+.wrap>*{grid-column:2}
+@media(min-width:1000px){
+  .wrap{display:grid; grid-template-columns:270px minmax(0,1fr); column-gap:2rem}
+  .wrap>.rail{display:block!important; grid-column:1; grid-row:1/span 20; position:sticky; top:1.5rem; left:auto; transform:none;
+    align-self:start; max-height:calc(100vh - 3rem); overflow:auto; background:#fff; border-radius:20px; padding:1.6rem 1.3rem 1.3rem;
+    box-shadow:0 2px 14px rgba(120,80,60,.06); font-size:1rem; line-height:1.3}
+  .wrap>.rail::before{content:"Content"; display:block; font:700 1.5rem var(--f); color:var(--head); padding:0 .7rem 1rem; margin-bottom:.8rem; border-bottom:2px solid var(--gold)}
+  .wrap>.rail a{display:flex; align-items:center; font-size:0; border:0; border-radius:8px; padding:.55rem .7rem; color:var(--ink); background:none}
+  .wrap>.rail a .lbl{display:inline!important; margin:0; font:500 .95rem/1.3 var(--f); letter-spacing:0}
+  .wrap>.rail a:hover{background:var(--rule-2); color:var(--ink)}
+  .wrap>.rail a.on{background:var(--mint); color:var(--mint-ink); font-weight:600}
+  .wrap>.rail a.on::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--mint-ink); margin-right:.55rem; flex:none}
+  .side-tools{margin-top:1rem; padding-top:1rem; border-top:1px solid var(--rule-2)}
+  .side-tools::before{content:"Reading depth"; display:block; font:500 .7rem var(--f); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 .2rem .5rem}
+  .side-tools .seg{display:flex; border-radius:10px; overflow:hidden; border-color:var(--rule)} .side-tools .seg button{flex:1; min-height:38px}
+  .toc{display:none}
+}
+@media(max-width:999px){ .wrap{display:block; padding:1rem .8rem 4rem} .rail{display:none!important} .side-tools{display:none} }
+
+/* progress strip only; old toolbar retired */
+.bar{position:fixed; top:0; left:0; right:0; height:3px; padding:0; margin:0; border:0; background:transparent; z-index:60}
+.bar>:not(.prog){display:none!important}
+.prog{top:0; bottom:auto; height:3px; background:var(--head)}
+
+/* cards */
+.hero,.sec{background:#fff; border-radius:28px; padding:1.3rem 2.4rem 2.4rem; margin:0 0 1.6rem; border:0; box-shadow:0 2px 14px rgba(120,80,60,.06)}
+.hero::before,.sec::before{content:""; display:block; height:2px; background:var(--gold); margin-bottom:1.1rem}
+@media(max-width:640px){ .hero,.sec{padding:1rem 1.1rem 1.6rem; border-radius:20px} }
+.hero{margin-top:0}
+
+/* headings */
+h1,h2{color:var(--head); font-weight:700; letter-spacing:-.01em}
+h1{font-size:clamp(2.6rem,6vw,4.4rem); line-height:1.08}
+h2{font-size:clamp(1.9rem,4vw,3rem); line-height:1.15; margin:.1rem 0 .6rem}
+h3{color:var(--cold); font-size:1.4rem; font-weight:600; margin:2.4rem 0 .6rem}
+h4{font-size:1.05rem; font-weight:600}
+.eyebrow{color:var(--cold)} .lede{max-width:46ch}
+p,ul,ol{max-width:100ch}
+.sec-no{color:var(--cold); background:var(--chill); border-radius:999px; padding:.12rem .65rem; letter-spacing:.06em}
+.chip{background:var(--rule-2); border:0; border-radius:999px; color:var(--ink-2)}
+
+/* sections are always-open pages now, not accordions */
+details.acc>summary{padding:0 0 .5rem; cursor:default}
+details.acc>summary::after{display:none}
+details.acc>summary:hover h2{color:var(--head)}
+details[open]>summary{border-bottom:0}
+.acc-body{padding:.6rem 0 0}
+.acc-line{font-size:1rem; color:var(--ink-2); max-width:80ch}
+
+/* inner blocks */
+.stage-line{border-left:3px solid var(--gold); background:#FFFBEF; border-radius:0 14px 14px 0; padding:1rem 1.2rem}
+.stats{background:none; border:0; gap:.9rem}
+.stat{border:0; border-radius:18px; background:var(--paper)} .stat:nth-child(even){background:#EDF6FC}
+.stat-v{font-weight:700; color:var(--cold)}
+figure,.tw,.cards,.brief,.note,.next,.todo,.doc-head,.ask{border-radius:18px}
+figure{background:#fff; border:1px solid var(--rule); box-shadow:none}
+.tw,.cards{border-color:var(--rule); overflow:hidden} .tw{overflow-x:auto}
+th{background:var(--cold)} tbody tr:nth-child(even) td{background:#FFFAF8} tbody tr:hover td{background:#F4F9FD}
+.cards{background:var(--rule)} .card{background:#fff}
+.brief,.note,.next{border-color:var(--rule); background:#fff}
+.note,.brief{border-left-color:var(--head)} .next{border-left-color:var(--gold)}
+.doc-head,.ask{background:#23455F}
+.p,.fill{border-radius:6px}
+figcaption{border-top-color:var(--rule-2)}
+@media print{ .hero,.sec{box-shadow:none; padding:0} .hero::before,.sec::before{display:none} }
+
+/* ================= v9: palette  #F2E6EE #FFCCF2 #977DFF #0033FF #0600AF #00003D ================= */
+:root{ --ink:#0B0B3B; --ink-2:#3C3B68; --muted:#6B688F; --faint:#9A97B8;
+  --paper:#F2E6EE; --rule:#E6D6E2; --rule-2:#F1E7EE;
+  --head:#0033FF; --cold:#0600AF; --cool:#977DFF; --chill:#E3DBFF; --gold:#977DFF;
+  --mint:#FFCCF2; --mint-ink:#0600AF; --tint:#EFEAFF; --pinktint:#FFF1FB }
+a{color:#0033FF} ::selection{background:#FFCCF2; color:#00003D}
+h1{background:linear-gradient(100deg,#0033FF 25%,#977DFF); -webkit-background-clip:text; background-clip:text; color:transparent}
+h2{color:#0033FF} h3{color:#0600AF}
+.hero,.sec,.wrap>.rail{box-shadow:0 2px 16px rgba(6,0,175,.07)}
+.wrap>.rail::before{color:#0033FF}
+.wrap>.rail a.on::before{background:#0033FF}
+.wrap>.rail a:hover{background:var(--tint)}
+.prog{background:linear-gradient(90deg,#977DFF,#0033FF)}
+.stat{background:var(--pinktint)} .stat:nth-child(even){background:var(--tint)}
+.stat-v{color:#0600AF} .stat:nth-child(1){border-top:3px solid #FFCCF2} 
+.stage-line{background:var(--pinktint); border-left-color:#977DFF}
+th{background:#0600AF} tbody tr:nth-child(even) td{background:#FBF6FA} tbody tr:hover td{background:var(--tint)}
+.doc-head,.ask{background:#00003D} .ask .note-h{color:#C9BCFF}
+.note,.brief{border-left-color:#977DFF} .next{border-left-color:#FFCCF2}
+.sec-no{background:#FFCCF2; color:#0600AF} .chip{background:var(--tint)}
+.toc a:hover{color:#0033FF} a.x{color:#0033FF; border-bottom-color:#977DFF}
+.seg button[aria-pressed="true"]{background:#0600AF; color:#fff}
+
+/* ================= v10: figure polish ================= */
+figure{position:relative; overflow:hidden; background:linear-gradient(180deg,#fff,#FCF8FD); border:1px solid #E7DCF2; border-radius:22px;
+  padding:1.7rem 1.6rem 1.2rem; box-shadow:0 4px 24px -10px rgba(6,0,175,.18)}
+figure::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:linear-gradient(90deg,#977DFF,#0033FF)}
+.fig-t{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .8rem; text-transform:none; letter-spacing:0; color:var(--ink); font-size:1rem; font-weight:600; line-height:1.35; margin-bottom:1.3rem}
+.fig-t .fg-n{background:#EFEAFF; color:#0600AF; border-radius:999px; padding:.2rem .7rem; font-size:.72rem; font-weight:600; letter-spacing:.04em; white-space:nowrap}
+figcaption{font-size:.85rem; line-height:1.6; border-top:1px dashed #DCCDEB; margin-top:1.2rem}
+
+/* flowchart boxes */
+figure svg rect.f-card{fill:url(#bfCard); stroke:#E3D6EE; stroke-width:1.5; filter:drop-shadow(0 6px 10px rgba(6,0,175,.08))}
+figure svg rect.f-card[stroke="var(--cold)"]{fill:url(#bfCardCold); stroke:#977DFF; stroke-width:1.75}
+figure svg path[stroke][fill="none"]{stroke-linecap:round; stroke-linejoin:round}
+figure svg .t-in[font-weight="600"],figure svg .t-cd[font-weight="600"]{letter-spacing:.01em}
+
+/* bars, gridlines, dots */
+figure svg rect.f-cold{fill:url(#bfBar)}
+figure svg rect.f-cool{fill:url(#bfBar2)}
+figure svg .s-rule{stroke-dasharray:2 5; stroke-linecap:round}
+figure svg circle{filter:drop-shadow(0 1px 3px rgba(6,0,175,.28))}
+figure svg text.t-lo{fill:var(--muted)}
+.fig-scroll{border-radius:12px}
+@media print{ figure{box-shadow:none} figure svg *{filter:none!important} }
+</style>
+
+<div class="wrap">
+
+<!-- ============ HERO ============ -->
+
+<div class="bar">
+  <span class="bar-l">Project BiFrost · Entrepreneurship</span>
+  <div class="seg" role="group" aria-label="Reading depth">
+    <button id="mBrief" aria-pressed="true">Brief</button>
+    <button id="mFull" aria-pressed="false">Full</button>
+  </div>
+  <button class="lnk" id="expandAll">Expand all</button>
+  <button class="lnk" id="collapseAll">Collapse all</button>
+  <div class="prog" id="prog"></div>
+</div>
+
+<nav class="rail" aria-label="Section navigation">
+  <a href="#s1">01<span class="lbl">Building</span></a>
+  <a href="#s2">02<span class="lbl">Why now</span></a>
+  <a href="#s3">03<span class="lbl">Customer</span></a>
+  <a href="#s4">04<span class="lbl">The standard</span></a>
+  <a href="#s5">05<span class="lbl">How it scores</span></a>
+  <a href="#s6">06<span class="lbl">Alternatives</span></a>
+  <a href="#s7">07<span class="lbl">Economics</span></a>
+  <a href="#s8">08<span class="lbl">Path</span></a>
+  <a href="#s9">09<span class="lbl">Risk</span></a>
+  <a href="#s10">10<span class="lbl">Next</span></a>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">IIT Bombay iGEM 2026 · Entrepreneurship</p>
+  <h1>Project BiFrost</h1>
+  <p class="lede">A fermentation-derived, PFAS-free immersion coolant for high-density data centres.</p>
+
+  <p class="stage-line"><strong>The coolant the industry was built on stopped being manufactured in December <span class="nv">2025</span>.</strong> The regulation that removes what replaced it lands around <span class="nv">2029</span>. Between those two dates sits a window in which a non-fluorinated fluid has to be specified, qualified and in a tank. Bifröst is the bridge between two worlds; ours runs from a fermenter to a data hall, and it has to be built while the window is open.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-k">Clock one · supply</div><div class="stat-v">Gone</div>
+      <div class="stat-n"><span class="co">Novec</span> and <span class="co">Fluorinert</span> ceased manufacture, end <span class="nv">2025</span> <sup class="r">2,3</sup></div></div>
+    <div class="stat"><div class="stat-k">Clock two · regulation</div><div class="stat-v num">~<span class="nv">2029</span></div>
+      <div class="stat-n">Earliest date the EU restriction could bind the substitutes <sup class="r">17</sup></div></div>
+    <div class="stat"><div class="stat-k">The window</div><div class="stat-v num"><span class="nv">2027–30</span></div>
+      <div class="stat-n">When Mumbai's high-density capacity is designed, and when fluid is chosen <sup class="r">31,32</sup></div></div>
+    <div class="stat"><div class="stat-k">Where we stand</div><div class="stat-v num"><span class="nv">10</span> of <span class="nv">16</span></div>
+      <div class="stat-n">OCP parameters cleared; four in characterisation, two in formulation</div></div>
+  </div>
+
+  <p class="sec-sub" style="max-width:70ch">The fluid market itself is worth <strong><span class="nv">$409–445M</span> in <span class="nv">2026</span></strong>, on a path to roughly <span class="nv">$1bn</span> by <span class="nv">2036</span> <sup class="r">1,20</sup>. Our serviceable slice of it in Mumbai is <strong><span class="nv">$4–8M</span></strong> — small, specific, and sized in <a class="x" href="#s2-5">§<span class="nv">2.5</span></a> from the fluid market rather than the systems market.</p>
+
+  <div class="toc">
+    <div class="toc-h">Contents · every section collapsed, click to open</div>
+    <ol>
+      <li><a href="#s1"><span class="n-">01</span>What are we building?</a></li>
+      <li><a href="#s2"><span class="n-">02</span>Why did this market open?</a></li>
+      <li><a href="#s3"><span class="n-">03</span>Who buys this?</a></li>
+      <li><a href="#s4"><span class="n-">04</span>What must our fluid pass?</a></li>
+      <li><a href="#s5"><span class="n-">05</span>How does it score?</a></li>
+      <li><a href="#s6"><span class="n-">06</span>What else could a buyer choose?</a></li>
+      <li><a href="#s7"><span class="n-">07</span>Can this make money?</a></li>
+      <li><a href="#s8"><span class="n-">08</span>How does it reach a data hall?</a></li>
+      <li><a href="#s9"><span class="n-">09</span>What could stop us?</a></li>
+      <li><a href="#s10"><span class="n-">10</span>What happens next?</a></li>
+      <li><a href="#refs"><span class="n-">—</span>References</a></li>
+    </ol>
+  </div>
+</header>
+
+<!-- ============ 1 ============ -->
+<section class="sec" id="s1">
+<details class="acc" id="acc-s1">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§1</span><span class="chip">PFAS-free · fermented</span></div>
+  <h2>What are we building, and why is it a venture?</h2>
+    <p class="acc-line">A PFAS-free immersion coolant, fermented rather than refined — and why the commercial problem is the substance of the work.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">Why a coolant is a venture and not only a molecule.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>Data centres are running out of ways to move heat out of a rack, and the industry is shifting to submerging servers directly in a non-conductive fluid. We make that fluid, fermenting engineered yeast into a fatty acid ester rather than refining it from petroleum or synthesising it from fluorine. A coolant reaches a data hall by meeting a published specification, surviving a qualification cycle and costing what an operator will pay — so we have treated those commercial problems as the substance of this work rather than an afterthought to it.</p></div>
+  <h4>What we are building</h4>
+  <p>Data centres are running out of ways to move heat out of a rack. Air cooling has reached its physical ceiling, and the industry is shifting to submerging servers directly in a non-conductive fluid. We make that fluid — fermenting engineered yeast into a fatty acid ester rather than refining it from petroleum or synthesising it from fluorine.</p>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 1.1 — From feedstock to server, and which part is this season's work</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 258" role="img" aria-label="Five-stage schematic: feedstock, engineered yeast, methyl myristate, immersion tank, server rack. Stages one and two are the production route and belong to the venture. Stages three to five are the fluid itself, which is being characterised this season.">
+      <path d="M16 42 L16 34 L278 34 L278 42" fill="none" class="s-axis" stroke-width="1.2"/>
+      <text class="m t-lo" x="147" y="26" font-size="11" text-anchor="middle" letter-spacing="1">THE PRODUCTION ROUTE · THE VENTURE</text>
+      <path d="M300 42 L300 34 L704 34 L704 42" fill="none" class="s-cold" stroke-width="1.2"/>
+      <text class="m t-cd" x="502" y="26" font-size="11" text-anchor="middle" letter-spacing="1">THE FLUID · CHARACTERISED THIS SEASON</text>
+
+      <rect x="16" y="56" width="120" height="104" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="t-in" x="30" y="84" font-size="12.5" font-weight="600">Feedstock</text>
+      <text class="t-lo" x="30" y="106" font-size="11">Sugars and</text>
+      <text class="t-lo" x="30" y="121" font-size="11">crude glycerol</text>
+      <text class="t-lo" x="30" y="136" font-size="11">streams</text>
+
+      <rect x="158" y="56" width="120" height="104" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="t-in" x="172" y="84" font-size="12.5" font-weight="600">Yeast</text>
+      <text class="t-lo" x="172" y="106" font-size="11">Engineered</text>
+      <text class="t-lo" x="172" y="121" font-size="11">S. cerevisiae,</text>
+      <text class="t-lo" x="172" y="136" font-size="11">secreting C14</text>
+
+      <rect x="300" y="56" width="120" height="104" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <text class="t-cd" x="314" y="84" font-size="12.5" font-weight="600">The fluid</text>
+      <text class="t-lo" x="314" y="106" font-size="11">Methyl</text>
+      <text class="t-lo" x="314" y="121" font-size="11">myristate,</text>
+      <text class="t-lo" x="314" y="136" font-size="11">purified C14</text>
+
+      <rect x="442" y="56" width="120" height="104" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <text class="t-cd" x="456" y="84" font-size="12.5" font-weight="600">Tank</text>
+      <text class="t-lo" x="456" y="106" font-size="11">Servers sit</text>
+      <text class="t-lo" x="456" y="121" font-size="11">submerged in</text>
+      <text class="t-lo" x="456" y="136" font-size="11">direct contact</text>
+
+      <rect x="584" y="56" width="120" height="104" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <text class="t-cd" x="598" y="84" font-size="12.5" font-weight="600">Rack</text>
+      <text class="t-lo" x="598" y="106" font-size="11">Heat carried</text>
+      <text class="t-lo" x="598" y="121" font-size="11">out at over</text>
+      <text class="t-lo" x="598" y="136" font-size="11">100 kW/rack</text>
+
+      <path d="M136 108 L154 108 M148 103 L156 108 L148 113" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <path d="M278 108 L296 108 M290 103 L298 108 L290 113" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <path d="M420 108 L438 108 M432 103 L440 108 L432 113" fill="none" stroke="var(--cold)" stroke-width="1.5"/>
+      <path d="M562 108 L580 108 M574 103 L582 108 L574 113" fill="none" stroke="var(--cold)" stroke-width="1.5"/>
+
+      <line class="s-rule" x1="16" y1="186" x2="704" y2="186"/>
+      <text class="t-in" x="16" y="210" font-size="11.5">We are answering the right-hand half first. Whether this molecule works as a coolant is testable in one season</text>
+      <text class="t-in" x="16" y="227" font-size="11.5">against a published standard; how it is best manufactured is a multi-year programme that only matters if it does.</text>
+      <text class="t-lo" x="16" y="248" font-size="11">Sequencing set out in §8.1. The fluid characterised this season is sourced commercially, so the specification result is independent of the production route.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption>Our own framing. The specification the right-hand half is judged against is set out in §<span class="nv">4</span>; the production route in §<span class="nv">8</span>.</figcaption>
+  </figure>
+
+  <h4>Our proposition</h4>
+  <p>A drop-in dielectric coolant with no fluorinated content, entering a market whose dominant chemistry stopped being manufactured in <span class="nv">2025</span>.</p>
+
+  <h4>Why this is a venture and not only a project</h4>
+  <p>A coolant does not reach a data hall by being interesting. It reaches one by meeting a published specification, surviving a qualification cycle, and costing what an operator will pay. Those are commercial problems, and we have treated them as the substance of this work rather than an afterthought to it.</p>
+
+  <h4>What this page covers</h4>
+  <p>The market and why it opened; who buys and why we chose them; the standard our fluid is judged by and how it scores; where we sit against the alternatives; what the economics require; and what could stop us.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="sec" id="s2">
+<details class="acc" id="acc-s2">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§2</span><span class="chip">$409–445M market</span></div>
+  <h2>Why did this market open, and why now?</h2>
+    <p class="acc-line">Two clocks. The supplier left at the end of 2025; the regulator arrives around 2029.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">Two clocks opened this market: the supplier left, and the regulator moved in behind it. Everything after this section is about the window between them.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>Two clocks opened this market. 3M announced its exit from PFAS manufacturing in December 2022 and ceased making Novec and Fluorinert at the end of 2025. The EU's universal PFAS restriction, filed in January 2023 and backed by ECHA's committees in March 2026, could bind the remaining fluorinated substitutes from around 2029 — and there is no fluorinated escape route, because the substitutes sit inside the same class-based scope. The dielectric fluid market is worth $409–445M in 2026. India holds 3–4% of global data centre capacity and Mumbai 34–53% of India's, giving a serviceable market of roughly $4–8M.</p></div>
+  <h3 id="s2-1">2.1 How fast is the load growing?</h3>
+  <p>Data centres consumed roughly <strong><span class="nv">415</span> TWh</strong> of electricity in <span class="nv">2024</span> — about <span class="nv">1.5%</span> of world consumption. The International Energy Agency's Base Case has predicted that this will <strong>more than double to around <span class="nv">945</span> TWh by <span class="nv">2030</span></strong>, just under <span class="nv">3%</span> of global electricity, and reach approximately <span class="nv">1,200</span> TWh by <span class="nv">2035</span> <sup class="r">6</sup>. The <span class="co">IEA</span>'s updated <span class="nv">2026</span> projection puts <span class="nv">2025</span> at <span class="nv">485</span> TWh and holds <span class="nv">2030</span> near <span class="nv">950</span> TWh <sup class="r">7</sup>. Consumption has grown about <span class="nv">12%</span> a year since <span class="nv">2017,</span> more than four times the rate of electricity demand overall <sup class="r">6</sup>.</p>
+  <p>The growth is concentrated. Electricity use by accelerated servers — the hardware running AI workloads — is projected to grow around <strong><span class="nv">30%</span> a year</strong>, against <span class="nv">9%</span> for conventional servers <sup class="r">8</sup>.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 2.1 — Global data centre electricity consumption</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 300" role="img" aria-label="Global data centre electricity rises from 415 TWh in 2024 to about 1,200 TWh in 2035 on the IEA Base Case.">
+      <line class="s-rule" x1="80" y1="57" x2="680" y2="57"/>
+      <line class="s-rule" x1="80" y1="125" x2="680" y2="125"/>
+      <line class="s-rule" x1="80" y1="192" x2="680" y2="192"/>
+      <line class="s-axis" x1="80" y1="260" x2="680" y2="260"/>
+      <text class="m t-lo" x="70" y="61" font-size="11" text-anchor="end">1200</text>
+      <text class="m t-lo" x="70" y="129" font-size="11" text-anchor="end">800</text>
+      <text class="m t-lo" x="70" y="196" font-size="11" text-anchor="end">400</text>
+      <text class="m t-lo" x="70" y="264" font-size="11" text-anchor="end">0</text>
+      <text class="t-lo" x="80" y="22" font-size="11">TWh per year</text>
+
+      <path d="M80 190 L133 178 L396 100 L660 57 L660 260 L80 260 Z" fill="var(--chill)" opacity=".45"/>
+      <path d="M80 190 L133 178 L396 100 L660 57" fill="none" class="s-cold" stroke-width="2.5"/>
+
+      <circle cx="80" cy="190" r="4.5" class="f-cold"/>
+      <circle cx="133" cy="178" r="4.5" class="f-cold"/>
+      <circle cx="396" cy="100" r="4.5" class="f-cold"/>
+      <circle cx="660" cy="57" r="4.5" class="f-cold"/>
+
+      <text class="m t-cd" x="80" y="176" font-size="12.5" font-weight="500">415</text>
+      <text class="m t-cd" x="140" y="166" font-size="12.5" font-weight="500">485</text>
+      <text class="m t-cd" x="396" y="86" font-size="12.5" font-weight="500" text-anchor="middle">945</text>
+      <text class="m t-cd" x="660" y="43" font-size="12.5" font-weight="500" text-anchor="end">1,200</text>
+
+      <text class="m t-lo" x="80" y="280" font-size="11" text-anchor="middle">2024</text>
+      <text class="m t-lo" x="133" y="280" font-size="11" text-anchor="middle">2025</text>
+      <text class="m t-lo" x="396" y="280" font-size="11" text-anchor="middle">2030</text>
+      <text class="m t-lo" x="660" y="280" font-size="11" text-anchor="middle">2035</text>
+      <text class="t-lo" x="396" y="296" font-size="11" text-anchor="middle" font-style="italic">Four published data points. Line between them is interpolation, not IEA output.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> <span class="co">IEA</span>, <em>Energy and AI</em>, executive summary <sup class="r">6</sup>; <span class="nv">2025</span> value from <span class="co">IEA</span>, <em>Key Questions on Energy and AI</em> <sup class="r">7</sup>. Only years the <span class="co">IEA</span> publishes are marked.</figcaption>
+  </figure>
+
+  <h3 id="s2-2">2.2 Why can't air cooling keep up?</h3>
+  <p>The binding constraint is not total energy but heat density per rack. Rack power is climbing past <strong><span class="nv">30</span> kW</strong> against a traditional <span class="nv">5–10</span> kW <sup class="r">9</sup>, and immersion deployments are being specified for densities <strong>above <span class="nv">100</span> kW</strong> <sup class="r">10</sup>. Beyond roughly <span class="nv">30</span> kW, moving enough air through a rack stops being practical and liquid becomes an architectural requirement rather than an efficiency upgrade.</p>
+  <p>Cooling's share of facility electricity varies widely with design. The <span class="co">IEA</span>'s equipment breakdown puts cooling and environmental control at about <strong><span class="nv">7%</span> in efficient hyperscale sites and above <span class="nv">30%</span> in less efficient enterprise sites</strong> <sup class="r">11</sup>. The opportunity sits at the inefficient end of that spread, and in the new high-density builds that would otherwise land there.</p>
+
+  <h3 id="s2-3">2.3 What actually opened this market?</h3>
+  <p>The fluid market did not open gradually. It opened because the dominant supplier left and the regulator moved in behind it.</p>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 2.3 — Supply withdrawal and regulatory restriction, on one axis</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 350" role="img" aria-label="Two parallel timelines. Supply: 3M announces exit December 2022, last Novec orders March 2025, manufacture ends December 2025. Regulation: proposal filed January 2023, committees back a ban March 2026, final opinion due end 2026, earliest in force about 2029.">
+      <line class="s-rule" x1="118" y1="26" x2="118" y2="300"/>
+      <line class="s-rule" x1="200" y1="26" x2="200" y2="300"/>
+      <line class="s-rule" x1="282" y1="26" x2="282" y2="300"/>
+      <line class="s-rule" x1="364" y1="26" x2="364" y2="300"/>
+      <line class="s-rule" x1="446" y1="26" x2="446" y2="300"/>
+      <line class="s-rule" x1="528" y1="26" x2="528" y2="300"/>
+      <line class="s-rule" x1="610" y1="26" x2="610" y2="300"/>
+
+      <text class="m t-fa" x="10" y="32" font-size="11" letter-spacing="1">SUPPLY</text>
+      <line class="s-fail" x1="66" y1="112" x2="668" y2="112" stroke-width="2"/>
+      <line class="s-fail" x1="302" y1="112" x2="302" y2="76" stroke-width="1" opacity=".5"/>
+      <text class="m t-lo" x="302" y="54" font-size="11" text-anchor="middle">Mar 2025</text>
+      <text class="t-fa" x="302" y="69" font-size="12.5" text-anchor="middle">Last Novec orders</text>
+      <text class="m t-lo" x="115" y="92" font-size="11" text-anchor="middle">Dec 2022</text>
+      <text class="t-fa" x="115" y="106" font-size="12.5" text-anchor="middle">3M announces exit</text>
+      <text class="m t-lo" x="366" y="92" font-size="11" text-anchor="middle">Dec 2025</text>
+      <text class="t-fa" x="366" y="106" font-size="12.5" text-anchor="middle">Manufacture ends</text>
+      <circle cx="115" cy="112" r="4.5" class="f-fail"/>
+      <circle cx="302" cy="112" r="4.5" class="f-fail"/>
+      <circle cx="366" cy="112" r="6.5" class="f-fail"/>
+
+      <text class="m t-cd" x="10" y="174" font-size="11" letter-spacing="1">REGULATION</text>
+      <line class="s-cold" x1="66" y1="252" x2="668" y2="252" stroke-width="2"/>
+      <line class="s-cold" x1="385" y1="252" x2="385" y2="216" stroke-width="1" opacity=".5"/>
+      <text class="m t-lo" x="385" y="194" font-size="11" text-anchor="middle">Mar 2026</text>
+      <text class="t-cd" x="385" y="209" font-size="12.5" text-anchor="middle">Committees back ban</text>
+      <line class="s-cold" x1="610" y1="252" x2="610" y2="216" stroke-width="1" opacity=".5"/>
+      <text class="m t-lo" x="610" y="194" font-size="11" text-anchor="middle">~2029</text>
+      <text class="t-cd" x="610" y="209" font-size="12.5" text-anchor="middle">Earliest in force</text>
+      <text class="m t-lo" x="122" y="232" font-size="11" text-anchor="middle">Jan 2023</text>
+      <text class="t-cd" x="122" y="246" font-size="12.5" text-anchor="middle">Proposal filed</text>
+      <text class="m t-lo" x="462" y="232" font-size="11" text-anchor="middle">End 2026</text>
+      <text class="t-cd" x="462" y="246" font-size="12.5" text-anchor="middle">Final opinion due</text>
+      <circle cx="122" cy="252" r="4.5" class="f-cold"/>
+      <circle cx="385" cy="252" r="4.5" class="f-cold"/>
+      <circle cx="446" cy="252" r="6.5" class="f-cold"/>
+      <circle cx="610" cy="252" r="5" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+
+      <line class="s-axis" x1="66" y1="300" x2="668" y2="300" stroke-width="1.5"/>
+      <text class="m t-lo" x="118" y="318" font-size="11" text-anchor="middle">2023</text>
+      <text class="m t-lo" x="200" y="318" font-size="11" text-anchor="middle">2024</text>
+      <text class="m t-lo" x="282" y="318" font-size="11" text-anchor="middle">2025</text>
+      <text class="m t-lo" x="364" y="318" font-size="11" text-anchor="middle">2026</text>
+      <text class="m t-lo" x="446" y="318" font-size="11" text-anchor="middle">2027</text>
+      <text class="m t-lo" x="528" y="318" font-size="11" text-anchor="middle">2028</text>
+      <text class="m t-lo" x="610" y="318" font-size="11" text-anchor="middle">2029</text>
+      <path d="M418 294 L413 302 L423 302 Z" fill="var(--ink)"/>
+      <text class="m t-in" x="418" y="342" font-size="11" text-anchor="middle">today</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Sources.</strong> Supply track: <span class="co">3M</span> <sup class="r">2</sup>, Enviro Tech <sup class="r">12</sup>, <span class="co">ChemSec</span> <sup class="r">3</sup>. Regulatory track: <span class="co">ECHA</span> <sup class="r">13</sup>, <span class="co">CMS Law</span> <sup class="r">15</sup>, <span class="co">Arnold &amp; Porter</span> <sup class="r">16</sup>, <span class="co">Covington</span> <sup class="r">17</sup>.</figcaption>
+  </figure>
+
+  <p><strong>The supply clock.</strong> On <span class="nv">20</span> December <span class="nv">2022,</span> <span class="co">3M</span> announced it would exit all PFAS manufacturing by the end of <span class="nv">2025</span> — explicitly including fluorinated fluids <sup class="r">2</sup>. The last date to place <span class="co">Novec</span> orders was <span class="nv">31</span> March <span class="nv">2025</span> <sup class="r">12</sup>, and manufacture ceased at the end of <span class="nv">2025</span> <sup class="r">3</sup>. The withdrawn products — the Novec 7000 series, Novec 649, <span class="co">Fluorinert</span> — were the working fluids on which two-phase immersion cooling was built.</p>
+  <p><strong>The regulatory clock.</strong> On <span class="nv">13</span> January <span class="nv">2023,</span> authorities in Denmark, Germany, the Netherlands, Norway and Sweden filed a universal PFAS restriction proposal under EU REACH <sup class="r">13</sup>. It defines PFAS structurally: any substance containing at least one fully fluorinated methyl or methylene carbon with no hydrogen, chlorine, bromine or iodine attached <sup class="r">14</sup>. On <span class="nv">2</span> March <span class="nv">2026</span> <span class="co">ECHA</span>'s Risk Assessment Committee adopted a final opinion supporting an EU-wide restriction <sup class="r">13</sup>. Its Socio-Economic Analysis Committee agreed on a draft opinion on <span class="nv">10</span> March <sup class="r">15</sup> and opened a <span class="nv">60</span>-day consultation that closed on <span class="nv">25</span> May <span class="nv">2026</span> <sup class="r">13</sup>. The final opinion is due by the end of <span class="nv">2026</span> <sup class="r">16</sup>, after which the Commission drafts the restriction text. Products could face severe restriction from around <span class="nv">2029</span> <sup class="r">17</sup>.</p>
+  <p><strong>Why this matters to a fluid supplier.</strong> The substitutes for <span class="co">Novec</span> — <span class="co">Galden</span>, <span class="co">Chemours</span> and <span class="co">Honeywell</span> grades — are themselves PFAS and sit inside the same class-based scope <sup class="r">18</sup>. There is no fluorinated escape route. Two independent analyst houses record the consequence directly: <span class="co">Mordor</span> notes that mineral oil still leads fluid demand on price but bio-based and synthetic hydrocarbon alternatives are gaining traction under European PFAS restrictions <sup class="r">10</sup>; Persistence identifies bio-based dielectric fluids as the fastest-growing fluid category, driven by PFAS phase-out pressure <sup class="r">19</sup>.</p>
+
+  <h3 id="s2-4">2.4 How big is the market we sell into?</h3>
+  <p>We size the market we actually sell into — dielectric fluid, not cooling systems. Two houses scope this precisely and agree closely on the present:</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Source</th><th>Scope</th><th><span class="nv">2025</span></th><th><span class="nv">2026</span></th><th>Endpoint</th><th>CAGR</th></tr></thead>
+    <tbody>
+      <tr><td><span class="co">Fact.MR</span> <sup class="r">1</sup></td><td>Single-phase dielectric immersion fluids; excludes hardware, two-phase, cold plate</td><td class="n"><span class="nv">$370.0M</span></td><td class="n"><span class="nv">$408.9M</span></td><td class="n"><span class="nv">$998.0M</span> (<span class="nv">2036</span>)</td><td class="n"><span class="nv">10.5%</span></td></tr>
+      <tr><td><span class="co">Fortune Business Insights</span> <sup class="r">20</sup></td><td>Immersion cooling fluids</td><td class="n"><span class="nv">$359.18M</span></td><td class="n"><span class="nv">$444.93M</span></td><td class="n"><span class="nv">$2,466.74M</span> (<span class="nv">2034</span>)</td><td class="n"><span class="nv">23.87%</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>They differ by <span class="nv">9%</span> on <span class="nv">2026</span> and by a factor of two on growth. We take <strong><span class="nv">$409–445M</span> as the <span class="nv">2026</span> addressable fluid market</strong> and carry the growth rate as a range rather than a point.</p>
+
+  <h3 id="s2-5">2.5 Why Mumbai?</h3>
+  <p>India's operational data centre stock reached approximately <strong><span class="nv">1.5–1.7</span> GW of IT load</strong> in <span class="nv">2025</span> <sup class="r">4,24,25</sup>, having added a record <span class="nv">387–440</span> MW in that year — roughly double <span class="nv">2024</span> <sup class="r">24,25</sup>. Roughly <strong><span class="nv">500</span> MW of further supply is expected in <span class="nv">2026</span></strong>, about <span class="nv">30%</span> year-on-year growth <sup class="r">26</sup>. India holds only <span class="nv">3–4%</span> of global data centre capacity while generating close to <span class="nv">20%</span> of the world's data <sup class="r">24</sup>.</p>
+  <p>Within India, capacity is concentrated. Mumbai accounts for <strong><span class="nv">34–53%</span> of operational supply</strong> depending on source and definition <sup class="r">4,5,27</sup>, and Maharashtra holds <strong><span class="nv">25–45%</span> of upcoming capacity</strong> <sup class="r">28,29</sup>.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 2.5 — Addressable market, narrowed</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 372" role="img" aria-label="Funnel from a global dielectric fluid market of 409 to 445 million dollars, to an India market of 12 to 16 million, to a Mumbai market of 4 to 8 million.">
+      <rect x="46" y="24" width="628" height="86" class="f-card" stroke="var(--cold)" stroke-width="1.5"/>
+      <rect x="46" y="24" width="5" height="86" class="f-cold"/>
+      <text class="m t-cd" x="70" y="46" font-size="11" letter-spacing="1">TAM · GLOBAL DIELECTRIC IMMERSION FLUID, 2026</text>
+      <text class="m t-in" x="70" y="80" font-size="28" font-weight="500">$409–445M</text>
+      <text class="t-lo" x="70" y="100" font-size="11">Fact.MR $408.9M · Fortune BI $444.93M — two independently scoped houses, 9% apart</text>
+
+      <path d="M360 112 L360 132 M353 126 L360 134 L367 126" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <text class="t-lo" x="378" y="130" font-size="11">× India's 3–4% share of global data centre capacity</text>
+
+      <rect x="106" y="142" width="508" height="86" class="f-card" stroke="var(--cool)" stroke-width="1.5"/>
+      <rect x="106" y="142" width="5" height="86" class="f-cool"/>
+      <text class="m" x="130" y="164" font-size="11" letter-spacing="1" fill="var(--cool)">SAM · INDIA</text>
+      <text class="m t-in" x="130" y="198" font-size="28" font-weight="500">$12–16M</text>
+      <text class="t-lo" x="130" y="218" font-size="11">India holds 3–4% of global capacity while generating ~20% of the world's data</text>
+
+      <path d="M360 230 L360 250 M353 244 L360 252 L367 244" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <text class="t-lo" x="378" y="248" font-size="11">× Mumbai's 34–53% share of Indian capacity</text>
+
+      <rect x="166" y="260" width="388" height="86" class="f-card" stroke="var(--fail)" stroke-width="1.5"/>
+      <rect x="166" y="260" width="5" height="86" class="f-fail"/>
+      <text class="m t-fa" x="190" y="282" font-size="11" letter-spacing="1">SOM · MUMBAI METROPOLITAN REGION</text>
+      <text class="m t-in" x="190" y="316" font-size="28" font-weight="500">$4–8M</text>
+      <text class="t-lo" x="190" y="336" font-size="11">Our beachhead. Small, specific, and defensible.</text>
+
+      <text class="t-lo" x="46" y="366" font-size="11" font-style="italic">Built from the fluid market, not the systems market, because we sell litres and not tanks.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Sources.</strong> <span class="co">Fact.MR</span> <sup class="r">1</sup>, Fortune BI <sup class="r">20</sup>, <span class="co">Business Standard</span> <sup class="r">24</sup>, <span class="co">DD News</span> <sup class="r">4</sup>, <span class="co">Business Today</span> / <span class="co">Knight Frank</span> <sup class="r">5</sup>. Share percentages are published; the multiplication is ours.</figcaption>
+  </figure>
+
+  <p>Applying India's <span class="nv">3–4%</span> share of global capacity to the <span class="nv">$409M</span> fluid TAM gives a <strong>SAM of roughly <span class="nv">$12–16M</span> in <span class="nv">2026</span></strong>, and Mumbai's share of that a <strong>SOM of roughly <span class="nv">$4–8M</span></strong>. These are small numbers, and they are the ones we plan against: built from the fluid market rather than the systems market, and from published capacity shares rather than a growth assumption of our own.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="sec" id="s3">
+<details class="acc" id="acc-s3">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§3</span><span class="chip">Mumbai · 2027–30</span></div>
+  <h2>Who buys this, and when is the decision made?</h2>
+    <p class="acc-line">Mumbai colocation and hyperscale operators commissioning high-density capacity, reached through system manufacturers.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">Who buys, when the decision is actually made, and why we enter through the system manufacturer rather than the operator.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>Our beachhead is colocation and hyperscale operators in the Mumbai Metropolitan Region commissioning high-density capacity between 2027 and 2030. Six of the seven beachhead criteria are met today; the seventh, a deliverable whole product, is the sequenced work in §8. CapitaLand's Mumbai 02 — 37 MW with liquid cooling specified, completing Q4 2026 — is the most specific prospect we have identified. Because the fluid decision is made at facility design rather than at procurement, we must be qualified before a facility is designed, which is why we enter through immersion system manufacturers rather than operators.</p></div>
+  <h3 id="s3-1">3.1 Who exactly is the beachhead?</h3>
+  <p><strong>Colocation and hyperscale operators in the Mumbai Metropolitan Region commissioning high-density capacity between <span class="nv">2027</span> and <span class="nv">2030</span>.</strong></p>
+
+  <h3 id="s3-2">3.2 Does the segment survive the seven criteria?</h3>
+  <p>Assessed against the seven beachhead criteria <sup class="r">30</sup>:</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:26%">Criterion</th><th>Assessment</th></tr></thead>
+    <tbody>
+      <tr><td>Well-funded customer?</td><td><strong>Yes.</strong> <span class="co">Blackstone</span> and <span class="co">Panchshil</span> announced a <span class="nv">500</span> MW Navi Mumbai campus across <span class="nv">14</span> buildings, <span class="nv">65%</span> renewable-powered <sup class="r">31</sup>. <span class="co">AWS</span> has committed <span class="nv">$8.2bn</span> to Maharashtra by <span class="nv">2030</span> <sup class="r">31</sup>. <span class="co">STT GDC</span> began a Palava campus in March <span class="nv">2026</span> at <span class="nv">50</span> MW initial IT load, designed to scale to ~<span class="nv">400</span> MW, under a <span class="nv">₹5,000</span> crore MoU with the state <sup class="r">32</sup>.</td></tr>
+      <tr><td>Accessible to our sales force?</td><td><strong>Yes, decisively.</strong> We are in Powai. <span class="co">Yotta</span>, <span class="co">Sify</span>, <span class="co">Equinix</span>, <span class="co">CtrlS</span>, <span class="co">NTT</span>, <span class="co">Nxtra</span>, <span class="co">STT GDC</span> and <span class="co">Web Werks</span> all operate within the metropolitan region <sup class="r">32,33</sup>.</td></tr>
+      <tr><td>Compelling reason to buy?</td><td><strong>Yes.</strong> New builds specify cooling at design stage; PFAS fluids are no longer manufactured <sup class="r">2,3</sup>; Maharashtra offers electricity duty exemptions tied to data centre investment <sup class="r">34</sup>.</td></tr>
+      <tr><td>Whole product deliverable today?</td><td><strong>No.</strong> We are at proof of concept. This is our principal gap and we do not disguise it.</td></tr>
+      <tr><td>Entrenched competition?</td><td><strong>Yes.</strong> Mineral oil holds over <span class="nv">38%</span> of immersion fluid share on cost alone <sup class="r">19</sup>.</td></tr>
+      <tr><td>Leverage into adjacent segments?</td><td><strong>Yes.</strong> Mumbai → Chennai, Hyderabad, Pune → Southeast Asia and the Gulf. All warm-climate markets, which matters for reasons given in <a class="x" href="#s5-4">§<span class="nv">5.4</span></a>.</td></tr>
+      <tr><td>Consistent with our values?</td><td><strong>Yes.</strong> Environmental persistence, water stress, and domestic manufacturing capability.</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Six of the seven criteria are met today. The seventh is resolved by the sequenced work in §<span class="nv">8.2</span>, not by a change of strategy — and until it is, the beachhead choice above holds regardless.</p>
+
+  <h3 id="s3-3">3.3 Which specific facilities?</h3>
+  <p><strong>Already specifying liquid cooling in our beachhead.</strong> <span class="co">CapitaLand</span>'s Mumbai 02 facility in Navi Mumbai is a hyper-dense build with a planned <span class="nv">37</span> MW IT load and <strong>liquid cooling capability</strong>, expected to complete in Q4 <span class="nv">2026</span> <sup class="r">33</sup>. This is the single most specific prospect we have identified: a named facility, in our city, on a stated timeline, already committed to the architecture our product serves.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 3.3 — Named Mumbai-region capacity, by operator</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 316" role="img" aria-label="Bar chart of announced Mumbai region data centre capacity: Blackstone Panchshil 500 MW, STT GDC Palava 400 MW, Digital Edge 300 MW, Digital Connexion 40 MW, CapitaLand Mumbai 02 37 MW, Yotta D-2 30 MW, Sify 12 MW, Equinix MB6 5 MW.">
+      <line class="s-rule" x1="228" y1="28" x2="228" y2="256"/>
+      <line class="s-rule" x1="316" y1="28" x2="316" y2="256"/>
+      <line class="s-rule" x1="404" y1="28" x2="404" y2="256"/>
+      <line class="s-rule" x1="492" y1="28" x2="492" y2="256"/>
+      <line class="s-rule" x1="580" y1="28" x2="580" y2="256"/>
+      <text class="m t-lo" x="228" y="274" font-size="11" text-anchor="middle">100</text>
+      <text class="m t-lo" x="316" y="274" font-size="11" text-anchor="middle">200</text>
+      <text class="m t-lo" x="404" y="274" font-size="11" text-anchor="middle">300</text>
+      <text class="m t-lo" x="492" y="274" font-size="11" text-anchor="middle">400</text>
+      <text class="m t-lo" x="580" y="274" font-size="11" text-anchor="middle">500 MW</text>
+
+      <text class="t-in" x="132" y="42" font-size="11.5" text-anchor="end">Blackstone / Panchshil</text>
+      <rect x="140" y="31" width="440" height="14" class="f-cold"/>
+      <text class="m t-in" x="588" y="42" font-size="11">500</text>
+
+      <text class="t-in" x="132" y="70" font-size="11.5" text-anchor="end">STT GDC Palava</text>
+      <rect x="140" y="59" width="352" height="14" class="f-cold"/>
+      <text class="m t-in" x="500" y="70" font-size="11">400</text>
+
+      <text class="t-in" x="132" y="98" font-size="11.5" text-anchor="end">Digital Edge / NIIF</text>
+      <rect x="140" y="87" width="264" height="14" class="f-cold"/>
+      <text class="m t-in" x="412" y="98" font-size="11">300</text>
+
+      <text class="t-in" x="132" y="126" font-size="11.5" text-anchor="end">Digital Connexion BOM10</text>
+      <rect x="140" y="115" width="35" height="14" class="f-cool"/>
+      <text class="m t-in" x="183" y="126" font-size="11">40</text>
+
+      <text class="t-fa" x="132" y="154" font-size="11.5" text-anchor="end" font-weight="600">CapitaLand Mumbai 02</text>
+      <rect x="140" y="143" width="33" height="14" class="f-fail"/>
+      <text class="m t-fa" x="181" y="154" font-size="11" font-weight="500">37</text>
+      <text class="t-fa" x="214" y="154" font-size="11">← liquid cooling specified, Q4 2026</text>
+
+      <text class="t-in" x="132" y="182" font-size="11.5" text-anchor="end">Yotta D-2</text>
+      <rect x="140" y="171" width="26" height="14" class="f-cool"/>
+      <text class="m t-in" x="174" y="182" font-size="11">30</text>
+
+      <text class="t-in" x="132" y="210" font-size="11.5" text-anchor="end">Sify Mumbai</text>
+      <rect x="140" y="199" width="11" height="14" class="f-cool"/>
+      <text class="m t-in" x="159" y="210" font-size="11">12</text>
+
+      <text class="t-in" x="132" y="238" font-size="11.5" text-anchor="end">Equinix MB6</text>
+      <rect x="140" y="227" width="4" height="14" class="f-cool"/>
+      <text class="m t-in" x="152" y="238" font-size="11">5</text>
+
+      <line class="s-axis" x1="140" y1="256" x2="668" y2="256" stroke-width="1.5"/>
+      <text class="t-lo" x="140" y="300" font-size="11" font-style="italic">Announced or planned IT load. Mixed basis — some figures are full campus build-out, others a single phase.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Sources.</strong> <span class="co">Arizton</span> via <span class="co">Barchart</span> <sup class="r">31</sup>, <span class="co">Blackridge Research</span> <sup class="r">32</sup>, <span class="co">DataCenterMap</span> <sup class="r">33</sup>, <span class="co">Eninrac</span> <sup class="r">35</sup>, <span class="co">Houlihan Lokey</span> <sup class="r">36</sup>. Geographic coordinates not verified — this is a capacity comparison, not a map.</figcaption>
+  </figure>
+
+  <p><strong>Operators.</strong> <span class="co">Yotta</span> (D-2, Navi Mumbai, <span class="nv">30</span> MW) <sup class="r">35</sup>; <span class="co">Sify</span> (Mumbai, <span class="nv">12</span> MW expansion) <sup class="r">35</sup>; <span class="co">STT GDC</span> (Palava, <span class="nv">50</span>→<span class="nv">400</span> MW) <sup class="r">32</sup>; <span class="co">Equinix</span> (MB6 Navi Mumbai, +<span class="nv">5</span> MW, plus a <span class="nv">33</span> MW captive renewable project with CleanMax) <sup class="r">33</sup>; <span class="co">Digital Edge</span> with <span class="co">NIIF</span> and AGP (<span class="nv">300</span> MW greenfield, Navi Mumbai) <sup class="r">36</sup>; <span class="co">Digital Connexion</span> (BOM10, <span class="nv">40</span> MW, Q1 <span class="nv">2026</span>) <sup class="r">36</sup>; <span class="co">Colt</span> with <span class="co">RMZ</span> (<span class="nv">$1.7bn</span> JV, Mumbai and Bengaluru) <sup class="r">36</sup>.</p>
+  <p><strong>System manufacturers, as a channel rather than a customer.</strong> <span class="co">Submer</span>, <span class="co">Asperitas</span>, <span class="co">Green Revolution Cooling</span>, <span class="co">LiquidStack</span>, <span class="co">Iceotope</span>. These firms own the operator relationship and need a non-PFAS fluid to sell. We regard this as a more accessible route to first deployment than direct enterprise sales.</p>
+
+  <h3 id="s3-4">3.4 What have customers told us?</h3>
+  <p>Everything above is secondary research: published capacity, announced campuses, an industry buying sequence. It is the map we built before walking the ground, and the next ninety days are spent walking it.</p>
+
+  <div class="todo">
+    <div class="todo-h">In progress · interview programme under way</div>
+    <h4>What we are testing, and how we will report it</h4>
+    <p>We are running structured interviews across three tiers, beginning with the IIT Bombay Computer Centre, then the Mumbai operators named in <a class="x" href="#s3-3">§<span class="nv">3.3</span></a>, then the immersion system manufacturers in <a class="x" href="#s6-5">§<span class="nv">6.5</span></a>. Each is logged with the organisation, the role of the person spoken to, the date, what we asked, and — the column that carries the weight — <strong>what decision we changed as a result</strong>.</p>
+    <dl>
+      <dt>The specific claims under test</dt><dd>That the fluid decision is made at facility design rather than at procurement (<a class="x" href="#s3-5">§<span class="nv">3.5</span></a>); that the system manufacturer rather than the operator is the accessible first counterparty (<a class="x" href="#s6-5">§<span class="nv">6.5</span></a>); and that a qualification premium exists at all (<a class="x" href="#s7-3">§<span class="nv">7.3</span></a>).</dd>
+      <dt>How we will report it</dt><dd>Three conversations that visibly redirected the project are worth more than fifteen that changed nothing, so the log will record redirections rather than volume — including where we were wrong.</dd>
+    </dl>
+  </div>
+<!-- INTERNAL, remove nothing but fill before freeze: log each interview as organisation · role · date · what we asked · what decision changed. Target 12-15. The "what changed" column is the crux and must carry visual weight. -->
+
+  <h3 id="s3-5">3.5 How does a fluid decision actually get made?</h3>
+  <p>Fluid selection is not a purchasing decision made in isolation. It is made at the facility design stage, alongside tank and rack architecture, and it is constrained by hardware vendor compatibility. Industry sources identify limited standardisation and inconsistent compatibility between hardware vendors and immersion systems as a principal adoption barrier <sup class="r">37</sup>. Operators evaluate on Power Usage Effectiveness, Water Usage Effectiveness and Carbon Usage Effectiveness, with Indian industry leaders reporting PUE below <span class="nv">1.5</span> <sup class="r">26</sup>.</p>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 3.5 — Where a fluid supplier has to enter</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 190" role="img" aria-label="Four-stage buying flow: facility design, fluid qualification, procurement, deployment. The entry point for a fluid supplier is at facility design.">
+      <rect x="16" y="58" width="150" height="58" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <text class="t-cd" x="91" y="83" font-size="13" text-anchor="middle" font-weight="600">Facility design</text>
+      <text class="t-lo" x="91" y="100" font-size="11" text-anchor="middle">Cooling architecture set</text>
+
+      <rect x="190" y="58" width="150" height="58" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="t-in" x="265" y="83" font-size="13" text-anchor="middle" font-weight="600">Qualification</text>
+      <text class="t-lo" x="265" y="100" font-size="11" text-anchor="middle">Spec, compatibility, warranty</text>
+
+      <rect x="364" y="58" width="150" height="58" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="t-in" x="439" y="83" font-size="13" text-anchor="middle" font-weight="600">Procurement</text>
+      <text class="t-lo" x="439" y="100" font-size="11" text-anchor="middle">Volume contract</text>
+
+      <rect x="538" y="58" width="150" height="58" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="t-in" x="613" y="83" font-size="13" text-anchor="middle" font-weight="600">Deployment</text>
+      <text class="t-lo" x="613" y="100" font-size="11" text-anchor="middle">Fill and commission</text>
+
+      <path d="M166 87 L186 87 M180 82 L188 87 L180 92" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <path d="M340 87 L360 87 M354 82 L362 87 L354 92" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <path d="M514 87 L534 87 M528 82 L536 87 L528 92" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+
+      <path d="M91 44 L91 54 M86 48 L91 56 L96 48" fill="none" stroke="var(--fail)" stroke-width="2"/>
+      <text class="t-fa" x="91" y="34" font-size="12" text-anchor="middle" font-weight="600">We must be here</text>
+      <text class="t-lo" x="16" y="150" font-size="11">Once the architecture is fixed, the fluid decision is largely made. Entering at procurement is entering too late —</text>
+      <text class="t-lo" x="16" y="167" font-size="11">which is why <a class="x" href="#s6-5">§6.5</a> targets system manufacturers, who sit inside the design conversation, before operators.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> Adoption barriers and vendor-compatibility constraint from <span class="co">Fortune Business Insights</span> <sup class="r">37</sup>. Sequence is our synthesis of how facility procurement runs.</figcaption>
+  </figure>
+
+  <p>The practical consequence for us: <strong>we must be qualified before a facility is designed, not after.</strong> That points at the <span class="nv">2027–2030</span> build wave, and at winning system manufacturers before operators.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="sec" id="s4">
+<details class="acc" id="acc-s4">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§4</span><span class="chip">16 parameters</span></div>
+  <h2>What does our fluid have to pass?</h2>
+    <p class="acc-line">Sixteen parameters published by the Open Compute Project, two of which are legal gates rather than preferences.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">The buyer does not evaluate our chemistry; they evaluate it against a published specification. That specification is the commercial gate, so we treat it as this venture's terms of trade rather than as a technical appendix.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>The Open Compute Project publishes a base specification for immersion fluids covering sixteen parameters across six domains: thermal figures of merit, physical properties, electrical and signal integrity, chemical stability, safety, and environmental status. A companion document defines material compatibility testing against a three-band verdict. Two thresholds are legal gates rather than engineering preferences — the flash point requirement is tied to IEC 62368-1, which conditions market access for IT equipment in most jurisdictions. We treat the specification as this venture's terms of trade.</p></div>
+  <h3 id="s4-1">4.1 Why is there a published standard at all?</h3>
+  <p>Immersion cooling only works if a fluid satisfies several requirements at once that pull against one another. It must conduct heat well and electricity not at all; it must be thin enough to pump cheaply and stable enough to sit against hot copper for a decade; it must not attack the seals, insulation or gaskets it is permanently in contact with.</p>
+  <p>Because these trade-offs are hard, the industry publishes a common specification rather than leaving each operator to invent one. The <strong><span class="co">Open Compute Project</span> Base Specification for Immersion Fluids</strong> <sup class="r">38</sup>, with its companion document on material compatibility <sup class="r">39</sup>, is the reference we assess ourselves against.</p>
+
+  <h3 id="s4-2">4.2 What does the standard measure?</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%">Domain</th><th style="width:40%">What is assessed</th><th>Example thresholds</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Thermal figures of merit</strong></td><td>Composite indices combining conductivity, specific heat, density and viscosity into a single comparable number</td><td>FOM1 (natural convection): Tier <span class="nv">1</span> &gt; <span class="nv">35,</span> Tier <span class="nv">2</span> &gt; <span class="nv">45</span>. FOM2 (forced convection) &gt; <span class="nv">19</span></td></tr>
+      <tr><td><strong>Physical</strong></td><td>Viscosity, density, vapour pressure, pour point, boiling point</td><td>Dynamic viscosity &lt; <span class="nv">1.5 × 10⁻²</span> Pa·s at <span class="nv">25</span> °C; density &lt; <span class="nv">2000</span> kg/m³; pour point &lt; <span class="nv">−30</span> °C</td></tr>
+      <tr><td><strong>Electrical and signal integrity</strong></td><td>Dielectric strength, volume resistivity, dielectric constant, loss tangent across the operating frequency band</td><td>Dielectric strength &gt; <span class="nv">6</span> kV/mm; volume resistivity &gt; <span class="nv">1 × 10¹¹</span> Ω·cm; ε<sub>r</sub> ≤ <span class="nv">2.3</span></td></tr>
+      <tr><td><strong>Chemical stability</strong></td><td>Total acid number, water content, oxidation resistance, odour, purity</td><td>TAN ≤ <span class="nv">0.03</span> mg KOH/g unused, ≤ <span class="nv">0.06</span> over lifetime for synthetic esters; purity ≥ <span class="nv">95%</span></td></tr>
+      <tr><td><strong>Safety</strong></td><td>Flash point, auto-ignition temperature, toxicity</td><td>Flash point ≥ <span class="nv">155</span> °C at altitude; auto-ignition &gt; <span class="nv">300</span> °C, per IEC 62368-1</td></tr>
+      <tr><td><strong>Environmental</strong></td><td>Ozone depletion potential, global warming potential, regulatory status</td><td>ODP = <span class="nv">0,</span> mandatory</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="todo">
+    <div class="todo-h">In preparation · figure-of-merit derivations</div>
+    <h4>The equations behind FOM1 and FOM2</h4>
+    <p>The two figures of merit combine thermal conductivity, specific heat, density and viscosity into single comparable numbers, and they are what our thermal case in <a class="x" href="#s5-2">§<span class="nv">5.2</span></a> rests on. We are setting the full derivations here as display mathematics, with variable definitions and units, so a reader can reproduce our values rather than take them on trust.</p>
+  </div>
+<!-- INTERNAL: paste the four formulas from Ch.1 sections 1.1-1.4 of The Methyl Myristate Story, with variable definitions and units. Two-minute job. -->
+
+  <h3 id="s4-3">4.3 What must the fluid sit against for a decade?</h3>
+  <p>A fluid sits in contact with copper, solder, polymers, elastomers and wire insulation for years. The companion specification defines the interaction mechanisms to be tested — dissolution, swelling, extraction of plasticisers, embrittlement, corrosion — and an accelerated ageing protocol with defined pass, case-by-case and fail bands <sup class="r">39</sup>.</p>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 4.3 — The three-band verdict used throughout this page</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 140" role="img" aria-label="Three-band assessment scale: acceptable, case by case, unacceptable.">
+      <rect x="16" y="30" width="220" height="44" class="f-pass"/>
+      <rect x="236" y="30" width="220" height="44" fill="var(--unmeasured)"/>
+      <rect x="456" y="30" width="230" height="44" class="f-fail"/>
+      <text x="126" y="58" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">Acceptable</text>
+      <text x="346" y="58" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">Case by case</text>
+      <text x="571" y="58" font-size="14" fill="#fff" text-anchor="middle" font-weight="600">Unacceptable</text>
+      <text class="t-lo" x="126" y="94" font-size="11" text-anchor="middle">Clears the published threshold</text>
+      <text class="t-lo" x="346" y="94" font-size="11" text-anchor="middle">Needs qualification evidence</text>
+      <text class="t-lo" x="571" y="94" font-size="11" text-anchor="middle">Fails the published threshold</text>
+      <text class="t-lo" x="16" y="126" font-size="11" font-style="italic">Cool encodes pass and warm encodes fail throughout this document — the product's own logic.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> <span class="co">Open Compute Project</span>, <em>Material Compatibility in Immersion Cooling</em>, Rev 1.0 <sup class="r">39</sup>.</figcaption>
+  </figure>
+
+  <h3 id="s4-4">4.4 Why is a specification a commercial document?</h3>
+  <p>Two of the thresholds above are not engineering preferences but legal gates. The <strong>flash point requirement is tied to IEC 62368-1</strong>, compliance with which conditions market access for information technology equipment in most jurisdictions. A fluid that misses it cannot simply be sold to a willing buyer, however much that buyer wants it.</p>
+  <p>This is what connects <a class="x" href="#s3">§<span class="nv">3</span></a> to <a class="x" href="#s5">§<span class="nv">5</span></a>. The buying sequence in <a class="x" href="#s3-5">§<span class="nv">3.5</span></a> puts the fluid decision at facility design, inside a qualification conversation run by an engineer holding this document. Our scorecard is therefore not a self-assessment we chose to publish; it is the form in which the decision actually gets made. The gap between a specification line and a purchase order is the whole of the commercial problem, and it is why we describe the sixteen parameters that follow as terms of trade rather than as laboratory results.</p>
+  <p>It is also why the qualification premium in <a class="x" href="#s7-5">§<span class="nv">7.5</span></a> exists at all. Crossing this specification is expensive and slow, which is precisely what makes the position on the other side of it worth holding.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="sec" id="s5">
+<details class="acc" id="acc-s5">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§5</span><span class="chip">10 pass · 4 scheduled · 2 open</span></div>
+  <h2>How does it score against that standard?</h2>
+    <p class="acc-line">Ten parameters cleared, four scheduled for measurement, two open with a defined route to closure.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">Our own assessment against that gate: sixteen parameters, ten cleared, four in characterisation, two in formulation — with the closure route stated for each.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>Methyl myristate, a saturated C14 fatty acid methyl ester, clears ten of the sixteen parameters. The thermal case is strong: FOM1 of 65.36 clears the Tier 2 floor by 45%, FOM2 clears its minimum by 80%, and viscosity passes with roughly fourfold margin, which lowers pumping cost. Four electrical parameters are scheduled for measurement this season on institutional equipment, neat and at the water-saturation limit. Two remain open — pour point near 18 °C against a −30 °C requirement, and flash point near 112 °C against 155 °C. Both are governed by carbon chain length and move in opposite directions along it, which is what the C12–C18 study tests.</p></div>
+  <h3 id="s5-1">5.1 What is the molecule?</h3>
+  <p><strong>Methyl myristate</strong> (methyl tetradecanoate, CAS 124-10-7), a saturated C14 fatty acid methyl ester. Esters are one of the three established immersion fluid classes alongside synthetic hydrocarbons and fluorochemicals <sup class="r">40</sup>, so we are not asking the market to accept a new category — only a new route to a known one.</p>
+
+  <h3 id="s5-2">5.2 How does it score, parameter by parameter?</h3>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 5.2 — Sixteen specification parameters, by verdict</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 176" role="img" aria-label="Status summary: ten parameters pass, two fail, four are not measured.">
+      <rect x="16" y="24" width="371" height="34" class="f-pass"/>
+      <rect x="387" y="24" width="149" height="34" fill="var(--unmeasured)"/>
+      <rect x="536" y="24" width="150" height="34" class="f-fail"/>
+      <text class="m" x="30" y="46" font-size="15" fill="#fff" font-weight="500">10 pass</text>
+      <text class="m" x="401" y="46" font-size="15" fill="#fff" font-weight="500">4 not measured</text>
+      <text class="m" x="550" y="46" font-size="15" fill="#fff" font-weight="500">2 fail</text>
+
+      <text class="t-pa" x="16" y="86" font-size="11.5" font-weight="600">Pass</text>
+      <text class="t-lo" x="16" y="102" font-size="11">FOM1 · FOM2 · viscosity · density · vapour pressure · boiling point · auto-ignition · ODP · PFAS · purity</text>
+      <text class="t-in" x="16" y="126" font-size="11.5" font-weight="600" fill="#5C666C">Not measured</text>
+      <text class="t-lo" x="16" y="142" font-size="11">dielectric strength · volume resistivity · dielectric constant · loss tangent</text>
+      <text class="t-fa" x="440" y="126" font-size="11.5" font-weight="600">Fail</text>
+      <text class="t-lo" x="440" y="142" font-size="11">pour point · flash point</text>
+      <text class="t-lo" x="16" y="168" font-size="11" font-style="italic">The four unmeasured parameters are all electrical — the ones that define a dielectric fluid.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> Our own assessment against OCP Rev 1.0 <sup class="r">38</sup>, from <em>The Methyl Myristate Story</em>. Auto-ignition counted as a pass on a literature range, not a measured value.</figcaption>
+  </figure>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:28%">Parameter</th><th style="width:24%">Our value</th><th style="width:26%">OCP requirement</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>FOM1, natural convection</td><td class="n"><span class="nv">65.36</span></td><td class="n">&gt; <span class="nv">35</span> T<span class="nv">1,</span> &gt; <span class="nv">45</span> T<span class="nv">2</span></td><td><span class="p p-pass">Pass · Tier <span class="nv">2</span></span></td></tr>
+      <tr><td>FOM2, forced convection</td><td class="n"><span class="nv">34.32</span> W/m·K</td><td class="n">&gt; <span class="nv">19</span></td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Dynamic viscosity, <span class="nv">25</span> °C</td><td class="n"><span class="nv">3.98 × 10⁻³</span> Pa·s</td><td class="n">&lt; <span class="nv">1.5 × 10⁻²</span> Pa·s</td><td><span class="p p-pass">Pass · <span class="nv">4</span>× margin</span></td></tr>
+      <tr><td>Density, <span class="nv">25</span> °C</td><td class="n"><span class="nv">855</span> kg/m³</td><td class="n">&lt; <span class="nv">2000</span> kg/m³</td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Vapour pressure, <span class="nv">25</span> °C</td><td class="n"><span class="nv">0.065</span> Pa</td><td class="n">&lt; <span class="nv">0.8</span> kPa</td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Boiling point</td><td class="n"><span class="nv">281</span> °C</td><td class="n">&gt; <span class="nv">155</span> °C</td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Auto-ignition</td><td class="n"><span class="nv">427–627</span> °C <em>(literature)</em></td><td class="n">&gt; <span class="nv">300</span> °C</td><td><span class="p p-pass">Likely pass</span></td></tr>
+      <tr><td>Ozone depletion potential</td><td class="n"><span class="nv">0</span></td><td class="n">= <span class="nv">0</span></td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td>PFAS content</td><td>None</td><td>Increasingly restricted <sup class="r">13</sup></td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Purity</td><td class="n">≥ <span class="nv">95%</span> commercial</td><td class="n">≥ <span class="nv">95%</span></td><td><span class="p p-pass">Pass</span></td></tr>
+      <tr><td><strong>Pour point</strong></td><td class="n"><strong>~<span class="nv">18</span> °C</strong></td><td class="n"><strong>&lt; <span class="nv">−30</span> °C</strong></td><td><span class="p p-fail">Fail</span></td></tr>
+      <tr><td><strong>Flash point</strong></td><td class="n"><strong>~<span class="nv">112</span> °C</strong></td><td class="n"><strong>≥ <span class="nv">155</span> °C</strong></td><td><span class="p p-fail">Fail</span></td></tr>
+      <tr><td>Dielectric strength</td><td class="n">—</td><td class="n">&gt; <span class="nv">6</span> kV/mm</td><td><span class="p p-un">Not measured</span></td></tr>
+      <tr><td>Volume resistivity</td><td class="n">—</td><td class="n">&gt; <span class="nv">1 × 10¹¹</span> Ω·cm</td><td><span class="p p-un">Not measured</span></td></tr>
+      <tr><td>Dielectric constant</td><td class="n">—</td><td class="n">≤ <span class="nv">2.3</span></td><td><span class="p p-un">Not measured</span></td></tr>
+      <tr><td>Loss tangent</td><td class="n">—</td><td class="n">≤ <span class="nv">0.05</span></td><td><span class="p p-un">Not measured</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Supporting values: specific heat <span class="nv">2085.3</span> J/kg·K; thermal conductivity <span class="nv">0.1506</span> W/m·K; thermal expansion <span class="nv">9.35 × 10⁻⁴</span> K⁻¹ <sup class="r">41,42,43</sup>.</p>
+
+  <h3 id="s5-3">5.3 Where do we lead?</h3>
+  <p>Our thermal case is strong and it is the reason this molecule is worth pursuing at all. FOM1 of <span class="nv">65.36</span> clears the preferred Tier <span class="nv">2</span> threshold by <span class="nv">45%</span>, and FOM2 clears its minimum by <span class="nv">80%</span>. Viscosity passes with roughly fourfold margin, which matters commercially: pumping power is a recurring operating cost, and a thinner fluid at equal thermal performance is a cheaper fluid to run.</p>
+  <p>We are also PFAS-free by construction. There is no fluorine anywhere in the molecule, so no derogation, transition period or reformulation applies to us.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 5.3 — Three results against their thresholds</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 200" role="img" aria-label="FOM1 of 65.36 against a Tier 2 threshold of 45; FOM2 of 34.32 against a threshold of 19; viscosity well inside its ceiling.">
+      <text class="t-lo" x="16" y="26" font-size="11" letter-spacing="1" class="m t-lo">FOM1 · NATURAL CONVECTION</text>
+      <line class="s-axis" x1="16" y1="60" x2="230" y2="60" stroke-width="1"/>
+      <rect x="16" y="44" width="148" height="16" class="f-pass"/>
+      <line x1="118" y1="36" x2="118" y2="68" class="s-fail" stroke-width="2"/>
+      <text class="m t-fa" x="118" y="30" font-size="11" text-anchor="middle">45</text>
+      <text class="m t-in" x="172" y="57" font-size="17" font-weight="500">65.36</text>
+      <text class="t-lo" x="16" y="84" font-size="11">Clears the Tier 2 floor by 45%</text>
+
+      <text class="m t-lo" x="253" y="26" font-size="11" letter-spacing="1">FOM2 · FORCED CONVECTION</text>
+      <line class="s-axis" x1="253" y1="60" x2="467" y2="60" stroke-width="1"/>
+      <rect x="253" y="44" width="140" height="16" class="f-pass"/>
+      <line x1="331" y1="36" x2="331" y2="68" class="s-fail" stroke-width="2"/>
+      <text class="m t-fa" x="331" y="30" font-size="11" text-anchor="middle">19</text>
+      <text class="m t-in" x="401" y="57" font-size="17" font-weight="500">34.32</text>
+      <text class="t-lo" x="253" y="84" font-size="11">Clears the minimum by 80%</text>
+
+      <text class="m t-lo" x="490" y="26" font-size="11" letter-spacing="1">DYNAMIC VISCOSITY</text>
+      <line class="s-axis" x1="490" y1="60" x2="704" y2="60" stroke-width="1"/>
+      <rect x="490" y="44" width="52" height="16" class="f-pass"/>
+      <line x1="686" y1="36" x2="686" y2="68" class="s-fail" stroke-width="2"/>
+      <text class="m t-fa" x="686" y="30" font-size="11" text-anchor="middle">ceiling</text>
+      <text class="m t-in" x="550" y="57" font-size="17" font-weight="500">4× margin</text>
+      <text class="t-lo" x="490" y="84" font-size="11">Lower pumping power at equal cooling</text>
+
+      <line class="s-rule" x1="16" y1="108" x2="704" y2="108"/>
+      <text class="t-lo" x="16" y="132" font-size="11">The red rule on each track is the published OCP threshold. This device recurs throughout the page:</text>
+      <text class="t-lo" x="16" y="150" font-size="11">no number appears without the limit it is measured against.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> Our own values from <em>The Methyl Myristate Story</em>; thresholds from OCP Rev 1.0 <sup class="r">38</sup>.</figcaption>
+  </figure>
+
+  <h3 id="s5-4">5.4 Which two specifications are still open?</h3>
+  <p>Fourteen of the sixteen parameters are settled. Two remain open against the published standard, and both have a defined route to closure.</p>
+
+  <div class="note fail">
+    <div class="note-h">Open · Pour point</div>
+    <p>Methyl myristate solidifies at approximately <span class="nv">18–19</span> °C <sup class="r">44,45</sup>, against a specification of below <strong><span class="nv">−30</span> °C</strong> — a threshold set to guarantee mobility during unheated transport and in outdoor or edge deployments.</p>
+    <p>Inside an operating tank this is not a functional constraint, because the tank runs far above <span class="nv">18</span> °C. It binds on storage, transport and cold start, and it is disqualifying in cold-climate deployment without heat tracing. <strong>It is a principal reason we selected a tropical beachhead</strong>, where the property and the market are matched rather than in tension.</p>
+  </div>
+
+  <div class="note fail">
+    <div class="note-h">Open · Flash point</div>
+    <p>Closed-cup flash point is approximately <span class="nv">110–112</span> °C <sup class="r">41,47</sup> against a requirement of <strong>≥ <span class="nv">155</span> °C</strong>, tied to IEC 62368-1 <sup class="r">38</sup>. This is the harder of the two, because the threshold conditions market access rather than merely engineering acceptance, and because no additive raises it (<a class="x" href="#s5-7">§<span class="nv">5.7</span></a>). It is therefore the governing constraint on formulation, and the study below is designed around it.</p>
+  </div>
+
+  <div class="next">
+    <div class="next-h">How both close</div>
+    <p>Both properties are governed by the same variable — carbon chain length — and move in opposite directions along it. The C12–C18 study below tests whether any single ester or blend clears both bounds at once. It is desk work on published data, needs no lab time and no funding, and returns one of two results we would publish either way: a formulation that clears the specification, or a documented demonstration that the saturated methyl ester series cannot, which is itself a finding worth recording. Fire-safety review is a planned stage of any qualification cycle and we are designing toward it rather than around it.</p>
+  </div>
+
+  <p><strong>A structural observation.</strong> Across the fatty acid methyl ester series, flash point and melting point both rise with chain length. Longer chains fix the flash point and worsen the pour point; shorter chains do the reverse. C14 sits where it currently satisfies neither bound. Mapping this trade-off across C12–C18, and testing whether any single ester or blend clears both limits, is a purely computational piece of work and one of our highest-value next steps.</p>
+
+  <div class="todo">
+    <div class="todo-h">In progress · chain-length trade-off study</div>
+    <h4>Mapping both bounds across the C12–C18 series</h4>
+    <p>We are plotting flash point and melting point against carbon number for the saturated methyl ester series — methyl laurate (C12), our own C14, methyl palmitate (C16) and methyl stearate (C18) — with both OCP limits drawn as horizontal rules. Values come from <span class="co">PubChem</span>, the <span class="co">NIST</span> Chemistry WebBook and supplier safety data sheets. If a window exists where both clear, an open problem becomes a formulation decision. If none exists, a documented demonstration that the pure saturated series cannot satisfy both bounds is itself a result, and it redirects the work toward blends and additives with the reason on the record.</p>
+    <p><strong>One caution we are carrying into the analysis.</strong> The two properties do not behave the same way in a mixture. Melting point depression means a blend melts <em>below</em> either component, so a mixture may clear the pour point when neither pure ester does. Flash point works the other way: a blend flashes near its most volatile component rather than the average. The chart cannot be read as though both properties average, and our conclusions will state which mechanism is doing the work.</p>
+  </div>
+
+  <h3 id="s5-5">5.5 When do the electrical measurements land?</h3>
+  <p>Four parameters — dielectric strength, volume resistivity, dielectric constant and loss tangent — are the ones that define a dielectric fluid, and they are the immediate object of Stage <span class="nv">1</span> in <a class="x" href="#s8-2">§<span class="nv">8.2</span></a>. We set out what we expect, why, and what would change our mind.</p>
+
+  <p><strong>What the chemistry predicts.</strong> Methyl myristate is a saturated, non-polar, fully covalent ester with no ionic content and no aromatic character. Volume resistivity and dielectric strength in fluids of this class are governed principally by ionic and moisture contamination rather than by the backbone itself, which is why purified esters are already an established immersion fluid class alongside synthetic hydrocarbons and fluorochemicals <sup class="r">40</sup>. Dielectric constant scales with molecular polarity; an ester group on a C14 chain gives a low dipole density, and published ester-based coolants sit inside the OCP ceiling of <span class="nv">2.3</span>. Our expectation is that a ≥<span class="nv">95%</span> pure material clears all four.</p>
+
+  <p><strong>Why expectation is not the deliverable.</strong> The values are sensitive to exactly the contaminants a real service life introduces — dissolved water, and the free fatty acid produced when an ester meets it (<a class="x" href="#s5-6">§<span class="nv">5.6</span></a>). A dry, freshly purified sample measured once would very likely pass and would tell a qualification engineer almost nothing. The measurement that counts is taken across the moisture range, on aged material.</p>
+
+  <div class="next">
+    <div class="next-h">How this closes</div>
+    <p>Stage <span class="nv">1</span> of <a class="x" href="#s8-2">§<span class="nv">8.2</span></a>, within this season. All four parameters are measurable on standard dielectric test equipment available to us through institutional facilities, on the neat fluid and again <strong>at the water-saturation limit</strong>. No biology gates this work and no external funding is required to begin it. A result outside the OCP band on any of the four would be a material finding, and we would publish it in the same terms as <a class="x" href="#s5-4">§<span class="nv">5.4</span></a>.</p>
+  </div>
+
+  <h3 id="s5-6">5.6 Does it stay stable over a service life?</h3>
+  <p>As an ester, our fluid hydrolyses in the presence of trace moisture:</p>
+
+  <figure>
+    <div class="fig-t">Fig. 5.6 — Hydrolysis, and why both products matter</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 200" role="img" aria-label="Methyl myristate plus water yields myristic acid plus methanol. The acid raises total acid number; the methanol breaches the odour ceiling.">
+      <text class="t-in" x="16" y="52" font-size="15" font-weight="600">methyl myristate</text>
+      <text class="t-lo" x="152" y="52" font-size="15">+</text>
+      <text class="t-in" x="172" y="52" font-size="15" font-weight="600">H₂O</text>
+      <path d="M222 46 L282 46 M274 41 L284 46 L274 51" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+      <text class="t-lo" x="252" y="34" font-size="11" text-anchor="middle">trace moisture</text>
+      <text class="t-fa" x="298" y="52" font-size="15" font-weight="600">myristic acid</text>
+      <text class="t-lo" x="404" y="52" font-size="15">+</text>
+      <text class="t-fa" x="424" y="52" font-size="15" font-weight="600">methanol</text>
+
+      <line class="s-fail" x1="298" y1="66" x2="298" y2="92" stroke-width="1.5"/>
+      <line class="s-fail" x1="424" y1="66" x2="424" y2="92" stroke-width="1.5"/>
+
+      <rect x="298" y="92" width="182" height="62" fill="var(--fail-bg)"/>
+      <text class="t-fa" x="310" y="112" font-size="11.5" font-weight="600">Raises total acid number</text>
+      <text class="t-in" x="310" y="130" font-size="11">Ceiling: 0.03 mg KOH/g unused,</text>
+      <text class="t-in" x="310" y="145" font-size="11">0.06 over lifetime</text>
+
+      <rect x="496" y="92" width="190" height="62" fill="var(--fail-bg)"/>
+      <text class="t-fa" x="508" y="112" font-size="11.5" font-weight="600">Volatile, toxic, odorous</text>
+      <text class="t-in" x="508" y="130" font-size="11">Ceiling: 200 ppb n-butanol</text>
+      <text class="t-in" x="508" y="145" font-size="11">equivalent, held for ten years</text>
+
+      <text class="t-lo" x="16" y="180" font-size="11">This is why the four electrical parameters in <a class="x" href="#s5-5">§5.5</a> must also be measured at the water-saturation limit —</text>
+      <text class="t-lo" x="16" y="196" font-size="11">a dry-only measurement will not survive a qualification cycle.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> Thresholds from OCP Rev 1.0 <sup class="r">38</sup>. Reaction is standard ester hydrolysis.</figcaption>
+  </figure>
+
+  <p>Both products matter. Liberated myristic acid raises total acid number against a ceiling of <span class="nv">0.03</span> mg KOH/g unused and <span class="nv">0.06</span> over lifetime. Methanol is volatile, toxic and odorous, against an odour ceiling of <span class="nv">200</span> ppb n-butanol equivalent sustained across a ten-year service life <sup class="r">38</sup>. Characterising this under accelerated ageing is a required, not optional, part of our programme.</p>
+
+  <h3 id="s5-7">5.7 What are we doing about it?</h3>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-h">Hydrophobins</div>
+      <p>Amphiphilic fungal proteins that self-assemble at phase boundaries, reducing surface tension and interfacial viscosity, suppressing bubble formation at heated surfaces and promoting uniform boundary-layer flow.</p>
+    </div>
+    <div class="card">
+      <div class="card-h">Butylated hydroxyanisole (BHA)</div>
+      <p>A lipid-soluble radical scavenger. Under sustained thermal load, ester degradation generates free radicals that propagate a chain reaction producing volatile, low-boiling breakdown products. BHA intercepts the radicals and arrests the cascade.</p>
+    </div>
+    <div class="card">
+      <div class="card-h">Tocopherols</div>
+      <p>Natural fat-soluble antioxidants serving a dual role: an alternative radical scavenger, and a compatibility buffer moderating the fluid's solvent action on wire insulation.</p>
+    </div>
+  </div>
+
+  <div class="note fail">
+    <div class="note-h">What these additives do and do not do</div>
+    <p>The antioxidants <strong>protect the flash point against degradation-driven decline across the service life</strong>. They do not raise the intrinsic flash point of the neat compound from <span class="nv">112</span> °C to <span class="nv">155</span> °C, because flash point is governed by the vapour pressure of the volatile fraction present. Closing that gap remains an open problem and we state it as one.</p>
+  </div>
+
+  <h3 id="s5-8">5.8 What else did we consider?</h3>
+  <p><strong>Calmodulin</strong>, assessed as a responsive structural stabiliser, was rejected on biophysical grounds: its size and anisotropic charge distribution give an unfavourable dielectric constant and high polarisation under operational fields, introducing capacitive loss rather than insulation.</p>
+  <p><strong>Methyl oleate</strong>, an intuitive blend candidate, was rejected for unsaturation. Its C=C double bond is susceptible to oxidation, polymerisation and cross-linking under thermal load, producing viscosity rise and efficiency loss.</p>
+
+  <h3 id="s5-9">5.9 Where is the full assessment?</h3>
+  <p>Every value in <a class="x" href="#s5-2">§<span class="nv">5.2</span></a>, the figure-of-merit derivations, the additive rationale and the candidates set aside are documented in full in our companion technical report, <em>The Methyl Myristate Story</em>, published alongside this page.</p>
+<!-- INTERNAL: upload The Methyl Myristate Story to static.igem.wiki and link it from the sentence above. Verify the link resolves in a private window before freeze. -->
+  </div>
+</details>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="sec" id="s6">
+<details class="acc" id="acc-s6">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§6</span><span class="chip">5 competing classes</span></div>
+  <h2>What would a buyer choose instead of us?</h2>
+    <p class="acc-line">We lead on regulatory durability and thermal margin, and compete on qualification rather than on price.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">Measured on the same ruler as §<span class="nv">4,</span> against the classes a buyer would actually consider instead of us.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>A buyer's alternatives are legacy fluorinated fluids (withdrawn), remaining fluorinated grades (inside the same restriction scope), engineered synthetic hydrocarbons such as Shell S5 X (42% of fluid share), mineral oil (over 38%, on cost alone), and direct-to-chip cold plate. The hardest question is why ferment a molecule that Wilmar and Mubychem already make cheaply — Mubychem inside our own beachhead. Our answer is that we sell a qualified dielectric fluid rather than a molecule, and that our pathway decouples from palm and coconut feedstock. We do not claim to win on price. Immersion system manufacturers are partners rather than competitors.</p></div>
+  <h3 id="s6-1">6.1 What else could a buyer choose?</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:19%">Class</th><th style="width:23%">Products</th><th style="width:29%">Position</th><th>Our position against them</th></tr></thead>
+    <tbody>
+      <tr><td>Legacy fluorinated, two-phase</td><td><span class="co">3M</span> Novec 7000 series, Novec 649, <span class="co">Fluorinert</span></td><td>Proven; enabled the lowest documented PUE figures</td><td>Manufacture ceased end <span class="nv">2025</span> <sup class="r">2,3</sup></td></tr>
+      <tr><td>Remaining fluorinated</td><td><span class="co">Syensqo</span> <span class="co">Galden</span>, <span class="co">Chemours</span>, <span class="co">Honeywell</span></td><td>Available and qualified today</td><td>Themselves PFAS, inside the same restriction scope <sup class="r">18</sup></td></tr>
+      <tr><td>Engineered synthetic hydrocarbons</td><td><span class="co">Shell</span> S5 X, <span class="co">Castrol</span> ON, <span class="co">FUCHS</span>, <span class="co">Engineered Fluids</span>, <span class="co">ExxonMobil</span></td><td><span class="nv">42%</span> of fluid share in <span class="nv">2026</span> <sup class="r">1</sup>; qualified, warranted, distributed; flash <span class="nv">200</span> °C, pour <span class="nv">−36</span> °C <sup class="r">46</sup></td><td>Fossil-derived. We offer renewable carbon and biodegradability</td></tr>
+      <tr><td>Mineral and white oils</td><td><span class="co">Ergon</span>, <span class="co">Nynas</span>, <span class="co">PetroChina</span>, <span class="co">APAR Industries</span>, <span class="co">Sinopec</span> <sup class="r">48</sup></td><td>Over <span class="nv">38%</span> share on cost alone <sup class="r">19</sup></td><td>Poorer biodegradability, seal degradation risk, lower thermal performance</td></tr>
+      <tr><td><strong>Oleochemical methyl myristate</strong></td><td><span class="co">Wilmar International</span>; <strong><span class="co">Mubychem</span>, Ambernath, Mumbai</strong></td><td>The identical molecule, at industrial scale, at commodity price</td><td>See <a class="x" href="#s6-3">§<span class="nv">6.3</span></a></td></tr>
+      <tr><td>Alternative architecture</td><td>Direct-to-chip cold plate</td><td><span class="nv">42.85%</span> of the liquid cooling market <sup class="r">9</sup></td><td>Cannot cool non-processor components; ceiling on achievable density</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="s6-2">6.2 How do we compare on the same ruler?</h3>
+  <p>Where published data allows a like-for-like comparison against §<span class="nv">4</span>:</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%"></th><th style="width:20%">Ours</th><th style="width:20%"><span class="co">Shell</span> S5 X <sup class="r">46</sup></th><th style="width:19%">Mineral oil</th><th>Fluorinated</th></tr></thead>
+    <tbody>
+      <tr><td>Pour point</td><td class="n">+<span class="nv">18</span> °C <span class="p p-fail">Fail</span></td><td class="n"><span class="nv">−36</span> °C <span class="p p-pass">Pass</span></td><td class="n">&lt; <span class="nv">−10</span> °C <span class="p p-pass">Pass</span></td><td class="n">very low <span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Flash point</td><td class="n"><span class="nv">112</span> °C <span class="p p-fail">Fail</span></td><td class="n"><span class="nv">200</span> °C <span class="p p-pass">Pass</span></td><td class="n"><span class="nv">150–250</span> °C <span class="p p-pass">Pass</span></td><td>non-flammable <span class="p p-pass">Pass</span></td></tr>
+      <tr><td>Biodegradability</td><td>Expected high, untested</td><td>Inherently biodegradable</td><td>Poor to moderate</td><td>Non-biodegradable</td></tr>
+      <tr><td>PFAS exposure</td><td><strong>None</strong></td><td>None</td><td>None</td><td><strong>Restricted / withdrawn</strong></td></tr>
+      <tr><td>Availability</td><td>Bench scale</td><td>Global, drummed</td><td>Global commodity</td><td>Withdrawn</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Against the leading synthetic we match or lead on three of five rows. The two remaining are the subject of <a class="x" href="#s5-4">§<span class="nv">5.4</span></a>.</p>
+
+  <div class="todo">
+    <div class="todo-h">In preparation · awaiting one input</div>
+    <h4>Positioning chart: price against regulatory durability</h4>
+    <p>Every fluid class plotted on two axes — cost per kilogram, and how exposed the chemistry is to the restriction in <a class="x" href="#s2-3">§<span class="nv">2.3</span></a>. It makes the whole thesis visible in one object: the durable quadrant is emptying as PFAS exits, and nothing cheap has moved into it.</p>
+    <p>Two of the three prices are already in hand — the commodity figure <sup class="r">51</sup> and the fermentation figure <sup class="r">53</sup>. The third is the distributor quotation described in <a class="x" href="#s7-3">§<span class="nv">7.3</span></a>, which we are actively securing. <strong>One number completes this chart</strong>, and it is the same number that settles <a class="x" href="#s10-1">§<span class="nv">10.1</span></a>.</p>
+  </div>
+
+  <h3 id="s6-3">6.3 Why ferment a molecule that already exists cheaply?</h3>
+  <div class="note">
+    <div class="note-h">The question we expect first</div>
+    <p><strong>Why ferment a molecule the oleochemical industry already makes cheaply?</strong></p>
+    <p>Methyl myristate is produced conventionally by esterifying methanol with myristic acid, the acid obtained by fractionating coconut or palm kernel oil. It is sold in bulk by <span class="co">Wilmar International</span>, and manufactured in <strong>Ambernath, Mumbai</strong> by <span class="co">Mubychem</span> — inside our own beachhead market. We did not discover this late; it is the central commercial question about this project.</p>
+  </div>
+
+  <p>Our answer has three parts. Two are structural advantages we hold today. The third is a cost position that improves with process maturity, and we set out its current state rather than its best case.</p>
+  <p><strong>First, we are not selling a molecule. We are selling a qualified dielectric fluid.</strong> Bulk fatty acids trade at roughly <span class="nv">$2–4</span>/kg. Engineered dielectric fluids sell many multiples above that. The spread reflects specification, documentation, qualification and warranty — not chemistry. Any entrant, oleochemical or fermentative, must cross it, and crossing it is most of the work.</p>
+  <p><strong>Second, feedstock decoupling.</strong> The oleochemical route is structurally tied to coconut and palm kernel oil, carrying land-use, deforestation and seasonal price exposure. Our pathway is designed to accept variable crude carbon streams including biodiesel by-product glycerol.</p>
+  <p><strong>Third, cost.</strong> At present titres fermentation does not beat esterification on price, and we do not build the case on price. <a class="x" href="#s7">§<span class="nv">7</span></a> states the gap numerically and shows why the case does not need it: the value sits in the qualification premium, not in the molecule.</p>
+
+  <h3 id="s6-4">6.4 What is settled, and what is still moving?</h3>
+  <div class="tw key"><table>
+    <thead><tr><th style="width:50%">Established today</th><th>In progress, and how it closes</th></tr></thead>
+    <tbody>
+      <tr><td>PFAS-free by construction, with no derogation risk and no reformulation exposure</td><td><strong>Physical properties.</strong> Both open parameters are governed by chain length, and the C12–C18 study in <a class="x" href="#s5-4">§<span class="nv">5.4</span></a> tests whether a single ester or blend clears both bounds</td></tr>
+      <tr><td>Thermal performance at Tier <span class="nv">2,</span> with fourfold viscosity margin</td><td><strong>Cost.</strong> We compete on qualification and feedstock security rather than commodity price, for the reasons in <a class="x" href="#s6-3">§<span class="nv">6.3</span></a></td></tr>
+      <tr><td>Renewable carbon, decoupled from palm and coconut feedstock</td><td><strong>Qualification, warranty and distribution.</strong> Reached through the system-manufacturer route in <a class="x" href="#s6-5">§<span class="nv">6.5</span></a> rather than built in-house — which is the strategy, not a gap in it</td></tr>
+      <tr><td>Entering precisely as regulation removes an incumbent class</td><td><strong>Electrical data.</strong> Stage <span class="nv">1</span> of <a class="x" href="#s8-2">§<span class="nv">8.2</span></a>, on institutional equipment, inside this season</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="s6-5">6.5 Who is a partner rather than a competitor?</h3>
+  <p>Immersion system manufacturers — <span class="co">Submer</span>, <span class="co">Asperitas</span>, <span class="co">GRC</span>, <span class="co">LiquidStack</span>, <span class="co">Iceotope</span> — are not our competition. They sell tanks, coolant distribution and monitoring, and they need a compliant fluid inside them. Operators increasingly prefer vendors delivering integrated systems spanning tanks, distribution units, heat rejection and <strong>dielectric fluid management</strong> as one package <sup class="r">21</sup>, which makes the system manufacturer, not the operator, our natural first counterparty.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="sec" id="s7">
+<details class="acc" id="acc-s7">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§7</span><span class="chip">$16–20/kg vs $2–4/kg</span></div>
+  <h2>Can this make money?</h2>
+    <p class="acc-line">Asset-light licensing — and a case that turns entirely on one price nobody publishes.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">How we would earn, what a fermentation route would cost, and the single unverified number the whole case turns on.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>Revenue is asset-light: license the engineered strain and downstream process to an established fermentation or oleochemical manufacturer under royalty-bearing technology transfer, with own-brand bulk supply secondary and joint development agreements as a bridge. Published techno-economic analysis of a comparable microbial process puts a mature fermentation route at roughly $16–20/kg, against an oleochemical benchmark of $2–4/kg. Fermentation does not beat esterification on cost, and the case is not built on price. It rests on whether qualified dielectric fluid genuinely commands a large premium — a figure not published in any reliable source, and the one we are securing by direct quotation.</p></div>
+  <div class="note">
+    <div class="note-h">Where this project stands</div>
+    <p>Our <span class="nv">2026</span> work establishes whether methyl myristate performs as a dielectric immersion fluid. Fermentative production is the commercialisation route, not this year's laboratory programme. This section therefore derives the economic conditions a future production process would have to satisfy, drawing on published techno-economic analyses of comparable microbial processes. It is not a forecast of our own costs, because we do not yet have a process to cost.</p>
+  </div>
+
+  <h3 id="s7-1">7.1 How would we earn?</h3>
+  <p><strong>Primary, asset-light licensing.</strong> We license the engineered strain and downstream process to an established fermentation or oleochemical manufacturer under a royalty-bearing technology transfer. This avoids the capital cost of building production capacity and reaches industrial volume through partners already holding the plant, the quality systems and the customer relationships.</p>
+  <p><strong>Secondary, own-brand bulk supply</strong>, once demand is validated and the specification qualified.</p>
+  <p><strong>Bridge, joint development agreements</strong> with an immersion system manufacturer or fluid formulator. These extend the runway without dilution and constitute external evidence of product-market fit.</p>
+
+  <h3 id="s7-2">7.2 What market would this sell into?</h3>
+
+  <figure>
+    <div class="fig-t">Fig. 7.2 — Two houses, two very different growth rates</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 300" role="img" aria-label="Fact.MR projects the dielectric fluid market from 409 million in 2026 to 998 million in 2036. Fortune Business Insights projects 445 million in 2026 to 2,467 million in 2034.">
+      <line class="s-rule" x1="80" y1="52" x2="680" y2="52"/>
+      <line class="s-rule" x1="80" y1="122" x2="680" y2="122"/>
+      <line class="s-rule" x1="80" y1="192" x2="680" y2="192"/>
+      <line class="s-axis" x1="80" y1="248" x2="680" y2="248"/>
+      <text class="m t-lo" x="70" y="56" font-size="11" text-anchor="end">$2.5bn</text>
+      <text class="m t-lo" x="70" y="126" font-size="11" text-anchor="end">$1.5bn</text>
+      <text class="m t-lo" x="70" y="196" font-size="11" text-anchor="end">$0.5bn</text>
+
+      <path d="M80 237 L560 220" fill="none" class="s-cold" stroke-width="2.5"/>
+      <circle cx="80" cy="237" r="4.5" class="f-cold"/>
+      <circle cx="560" cy="220" r="4.5" class="f-cold"/>
+      <text class="m t-cd" x="574" y="224" font-size="12" font-weight="500">$998M</text>
+      <text class="t-cd" x="574" y="240" font-size="11">Fact.MR · 10.5%</text>
+
+      <path d="M80 235 L464 51" fill="none" class="s-cool" stroke-width="2.5" stroke-dasharray="6 4"/>
+      <circle cx="80" cy="235" r="4.5" class="f-cool"/>
+      <circle cx="464" cy="51" r="4.5" class="f-cool"/>
+      <text class="m" x="478" y="55" font-size="12" font-weight="500" fill="var(--cool)">$2,467M</text>
+      <text x="478" y="71" font-size="11" fill="var(--cool)">Fortune BI · 23.87%</text>
+
+      <text class="m t-in" x="80" y="222" font-size="12" font-weight="500">$409–445M</text>
+
+      <text class="m t-lo" x="80" y="268" font-size="11" text-anchor="middle">2026</text>
+      <text class="m t-lo" x="464" y="268" font-size="11" text-anchor="middle">2034</text>
+      <text class="m t-lo" x="560" y="268" font-size="11" text-anchor="middle">2036</text>
+      <text class="t-lo" x="80" y="292" font-size="11" font-style="italic">The two houses agree within 9% on 2026 and diverge by a factor of two on growth. We publish both.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Sources.</strong> <span class="co">Fact.MR</span> <sup class="r">1</sup>, <span class="co">Fortune Business Insights</span> <sup class="r">20</sup>. Endpoints are as published; lines between endpoints are interpolation.</figcaption>
+  </figure>
+
+  <p><strong>Why we size the fluid market and not the systems market.</strong> The two houses above differ by <span class="nv">9%</span> on <span class="nv">2026</span>. Estimates of the surrounding immersion <em>systems</em> market, for the same year, do not behave nearly as well:</p>
+
+  <figure>
+    <div class="fig-t">Fig. 7.2b — Four published estimates of the same market, same year</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 240" role="img" aria-label="Log-scale comparison of 2026 immersion cooling market estimates: Fortune 348.3 million, Roots 657.3 million, Coherent 668.6 million, Mordor 5,720 million.">
+      <line class="s-rule" x1="196" y1="34" x2="196" y2="182"/>
+      <line class="s-rule" x1="392" y1="34" x2="392" y2="182"/>
+      <line class="s-rule" x1="588" y1="34" x2="588" y2="182"/>
+      <text class="m t-lo" x="196" y="200" font-size="11" text-anchor="middle">$100M</text>
+      <text class="m t-lo" x="392" y="200" font-size="11" text-anchor="middle">$1bn</text>
+      <text class="m t-lo" x="588" y="200" font-size="11" text-anchor="middle">$10bn</text>
+      <text class="t-lo" x="392" y="218" font-size="11" text-anchor="middle" font-style="italic">Logarithmic scale — a linear axis would render the first three bars invisible.</text>
+
+      <text class="t-in" x="186" y="52" font-size="12" text-anchor="end">Fortune BI</text>
+      <rect x="196" y="40" width="87" height="16" class="f-cool"/>
+      <text class="m t-in" x="291" y="52" font-size="11.5">$348.3M</text>
+
+      <text class="t-in" x="186" y="84" font-size="12" text-anchor="end">Roots Analysis</text>
+      <rect x="196" y="72" width="141" height="16" class="f-cool"/>
+      <text class="m t-in" x="345" y="84" font-size="11.5">$657.3M</text>
+
+      <text class="t-in" x="186" y="116" font-size="12" text-anchor="end">Coherent</text>
+      <rect x="196" y="104" width="143" height="16" class="f-cool"/>
+      <text class="m t-in" x="347" y="116" font-size="11.5">$668.6M</text>
+
+      <text class="t-in" x="186" y="148" font-size="12" text-anchor="end" font-weight="600">Mordor</text>
+      <rect x="196" y="136" width="386" height="16" class="f-fail"/>
+      <text class="m t-fa" x="590" y="148" font-size="11.5" font-weight="500">$5,720M</text>
+
+      <line class="s-axis" x1="196" y1="182" x2="668" y2="182" stroke-width="1.5"/>
+      <path d="M283 62 L283 130 M582 130 L582 62" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 3" opacity=".45"/>
+      <text class="m t-in" x="432" y="172" font-size="11.5" text-anchor="middle" font-weight="500">16× spread</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Sources.</strong> <span class="co">Fortune Business Insights</span> <sup class="r">21</sup>, <span class="co">Roots Analysis</span> <sup class="r">22</sup>, <span class="co">Coherent Market Insights</span> <sup class="r">23</sup>, <span class="co">Mordor Intelligence</span> <sup class="r">10</sup>. All figures for calendar <span class="nv">2026</span>.</figcaption>
+  </figure>
+
+  <p>A <strong>sixteenfold spread</strong> on a single year. Three of the four cluster below <span class="nv">$700M</span> and one sits an order of magnitude above; scope definitions differ and none is obviously wrong. This is the reason every number on this page is built from the fluid market, where two independently scoped houses agree to within <span class="nv">9%</span>, and why we publish both trajectories above rather than the more flattering one.</p>
+
+  <p>Within that market, synthetic hydrocarbons hold <span class="nv">42%</span> of fluid share in <span class="nv">2026</span> <sup class="r">1</sup> and mineral oil over <span class="nv">38%</span> on cost alone <sup class="r">19</sup>. Bio-based dielectric fluids are identified as the fastest-growing category, driven by PFAS phase-out pressure <sup class="r">19</sup>.</p>
+  <p>Applying India's <span class="nv">3–4%</span> share of global data centre capacity <sup class="r">24</sup> and Mumbai's <span class="nv">34–53%</span> share of Indian capacity <sup class="r">4,5</sup>, the Mumbai serviceable market grows from roughly <strong><span class="nv">$4–8M</span> in <span class="nv">2026</span> to <span class="nv">$10–21M</span> by <span class="nv">2036</span></strong> on the <span class="co">Fact.MR</span> trajectory.</p>
+
+  <h3 id="s7-3">7.3 What does dielectric fluid actually sell for?</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:34%">Reference point</th><th style="width:32%">Price</th><th>Source quality</th></tr></thead>
+    <tbody>
+      <tr><td>Bulk fatty acid, commodity</td><td class="n"><span class="nv">$2.25–4.06</span>/kg, by region</td><td><span class="p p-pass">Published index, Q2 <span class="nv">2026</span></span> <sup class="r">51</sup></td></tr>
+      <tr><td>Engineered single-phase dielectric fluid</td><td class="n">~<span class="nv">$180–300</span>/US gal (≈<span class="nv">$48–79</span>/L)</td><td><span class="p p-flag">Unverified</span> Marketplace listing only <sup class="r">52</sup></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Manufacturers publish product specifications but not prices, so <strong>no reliable per-litre figure for engineered dielectric fluid exists in the public record.</strong> We are securing written quotations through Indian distributors, and the indicative range above is marked unverified until they arrive.</p>
+  <div class="next">
+    <div class="next-h">How this closes</div>
+    <p>We are securing written quotations for <span class="co">Shell</span> Immersion Cooling Fluid S5 X and <span class="co">Castrol</span> ON DC15/DC20, or equivalent grades, through Indian distributors. This requires no funding, no laboratory time and no permission — only outreach — and it is the single highest-value input available to this project. It replaces the unverified row above, completes the positioning chart in <a class="x" href="#s6-2">§<span class="nv">6.2</span></a>, and settles the question in <a class="x" href="#s10-1">§<span class="nv">10.1</span></a>.</p>
+  </div>
+<!-- INTERNAL: replace the unverified marketplace row with the cited quotation the moment it lands. Highest priority item on the page. -->
+
+  <h3 id="s7-4">7.4 What would a fermentation route cost?</h3>
+  <p>We do not have to guess. Peer-reviewed techno-economic analyses exist for microbial production of comparable hydrophobic, secreted, broth-extracted molecules.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 7.4 — Minimum selling price falls steeply with fermentation productivity</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 320" role="img" aria-label="Minimum selling price for a comparable microbial process falls from about 54 dollars per kilogram at 0.2 kilograms per cubic metre hour, to 19.9 at 0.7, to 16.29 at 1.0. The oleochemical benchmark sits at 2 to 4 dollars per kilogram.">
+      <line class="s-rule" x1="86" y1="40" x2="668" y2="40"/>
+      <line class="s-rule" x1="86" y1="96" x2="668" y2="96"/>
+      <line class="s-rule" x1="86" y1="152" x2="668" y2="152"/>
+      <line class="s-rule" x1="86" y1="208" x2="668" y2="208"/>
+      <line class="s-axis" x1="86" y1="248" x2="668" y2="248"/>
+      <text class="m t-lo" x="76" y="44" font-size="11" text-anchor="end">$60</text>
+      <text class="m t-lo" x="76" y="100" font-size="11" text-anchor="end">$45</text>
+      <text class="m t-lo" x="76" y="156" font-size="11" text-anchor="end">$30</text>
+      <text class="m t-lo" x="76" y="212" font-size="11" text-anchor="end">$15</text>
+      <text class="t-lo" x="86" y="26" font-size="11">Minimum selling price, $/kg</text>
+
+      <rect x="86" y="237" width="582" height="11" fill="var(--unmeasured-bg)"/>
+      <line class="s-pass" x1="86" y1="245" x2="668" y2="245" stroke-width="2" stroke-dasharray="5 3"/>
+      <text class="t-pa" x="98" y="234" font-size="11" font-weight="600">Oleochemical benchmark · $2–4/kg</text>
+
+      <path d="M158 61 L448 174 L594 187" fill="none" class="s-cold" stroke-width="2.5"/>
+      <circle cx="158" cy="61" r="5" class="f-cold"/>
+      <circle cx="448" cy="174" r="5" class="f-cold"/>
+      <circle cx="594" cy="187" r="5" class="f-cold"/>
+
+      <text class="m t-in" x="158" y="50" font-size="13" font-weight="500" text-anchor="middle">~$54</text>
+      <text class="m t-in" x="448" y="163" font-size="13" font-weight="500" text-anchor="middle">$19.90</text>
+      <text class="m t-in" x="600" y="176" font-size="13" font-weight="500">$16.29</text>
+
+      <text class="m t-lo" x="158" y="268" font-size="11" text-anchor="middle">0.2</text>
+      <text class="m t-lo" x="448" y="268" font-size="11" text-anchor="middle">0.7</text>
+      <text class="m t-lo" x="594" y="268" font-size="11" text-anchor="middle">1.0</text>
+      <text class="t-lo" x="377" y="288" font-size="11" text-anchor="middle">Fermentation productivity, kg/(m³·h)</text>
+      <text class="t-lo" x="86" y="312" font-size="11" font-style="italic">Limonene, not a fatty acid ester — a hydrophobic secreted microbial product with comparable recovery economics. A close analogue, and treated as one.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Source.</strong> Techno-economic assessment of microbial limonene production, <em>Bioresource Technology</em> <sup class="r">53</sup>. The <span class="nv">$54</span> figure is implied by the paper's statement that raising productivity from <span class="nv">0.2</span> to <span class="nv">1.0</span> lowers price by <span class="nv">70%</span> to <span class="nv">$16.29</span>. Benchmark from <span class="co">IMARC</span> <sup class="r">51</sup>.</figcaption>
+  </figure>
+
+  <p>The closest published analogue is a full plant-scale techno-economic analysis of microbial limonene production. It reports a minimum selling price of <strong><span class="nv">$19.9</span>/kg at a fermentation productivity of <span class="nv">0.7</span> kg/(m³·h)</strong>, achieved at <span class="nv">45%</span> of maximum theoretical yield. Raising productivity from <span class="nv">0.2</span> to <span class="nv">1.0</span> kg/(m³·h) lowers minimum selling price <strong>by <span class="nv">70%</span>, to <span class="nv">$16.29</span>/kg</strong> — implying roughly <span class="nv">$54</span>/kg at the low end of that range. The analysis identifies product yield, substrate price, capital investment, project length and hurdle rate as the dominant cost drivers <sup class="r">53</sup>.</p>
+  <p>A second analysis, on industrial-scale enzyme fermentation, isolates <strong>downstream processing as the single largest lever</strong>: the same product costs approximately <span class="nv">$2,300</span>/kg as a crude preparation and <span class="nv">$99,000</span>/kg purified, a fortyfold difference driven by purification strategy alone <sup class="r">54</sup>. Broader review work confirms that yield, titre and productivity improvements act on minimum selling price through distinct and non-interchangeable mechanisms <sup class="r">55</sup>.</p>
+  <p><strong>What this implies for us.</strong> A mature fermentation route to a molecule of this class plausibly reaches <strong><span class="nv">$16–20</span>/kg</strong> at good productivity, and considerably more below it. Our own downstream case rests on extracellular secretion avoiding cell lysis — which, on the evidence of <sup class="r">54</sup>, is where the cost is won or lost.</p>
+
+  <h3 id="s7-5">7.5 Does the arithmetic work?</h3>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 7.5 — Three price tiers, and the one we cannot verify</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 300" role="img" aria-label="Cost ladder on a log scale: oleochemical methyl myristate at 2 to 4 dollars per kilogram, fermentation at 16 to 20, engineered dielectric fluid at an unverified 56 to 93.">
+      <line class="s-rule" x1="150" y1="34" x2="150" y2="212"/>
+      <line class="s-rule" x1="330" y1="34" x2="330" y2="212"/>
+      <line class="s-rule" x1="510" y1="34" x2="510" y2="212"/>
+      <line class="s-rule" x1="690" y1="34" x2="690" y2="212"/>
+      <text class="m t-lo" x="150" y="230" font-size="11" text-anchor="middle">$1</text>
+      <text class="m t-lo" x="330" y="230" font-size="11" text-anchor="middle">$10</text>
+      <text class="m t-lo" x="510" y="230" font-size="11" text-anchor="middle">$100</text>
+      <text class="m t-lo" x="690" y="230" font-size="11" text-anchor="middle">$1000</text>
+      <text class="t-lo" x="420" y="250" font-size="11" text-anchor="middle">Cost or price per kilogram — logarithmic</text>
+
+      <text class="t-in" x="140" y="58" font-size="12.5" text-anchor="end">Oleochemical route</text>
+      <text class="t-lo" x="140" y="74" font-size="11" text-anchor="end">The same molecule</text>
+      <rect x="204" y="46" width="55" height="20" class="f-pass"/>
+      <text class="m t-pa" x="269" y="61" font-size="12" font-weight="500">$2–4/kg</text>
+
+      <text class="t-in" x="140" y="120" font-size="12.5" text-anchor="end">Fermentation, mature</text>
+      <text class="t-lo" x="140" y="136" font-size="11" text-anchor="end">At good productivity</text>
+      <rect x="367" y="108" width="27" height="20" class="f-cold"/>
+      <text class="m t-cd" x="404" y="123" font-size="12" font-weight="500">$16–20/kg</text>
+
+      <text class="t-in" x="140" y="182" font-size="12.5" text-anchor="end">Engineered fluid, market</text>
+      <text class="t-fl" x="140" y="198" font-size="11" text-anchor="end">Unverified</text>
+      <rect x="465" y="170" width="40" height="20" class="f-flag" opacity=".45"/>
+      <rect x="465" y="170" width="40" height="20" fill="none" stroke="var(--flag)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text class="m t-fl" x="515" y="185" font-size="12" font-weight="500">$56–93/kg</text>
+
+      <line class="s-axis" x1="150" y1="212" x2="690" y2="212" stroke-width="1.5"/>
+      <text class="t-in" x="16" y="278" font-size="11.5" font-weight="600">The whole venture reduces to whether the third bar is real.</text>
+      <text class="t-lo" x="16" y="294" font-size="11">If it is, a $16–20/kg route retains margin. If it is not, there is no business. One quotation settles it.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption><strong>Sources.</strong> Commodity from <span class="co">IMARC</span> <sup class="r">51</sup>; fermentation from the limonene analysis <sup class="r">53</sup>; market price unverified <sup class="r">52</sup> and drawn dashed for that reason.</figcaption>
+  </figure>
+
+  <p>Two conclusions follow, and we state both.</p>
+  <p><strong>First, fermentation does not beat esterification on cost for this molecule.</strong> A four- to eightfold structural cost gap is not closed by optimisation. This venture does not win on price and is not built to.</p>
+  <p><strong>Second, that may not matter.</strong> If qualified dielectric fluid genuinely clears <span class="nv">$50</span>/kg, a <span class="nv">$16–20</span>/kg fermentation route retains substantial margin. The venture's viability therefore rests entirely on whether the qualified-fluid premium is real — which is precisely the number <a class="x" href="#s7-3">§<span class="nv">7.3</span></a> says we cannot yet verify. <strong>This is the most important open commercial question on this page.</strong></p>
+
+  <h3 id="s7-6">7.6 Is price per litre even the right measure?</h3>
+  <p>Price per litre is not the operator's decision variable; total cost of ownership is. Immersion cooling reduces water consumption sharply against evaporative cooling — a material operating cost in water-stressed Mumbai, and one that never appears in a per-litre comparison. Reported fluid service life varies widely across sources, and we regard establishing our own figure through accelerated aging as a priority rather than citing someone else's.</p>
+
+  <h3 id="s7-7">7.7 Why publish no revenue forecast?</h3>
+  <p>We publish the inputs a revenue model requires rather than a model built without them. Each is a defined piece of work with a known route to an answer:</p>
+  <ol>
+    <li>A verified market price per litre for qualified dielectric fluid (<a class="x" href="#s7-3">§<span class="nv">7.3</span></a>)</li>
+    <li>A demonstrated titre for C14 ester secretion in <em>S. cerevisiae</em> — published work reaches <span class="nv">674</span> mg/L for this ester class, with product distribution favouring C16 and C18 <sup class="r">49,50</sup></li>
+    <li>Achievable downstream recovery, which <sup class="r">54</sup> indicates dominates cost</li>
+    <li>A qualification timeline, which governs when revenue could begin</li>
+    <li>Licensing royalty terms, which determine what share of value accrues to us</li>
+  </ol>
+  <p>A seven-year forecast built without these would be arithmetic, not information.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="sec" id="s8">
+<details class="acc" id="acc-s8">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§8</span><span class="chip">5 stages</span></div>
+  <h2>How does this get from a bench to a data hall?</h2>
+    <p class="acc-line">Fluid first, organism second. The cheap question is answered before the expensive one.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">The sequence from this season's bench work to a licensed process, and why the cheap questions are answered first.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>This season establishes the fluid; the venture establishes the organism. Five stages: characterisation and formulation are current and gated on neither biology nor funding; strain engineering, process economics, and pilot and licence are future. Stage 3 is the long pole — the best published titre for fatty acid esters in engineered S. cerevisiae is 674 mg/L, with wax ester synthases favouring C16 and C18 over C14, so chain-length selectivity rather than titre is the first problem. Stage 4 matters more than teams usually allow: downstream processing choice can move product cost by a factor of forty. Manufacturing is licensed into existing Indian plant rather than built.</p></div>
+  <h3 id="s8-1">8.1 What does this season deliver?</h3>
+  <p>We want the seam between this year's work and the venture to be explicit rather than discovered.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 8.1 — This year, and the venture</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 220" role="img" aria-label="This year establishes the fluid; the venture requires the organism. The two are sequenced, not parallel.">
+      <rect x="16" y="30" width="328" height="120" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <rect x="16" y="30" width="328" height="5" class="f-cold"/>
+      <text class="m t-cd" x="36" y="58" font-size="11" letter-spacing="1">IGEM 2026 · THIS SEASON</text>
+      <text class="t-in" x="36" y="84" font-size="16" font-weight="600">Establish the fluid</text>
+      <text class="t-lo" x="36" y="106" font-size="11.5">Does methyl myristate meet the immersion coolant</text>
+      <text class="t-lo" x="36" y="122" font-size="11.5">specification, where does it fail, and does</text>
+      <text class="t-lo" x="36" y="138" font-size="11.5">formulation close those failures?</text>
+
+      <rect x="376" y="30" width="328" height="120" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <rect x="376" y="30" width="328" height="5" fill="var(--unmeasured)"/>
+      <text class="m" x="396" y="58" font-size="11" letter-spacing="1" fill="#5C666C">THE VENTURE · MULTI-YEAR</text>
+      <text class="t-in" x="396" y="84" font-size="16" font-weight="600">Establish the organism</text>
+      <text class="t-lo" x="396" y="106" font-size="11.5">Fermentative production of C14 ester in</text>
+      <text class="t-lo" x="396" y="122" font-size="11.5">engineered yeast, at a titre and selectivity</text>
+      <text class="t-lo" x="396" y="138" font-size="11.5">the published literature has not reached.</text>
+
+      <path d="M344 90 L372 90 M364 84 L374 90 L364 96" fill="none" stroke="var(--ink)" stroke-width="2"/>
+      <text class="t-in" x="16" y="184" font-size="11.5">Sequenced, not parallel. If the molecule does not work as a coolant, the production route is irrelevant —</text>
+      <text class="t-in" x="16" y="202" font-size="11.5">so the cheaper question goes first.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption>Our own framing. No external source required.</figcaption>
+  </figure>
+
+  <p><strong>This year establishes the fluid.</strong> Whether methyl myristate meets the immersion coolant specification, where it fails, and whether formulation closes those failures. That question is answerable in a wet lab in one season and it gates everything else — if the molecule does not work as a coolant, the production route is irrelevant.</p>
+  <p><strong>The venture requires the organism.</strong> Fermentative production of C14 ester in engineered yeast is a multi-year programme, and it begins after the fluid case is established rather than alongside it. We have sequenced the work this way deliberately: the cheaper question comes first.</p>
+
+  <h3 id="s8-2">8.2 What are the stages?</h3>
+
+  <figure class="key">
+    <div class="fig-t">Fig. 8.2 — Five stages, with the line between current and future drawn</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 250" role="img" aria-label="Five stages: characterisation and formulation are current; strain engineering, process economics, and pilot and licence are future.">
+      <rect x="16" y="46" width="128" height="112" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <text class="m t-cd" x="30" y="70" font-size="11">01</text>
+      <text class="t-in" x="30" y="92" font-size="13" font-weight="600">Characterisation</text>
+      <text class="t-lo" x="30" y="112" font-size="11">Four electrical</text>
+      <text class="t-lo" x="30" y="126" font-size="11">parameters; OECD</text>
+      <text class="t-lo" x="30" y="140" font-size="11">301 result</text>
+
+      <rect x="154" y="46" width="128" height="112" class="f-card" stroke="var(--cold)" stroke-width="2"/>
+      <text class="m t-cd" x="168" y="70" font-size="11">02</text>
+      <text class="t-in" x="168" y="92" font-size="13" font-weight="600">Formulation</text>
+      <text class="t-lo" x="168" y="112" font-size="11">A blend clearing</text>
+      <text class="t-lo" x="168" y="126" font-size="11">pour and flash, or a</text>
+      <text class="t-lo" x="168" y="140" font-size="11">documented decision</text>
+
+      <line x1="298" y1="30" x2="298" y2="180" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <text class="m t-in" x="298" y="22" font-size="11" text-anchor="middle" letter-spacing="1">SEASON ENDS</text>
+
+      <rect x="314" y="46" width="128" height="112" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="m" x="328" y="70" font-size="11" fill="#5C666C">03</text>
+      <text class="t-in" x="328" y="92" font-size="13" font-weight="600">Strain engineering</text>
+      <text class="t-lo" x="328" y="112" font-size="11">C14 selectivity first,</text>
+      <text class="t-lo" x="328" y="126" font-size="11">then titre above the</text>
+      <text class="t-lo" x="328" y="140" font-size="11">published ceiling</text>
+
+      <rect x="452" y="46" width="128" height="112" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="m" x="466" y="70" font-size="11" fill="#5C666C">04</text>
+      <text class="t-in" x="466" y="92" font-size="13" font-weight="600">Process economics</text>
+      <text class="t-lo" x="466" y="112" font-size="11">A TEA on our own</text>
+      <text class="t-lo" x="466" y="126" font-size="11">yield and recovery</text>
+      <text class="t-lo" x="466" y="140" font-size="11">data</text>
+
+      <rect x="590" y="46" width="114" height="112" class="f-card" stroke="var(--rule)" stroke-width="1.5"/>
+      <text class="m" x="604" y="70" font-size="11" fill="#5C666C">05</text>
+      <text class="t-in" x="604" y="92" font-size="13" font-weight="600">Pilot and licence</text>
+      <text class="t-lo" x="604" y="112" font-size="11">Closed-loop pilot;</text>
+      <text class="t-lo" x="604" y="126" font-size="11">technology transfer</text>
+      <text class="t-lo" x="604" y="140" font-size="11">executed</text>
+
+      <text class="m t-cd" x="16" y="196" font-size="11" letter-spacing="1">CURRENT</text>
+      <line class="s-cold" x1="16" y1="204" x2="282" y2="204" stroke-width="3"/>
+      <text class="m" x="314" y="196" font-size="11" letter-spacing="1" fill="#5C666C">FUTURE</text>
+      <line x1="314" y1="204" x2="704" y2="204" stroke="var(--unmeasured)" stroke-width="3" stroke-dasharray="6 4"/>
+      <text class="t-lo" x="16" y="234" font-size="11" font-style="italic">Stages 1 and 2 are not gated on biology. Both proceed with literature data, desk work and standard test equipment.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption>Stage <span class="nv">4</span> target of <span class="nv">$16–20</span>/kg from the limonene analysis <sup class="r">53</sup>. Published titre ceiling from <sup class="r">49,50</sup>.</figcaption>
+  </figure>
+
+  <h3 id="s8-3">8.3 Why this sequence?</h3>
+  <p>Stages <span class="nv">1</span> and <span class="nv">2</span> are cheap and fast. Electrical characterisation needs access to standard dielectric test equipment; the chain-length trade-off analysis in <a class="x" href="#s5-4">§<span class="nv">5.4</span></a> needs only literature data and computation. Neither is gated on biology.</p>
+  <p>Stage <span class="nv">3</span> is the long pole, and the published position is candid: the best reported titre for fatty acid esters in engineered <em>S. cerevisiae</em> is <span class="nv">674</span> mg/L, with wax ester synthases favouring C16 and C18 over C14 <sup class="r">49,50</sup>. <strong>Chain-length selectivity, not titre, is the first problem</strong> — a high-titre process making the wrong ester is worth nothing here.</p>
+  <p>Stage <span class="nv">4</span> matters more than teams usually allow. Published work shows downstream processing choice can move product cost by a factor of forty <sup class="r">54</sup>, which means the economics are decided by process design and not only by strain performance.</p>
+
+  <h3 id="s8-4">8.4 Who would manufacture it?</h3>
+  <p>Asset-light throughout. India has established oleochemical and fermentation capacity — <span class="co">Mubychem</span> manufactures this exact ester in Ambernath <sup class="r">45</sup> — and licensing into existing plant is faster, cheaper and lower-risk than building our own. We would revisit only after the market is validated.</p>
+
+  <h3 id="s8-5">8.5 What does each stage need?</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:14%">Stage</th><th style="width:40%">Needs</th><th>Route</th></tr></thead>
+    <tbody>
+      <tr><td class="n"><span class="nv">1–2</span></td><td>Dielectric test access, analytical chemistry</td><td>Institutional facilities</td></tr>
+      <tr><td class="n"><span class="nv">3</span></td><td>Strain engineering, fermentation capability</td><td>Non-dilutive biotechnology grant funding</td></tr>
+      <tr><td class="n"><span class="nv">4</span></td><td>Process modelling</td><td>Academic collaboration</td></tr>
+      <tr><td class="n"><span class="nv">5</span></td><td>Pilot hardware, host facility, legal</td><td>Joint development agreement; licensing revenue</td></tr>
+    </tbody>
+  </table></div>
+<!-- INTERNAL: name the specific grant schemes (BIRAC BIG, DBT, state biotech missions, etc). Confirm current award ceilings and application windows on the official scheme pages before publishing any figure. Do not publish a number you have not checked this month. -->
+
+  <h3 id="s8-6">8.6 When?</h3>
+  <p>Stages <span class="nv">1</span> and <span class="nv">2</span> sit within the current competition season. Stage <span class="nv">3</span> is a multi-year programme; published work on comparable strain engineering does not resolve in months. We give no date for Stages <span class="nv">4</span> and <span class="nv">5,</span> because a date attached to work that has not begun is a guess presented as a plan.</p>
+
+  <h3 id="s8-7">8.7 What have we actually completed?</h3>
+  <p>Everything above this heading is planned work. Everything below it has happened, with dates, and is kept deliberately separate so the two are never confused.</p>
+<!-- INTERNAL: fill with ONLY what has actually happened, dated. Which properties were assessed and when; when the OCP scorecard was written; candidates evaluated and set aside; conversations held; presentations given. If it is short, let it be short - a brief true list reads better than a padded one, and blurring done into planned is the one thing that destroys the credibility of the whole page. -->
+  </div>
+</details>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="sec" id="s9">
+<details class="acc" id="acc-s9">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§9</span><span class="chip">11 risks, all owned</span></div>
+  <h2>What could stop us?</h2>
+    <p class="acc-line">Every risk carries a severity and an owner. The organism and the product are regulated separately.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">Every material risk, with a severity and an owner. Two regulatory tracks that are routinely confused, and why the distinction is worth money.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>Eleven risks, each with a severity and a status; nothing is marked low. The critical one is the titre gap of roughly eight to tenfold against the published literature ceiling. Two regulatory tracks are routinely confused, and the distinction is commercially significant: the engineered S. cerevisiae is a GMO requiring IBSC, RCGM and GEAC review, while the commercial article is a purified non-living ester regulated as an industrial chemical under TSCA, REACH, and BIS and CPCB requirements — a conventional chemical registration rather than a GMO approval. We have deferred patent protection to spin-out and set out the reasoning.</p></div>
+  <h3 id="s9-1">9.1 What are the risks?</h3>
+  <div class="tw key"><table>
+    <thead><tr><th style="width:30%">Risk</th><th style="width:10%">Severity</th><th style="width:13%">Status</th><th>Response</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Titre gap of ~<span class="nv">8–10</span>× against the literature ceiling</strong></td><td><span class="p p-fail">Critical</span></td><td><span class="p p-flag">Stage <span class="nv">3</span></span></td><td>Staged strain engineering (<a class="x" href="#s8-2">§<span class="nv">8.2</span></a>). The project's defining technical problem, and the reason the cheaper fluid question is answered first</td></tr>
+      <tr><td><strong>C14 chain-length specificity</strong></td><td><span class="p p-fail">High</span></td><td><span class="p p-flag">Stage <span class="nv">3</span></span></td><td>Enzyme selection and directed evolution. Also our clearest novelty claim, and the reason it precedes titre work</td></tr>
+      <tr><td><strong>Flash point below a legally-tied threshold</strong></td><td><span class="p p-fail">High</span></td><td><span class="p p-pass">Under way</span></td><td>Chain-length and blend study (<a class="x" href="#s5-4">§<span class="nv">5.4</span></a>). Desk work, no lab time, resolves this season</td></tr>
+      <tr><td><strong>Oleochemical incumbents make the same molecule cheaply</strong></td><td><span class="p p-fail">High</span></td><td><span class="p p-pass">Answered</span></td><td>Compete on qualification and feedstock decoupling rather than price (<a class="x" href="#s6-3">§<span class="nv">6.3</span></a>)</td></tr>
+      <tr><td>Market standardises on direct-to-chip</td><td><span class="p p-fail">High</span></td><td><span class="p p-flag">Monitored</span></td><td>Cold plate holds <span class="nv">42.85%</span> of liquid cooling <sup class="r">9</sup> but cannot cool non-processor components. Adjacent uses in transformer and battery thermal management hold if it does</td></tr>
+      <tr><td>Pour point restricts geography</td><td><span class="p p-flag">Medium</span></td><td><span class="p p-pass">Designed for</span></td><td>Tropical beachhead selected to match the property; heat-traced storage; blending (<a class="x" href="#s5-4">§<span class="nv">5.4</span></a>)</td></tr>
+      <tr><td>Hydrolytic instability over service life</td><td><span class="p p-flag">Medium</span></td><td><span class="p p-flag">Stage <span class="nv">1</span></span></td><td>Accelerated ageing characterisation (<a class="x" href="#s5-6">§<span class="nv">5.6</span></a>), run alongside electrical measurement at the water-saturation limit</td></tr>
+      <tr><td>Hardware compatibility inconsistency across vendors</td><td><span class="p p-flag">Medium</span></td><td><span class="p p-pass">Answered</span></td><td>An industry-wide adoption barrier <sup class="r">37</sup>, and one reason we enter through system manufacturers who already hold those relationships (<a class="x" href="#s6-5">§<span class="nv">6.5</span></a>)</td></tr>
+      <tr><td>Long qualification cycles</td><td><span class="p p-flag">Medium</span></td><td><span class="p p-pass">Designed for</span></td><td>Enter at facility design stage rather than at procurement, which is why the <span class="nv">2027–30</span> build wave is the target (<a class="x" href="#s3-5">§<span class="nv">3.5</span></a>)</td></tr>
+      <tr><td>Feedstock price volatility</td><td><span class="p p-flag">Medium</span></td><td><span class="p p-pass">Designed for</span></td><td>Feed-flexible pathway, able to accept crude glycerol and variable carbon streams (<a class="x" href="#s6-3">§<span class="nv">6.3</span></a>)</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Nothing is marked low. A register where nothing is serious is not read as reassuring; it is read as unexamined. Every row carries a status, because a severity without an owner is a worry rather than a plan.</p>
+
+  <h3 id="s9-2">9.2 Is a fermented product regulated as a GMO?</h3>
+  <p>A point we want to be precise about, because it is commercially significant and frequently confused.</p>
+
+  <figure>
+    <div class="fig-t">Fig. 9.2 — The organism and the product are regulated separately</div>
+    <div class="fig-scroll"><svg viewBox="0 0 720 250" role="img" aria-label="Two parallel regulatory tracks. The organism is a GMO requiring biosafety approvals. The product is a purified non-living ester regulated as an industrial chemical.">
+      <rect x="16" y="34" width="330" height="150" class="f-card" stroke="var(--fail)" stroke-width="1.5"/>
+      <rect x="16" y="34" width="330" height="5" class="f-fail"/>
+      <text class="m t-fa" x="36" y="62" font-size="11" letter-spacing="1">TRACK A · THE ORGANISM</text>
+      <text class="t-in" x="36" y="86" font-size="14" font-weight="600">Engineered S. cerevisiae</text>
+      <text class="t-lo" x="36" y="108" font-size="11.5">A genetically modified organism.</text>
+      <text class="t-in" x="36" y="132" font-size="11.5">→ Institutional Biosafety Committee</text>
+      <text class="t-in" x="36" y="150" font-size="11.5">→ RCGM</text>
+      <text class="t-in" x="36" y="168" font-size="11.5">→ GEAC, at scale</text>
+
+      <rect x="374" y="34" width="330" height="150" class="f-card" stroke="var(--pass)" stroke-width="1.5"/>
+      <rect x="374" y="34" width="330" height="5" class="f-pass"/>
+      <text class="m t-pa" x="394" y="62" font-size="11" letter-spacing="1">TRACK B · THE PRODUCT</text>
+      <text class="t-in" x="394" y="86" font-size="14" font-weight="600">Purified methyl myristate</text>
+      <text class="t-lo" x="394" y="108" font-size="11.5">Non-living. Contains no genetic material.</text>
+      <text class="t-in" x="394" y="132" font-size="11.5">→ EPA TSCA inventory (US)</text>
+      <text class="t-in" x="394" y="150" font-size="11.5">→ REACH registration (EU)</text>
+      <text class="t-in" x="394" y="168" font-size="11.5">→ BIS and CPCB (India)</text>
+
+      <text class="t-in" x="16" y="216" font-size="11.5" font-weight="600">These are genuinely separate routes, and the distinction is commercial, not pedantic.</text>
+      <text class="t-lo" x="16" y="234" font-size="11.5">Track B is a conventional chemical registration rather than a GMO approval — materially shorter than a living-product biotechnology.</text>
+    </svg></div>
+    <div class="fig-hint">Scroll figure horizontally</div>
+    <figcaption>Regulatory frameworks as published by the respective authorities. Our reading of how they apply to this product.</figcaption>
+  </figure>
+
+  <p><strong>The organism.</strong> Our engineered <em>S. cerevisiae</em> is a genetically modified organism and falls under India's institutional biosafety framework — Institutional Biosafety Committee review, and RCGM and GEAC approvals at scale.</p>
+<!-- INTERNAL: state the current biosafety classification and IBSC approval status for the strain, with the date of the approval. -->
+  <p><strong>The product.</strong> The commercial article is a purified, non-living chemical ester. It contains no genetic material and is regulated as an industrial chemical: EPA TSCA inventory listing in the United States, REACH registration in the European Union, and applicable BIS and CPCB requirements in India.</p>
+  <p>These are genuinely separate routes. The product-side pathway is a conventional chemical registration rather than a GMO approval, which materially shortens time to market relative to a living-product biotechnology.</p>
+
+  <h3 id="s9-3">9.3 Which thresholds gate market access?</h3>
+  <p>Two thresholds gate market access rather than merely engineering acceptance. <strong>IEC 62368-1</strong> conditions the sale of information technology equipment in most jurisdictions and is the basis for the flash point requirement we currently fail <sup class="r">38</sup>. The <strong>EU PFAS restriction</strong> (<a class="x" href="#s2-3">§<span class="nv">2.3</span></a>) does not constrain us, but it constrains a competitor class, and its final scope will be determined by the SEAC opinion due at the end of <span class="nv">2026</span> <sup class="r">16</sup>.</p>
+
+  <h3 id="s9-4">9.4 Why no patents?</h3>
+  <p>We have deferred patent protection to spin-out, and set out the reasoning here.</p>
+  <p>iGEM requires full public disclosure on the team wiki. India and most jurisdictions apply absolute novelty, so disclosure forecloses patentability of what is disclosed. We chose disclosure.</p>
+  <p>The cost of that choice is lower than it first appears. Methyl myristate is a known compound produced industrially for decades, so composition-of-matter protection was never available to anyone. What could have been protected is our construct architecture — and at proof of concept, before a commercially relevant titre, a claim over a construct we cannot yet run at scale protects the least valuable part of the asset.</p>
+  <p>The defensible value sits in three things this wiki does not disclose: the working strain as a physical transferable asset; process know-how held as trade secret; and the qualification dataset, which is slow and expensive to reproduce and is not a patent question at all. This is consistent with the licensing model in <a class="x" href="#s8-4">§<span class="nv">8.4</span></a> — we would transfer a strain and a validated process, not assert a claim.</p>
+  <p>Process claims, formulation claims and claims over improved strains all remain available at spin-out, which is the point at which they carry value. Investors in synthetic biology frequently require exclusivity, so this is a decision to be revisited then rather than a door closed now. We have deferred protection, not forgone it.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="sec" id="s10">
+<details class="acc" id="acc-s10">
+  <summary>
+    <div class="acc-top"><span class="sec-no">§10</span><span class="chip">1 quotation settles it</span></div>
+  <h2>What happens next, and what are we asking for?</h2>
+    <p class="acc-line">One quotation settles it. Here is the ninety-day plan and what we need.</p>
+  </summary>
+  <div class="acc-body">
+  <p class="sec-sub">The question that decides this, the work that answers it, and what we are asking for.</p>
+
+    <div class="brief"><div class="brief-h">In brief</div><p>One number decides this venture: what a qualified, warranted, non-PFAS dielectric fluid actually sells for. Above roughly $30/kg, a $16–20/kg fermentation route holds real margin. Five pieces of work over ninety days settle it — distributor quotations, the C12–C18 chain-length study, electrical characterisation, customer interviews, and an OECD 301 biodegradability result. Three of the five need no funding, no laboratory time and no biology, which is deliberate: the questions that could stop this project are also the cheapest to ask. We are asking for a price, an introduction, twenty minutes, and test access.</p></div>
+  <h3 id="s10-1">10.1 What single question decides this?</h3>
+  <p>Not whether the molecule cools. It does, at Tier <span class="nv">2,</span> with margin (<a class="x" href="#s5-3">§<span class="nv">5.3</span></a>). Not whether the market opened. It opened in December <span class="nv">2025</span> and the regulatory clock behind it runs to <span class="nv">2029</span> (<a class="x" href="#s2-3">§<span class="nv">2.3</span></a>). Not whether we can make it. The oleochemical industry already does, in our own city.</p>
+  <p>It reduces to one number: <strong>what a qualified, warranted, non-PFAS dielectric fluid actually sells for.</strong> If that number clears roughly <span class="nv">$30</span>/kg, a mature fermentation route at <span class="nv">$16–20</span>/kg holds real margin and the venture has a floor under it. If it does not, the honest conclusion is that this molecule belongs to the oleochemical incumbents and our contribution is the specification work, published. We would rather find that out in a quarter than in three years, which is why the quotation in <a class="x" href="#s7-3">§<span class="nv">7.3</span></a> is the highest-priority item on this page.</p>
+
+  <h3 id="s10-2">10.2 What are we doing in the next ninety days?</h3>
+  <div class="tw key"><table>
+    <thead><tr><th style="width:32%">Work</th><th style="width:16%">Gated on</th><th>What it settles</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Distributor quotations</strong> for <span class="co">Shell</span> S5 X, <span class="co">Castrol</span> ON DC15/DC20 or equivalent, through Indian channels</td><td>Nothing. Outreach only</td><td>Replaces the one unverified figure on this page and unblocks the positioning chart in <a class="x" href="#s6-2">§<span class="nv">6.2</span></a>. Settles <a class="x" href="#s10-1">§<span class="nv">10.1</span></a></td></tr>
+      <tr><td><strong>C12–C18 chain-length study</strong>, flash and melting point against carbon number, both OCP limits drawn</td><td>Nothing. Desk research</td><td>Whether any single ester or blend clears both open specifications, or whether the saturated series cannot (<a class="x" href="#s5-4">§<span class="nv">5.4</span></a>)</td></tr>
+      <tr><td><strong>Electrical characterisation</strong>, four parameters, neat and at the water-saturation limit</td><td>Institutional test access</td><td>Whether this is a dielectric fluid in measured fact rather than in expectation (<a class="x" href="#s5-5">§<span class="nv">5.5</span></a>)</td></tr>
+      <tr><td><strong>Customer interviews</strong>, beginning with the IIT Bombay Computer Centre, then Mumbai operators, then system manufacturers</td><td>Introductions</td><td>Whether the buying sequence in <a class="x" href="#s3-5">§<span class="nv">3.5</span></a> is how these organisations actually decide, and what we have got wrong (<a class="x" href="#s3-4">§<span class="nv">3.4</span></a>)</td></tr>
+      <tr><td><strong>OECD 301 biodegradability</strong> result on the neat ester</td><td>Lab scheduling</td><td>Converts our strongest untested environmental claim into a cited number (<a class="x" href="#s6-2">§<span class="nv">6.2</span></a>)</td></tr>
+    </tbody>
+    <caption>Three of the five need no funding, no lab time and no biology. That is deliberate: the questions that could stop this project are also the cheapest ones to ask.</caption>
+  </table></div>
+
+  <h3 id="s10-3">10.3 What are we asking for?</h3>
+  <div class="ask">
+    <div class="note-h">If you are reading this and can help</div>
+    <p><strong>A price.</strong> If you buy, sell or distribute engineered dielectric coolant, one written quotation is worth more to this project than any other single input. It settles <a class="x" href="#s10-1">§<span class="nv">10.1</span></a>.</p>
+    <p><strong>An introduction.</strong> To anyone at <span class="co">Submer</span>, <span class="co">Asperitas</span>, <span class="co">GRC</span>, <span class="co">LiquidStack</span> or <span class="co">Iceotope</span>. Per <a class="x" href="#s6-5">§<span class="nv">6.5</span></a> the system manufacturer, not the operator, is our natural first counterparty, and they need a non-PFAS fluid rather more than we need them.</p>
+    <p><strong>Twenty minutes.</strong> If you operate high-density capacity in the Mumbai region, we would like to know how your fluid decision is actually made and where <a class="x" href="#s3-5">§<span class="nv">3.5</span></a> is wrong. We will publish what changes as a result, including the parts that make us look worse.</p>
+    <p><strong>Test access.</strong> Standard dielectric measurement equipment, for four parameters, on a sample we supply.</p>
+  </div>
+
+  <h3 id="s10-4">10.4 What would count as success?</h3>
+  <p>By the end of this season: sixteen parameters measured rather than fourteen, a formulation decision documented either way, a verified market price, and a customer discovery log in which the column that matters is the one recording what we changed.</p>
+  <p>That is not a company. It is the evidence on which a decision to build one could reasonably be taken — and the point of doing this inside iGEM is that the work is cheap now, published either way, and useful to the next team even if the answer is no.</p>
+  </div>
+</details>
+</section>
+
+<!-- ============ REFERENCES ============ -->
+<section class="sec" id="refs">
+<details class="acc" id="acc-refs">
+  <summary>
+    <div class="acc-top"><span class="sec-no">Appendix</span><span class="chip">55 sources</span></div>
+  <h2>References</h2>
+
+    <p class="acc-line">Fifty-five sources, with the location of every figure recorded.</p>
+  </summary>
+  <div class="acc-body">
+  <div class="brief"><div class="brief-h">In brief</div><p>Fifty-five sources, each with a note recording exactly where in this document the figure sits. Switch to <strong>Full</strong> to read the table. Two entries are flagged for replacement before freeze: a marketplace listing standing in for the unverified price in §7.3, and a secondary source for the Maharashtra data centre policy.</p></div>
+  <div class="tw key"><table class="reftable">
+    <thead><tr><th style="width:3rem">#</th><th style="width:52%">Source</th><th>Where the figure sits</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><span class="co">Fact.MR</span>, <em>Single-Phase Dielectric Immersion Fluids Market</em> — factmr.com/report/single-phase-dielectric-immersion-fluids-market</td><td>Opening market-size paragraph; scope exclusions in the "Market includes" block</td></tr>
+      <tr><td>2</td><td><span class="co">3M</span> — news.3m.com/2022-12-20-3M-to-Exit-PFAS-Manufacturing-by-the-End-of-2025</td><td>Headline; product scope in the body commitments</td></tr>
+      <tr><td>3</td><td><span class="co">ChemSec</span> — chemsec.org/3m-promised-to-phase-out-pfas-how-has-it-turned-out/</td><td>Body, on <span class="co">3M</span>'s latest annual report</td></tr>
+      <tr><td>4</td><td><span class="co">DD News</span> (Govt of India) — ddnews.gov.in/en/indias-data-centre-capacity-more-than-doubled-in-2025/</td><td>Opening paragraph: <span class="nv">1,520</span> MW IT stock; Mumbai <span class="nv">34%</span></td></tr>
+      <tr><td>5</td><td><span class="co">Business Today</span> citing <span class="co">Knight Frank</span> — businesstoday.in/technology/news/story/…-538760-2026-06-23</td><td>Body: live capacity above <span class="nv">1.6</span> GW; Mumbai ~<span class="nv">47%</span></td></tr>
+      <tr><td>6</td><td><span class="co">IEA</span>, <em>Energy and AI</em> — iea.org/reports/energy-and-ai/executive-summary</td><td>Executive summary, data-centre paragraph</td></tr>
+      <tr><td>7</td><td><span class="co">IEA</span>, <em>Key Questions on Energy and AI</em> — iea.org/reports/key-questions-on-energy-and-ai/executive-summary</td><td>Executive summary, second sentence</td></tr>
+      <tr><td>8</td><td><span class="co">IEA</span>, <em>Energy demand from AI</em> — iea.org/reports/energy-and-ai/energy-demand-from-ai</td><td>Base Case paragraph following the <span class="nv">945</span> TWh projection</td></tr>
+      <tr><td>9</td><td><span class="co">Mordor</span>, <em>Data Center Liquid Cooling Market</em> — mordorintelligence.com/industry-reports/data-center-liquid-cooling-market</td><td>Opening overview; segment shares in the segmentation section</td></tr>
+      <tr><td>10</td><td><span class="co">Mordor</span>, <em>Data Center Immersion Cooling Market</em> — mordorintelligence.com/industry-reports/immersion-cooling-market-in-data-centers</td><td>Opening market-size sentence; fluid-trend sentence in the same paragraph</td></tr>
+      <tr><td>11</td><td><span class="co">IEA</span> equipment-type breakdown, same page as [<span class="nv">8</span>]</td><td>Section on consumption by equipment type</td></tr>
+      <tr><td>12</td><td><span class="co">Enviro Tech International</span> — envirotechint.com/navigating-the-end-of-3ms-novec-line-what-it-means-and-how-to-prepare/</td><td>Phase-out timeline section</td></tr>
+      <tr><td>13</td><td><span class="co">ECHA</span> — echa.europa.eu/-/echa-to-launch-consultation-on-draft-seac-pfas-opinion</td><td>Background paragraph: submission date, first consultation, RAC final opinion date</td></tr>
+      <tr><td>14</td><td><span class="co">SGS</span> — sgs.com/en-us/news/2026/04/safeguards-05026-echa-consults-over-seacs-draft-opinion-on-pfas-restrictions-under-reach</td><td>Definitions section</td></tr>
+      <tr><td>15</td><td><span class="co">CMS Law</span> — cms.law/en/deu/legal-updates/support-for-eu-wide-pfas-restriction-with-targeted-derogations-what-happens-next</td><td>Paragraph on committee steps</td></tr>
+      <tr><td>16</td><td><span class="co">Arnold &amp; Porter</span> — arnoldporter.com/en/perspectives/advisories/2026/03/echa-committees-advance-broad-pfas-restriction-under-reach</td><td>Closing next-steps paragraph</td></tr>
+      <tr><td>17</td><td><span class="co">Covington &amp; Burling</span> — cov.com/en/news-and-insights/insights/2026/03/echa-launches-a-new-public-consultation-on-a-proposed-universal-ban-on-pfas-in-the-eu</td><td>Opening paragraph, final clause</td></tr>
+      <tr><td>18</td><td><span class="co">DataCenterDynamics</span> — datacenterdynamics.com/en/news/two-phase-cooling-will-be-hit-by-epa-rules-and-3ms-exit-from-pfas-forever-chemicals/</td><td>Body</td></tr>
+      <tr><td>19</td><td><span class="co">Persistence Market Research</span>, <em>Immersion Cooling Market</em> — persistencemarketresearch.com/market-research/immersion-cooling-market.asp</td><td>Fluid-type segment: mineral oil share; fastest-growing category sentence</td></tr>
+      <tr><td>20</td><td><span class="co">Fortune Business Insights</span>, <em>Immersion Cooling Fluids</em> — fortunebusinessinsights.com/immersion-cooling-fluids-market-111863</td><td>Opening market-size paragraph</td></tr>
+      <tr><td>21</td><td><span class="co">Fortune Business Insights</span>, <em>Data Centers Liquid Immersion Cooling</em> — fortunebusinessinsights.com/data-center-liquid-immersion-cooling-market-103759</td><td>Opening market-size paragraph; integrated-vendor paragraph</td></tr>
+      <tr><td>22</td><td><span class="co">Roots Analysis</span> — rootsanalysis.com/immersion-cooling-market</td><td>Opening market-size sentence</td></tr>
+      <tr><td>23</td><td><span class="co">Coherent Market Insights</span> — coherentmarketinsights.com/market-insight/data-center-liquid-immersion-cooling-market-1767</td><td>Opening market-size sentence</td></tr>
+      <tr><td>24</td><td><span class="co">Business Standard</span> — business-standard.com/technology/artificial-intelligence/…-126072100833_1.html</td><td>Body: <span class="nv">1.5</span> GW → <span class="nv">6.5</span> GW; <span class="nv">387</span> MW added; <span class="nv">3–4%</span> of global capacity</td></tr>
+      <tr><td>25</td><td><span class="co">IMARC</span> Engineering citing <span class="co">JLL</span> and <span class="co">CBRE</span> — imarcengineering.com/blog/data-center-development-in-india</td><td>Opening section: <span class="nv">1,123</span> MW H<span class="nv">1</span> <span class="nv">2025</span>; Mumbai <span class="nv">53%</span></td></tr>
+      <tr><td>26</td><td><span class="co">State Bank of India</span>, <em>Data Centres in India</em> sector report, April <span class="nv">2026</span> — sbi.bank.in (PDF)</td><td>Capacity outlook section: ~<span class="nv">500</span> MW <span class="nv">2026</span> additions; PUE benchmarks</td></tr>
+      <tr><td>27</td><td><span class="co">The Mobile Times</span> — themobiletimes.com/technologies/data-analytics/mumbai-data-centre-capital-2026/</td><td>Body, Mumbai capacity share</td></tr>
+      <tr><td>28</td><td><span class="co">ResearchAndMarkets</span> via <span class="co">BusinessWire</span> (<span class="nv">2025</span> edition) — businesswire.com/news/home/20250220696747/en/</td><td>Key Market Highlights: ~<span class="nv">35%</span> of upcoming capacity in Maharashtra</td></tr>
+      <tr><td>29</td><td><span class="co">ResearchAndMarkets</span> via <span class="co">GlobeNewswire</span> (<span class="nv">2026</span> edition) — globenewswire.com/news-release/2026/04/27/3281330/28124/en/</td><td>Body: more than <span class="nv">25%</span> of upcoming capacity in Maharashtra</td></tr>
+      <tr><td>30</td><td>Aulet, <em>Disciplined Entrepreneurship: <span class="nv">24</span> Steps to a Successful Startup</em> — beachhead criteria, as presented in the iGEM entrepreneurship workshop</td><td>—</td></tr>
+      <tr><td>31</td><td><span class="co">Arizton</span> via <span class="co">Barchart</span> — barchart.com/story/news/34523495/</td><td>Body: <span class="co">Blackstone</span>–<span class="co">Panchshil</span> <span class="nv">500</span> MW; <span class="co">AWS</span> <span class="nv">$8.2bn</span></td></tr>
+      <tr><td>32</td><td><span class="co">Blackridge Research</span> — blackridgeresearch.com/blog/list-of-top-ten-largest-data-center-companies-in-india</td><td><span class="co">STT GDC</span> section: Palava campus, <span class="nv">50</span>→<span class="nv">400</span> MW, <span class="nv">₹5,000</span> crore MoU</td></tr>
+      <tr><td>33</td><td><span class="co">DataCenterMap</span>, Mumbai — datacentermap.com/india/mumbai/</td><td>Facility listings: <span class="co">CapitaLand</span> Mumbai 02, <span class="nv">37</span> MW, liquid cooling, Q4 <span class="nv">2026</span></td></tr>
+      <tr><td>34</td><td><span class="co">MAS LLP</span> — masllp.com/how-to-set-up-a-data-centre-in-india-a-simple-2026-guide-for-foreign-companies/</td><td><strong>Secondary source</strong> — verify against the Maharashtra data centre policy before publishing</td></tr>
+      <tr><td>35</td><td><span class="co">Eninrac</span> — eninrac.com/horizon/the-c-suite-intelligence/india-data-center-market-2026-2030-…</td><td>Facility expansion paragraph</td></tr>
+      <tr><td>36</td><td><span class="co">Houlihan Lokey</span>, <em>Real Estate Highlight — Data Center, India Edition</em>, Dec <span class="nv">2025</span> — cdn.hl.com/pdf/2025/real-estate-highlight-data-center-india-edition.pdf</td><td>JV and campus listings</td></tr>
+      <tr><td>37</td><td><span class="co">Fortune Business Insights</span>, <em>Immersion Cooling Market</em> — fortunebusinessinsights.com/immersion-cooling-market-111685</td><td>Challenges paragraph: standardisation and vendor compatibility</td></tr>
+      <tr><td>38</td><td><span class="co">Open Compute Project</span>, <em>Base Specification for Immersion Fluids</em>, Rev 1.0, Dec <span class="nv">2022</span></td><td>—</td></tr>
+      <tr><td>39</td><td><span class="co">Open Compute Project</span>, <em>Material Compatibility in Immersion Cooling</em>, Rev 1.0, Nov <span class="nv">2022</span></td><td>—</td></tr>
+      <tr><td>40</td><td>Immersion cooling fluid classes — en.wikipedia.org/wiki/Immersion_cooling</td><td>—</td></tr>
+      <tr><td>41</td><td><span class="co">Sigma-Aldrich</span>, methyl myristate — sigmaaldrich.com/US/en/product/sigma/m3378</td><td>Product specification block</td></tr>
+      <tr><td>42</td><td><span class="co">NIST</span> Chemistry WebBook, methyl myristate — webbook.nist.gov/cgi/cbook.cgi?ID=C124107</td><td>Thermodynamic data</td></tr>
+      <tr><td>43</td><td><em>Energies</em> (<span class="co">MDPI</span>) — mdpi.com/1996-1073/17/23/5811</td><td>Experimental thermal conductivity at <span class="nv">298.15</span> K</td></tr>
+      <tr><td>44</td><td><span class="co">Chem-Impex</span> — chemimpex.com/products/39010</td><td>Melting point <span class="nv">17–19</span> °C</td></tr>
+      <tr><td>45</td><td><span class="co">Mubychem</span> — mubychem.com/methylmyristate-manufacturers-methyltetradecanoate.html</td><td>Specification table; manufacturing locations</td></tr>
+      <tr><td>46</td><td><span class="co">Shell</span>, <em>Immersion Cooling Fluid S5 X</em> technical data sheet — shell-livedocs.com</td><td>Typical physical characteristics table</td></tr>
+      <tr><td>47</td><td><span class="co">Fisher Scientific</span> / <span class="co">Acros Organics</span> SDS — pim-resources.coleparmer.com/sds/95453.pdf</td><td>Section <span class="nv">9,</span> physical properties</td></tr>
+      <tr><td>48</td><td><span class="co">MarketsandMarkets</span>, <em>Immersion Cooling Fluids</em> — marketsandmarkets.com/Market-Reports/immersion-cooling-fluids-market-107755859.html</td><td>Named suppliers paragraph</td></tr>
+      <tr><td>49</td><td>de Jong et al., <em>J Ind Microbiol Biotechnol</em> <span class="nv">42</span>(<span class="nv">3</span>):<span class="nv">477</span> — academic.oup.com/jimb/article/42/3/477/5995549</td><td>Results: <span class="nv">674</span> mg/L FAEE</td></tr>
+      <tr><td>50</td><td><em>Biotechnology for Biofuels</em> <span class="nv">8</span> — ncbi.nlm.nih.gov/pmc/articles/PMC4634726/</td><td>Titre tables; C16/C18 product distribution</td></tr>
+      <tr><td>51</td><td><span class="co">IMARC</span> Group, <em>Fatty Acid Pricing Report</em>, Q2 <span class="nv">2026</span> — imarcgroup.com/fatty-acid-pricing-report</td><td>Regional price table: USA <span class="nv">$2,249</span>/MT, Japan <span class="nv">$2,550</span>/MT, Brazil <span class="nv">$2,757</span>/MT, Germany <span class="nv">$4,022</span>/MT, China <span class="nv">$4,063</span>/MT</td></tr>
+      <tr><td>52</td><td><span class="co">Alibaba</span> marketplace question page, <em>Dielectric Fluid Price Guide</em> — carinterior.alibaba.com/question/dielectric-fluid-price-guide-buying-tips</td><td><strong>User-generated marketplace content.</strong> Flagged as unverified in <a class="x" href="#s7-3">§<span class="nv">7.3</span></a>. Replace with a direct quotation before freeze.</td></tr>
+      <tr><td>53</td><td><em>Techno-economic assessment of microbial limonene production</em>, Bioresource Technology — ncbi.nlm.nih.gov/pmc/articles/PMC7001033/</td><td>Abstract and highlights: MSP <span class="nv">$19.9</span>/kg at <span class="nv">0.7</span> kg/(m³·h); <span class="nv">70%</span> fall to <span class="nv">$16.29</span>/kg at <span class="nv">1.0</span> kg/(m³·h); sensitivity section for cost drivers</td></tr>
+      <tr><td>54</td><td>Cunniffe J. et al., <em>Techno-economic analysis of industrial-scale fermentation for formate dehydrogenase production</em>, Bioresources and Bioprocessing <span class="nv">12</span>(<span class="nv">1</span>):<span class="nv">145,</span> <span class="nv">2025</span> — link.springer.com/article/10.1186/s40643-025-00985-3</td><td>Results: crude <span class="nv">$2,300</span>/kg vs purified <span class="nv">$99,000</span>/kg; sensitivity analysis, Fig. <span class="nv">2</span></td></tr>
+      <tr><td>55</td><td>David L.H. et al., <em>The role of techno-economic and life cycle assessment in guiding precision fermentation towards sustainable food production</em>, Trends in Food Science &amp; Technology <span class="nv">168</span> (<span class="nv">2026</span>) <span class="nv">105488</span></td><td>Section summarising relative impacts of yield, titre and productivity on minimum selling price</td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="font-size:.88rem;color:var(--muted);max-width:70ch"><strong>Team's own data.</strong> All <a class="x" href="#s5">§<span class="nv">5</span></a> scorecard values, FOM derivations, additive rationale and rejected candidates are from <em>The Methyl Myristate Story</em>, our companion technical document, and are marked as ours rather than cited externally.</p>
+  </div>
+</details>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var body = document.body;
+  body.classList.add('mode-brief');
+  var bB = document.getElementById('mBrief'), bF = document.getElementById('mFull');
+  function mode(m){
+    body.classList.toggle('mode-brief', m === 'brief');
+    body.classList.toggle('mode-full',  m === 'full');
+    bB.setAttribute('aria-pressed', m === 'brief');
+    bF.setAttribute('aria-pressed', m === 'full');
+    try{ localStorage.setItem('bifrostMode', m); }catch(e){}
+  }
+  bB.onclick = function(){ mode('brief'); };
+  bF.onclick = function(){ mode('full'); };
+  try{ var saved = localStorage.getItem('bifrostMode'); if(saved) mode(saved); }catch(e){}
+
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.acc'));
+  document.getElementById('expandAll').onclick   = function(){ all.forEach(function(d){ d.open = true; }); };
+  document.getElementById('collapseAll').onclick = function(){ all.forEach(function(d){ d.open = false; }); };
+
+  function openFor(el){
+    var d = el && el.closest ? el.closest('details.acc') : null;
+    while(d){ d.open = true; d = d.parentElement.closest('details.acc'); }
+  }
+  function goto(hash){
+    var t = document.getElementById(hash.slice(1));
+    if(!t) return false;
+    openFor(t);
+    requestAnimationFrame(function(){
+      t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    return true;
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(!a) return;
+    if(goto(a.getAttribute('href'))){ e.preventDefault(); history.replaceState(null,'',a.getAttribute('href')); }
+  });
+  if(location.hash) setTimeout(function(){ goto(location.hash); }, 60);
+
+  var prog = document.getElementById('prog');
+  function tick(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  addEventListener('scroll', tick, {passive:true}); tick();
+
+  addEventListener('beforeprint', function(){ all.forEach(function(d){ d.open = true; }); });
+})();
+</script>
+<script>
+(function(){
+  var rail=document.querySelector('.rail'), hero=document.querySelector('header.hero'); hero.id='overview';
+  var names=['What we\u2019re building','Why now','Customer','The standard','How it scores','Alternatives','Economics','Path to market','Risks','Next steps'];
+  [].forEach.call(rail.querySelectorAll('a .lbl'),function(l,i){ if(names[i]) l.textContent=names[i]; });
+  function mk(h,t){ var a=document.createElement('a'); a.href=h; a.innerHTML='<span class="lbl">'+t+'</span>'; return a; }
+  rail.insertBefore(mk('#overview','Overview'),rail.firstChild); rail.appendChild(mk('#refs','References'));
+  var tools=document.createElement('div'); tools.className='side-tools'; tools.appendChild(document.querySelector('.seg')); rail.appendChild(tools);
+
+  // show every section as a full page; only nested "deep-dive" blocks stay collapsible
+  [].forEach.call(document.querySelectorAll('section.sec>details.acc'),function(d){
+    d.open=true; d.querySelector('summary').addEventListener('click',function(e){ e.preventDefault(); });
+  });
+  document.getElementById('mFull').click();
+
+  var links=[].slice.call(rail.querySelectorAll('a')), targets=links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  function spy(){
+    var y=innerHeight*0.35, ix=0;
+    targets.forEach(function(t,i){ if(t && t.getBoundingClientRect().top<=y) ix=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===ix); });
+  }
+  var r; addEventListener('scroll',function(){ cancelAnimationFrame(r); r=requestAnimationFrame(spy); },{passive:true}); spy();
+})();
+</script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <linearGradient id="bfBar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0600AF"/><stop offset="1" stop-color="#0033FF"/></linearGradient>
+  <linearGradient id="bfBar2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#977DFF"/><stop offset="1" stop-color="#B9A8FF"/></linearGradient>
+  <linearGradient id="bfCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FBF5FA"/></linearGradient>
+  <linearGradient id="bfCardCold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+</defs></svg>
+<script>
+(function(){
+  [].forEach.call(document.querySelectorAll('.fig-t'),function(t){
+    var m=t.textContent.match(/^(Fig\.\s*[\d.]+[a-z]?)\s*[\u2014-]\s*(.+)$/);
+    if(m) t.innerHTML='<span class="fg-n">'+m[1]+'</span><span class="fg-t">'+m[2]+'</span>';
+  });
+  [].forEach.call(document.querySelectorAll('figure svg rect'),function(r){
+    var w=+r.getAttribute('width')||0, h=+r.getAttribute('height')||0;
+    if(r.classList.contains('f-card') && w>=80 && h>=50) { r.setAttribute('rx',12); }
+    else if(h>0 && h<=20 && w>6) { r.setAttribute('rx',Math.min(4,h/2)); }
+  });
+})();
+</script>
+
+
+

@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 type SubnavItem = {
   label: string;
   href: string;
+  /** Section not built yet: render as a non-navigating, muted item. */
+  disabled?: boolean;
 };
 
 type NavItem = {
@@ -21,13 +23,13 @@ const navigation: NavItem[] = [
     label: 'Project',
     href: '/project',
     subnav: [
-      { label: 'Description', href: '/#project-description' },
-      { label: 'Safety', href: '/wet-lab/safety' },
-      { label: 'Design', href: '/#design' },
-      { label: 'Contribution', href: '/#contribution' },
-      { label: 'Cooling Measurement', href: '/#cooling-measurement' },
-      { label: 'News Headlines', href: '/#news-headlines' },
-      { label: 'Future Plans', href: '/#future-plans' },
+      { label: 'Description', href: '/project/description' },
+      { label: 'Engineering', href: '/project/engineering' },
+      { label: 'Design', href: '#', disabled: true },
+      { label: 'Contribution', href: '#', disabled: true },
+      { label: 'Cooling Measurement', href: '#', disabled: true },
+      { label: 'News Headlines', href: '/project/news' },
+      { label: 'Future Plans', href: '#', disabled: true },
     ],
   },
   {
@@ -38,17 +40,17 @@ const navigation: NavItem[] = [
       { label: 'Notebook', href: '/wet-lab/notebook' },
       { label: 'Parts', href: '/wet-lab/parts' },
       { label: 'Safety', href: '/wet-lab/safety' },
-      { label: 'Result', href: '/wet-lab#result' },
-      { label: 'DBTL', href: '/wet-lab#dbtl' },
+      { label: 'Result', href: '#', disabled: true },
+      { label: 'DBTL', href: '#', disabled: true },
     ],
   },
   {
     label: 'DryLab',
     href: '/dry-lab',
     subnav: [
-      { label: 'Model', href: '/dry-lab#model' },
-      { label: 'Software', href: '/dry-lab#software' },
-      { label: 'Hardware', href: '/dry-lab#hardware' },
+      { label: 'Model', href: '#', disabled: true },
+      { label: 'Software', href: '#', disabled: true },
+      { label: 'Hardware', href: '#', disabled: true },
     ],
   },
   {
@@ -58,7 +60,7 @@ const navigation: NavItem[] = [
       { label: 'Integrated Human Practices', href: '/human-practices/ihp' },
       { label: 'Education', href: '/education' },
       { label: 'Sustainability', href: '/sustainability' },
-      { label: 'Entrepreneurship', href: '/human-practices#entrepreneurship' },
+      { label: 'Entrepreneurship', href: '/human-practices/entrepreneurship' },
     ],
   },
   {
@@ -125,14 +127,25 @@ export default function Navbar() {
                     <div className="min-w-72 rounded-xl border border-black/10 bg-white p-2 shadow-lg">
                       <ul className="space-y-1">
                         {item.subnav.map((subItem) => (
-                          <li key={subItem.href}>
-                            <Link
-                              to={subItem.href}
-                              className="block rounded-lg py-2.5 text-base text-zinc-800 transition-all duration-200 hover:bg-zinc-50 hover:text-indigo-600 hover:translate-x-1 active:scale-[0.98] active:bg-zinc-100 montserrat-semibold"
-                              style={{ paddingLeft: '24px', paddingRight: '24px' }}
-                            >
-                              {subItem.label}
-                            </Link>
+                          <li key={subItem.label}>
+                            {subItem.disabled ? (
+                              <span
+                                aria-disabled="true"
+                                title="Coming soon"
+                                className="block rounded-lg py-2.5 text-base text-zinc-400 cursor-not-allowed select-none montserrat-semibold"
+                                style={{ paddingLeft: '24px', paddingRight: '24px' }}
+                              >
+                                {subItem.label}
+                              </span>
+                            ) : (
+                              <Link
+                                to={subItem.href}
+                                className="block rounded-lg py-2.5 text-base text-zinc-800 transition-all duration-200 hover:bg-zinc-50 hover:text-indigo-600 hover:translate-x-1 active:scale-[0.98] active:bg-zinc-100 montserrat-semibold"
+                                style={{ paddingLeft: '24px', paddingRight: '24px' }}
+                              >
+                                {subItem.label}
+                              </Link>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -205,14 +218,23 @@ export default function Navbar() {
                   {item.subnav?.length && mobileOpenTab === item.label ? (
                     <ul className="pl-4 mt-1 space-y-1 bg-white/60 rounded-lg p-2 border border-black/5">
                       {item.subnav.map((subItem) => (
-                        <li key={subItem.href}>
-                          <Link
-                            to={subItem.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="block py-2 text-base text-zinc-600 hover:text-indigo-600 pl-3 border-l border-zinc-300 hover:border-indigo-500 transition-all duration-150 montserrat-semibold"
-                          >
-                            {subItem.label}
-                          </Link>
+                        <li key={subItem.label}>
+                          {subItem.disabled ? (
+                            <span
+                              aria-disabled="true"
+                              className="block py-2 text-base text-zinc-400 cursor-not-allowed select-none pl-3 border-l border-zinc-200 montserrat-semibold"
+                            >
+                              {subItem.label}
+                            </span>
+                          ) : (
+                            <Link
+                              to={subItem.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="block py-2 text-base text-zinc-600 hover:text-indigo-600 pl-3 border-l border-zinc-300 hover:border-indigo-500 transition-all duration-150 montserrat-semibold"
+                            >
+                              {subItem.label}
+                            </Link>
+                          )}
                         </li>
                       ))}
                     </ul>
