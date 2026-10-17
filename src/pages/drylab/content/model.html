@@ -401,7 +401,7 @@
 </tr>
 <tr>
 <td>No positive control for the Boltz-2 pipeline</td>
-<td>It is not known whether the pipeline recovers a known acyl-chain pose. The only positive control run, Vina docking on 1F91, failed. A Boltz-2 run on 1F91 was planned but not run, because it requires sending the public <em>E. coli</em> sequence to an external alignment server, which had not been approved</td>
+<td>It is not known whether the pipeline recovers a known acyl-chain pose. The only positive control run, Vina docking on 1F91, failed. An alignment-based Boltz-2 run on 1F91 was planned but not run, because it requires sending the public <em>E. coli</em> sequence to an external alignment server, which had not been approved. A single-sequence run (no alignment) did not recover the crystal pose (best model 4.8 &Aring;, median about 10 &Aring;; pre-registered pass was 2.5 &Aring;), which is a weaker test than the main pipeline</td>
 <td>Not done; owner and date to be set by the team</td>
 </tr>
 <tr>
@@ -421,7 +421,7 @@
 <ul>
 <li>Literature benchmark of the metabolic model (does the modified Yeast9 reproduce the published <em>Yarrowia</em> C14 shift or the <em>S. cerevisiae</em> C6/C8 shifts, in direction and size?): <strong>not done</strong>. The model has no C6/C8 release reactions, and <em>Yarrowia</em> is a different organism, so this needs new reactions and decisions; consequently no claim of agreement with published outcomes is made.</li>
 <li>Negative controls for the structural step: <strong>done</strong>; caffeine and glucose decoys were run (Step 2, Table 5). They were not separated from C14 by the confidence scores, so this control failed to give a discriminating result.</li>
-<li>Positive control for the structural step: <strong>not done</strong> for Boltz-2 (see Table 5); Vina docking on 1F91 was run and failed.</li>
+<li>Positive control for the structural step: Vina docking on 1F91 was run and failed; a single-sequence Boltz-2 run on 1F91 was also run and did not recover the crystal pose (best 4.8 &Aring;); the alignment-based Boltz-2 control is <strong>not done</strong> (see Table 5).</li>
 <li>Per-residue confidence for the final models: <strong>not extracted</strong>; only model-level scores are reported.</li>
 </ul>
 </div></details>
