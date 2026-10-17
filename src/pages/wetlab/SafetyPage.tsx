@@ -37,7 +37,7 @@ export default function SafetyPage() {
     >
       {/* OVERVIEW */}
       <div id="overview" className={`${styles.sCard} ${styles.prose}`} style={{ borderColor: '#b8d9ed' }}>
-        <h2 className={styles.cardHeading} style={{ color: '#3f94d2' }}>
+        <h2 className={styles.cardHeading}>
           OVERVIEW
         </h2>
         <p style={{ marginBottom: 2 }}>
@@ -65,7 +65,7 @@ export default function SafetyPage() {
         className={`${styles.sCard} ${styles.prose}`}
         style={{ borderColor: '#e4f3ee', paddingTop: 30, paddingBottom: 23 }}
       >
-        <h2 className={styles.cardHeading} style={{ color: '#245c53' }}>
+        <h2 className={styles.cardHeading}>
           LAB SAFETY
         </h2>
         <p>

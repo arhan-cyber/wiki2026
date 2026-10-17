@@ -445,7 +445,6 @@ export default function EducationPage() {
       shellMaxWidth={1230}
       intro={<Gallery />}
       pageStyle={{ background: 'linear-gradient(175.575deg, #fafafa 0%, #6db8ea 82.027%)' }}
-      titleStyle={{ fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: 'clamp(38px, 6vw, 80px)' }}
     >
       <div className={styles.box}>
         {/* LEARN process selector */}

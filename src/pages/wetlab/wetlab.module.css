@@ -113,9 +113,10 @@
   margin-left: 31px;
   font-family: var(--font-mont);
   font-weight: 700;
-  font-size: 32px;
-  line-height: normal;
-  color: #172b4d;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #3f94d2;
   text-transform: uppercase;
 }
 
@@ -280,10 +281,13 @@
 
 .cardHeading {
   font-family: var(--font-mont);
-  font-weight: 800;
-  font-size: 40px;
-  line-height: normal;
-  margin: 0 0 24px;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #3f94d2;
+  margin: 0 0 22px;
 }
 
 /* ---------- parts ---------- */
@@ -352,10 +356,12 @@
 }
 .imagesTitle {
   font-family: var(--font-mont);
-  font-weight: 800;
-  font-size: 35px;
-  line-height: normal;
-  color: #2a3a57;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #3f94d2;
   margin: 0 0 20px;
 }
 /* 4x the previous area (was 296x223) */

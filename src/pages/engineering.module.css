@@ -108,9 +108,10 @@
 }
 .eyebrow {
   font-family: var(--font-mont);
-  font-weight: 800;
-  font-size: clamp(26px, 3vw, 42px);
-  line-height: 1.1;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
   color: #3f94d2;
   margin: 0 0 8px;
@@ -133,11 +134,14 @@
 .sectionHead {
   font-family: var(--font-mont);
   font-weight: 700;
-  font-size: clamp(26px, 3vw, 42px);
-  color: #2a3a57;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #3f94d2;
   margin: 0;
   display: inline-block;
-  border-bottom: 3px solid #2a3a57;
+  border-bottom: 3px solid #3f94d2;
   padding-bottom: 6px;
 }
 

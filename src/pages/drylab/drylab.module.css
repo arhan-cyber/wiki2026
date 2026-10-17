@@ -12,14 +12,19 @@
 /* ---------- Title card ---------- */
 
 .hero {
-  padding: 60px 20px 0;
+  padding: 28px 20px 0;
 }
 
 .titleCard {
   position: relative;
-  max-width: 1103px;
-  aspect-ratio: 1103 / 390;
+  max-width: 900px;
   margin: 0 auto;
+  background: #fafafa;
+  border: 7px solid #88c0e6;
+  border-radius: 70px;
+  box-shadow: 2px 4px 10px #88c0e6;
+  padding: 22px 32px;
+  text-align: center;
 }
 
 .titleCardImg {
@@ -30,14 +35,9 @@
 }
 
 .titleInner {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0 8%;
-  text-align: center;
 }
 
 .eyebrow {
@@ -51,11 +51,11 @@
 }
 
 .title {
-  font-family: 'Inria Serif', serif;
+  font-family: 'Inria Serif', Georgia, serif;
   font-weight: 400;
-  font-size: clamp(28px, 5vw, 70px);
-  line-height: 1.1;
-  color: #000;
+  font-size: 32px;
+  line-height: 1.2;
+  color: #1e1e1e;
 }
 
 .subtitle {
