@@ -22,33 +22,113 @@
 <div class="brief-h">In brief</div>
 <p>Five rounds of Boltz-2 runs, 25 runs and 125 models in rounds 2 to 5. Each began from the previous result. The main outcome was a negative one: the variation between seeds was as large as the effect of the substitutions.</p>
 </div>
-<p><em>Table 1. Boltz-2 rounds: question, experiment, result and what changed. All values are model outputs. [computed]</em></p>
+<p><em>Table 1. The five Boltz-2 rounds at a glance. Details of each round follow. [computed]</em></p>
 <div class="table-wrap"><table>
-<thead><tr><th>Round</th><th>Question (Design)</th><th>Experiment (Build)</th><th>Result (Test)</th><th>Carried forward (Learn)</th></tr></thead>
+<thead><tr><th>Round</th><th>Question</th><th>Takeaway</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>Does the ketoacyl synthase (KS) pocket hold a C14 chain, and which residues are off limits?</td><td>C14 in the KS domain, unconstrained and with distance caps (6 and 8 &Aring;); C16 and C22 as controls. Google Colab, one sample per run.</td><td>Unconstrained ligand ipTM 0.511; constrained 0.80 to 0.83. An overlap with M1251 of 0.96 to 1.77 &Aring; was reported.</td><td>The pose looked constraint-dependent, so the next round re-ran the setup on laboratory GPUs and tested the reported overlap.</td></tr>
-<tr><td>2</td><td>Does the result depend on how the run is set up?</td><td>7 runs, 35 models on RTX A6000 GPUs: unconstrained baseline, cutoffs of 6, 8 and 10 &Aring;, V1254W, C16 and C22; seed 42, soft contact on C1305.</td><td>Baseline ligand 3.0 to 4.6 &Aring; from C1305 (ipTM 0.80). M1251 no closer than 3.3 &Aring;. M1260 at 15 to 17 &Aring;.</td><td>The M1251 overlap did not recur. The pose seemed to follow the constrained residue, so the gate residues were constrained directly.</td></tr>
-<tr><td>3</td><td>Does the pose follow the residues it is told to touch?</td><td>8 runs, 40 models: forced contacts on M1251 and M1260 (one run also V1254), with steering potentials on or off.</td><td>M1260 at 3.9 to 6.5 &Aring;. No overlap with M1251 with or without potentials. Confidence 0.90 to 0.94 in every run.</td><td>Confidence did not separate the setups, so controls (a repeat, a pocket-plug mutant, a decoy ligand) were added.</td></tr>
-<tr><td>4</td><td>Does the model respond to a change in the pocket, and does a rerun agree?</td><td>4 runs, 20 models in a 30-minute window: wild-type repeat, a four-tryptophan &ldquo;plug&rdquo; mutant, a caffeine decoy, V1254W.</td><td>Same-seed repeat identical (0.00 &Aring;). Plug moved the ligand 1.25 &Aring; (ipTM 0.870 vs 0.861). V1254 distance 5.88 vs 6.33 &Aring;.</td><td>A repeat with the same seed proves nothing about variation, so a second seed and more substitutions were run.</td></tr>
-<tr><td>5</td><td>How large is the variation between seeds, and what do further substitutions and ligands do?</td><td>6 runs, 30 models: wild type with seed 43, M1251W, V1254A, C22, C8 and a glucose decoy.</td><td>Seed 43 vs 42: V1254 median +0.82 &Aring;, ligand RMSD median 2.14 &Aring;. C22 reached M1260 (6.9 &Aring; vs 15.5 &Aring; for C14).</td><td>Seed variation was as large as the substitution effects, so distances are read as descriptive and independent methods were added (cycles 0 to 5 below).</td></tr>
-</tbody></table></div>
+<tr><td>1</td><td>Does the ketoacyl synthase (KS) pocket hold a C14 chain, and which residues are off limits?</td><td>The pose looked constraint-dependent.</td></tr>
+<tr><td>2</td><td>Does the result depend on how the run is set up?</td><td>The reported M1251 overlap did not recur.</td></tr>
+<tr><td>3</td><td>Does the pose follow the residues it is told to touch?</td><td>Confidence did not separate the setups.</td></tr>
+<tr><td>4</td><td>Does the model respond to a change in the pocket, and does a rerun agree?</td><td>A same-seed repeat is not a replicate.</td></tr>
+<tr><td>5</td><td>How large is the variation between seeds, and what do further substitutions and ligands do?</td><td>Seed variation matched the substitution effects.</td></tr>
+</tbody></table></div><h3>Round 1</h3>
+<p><strong>Takeaway:</strong> The pose looked constraint-dependent.</p>
+<ul>
+<li><strong>Design.</strong> Does the ketoacyl synthase (KS) pocket hold a C14 chain, and which residues are off limits?</li>
+<li><strong>Build.</strong> C14 in the KS domain, unconstrained and with distance caps (6 and 8 &Aring;); C16 and C22 as controls. Google Colab, one sample per run.</li>
+<li><strong>Test.</strong> Unconstrained ligand ipTM 0.511; constrained 0.80 to 0.83. An overlap with M1251 of 0.96 to 1.77 &Aring; was reported.</li>
+<li><strong>Learn.</strong> The pose looked constraint-dependent, so the next round re-ran the setup on laboratory GPUs and tested the reported overlap.</li>
+</ul>
+<h3>Round 2</h3>
+<p><strong>Takeaway:</strong> The reported M1251 overlap did not recur.</p>
+<ul>
+<li><strong>Design.</strong> Does the result depend on how the run is set up?</li>
+<li><strong>Build.</strong> 7 runs, 35 models on RTX A6000 GPUs: unconstrained baseline, cutoffs of 6, 8 and 10 &Aring;, V1254W, C16 and C22; seed 42, soft contact on C1305.</li>
+<li><strong>Test.</strong> Baseline ligand 3.0 to 4.6 &Aring; from C1305 (ipTM 0.80). M1251 no closer than 3.3 &Aring;. M1260 at 15 to 17 &Aring;.</li>
+<li><strong>Learn.</strong> The M1251 overlap did not recur. The pose seemed to follow the constrained residue, so the gate residues were constrained directly.</li>
+</ul>
+<h3>Round 3</h3>
+<p><strong>Takeaway:</strong> Confidence did not separate the setups.</p>
+<ul>
+<li><strong>Design.</strong> Does the pose follow the residues it is told to touch?</li>
+<li><strong>Build.</strong> 8 runs, 40 models: forced contacts on M1251 and M1260 (one run also V1254), with steering potentials on or off.</li>
+<li><strong>Test.</strong> M1260 at 3.9 to 6.5 &Aring;. No overlap with M1251 with or without potentials. Confidence 0.90 to 0.94 in every run.</li>
+<li><strong>Learn.</strong> Confidence did not separate the setups, so controls (a repeat, a pocket-plug mutant, a decoy ligand) were added.</li>
+</ul>
+<h3>Round 4</h3>
+<p><strong>Takeaway:</strong> A same-seed repeat is not a replicate.</p>
+<ul>
+<li><strong>Design.</strong> Does the model respond to a change in the pocket, and does a rerun agree?</li>
+<li><strong>Build.</strong> 4 runs, 20 models in a 30-minute window: wild-type repeat, a four-tryptophan &ldquo;plug&rdquo; mutant, a caffeine decoy, V1254W.</li>
+<li><strong>Test.</strong> Same-seed repeat identical (0.00 &Aring;). Plug moved the ligand 1.25 &Aring; (ipTM 0.870 vs 0.861). V1254 distance 5.88 vs 6.33 &Aring;.</li>
+<li><strong>Learn.</strong> A repeat with the same seed proves nothing about variation, so a second seed and more substitutions were run.</li>
+</ul>
+<h3>Round 5</h3>
+<p><strong>Takeaway:</strong> Seed variation matched the substitution effects.</p>
+<ul>
+<li><strong>Design.</strong> How large is the variation between seeds, and what do further substitutions and ligands do?</li>
+<li><strong>Build.</strong> 6 runs, 30 models: wild type with seed 43, M1251W, V1254A, C22, C8 and a glucose decoy.</li>
+<li><strong>Test.</strong> Seed 43 vs 42: V1254 median +0.82 &Aring;, ligand RMSD median 2.14 &Aring;. C22 reached M1260 (6.9 &Aring; vs 15.5 &Aring; for C14).</li>
+<li><strong>Learn.</strong> Seed variation was as large as the substitution effects, so distances are read as descriptive and independent methods were added (cycles 0 to 5 below).</li>
+</ul>
 </div></details>
 <details class="acc" open><summary><h2 id="dbtl-checks">Independent checks: docking, cavity and force-field relaxation</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
 <p>Six further cycles checked the Boltz-2 poses with methods that do not share its weaknesses. Docking failed its own control. Relaxation and cavity checks agreed with Boltz-2 on one point: only the four-residue plug is clearly outside the noise.</p>
 </div>
-<p><em>Table 2. Cycles 0 to 5 of the independent checks. [computed]</em></p>
+<p><em>Table 2. Cycles 0 to 5 of the independent checks at a glance. Details of each cycle follow. [computed]</em></p>
 <div class="table-wrap"><table>
-<thead><tr><th>Cycle</th><th>Question (Design)</th><th>Result (Build and Test)</th><th>What it changed (Learn)</th></tr></thead>
+<thead><tr><th>Cycle</th><th>Question</th><th>Takeaway</th></tr></thead>
 <tbody>
-<tr><td>0</td><td>Build one environment for docking, cavity and force-field work under the server&rsquo;s data policy.</td><td>Environment built. Two failures: the GPU runtime did not match the driver, and a package install upgraded numpy and left unrelated sub-packages with unmet requirements.</td><td>Computation moved to a second, separate environment pinned to CUDA 12.8.</td></tr>
-<tr><td>1</td><td>Measure the six ketoacyl synthase copies in the 1.9 &Aring; structure 8PRW, to get a noise floor for pocket geometry.</td><td>The six copies are essentially identical (C1305 to M1251 8.5 to 8.8 &Aring;; the M1251 chi1 angle &minus;68&deg; in all six). A cavity of about 175 to 215 &Aring;&sup3; sits at C1305, and its volume moves by about &plusmn;20 % with grid and probe settings.</td><td>The copies are not an independent estimate of variability, so the noise floor comes from method sensitivity. The detected cavity is far smaller than a C14 chain.</td></tr>
-<tr><td>2</td><td>Can Vina docking recover the known decanoate pose in E. coli 1F91 (positive control)?</td><td><strong>Failed.</strong> Top-ranked poses were 4.8 to 10.1 &Aring; from the crystal pose over 18 runs (rule: 3 &Aring;). Scores differed by about 0.3 kcal/mol across the top five poses.</td><td>Docking is not used to compare poses or rank ligands. Poses are judged by force-field relaxation instead.</td></tr>
-<tr><td>3</td><td>Relax Boltz-2 poses by minimisation and short restrained simulation.</td><td>Slow on the CPU, then blocked by the GPU runtime and ligand-parameter errors (see the register). A one-model test then took about 40 s.</td><td>Tooling was fixed; the pose-retention rule was set before any pose was relaxed.</td></tr>
-<tr><td>4</td><td>Relax all 50 Boltz-2 models (wild type with seeds 42 and 43, plug, V1254W, V1254A, M1251W, C22, C8, caffeine, glucose).</td><td>50 of 50 models stayed in the pocket (ligand RMSD median 0.6 to 1.0 &Aring;). Interaction energy (kJ/mol, median of five): wild type &minus;115 and &minus;108 for the two seeds, V1254W &minus;129, V1254A &minus;126, M1251W &minus;125, plug &minus;150, C22 &minus;142, C8 &minus;71, caffeine &minus;90, glucose &minus;59.</td><td>The retention check could not fail, so it shows only that poses are not collapsing artefacts. Only the plug lies clearly outside the wild-type spread; single substitutions differ by about the size of the seed difference.</td></tr>
-<tr><td>5</td><td>Compare the cavity at C1305 in wild type and built mutants on two 8PRW copies.</td><td>Single substitutions changed the cavity by less than two identical wild-type copies differ from each other (139 vs 120 &Aring;&sup3; at default settings). The four-residue plug shrank it (74 and 107 &Aring;&sup3;).</td><td>The cavity from C1305 never reaches V1254, so a tunnel-blocking effect of V1254W cannot be tested on the apo structure.</td></tr>
-</tbody></table></div><p>Provisional thresholds: a pose counts as retained if the minimised ligand RMSD is below 2.5 &Aring; and the nearest ligand atom to C1305 SG stays within 2 &Aring; of its starting value. Force-field settings: Amber14 protein, GAFF-2.11 ligand with MMFF94 partial charges, GBn2 implicit solvent, 200 ps with the backbone restrained. These energies rank runs within this study only.</p>
+<tr><td>0</td><td>Build one environment for docking, cavity and force-field work under the server&rsquo;s data policy.</td><td>A second environment was needed (CUDA 12.8).</td></tr>
+<tr><td>1</td><td>Measure the six ketoacyl synthase copies in the 1.9 &Aring; structure 8PRW, to get a noise floor for pocket geometry.</td><td>The copies are not independent; the noise floor comes from method sensitivity.</td></tr>
+<tr><td>2</td><td>Can Vina docking recover the known decanoate pose in E. coli 1F91 (positive control)?</td><td>Docking failed its control and was dropped.</td></tr>
+<tr><td>3</td><td>Relax Boltz-2 poses by minimisation and short restrained simulation.</td><td>Tooling was fixed and the retention rule set beforehand.</td></tr>
+<tr><td>4</td><td>Relax all 50 Boltz-2 models (wild type with seeds 42 and 43, plug, V1254W, V1254A, M1251W, C22, C8, caffeine, glucose).</td><td>Only the four-residue plug lies outside the noise.</td></tr>
+<tr><td>5</td><td>Compare the cavity at C1305 in wild type and built mutants on two 8PRW copies.</td><td>A V1254W tunnel effect cannot be tested on the apo structure.</td></tr>
+</tbody></table></div><h3>Cycle 0</h3>
+<p><strong>Takeaway:</strong> A second environment was needed (CUDA 12.8).</p>
+<ul>
+<li><strong>Design.</strong> Build one environment for docking, cavity and force-field work under the server&rsquo;s data policy.</li>
+<li><strong>Build and test.</strong> Environment built. Two failures: the GPU runtime did not match the driver, and a package install upgraded numpy and left unrelated sub-packages with unmet requirements.</li>
+<li><strong>Learn.</strong> Computation moved to a second, separate environment pinned to CUDA 12.8.</li>
+</ul>
+<h3>Cycle 1</h3>
+<p><strong>Takeaway:</strong> The copies are not independent; the noise floor comes from method sensitivity.</p>
+<ul>
+<li><strong>Design.</strong> Measure the six ketoacyl synthase copies in the 1.9 &Aring; structure 8PRW, to get a noise floor for pocket geometry.</li>
+<li><strong>Build and test.</strong> The six copies are essentially identical (C1305 to M1251 8.5 to 8.8 &Aring;; the M1251 chi1 angle &minus;68&deg; in all six). A cavity of about 175 to 215 &Aring;&sup3; sits at C1305, and its volume moves by about &plusmn;20 % with grid and probe settings.</li>
+<li><strong>Learn.</strong> The copies are not an independent estimate of variability, so the noise floor comes from method sensitivity. The detected cavity is far smaller than a C14 chain.</li>
+</ul>
+<h3>Cycle 2</h3>
+<p><strong>Takeaway:</strong> Docking failed its control and was dropped.</p>
+<ul>
+<li><strong>Design.</strong> Can Vina docking recover the known decanoate pose in E. coli 1F91 (positive control)?</li>
+<li><strong>Build and test.</strong> <strong>Failed.</strong> Top-ranked poses were 4.8 to 10.1 &Aring; from the crystal pose over 18 runs (rule: 3 &Aring;). Scores differed by about 0.3 kcal/mol across the top five poses.</li>
+<li><strong>Learn.</strong> Docking is not used to compare poses or rank ligands. Poses are judged by force-field relaxation instead.</li>
+</ul>
+<h3>Cycle 3</h3>
+<p><strong>Takeaway:</strong> Tooling was fixed and the retention rule set beforehand.</p>
+<ul>
+<li><strong>Design.</strong> Relax Boltz-2 poses by minimisation and short restrained simulation.</li>
+<li><strong>Build and test.</strong> Slow on the CPU, then blocked by the GPU runtime and ligand-parameter errors (see the register). A one-model test then took about 40 s.</li>
+<li><strong>Learn.</strong> Tooling was fixed; the pose-retention rule was set before any pose was relaxed.</li>
+</ul>
+<h3>Cycle 4</h3>
+<p><strong>Takeaway:</strong> Only the four-residue plug lies outside the noise.</p>
+<ul>
+<li><strong>Design.</strong> Relax all 50 Boltz-2 models (wild type with seeds 42 and 43, plug, V1254W, V1254A, M1251W, C22, C8, caffeine, glucose).</li>
+<li><strong>Build and test.</strong> 50 of 50 models stayed in the pocket (ligand RMSD median 0.6 to 1.0 &Aring;). Interaction energy (kJ/mol, median of five): wild type &minus;115 and &minus;108 for the two seeds, V1254W &minus;129, V1254A &minus;126, M1251W &minus;125, plug &minus;150, C22 &minus;142, C8 &minus;71, caffeine &minus;90, glucose &minus;59.</li>
+<li><strong>Learn.</strong> The retention check could not fail, so it shows only that poses are not collapsing artefacts. Only the plug lies clearly outside the wild-type spread; single substitutions differ by about the size of the seed difference.</li>
+</ul>
+<h3>Cycle 5</h3>
+<p><strong>Takeaway:</strong> A V1254W tunnel effect cannot be tested on the apo structure.</p>
+<ul>
+<li><strong>Design.</strong> Compare the cavity at C1305 in wild type and built mutants on two 8PRW copies.</li>
+<li><strong>Build and test.</strong> Single substitutions changed the cavity by less than two identical wild-type copies differ from each other (139 vs 120 &Aring;&sup3; at default settings). The four-residue plug shrank it (74 and 107 &Aring;&sup3;).</li>
+<li><strong>Learn.</strong> The cavity from C1305 never reaches V1254, so a tunnel-blocking effect of V1254W cannot be tested on the apo structure.</li>
+</ul><p>Provisional thresholds: a pose counts as retained if the minimised ligand RMSD is below 2.5 &Aring; and the nearest ligand atom to C1305 SG stays within 2 &Aring; of its starting value. Force-field settings: Amber14 protein, GAFF-2.11 ligand with MMFF94 partial charges, GBn2 implicit solvent, 200 ps with the backbone restrained. These energies rank runs within this study only.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="dbtl-failures">Register of failures and what each changed</h2></summary><div class="acc-body">
 <div class="brief">
@@ -73,6 +153,47 @@
 <tr><td>Retention rule</td><td>50 of 50 models passed, so the rule could not discriminate.</td><td>The poses sit in a pocket Boltz built around the ligand, and 200 ps with a restrained backbone is too short to dislodge it.</td><td>Treated as a weak check; unrestrained multi-nanosecond simulation is the next cycle.</td></tr>
 <tr><td>Apo cavity</td><td>The cavity detected from C1305 never reaches V1254.</td><td>The apo structure has a closed pocket.</td><td>A tunnel-blocking effect of V1254W cannot be tested on the apo structure.</td></tr>
 </tbody></table></div>
+</div></details>
+<details class="acc" open><summary><h2 id="dbtl-outcome">Outcome and limits</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>The modelling did not confirm or refute V1254W. Docking failed its control, the Boltz-2 poses could not be told apart from seed noise except for the four-residue plug, and the longer simulations, extra seeds and a second model were not run.</p>
+</div>
+<h3>What the cycles established <strong>[computed]</strong></h3>
+<ul>
+<li>The reported overlap with M1251 was not reproduced on the laboratory GPUs, so it is not used as evidence.</li>
+<li>Seed variation (ligand RMSD median 2.14 &Aring;) was as large as the effect of single substitutions, so no conclusion about V1254W, V1254A or M1251W is drawn.</li>
+<li>The four-tryptophan plug is the only variant clearly outside the wild-type spread, in interaction energy (&minus;150 against &minus;115 and &minus;108 kJ/mol) and in cavity volume (74 and 107 against 139 and 120 &Aring;<sup>3</sup>).</li>
+<li>The decoys bound more weakly than C14 in the relaxed models (caffeine &minus;90, glucose &minus;59 kJ/mol), which is the expected direction but rests on one seed each.</li>
+<li>Docking failed its positive control and was not used to rank anything.</li>
+</ul>
+<h3>What was not done or cannot be concluded</h3>
+<ul>
+<li>No result has been validated against wet-lab data. The engineered V1254W strain, and whether it works in baker&rsquo;s yeast, remain a hypothesis. <strong>[hypothesis]</strong></li>
+<li>The 200 ps relaxations had a restrained backbone and all 50 poses passed, so they cannot show that a pose is stable. Unrestrained multi-nanosecond simulation is not done. <strong>[pending]</strong></li>
+<li>Wild type has two seeds and every variant one, so there is no variance estimate. At least five seeds per variant are not run. <strong>[pending]</strong></li>
+<li>No second co-folding model and no positive control for the whole pipeline were run. <strong>[pending]</strong></li>
+<li>A tunnel-blocking effect of V1254W cannot be tested on the apo structure, because its cavity never reaches V1254.</li>
+<li>No strain proposals were issued, because the scoring function failed its own checks (see <a href="/dry-lab/model/trust">Trust</a>).</li>
+</ul>
+<p>Force-field energies and cavity volumes compare runs within this study only; they are not binding free energies.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="dbtl-lessons">Lessons learned</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Run the control before trusting the method, estimate noise before reading effects, and test a check on a case that can fail. These changed what the later cycles did.</p>
+</div>
+<ul>
+<li><strong>Run the positive control first.</strong> Docking was tried on a known complex before it was used on ours. It failed, so it was dropped before it could rank anything.</li>
+<li><strong>A repeat is not a replicate.</strong> The same-seed repeat was identical and said nothing about variation. A second seed showed that noise was as large as the substitution effects, and this changed how every earlier distance was read.</li>
+<li><strong>Confidence is not evidence.</strong> Boltz-2 confidence stayed at 0.90 to 0.94 in every setup, so it could not separate them. Controls and independent methods were needed.</li>
+<li><strong>A check must be able to fail.</strong> The retention rule was set before the relaxations were run, but all 50 poses passed. A threshold set in advance is not enough if the test cannot reject; the next version needs unrestrained simulation.</li>
+<li><strong>Test the analysis on a known case.</strong> Bond-length jumps of 2.5 and 5.2 &Aring; exposed that the docking output reorders atoms, and a missing RMSD exposed a mis-read atom type. Both result sets were renamed, not deleted, and not used.</li>
+<li><strong>Do not rely on one sample per run.</strong> The first runs used one sample each and reported an overlap that later runs, with five samples, did not reproduce.</li>
+<li><strong>Test the tooling on one case before a batch.</strong> A one-model run (about 40 s) found the GPU-runtime and ligand-parameter errors before 50 models were queued. A separate environment pinned to the driver&rsquo;s CUDA version avoided a second round of conflicts.</li>
+<li><strong>Record failures with causes.</strong> Causes marked &lsquo;possibly&rsquo; in the register are untested and say so.</li>
+</ul>
+<p><strong>What we would do differently.</strong> Run a second seed in the first Boltz-2 round, and set up the pipeline positive control and unrestrained simulation at the start rather than after the fifth round.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="dbtl-next">Next cycles</h2></summary><div class="acc-body">
 <div class="brief">
