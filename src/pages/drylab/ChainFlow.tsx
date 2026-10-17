@@ -6,7 +6,7 @@ type Node = { n: string; title: string; ask: string; found: string; to: string }
 // Every statement below is taken from the page it links to.
 const steps: Node[] = [
   { n: '1', title: 'Sequence', ask: 'Which yeast residue matches the Yarrowia chain-length residue?', found: 'V1254, so V1254W is the candidate. That it works in baker’s yeast is an assumption.', to: '/dry-lab/model/sequence' },
-  { n: '2', title: 'FAS interaction', ask: 'Does the pocket of the enzyme hold a C14 chain?', found: 'The predicted position depended on how the run was set up.', to: '/dry-lab/model/fas-interaction' },
+  { n: '2', title: 'FAS interaction', ask: 'Does the pocket of the enzyme hold a C14 chain?', found: 'The predicted position depended on how the run was set up, and a different random seed moved the ligand as much as a substitution did.', to: '/dry-lab/model/fas-interaction' },
   { n: '3', title: 'Bridge', ask: 'Can a metabolic model represent early release?', found: 'C14 export rose by only 2.6 %; NADPH is the limit.', to: '/dry-lab/model/bridge' },
   { n: '4', title: 'Metabolism', ask: 'What can the whole cell reach?', found: 'C14:0 only by shortening C16:0; no knockout set beat the wild type.', to: '/dry-lab/model/metabolism' },
   { n: '5', title: 'Trust', ask: 'Is the strain-design ranking informative?', found: 'The scoring function failed its own checks; no strain proposals were issued.', to: '/dry-lab/model/trust' },
