@@ -333,13 +333,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mont);
   font-weight: 400;
   font-size: clamp(56px, 7vw, 90px);
   color: #000;
 }
 .stepBody h3 {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mont);
   font-weight: 700;
   font-size: clamp(24px, 3vw, 36px);
   line-height: 1.2;
@@ -347,7 +347,7 @@
   color: #000;
 }
 .stepBody p {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mont);
   font-weight: 400;
   color: #000;
   font-size: clamp(15px, 1.6vw, 20px);
@@ -392,6 +392,70 @@
   margin: 0 auto;
   aspect-ratio: 1 / 1;
 }
+
+/* People Flow board: six sticky-note clusters around a central iHP hub,
+   laid out the way the team sketched it. */
+.board {
+  position: relative;
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    'a b c'
+    'd e f'
+    'g h i';
+  gap: clamp(12px, 2vw, 26px);
+  align-items: start;
+}
+.groupNote {
+  position: relative;
+  border-radius: 4px;
+  padding: 0 14px 16px;
+  box-shadow: 4px 6px 14px rgba(9, 52, 123, 0.18);
+}
+.groupBar {
+  height: 12px;
+  border-radius: 4px 4px 0 0;
+  margin: 0 -14px 10px;
+}
+.groupLabel {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(15px, 1.9vw, 24px);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #1c1a33;
+  text-align: center;
+  margin: 0 0 10px;
+}
+.groupList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.boardHub {
+  grid-area: e;
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(90px, 14vw, 150px);
+  width: 100%;
+}
+.boardHub::before {
+  content: '';
+  position: absolute;
+  inset: 12% 4%;
+  border: 2px solid #09347b;
+  border-radius: 50%;
+}
 .networkSvg {
   position: absolute;
   inset: 0;
@@ -421,7 +485,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mont);
   font-weight: 700;
   letter-spacing: 0.15em;
   padding-left: 0.15em;
@@ -430,8 +494,6 @@
   z-index: 1;
 }
 .node {
-  position: absolute;
-  transform: translate(-50%, -50%);
   background: #c6d2e6;
   border: 1.5px solid #09347b;
   color: #09347b;
@@ -452,11 +514,32 @@
   background: #b7c8ec;
   border-width: 2px;
   box-shadow: 0 8px 20px rgba(9, 52, 123, 0.35);
-  transform: translate(-50%, -50%) scale(1.09);
+  transform: scale(1.06);
   z-index: 6;
 }
 .node:active {
-  transform: translate(-50%, -50%) scale(0.97);
+  transform: scale(0.97);
+}
+
+/* Write-up sections, one per People Flow group */
+.groupSection {
+  margin-bottom: 26px;
+}
+.groupSectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mont);
+  font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: #1c1a33;
+  margin: 0 0 14px;
+}
+.groupSwatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  flex: none;
 }
 .networkOpenCue {
   text-align: center;

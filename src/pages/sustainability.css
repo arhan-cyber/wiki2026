@@ -8,7 +8,7 @@
   background: #f8fafc;
   min-height: 100vh;
   color: #24335c;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mont);
 }
 
 .sust-page::before {
@@ -168,7 +168,7 @@
 }
 
 .lab-sdg {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mont);
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;

@@ -49,6 +49,38 @@ export default function DryLabPage({ slug }: { slug: string }) {
     };
   }, [slug]);
 
+  // Index entries for the left panel: the article's own h2 headings, given
+  // stable ids so the panel can scroll to them.
+  const [toc, setToc] = useState<{ id: string; label: string }[]>([]);
+  const [activeId, setActiveId] = useState('');
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el || !loaded) return;
+    const hs = [...el.querySelectorAll('h2')];
+    const items = hs.map((h, i) => {
+      if (!h.id) h.id = `sec-${i}-${(h.textContent || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`;
+      return { id: h.id, label: h.textContent?.trim() || `Section ${i + 1}` };
+    });
+    setToc(items);
+    setActiveId(items[0]?.id ?? '');
+  }, [loaded, mode]);
+
+  useEffect(() => {
+    if (!toc.length) return;
+    const onScroll = () => {
+      let current = toc[0].id;
+      for (const t of toc) {
+        const el = document.getElementById(t.id);
+        if (el && el.getBoundingClientRect().top <= 140) current = t.id;
+      }
+      setActiveId(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [toc]);
+
   const setMode = (next: Mode) => {
     setModeState(next);
     try {
@@ -131,7 +163,22 @@ export default function DryLabPage({ slug }: { slug: string }) {
       </header>
 
       <div className={styles.row}>
-        <aside className={styles.rail} aria-hidden="true" />
+        <aside className={styles.rail} aria-label="On this page">
+          <p className={styles.railHeading}>On this page</p>
+          <ul className={styles.railList}>
+            {toc.map((t) => (
+              <li key={t.id}>
+                <button
+                  type="button"
+                  className={`${styles.railLink} ${activeId === t.id ? styles.railLinkActive : ''}`}
+                  onClick={() => document.getElementById(t.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                >
+                  {t.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </aside>
         <div className={styles.column}>
           {MODEL_SLUGS.has(slug) && (
             <nav aria-label="Model sections">

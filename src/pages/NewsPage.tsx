@@ -63,6 +63,14 @@ const rules: { left: number; top: number; width: number; height: number }[] = [
  * photos/charts as <img>, and the colour blocks/rules as elements, laid out on a
  * fixed 1440x4158 canvas that scales down to fit narrower viewports.
  */
+// Newsprint grain: two faint dot layers over the cream so the sheet reads as
+// paper rather than a flat fill. Pure CSS, so there is no image to load.
+const NEWSPRINT = [
+  'radial-gradient(circle at 1px 1px, rgba(120,104,74,0.13) 1px, transparent 0) 0 0 / 4px 4px',
+  'radial-gradient(circle at 1px 1px, rgba(96,82,58,0.08) 1px, transparent 0) 2px 3px / 7px 7px',
+  'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(214,201,172,0.22) 100%)',
+].join(', ');
+
 export default function NewsPage() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -78,17 +86,25 @@ export default function NewsPage() {
   }, []);
 
   return (
-    <main className="w-full bg-[#F4F1E8]">
+    <main className="w-full" style={{ background: '#2E2A24' }}>
       <div
         ref={wrapRef}
-        style={{ width: '100%', maxWidth: CANVAS_W, height: CANVAS_H * scale, overflow: 'hidden', margin: '0 auto' }}
+        style={{
+          width: '100%',
+          maxWidth: CANVAS_W,
+          height: CANVAS_H * scale,
+          overflow: 'hidden',
+          margin: '0 auto',
+          boxShadow: '0 18px 60px rgba(0,0,0,0.55)',
+        }}
       >
         <div
           style={{
             width: CANVAS_W,
             height: CANVAS_H,
             position: 'relative',
-            background: '#F4F1E8',
+            background: NEWSPRINT,
+            backgroundColor: '#F4F1E8',
             border: '1px solid #000',
             boxSizing: 'border-box',
             transformOrigin: 'top left',
@@ -190,7 +206,7 @@ export default function NewsPage() {
           </div>
         </div>
       </div>
-      <Footer bgColor="#F4F1E8" />
+      <Footer bgColor="#2E2A24" />
     </main>
   );
 }
