@@ -7,7 +7,8 @@
 <p>A published mutation in a related yeast (<em>Yarrowia lipolytica</em>) changes the length of the fatty acids it makes. Aligning the two proteins&rsquo; sequences showed that the matching position in baker&rsquo;s yeast is V1254, so V1254W is the candidate mutation. That the same change works in baker&rsquo;s yeast is an assumption. <strong>[computed]</strong></p>
 </div>
 <p><strong>Question.</strong> Which residue of <em>Saccharomyces cerevisiae</em> fatty acid synthase subunit 2 (ScFAS2) occupies the position of I1220 in the <em>Yarrowia lipolytica</em> enzyme (YlFAS)? Rigouin et al. identified I1220 in the fatty acid binding site of YlFAS as a determinant of chain length; the I1220W substitution increased C14 to 11.6 % of total fatty acids.<sup class="r"><a href="#ref-1">1</a></sup> <strong>[literature]</strong></p>
-<p><strong>Method.</strong> The YlFAS α chain (UniProt Q6C8H7, 1,852 aa) was aligned globally with ScFAS2 (UniProt P19097, 1,887 aa) using EMBOSS Needle<sup class="r"><a href="#ref-2">2</a></sup><sup class="r"><a href="#ref-3">3</a></sup> (BLOSUM62, gap opening penalty 10, gap extension penalty 0.5). A global alignment was chosen because the sequences differ in length and insertions shift the residue numbering. <strong>[computed]</strong></p>
+<p><strong>Method.</strong> The YlFAS α chain (UniProt Q6CE16, 1,850 aa) was aligned globally with ScFAS2 (UniProt P19097, 1,887 aa) using EMBOSS Needle<sup class="r"><a href="#ref-2">2</a></sup><sup class="r"><a href="#ref-3">3</a></sup> (BLOSUM62, gap opening penalty 10, gap extension penalty 0.5). A global alignment was chosen because the sequences differ in length and insertions shift the residue numbering. <strong>[computed]</strong></p>
+<p><strong>Correction of an earlier accession.</strong> An earlier version of this page gave the <em>Yarrowia</em> accession as Q6C8H7 (1,852 aa). UniProt lists Q6C8H7 as a magnesium transporter (LPE10, 455 aa), not fatty acid synthase; the FAS α subunit is Q6CE16 (YALI0_B19382g, 1,850 aa; checked against the UniProt record on 17 October 2026). The alignment was repeated on 17 October 2026 with Q6CE16 and the same parameters (Biopython PairwiseAligner, BLOSUM62, gap open 10, extend 0.5, end gaps free) because the web Needle run was not archived. Result: score 6,267.5; 1,198 identical residues in 1,902 alignment columns (63.0 % identity, 77.9 % similarity, 67 gap columns). The three equivalences and the offset of 34 in Table 1 were reproduced unchanged. In other parts of the KS region the offset is 34 or 35, because of short gaps. The alignment file is not yet published on this site. <strong>[computed]</strong></p>
 </div></details>
 <details class="acc" open><summary><h2 id="aligned-positions">Aligned positions</h2></summary><div class="acc-body">
 <div class="brief">
@@ -16,7 +17,7 @@
 </div>
 <p>The aligned positions are listed in Table 1 and shown schematically in Figure 1.</p>
 <div class="key">
-<p><em>Table 1. Equivalent positions in ScFAS2 (UniProt P19097) and YlFAS (UniProt Q6C8H7) from the EMBOSS Needle alignment.</em></p>
+<p><em>Table 1. Equivalent positions in ScFAS2 (UniProt P19097) and YlFAS (UniProt Q6CE16) from the global alignment (reproduced on 17 October 2026).</em></p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -44,6 +45,14 @@
 </tbody>
 </table></div>
 </div>
+<p><em>Table 1b. Residues ±10 around the key position in the same alignment (ScFAS2 1244–1264 above YlFAS 1210–1230). Differences in bold.</em></p>
+<div class="table-wrap"><table>
+<thead><tr><th>Protein</th><th>Sequence</th></tr></thead>
+<tbody>
+<tr><td>ScFAS2 (P19097) 1244–1264</td><td><code>GNCSGSGMGG<strong>V</strong>SALRGMFKDR</code></td></tr>
+<tr><td>YlFAS (Q6CE16) 1210–1230</td><td><code>GNCSGSGMGG<strong>I</strong>TALRGMFKDR</code></td></tr>
+</tbody></table></div>
+<p>The 21-residue window is identical at 19 positions (V/I and S/T differ), so the register is not in doubt over this stretch. This is one alignment with one algorithm; an independent multiple-sequence alignment of fungal FAS2 sequences, or the pending BLAST search, has not been done. <strong>[pending]</strong></p>
 <p>The three pairs are separated by a constant offset of 34 residues, which arises from insertions in ScFAS2 upstream of the ketoacyl synthase (KS) domain. No gaps occur at or beside the key column, so the V1254 ↔ I1220 equivalence does not depend on gap placement. The direct ScFAS2 analogue of the I1220W substitution is therefore V1254W. Transfer of the effect between species is by homology; its occurrence in <em>S. cerevisiae</em> is an assumption (A1).</p>
 <figure class="figure my-4">
   <img src="/drylab/figures/alignment_strip.png" loading="lazy" class="figure-img img-fluid" alt="Two rows of residue boxes: YlFAS M1217, I1220, M1226 above ScFAS2 M1251, V1254, M1260, joined by vertical lines labelled identical, conservative, identical.">
@@ -56,7 +65,7 @@
 <div class="brief-h">In brief</div>
 <p>The published approach placed a fatty acid in the enzyme by copying it from a bacterial structure. The available yeast structure has no fatty acid bound, so placement had to be predicted. Positions were excluded for catalytic or mechanistic reasons, not because they are conserved. <strong>[computed]</strong></p>
 </div>
-<p><strong>Ligand placement in the published approach.</strong> Rigouin et al. modelled the <em>Yarrowia</em> KS domain from three structures (PDB 2PFF, 2VKZ and 4V58), superimposed it on <em>Escherichia coli</em> β-ketoacyl-ACP synthase I (KAS I) with bound capric acid (PDB 1F91), copied the C10 chain into the equivalent pocket and extended it to C16. The starting structure used here (PDB 8PRW, resolution 1.9 Å) has no fatty acid in the KS3 pocket, so ligand placement had to be predicted (Step 2). <strong>[computed, team review]</strong></p>
+<p><strong>Ligand placement in the published approach.</strong> As understood from the team&rsquo;s reading of Rigouin et al.,<sup class="r"><a href="#ref-1">1</a></sup> the <em>Yarrowia</em> KS domain was modelled from three structures (PDB 2PFF, 2VKZ and 4V58), superimposed on <em>Escherichia coli</em> β-ketoacyl-ACP synthase I (KAS I) with bound capric acid (PDB 1F91), the C10 chain was copied into the equivalent pocket and extended to C16. Only the abstract of this paper was checked against the source; the structure list, the superposition and the C10-to-C16 extension are not independently verified. The starting structure used here (PDB 8PRW, resolution 1.9 Å) has no fatty acid in the KS3 pocket, so ligand placement had to be predicted (Step 2). <strong>[literature, partly unverified]</strong></p>
 <p><strong>Conservation and necessity.</strong> A conservation filter would remove positions at which mutation is likely to be destructive. The three residues considered here are conserved because they set chain length, a property that every fatty-acid-producing organism requires; conservation score alone is therefore not a suitable exclusion criterion. The criterion applied was catalytic or mechanistic necessity.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="status">Status of this step</h2></summary><div class="acc-body">
@@ -64,12 +73,12 @@
 <div class="brief-h">In brief</div>
 <p>Two analyses are not finished: a further sequence search and an analysis of which regions of the protein should not be changed. Finding more mutation sites is blocked until the second is done. <strong>[pending]</strong></p>
 </div>
-<p><strong>[pending]</strong> A BLAST search of the template against ScFAS2 (in review) and a conservation and phylogenetic analysis to identify segments that should not be mutated. Identification of further mutation sites depends on the latter.</p>
+<p><strong>[pending]</strong> A BLAST search of the template against ScFAS2 (in review), an independent multiple-sequence alignment as a robustness check on Table 1, and a conservation and phylogenetic analysis to identify segments that should not be mutated. Identification of further mutation sites depends on the latter. None of these was done by 17 October 2026.</p>
 </div></details>
 <details class="acc refs" open><summary><h2 id="references">References</h2></summary><div class="acc-body">
 <ol class="ref-list"><li id="ref-1">Rigouin C, Gueroult M, Croux C, Dubois G, Borsenberger V, Barbe S, Marty A, Daboussi F, André I, Bordes F (2017). Production of medium chain fatty acids by Yarrowia lipolytica: combining molecular design and TALEN to engineer the fatty acid synthase. <em>ACS Synthetic Biology</em> 6:1870-1879. <a href="https://doi.org/10.1021/acssynbio.7b00034">doi:10.1021/acssynbio.7b00034</a></li><li id="ref-2">Madeira F, Pearce M, Tivey ARN, Basutkar P, Lee J, Edbali O, Madhusoodanan N, Kolesnikov A, Lopez R (2022). Search and sequence analysis tools services from EMBL-EBI in 2022. <em>Nucleic Acids Research</em> 50:W276-W279. <a href="https://doi.org/10.1093/nar/gkac240">doi:10.1093/nar/gkac240</a></li><li id="ref-3">Needleman SB, Wunsch CD (1970). A general method applicable to the search for similarities in the amino acid sequence of two proteins. <em>Journal of Molecular Biology</em> 48:443-453. <a href="https://doi.org/10.1016/0022-2836(70)90057-4">doi:10.1016/0022-2836(70)90057-4</a></li></ol>
 <h3 id="source-table">Source table</h3>
-<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Rigouin C (2017)</td><td><a href="#sequence">Step 1. Residue correspondence between YlFAS and ScFAS2</a> &mdash; I1220W and C14 at 11.6 % of total fatty acids (abstract)</td></tr><tr><td>2</td><td>Madeira F (2022)</td><td><a href="#sequence">Step 1. Residue correspondence between YlFAS and ScFAS2</a> &mdash; EMBOSS Needle web service</td></tr><tr><td>3</td><td>Needleman SB (1970)</td><td><a href="#sequence">Step 1. Residue correspondence between YlFAS and ScFAS2</a> &mdash; global alignment algorithm</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Rigouin C (2017)</td><td><a href="#sequence">Step 1. Residue correspondence between YlFAS and ScFAS2</a> &mdash; I1220W and C14 at 11.6 % of total fatty acids (abstract); structures and method used for ligand placement (abstract only verified)</td></tr><tr><td>2</td><td>Madeira F (2022)</td><td><a href="#sequence">Step 1. Residue correspondence between YlFAS and ScFAS2</a> &mdash; EMBOSS Needle web service</td></tr><tr><td>3</td><td>Needleman SB (1970)</td><td><a href="#sequence">Step 1. Residue correspondence between YlFAS and ScFAS2</a> &mdash; global alignment algorithm</td></tr></tbody></table></div>
 </div></details>
 <hr />
 <p><strong>Previous:</strong> <a href="/dry-lab/model">Model overview</a> · <strong>Next:</strong> <a href="/dry-lab/model/fas-interaction">Step 2 FAS interaction</a></p>
