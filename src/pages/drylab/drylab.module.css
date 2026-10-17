@@ -68,128 +68,163 @@
   text-align: center;
 }
 
-/* ---------- Rail + column (Wet Lab: 201px rail, 23px gap, 950px column) ---------- */
+/* ---------- Sidebar + column ---------- */
 
 .row {
   display: flex;
-  gap: 23px;
-  max-width: 1174px;
+  align-items: flex-start;
+  gap: 28px;
+  max-width: 1320px;
   margin: 48px auto 0;
   padding: 0 20px 120px;
-  box-sizing: content-box;
-}
-
-.rail {
-  flex: none;
-  width: 201px;
-  background: #fafafa;
+  box-sizing: border-box;
 }
 
 .column {
   flex: 1 1 auto;
   min-width: 0;
-  max-width: 950px;
+  max-width: 980px;
 }
 
-@media (max-width: 1100px) {
-  .rail {
-    display: none;
-  }
-  .column {
-    margin: 0 auto;
-  }
+.sidebar {
+  flex: none;
+  position: sticky;
+  top: 92px;
+  width: 270px;
+  max-height: calc(100vh - 112px);
+  overflow-y: auto;
+  padding: 14px 12px 12px;
+  border-radius: 24px;
+  background: #fafafa;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.18);
+  font-family: 'Inter', sans-serif;
 }
 
-/* ---------- Model tabs (draft: nav-pills) ---------- */
+.sideBlock + .sideBlock {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #d7e5f0;
+}
 
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 18px;
+.sideSummary {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2a3a57;
+  cursor: pointer;
+}
+
+.sideList,
+.sideSub,
+.sideIndex {
+  margin: 6px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.tab {
+.sideRow {
+  display: flex;
+  align-items: center;
+}
+
+.sideLink {
+  flex: 1 1 auto;
   display: block;
-  padding: 8px 16px;
-  border-radius: 30px;
-  background: #ebf2ff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 20px;
   font-size: 15px;
+  font-weight: 600;
   color: #172b4d;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
 
-.tab:hover {
+.sideLink:hover {
   background: #d7e5f0;
 }
 
-.tabActive,
-.tabActive:hover {
+.sideLinkActive,
+.sideLinkActive:hover {
   background: #3f94d2;
   color: #fff;
 }
 
-/* ---------- Reading bar (Brief / Full, Expand / Collapse) ---------- */
-
-.readingBar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 0 0 18px;
-  padding: 10px 18px;
-  border-radius: 30px;
-  background: #fafafa;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12);
-  font-family: 'Inter', sans-serif;
+.sideLinkParent {
+  background: #ebf2ff;
 }
 
-@media (min-width: 768px) {
-  .readingBar {
-    top: 84px; /* below the sticky 72px site navbar */
-  }
-}
-
-.rbLabel {
-  margin-right: auto;
-  font-size: 14px;
-  font-weight: 600;
-  color: #2a3a57;
-}
-
-.seg {
-  display: inline-flex;
-  border: 1.5px solid #3f94d2;
-  border-radius: 30px;
-  overflow: hidden;
-}
-
-.seg button {
-  padding: 6px 18px;
+.sideToggle {
+  flex: none;
+  width: 28px;
+  height: 28px;
   border: 0;
-  background: #fff;
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 14px;
+  border-radius: 50%;
+  background: none;
+  font-size: 13px;
   color: #172b4d;
   cursor: pointer;
 }
 
-.seg button + button {
-  border-left: 1.5px solid #3f94d2;
+.sideToggle:hover {
+  background: #d7e5f0;
 }
 
-.seg button[aria-pressed='true'] {
+.sideSub {
+  margin: 2px 0 6px 14px;
+  padding-left: 8px;
+  border-left: 2px solid #b8d9ed;
+}
+
+.sideSubLink {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #2a3a57;
+  text-decoration: none;
+}
+
+.sideSubLink:hover {
+  background: #ebf2ff;
+}
+
+.sideSubActive,
+.sideSubActive:hover {
   background: #3f94d2;
   color: #fff;
+  font-weight: 600;
+}
+
+.indexLink {
+  display: block;
+  padding: 5px 10px;
+  border-left: 3px solid transparent;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #4a5563;
+  text-decoration: none;
+}
+
+.indexLink:hover {
+  color: #172b4d;
+  background: #ebf2ff;
+}
+
+.indexActive,
+.indexActive:hover {
+  border-left-color: #3f94d2;
+  background: #ebf2ff;
+  font-weight: 600;
+  color: #172b4d;
+}
+
+.sideTools {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  padding: 0 8px;
 }
 
 .lnk {
@@ -207,17 +242,301 @@
   text-decoration: underline;
 }
 
-.seg button:focus-visible,
 .lnk:focus-visible,
-.tab:focus-visible {
+.sideLink:focus-visible,
+.sideSubLink:focus-visible,
+.indexLink:focus-visible,
+.sideToggle:focus-visible,
+.sideSummary:focus-visible {
   outline: 3px solid #0b57d0;
   outline-offset: 2px;
 }
 
-@media (max-width: 576px) {
-  .rbLabel {
+@media (max-width: 1100px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sidebar {
+    position: static;
+    width: auto;
+    max-height: none;
+  }
+  .column {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* ---------- Overview flow (clickable) ---------- */
+
+.flow {
+  margin: 0 0 24px;
+  padding: 26px 30px 28px;
+  border-radius: 30px;
+  background: #fafafa;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  font-family: 'Inter', sans-serif;
+}
+
+.flowH {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #172b4d;
+}
+
+.flowLead {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #343a40;
+}
+
+.flowLabel {
+  margin: 14px 0 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2a3a57;
+}
+
+.flowRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flowItem {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  flex: 1 1 170px;
+  min-width: 0;
+}
+
+.flowArrow {
+  align-self: center;
+  flex: none;
+  font-size: 22px;
+  font-weight: 700;
+  color: #3f94d2;
+}
+
+.flowNode {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 14px 14px 12px;
+  border: 2px solid #b8d9ed;
+  border-radius: 20px;
+  background: #ebf2ff;
+  color: #172b4d;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.flowNode:hover,
+.flowNode:focus-visible {
+  transform: translateY(-2px);
+  border-color: #3f94d2;
+  box-shadow: 0 6px 14px rgba(42, 115, 197, 0.25);
+  outline: none;
+}
+
+.flowNodeDown {
+  background: #eef8f9;
+  border-color: #a8d5c8;
+}
+
+.flowNodeLog {
+  background: #fff6df;
+  border-color: #f0d28a;
+}
+
+.flowNum {
+  align-self: flex-start;
+  padding: 1px 10px;
+  border-radius: 12px;
+  background: #3f94d2;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.flowTitle {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.flowAsk {
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: #4a5563;
+}
+
+.flowFound {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.flowGo {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2a73c5;
+}
+
+@media (max-width: 640px) {
+  .flow {
+    padding: 20px 16px 22px;
+    border-radius: 22px;
+  }
+  .flowArrow {
     display: none;
   }
+  .flowItem {
+    flex-basis: 100%;
+  }
+}
+
+/* ---------- Floating tools and quick switcher ---------- */
+
+.fabs {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fab {
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: #fafafa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: #172b4d;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.fab:hover {
+  background: #d7e5f0;
+  transform: translateY(-2px);
+}
+
+.fabMain {
+  background: #3f94d2;
+  color: #fff;
+}
+
+.fabMain:hover {
+  background: #2a73c5;
+}
+
+.fab:focus-visible {
+  outline: 3px solid #0b57d0;
+  outline-offset: 2px;
+}
+
+.qsBack {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 16px 0;
+  background: rgba(23, 43, 77, 0.45);
+}
+
+.qs {
+  width: 100%;
+  max-width: 520px;
+  padding: 14px;
+  border-radius: 22px;
+  background: #fafafa;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  font-family: 'Inter', sans-serif;
+}
+
+.qsInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 2px solid #b8d9ed;
+  border-radius: 16px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.qsInput:focus {
+  border-color: #3f94d2;
+  outline: none;
+}
+
+.qsList {
+  max-height: 50vh;
+  margin: 10px 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.qsItem {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172b4d;
+  text-align: left;
+  cursor: pointer;
+}
+
+.qsSel {
+  background: #d7e5f0;
+}
+
+.qsPath {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7686;
+}
+
+.qsEmpty {
+  padding: 10px 14px;
+  color: #6b7686;
+}
+
+.qsHint {
+  margin-top: 8px;
+  padding: 0 6px;
+  font-size: 12px;
+  color: #6b7686;
 }
 
 /* ---------- Content card ---------- */
@@ -403,9 +722,9 @@
   border-top: 1px solid #c8d8e8;
 }
 
-/* Anchor targets land below the sticky navbar + reading bar. */
+/* Anchor targets land below the sticky navbar. */
 .content :global([id]) {
-  scroll-margin-top: 160px;
+  scroll-margin-top: 100px;
 }
 
 /* --- Alerts (draft: Bootstrap .alert) --- */
@@ -433,31 +752,61 @@
   color: #4d3a06;
 }
 
-/* --- Sections: <details class="acc"> as Wet Lab pill bars --- */
+/* --- Sections: closed-by-default dropdowns. The heading and the "In brief" box stay
+       visible; the detail is exposed when the heading is clicked. --- */
 
-.content :global(details.acc) {
-  margin: 14px 0 0;
+.content :global(.acc2) {
+  margin: 16px 0 0;
 }
 
-.content :global(details.acc > summary) {
+.content :global(.acc2-h) {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.content :global(.acc2-btn) {
   display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   min-height: 64px;
   padding: 12px 24px;
+  border: 0;
   border-radius: 30px;
   background: #ebf2ff;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  color: #172b4d;
+  text-align: left;
   cursor: pointer;
-  list-style: none;
+  transition: background 0.15s;
 }
 
-.content :global(details.acc > summary::-webkit-details-marker) {
-  display: none;
+.content :global(.acc2-btn:hover) {
+  background: #d7e5f0;
 }
 
-.content :global(details.acc > summary::after) {
-  content: '';
+.content :global(.acc2-btn:focus-visible) {
+  outline: 3px solid #0b57d0;
+  outline-offset: 2px;
+}
+
+.content :global(.acc2-title) {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.content :global(.acc2-hint) {
+  flex: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2a73c5;
+}
+
+.content :global(.acc2-chev) {
   flex: none;
   width: 11px;
   height: 11px;
@@ -465,59 +814,58 @@
   border-right: 2.5px solid #172b4d;
   border-bottom: 2.5px solid #172b4d;
   transform: rotate(45deg);
-  transition: transform 0.2s;
+  transition: transform 0.2s, margin 0.2s;
 }
 
-.content :global(details.acc[open] > summary::after) {
+.content :global(.acc2-open .acc2-chev) {
   margin-top: 5px;
   transform: rotate(-135deg);
 }
 
-.content :global(details.acc > summary:hover) {
-  background: #d7e5f0;
-}
-
-.content :global(details.acc > summary:focus-visible) {
-  outline: 3px solid #0b57d0;
-  outline-offset: 2px;
-}
-
-.content :global(details.acc > summary > h2) {
-  margin: 0;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1.3;
-  color: #172b4d;
-}
-
-.content :global(details.acc.refs > summary) {
+.content :global(.acc2-refs .acc2-btn) {
   background: #eef8f9;
 }
 
-.content :global(.acc-body) {
+.content :global(.acc2-body) {
   padding: 20px 8px 6px;
 }
 
+@media (max-width: 560px) {
+  .content :global(.acc2-hint) {
+    display: none;
+  }
+  .content :global(.acc2-btn) {
+    padding: 12px 18px;
+  }
+  .content :global(.acc2-h) {
+    font-size: 19px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .content :global(details.acc > summary::after) {
+  .content :global(.acc2-chev),
+  .content :global(.acc2-btn) {
     transition: none;
   }
 }
 
-/* --- "In brief" boxes --- */
+/* --- "In brief" boxes: the always-visible lead of each section --- */
 
 .content :global(.brief) {
-  display: none;
-  margin: 0 0 1.4em;
-  padding: 16px 20px;
+  margin: 12px 0 0;
+  padding: 14px 20px;
   border: 1px solid #b8d9ed;
   border-left: 5px solid #3f94d2;
   border-radius: 16px;
   background: #eef8f9;
 }
 
+.content :global(.acc2-body .brief) {
+  margin-top: 0;
+}
+
 .content :global(.brief-h) {
-  margin-bottom: 0.4em;
+  margin-bottom: 0.3em;
   font-weight: 800;
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -611,36 +959,19 @@
   background: #fff8d6;
 }
 
-/* =====================================================================
-   Brief mode (draft: reading-mode.js + style.css): show each section's
-   heading, its brief box and anything marked .key; hide the rest.
-   ===================================================================== */
-
-.modeBrief .content :global(.brief) {
-  display: block;
-}
-
-.modeBrief .content :global(details.acc:not(.refs) > .acc-body > *) {
-  display: none;
-}
-
-.modeBrief .content :global(details.acc:not(.refs) > .acc-body > .brief),
-.modeBrief .content :global(details.acc:not(.refs) > .acc-body > .key) {
-  display: block;
-}
+/* ---------- Print: every section open, interface chrome hidden ---------- */
 
 @media print {
-  .readingBar,
-  .tabs {
+  .sidebar,
+  .fabs,
+  .flow {
     display: none !important;
   }
-  .content :global(.brief) {
-    display: none !important;
+  .content :global(.acc2-body) {
+    display: block !important;
   }
-  .modeBrief .content :global(details.acc > .acc-body > *) {
-    display: revert !important;
-  }
-  .modeBrief .content :global(details.acc > .acc-body > .brief) {
+  .content :global(.acc2-hint),
+  .content :global(.acc2-chev) {
     display: none !important;
   }
 }
