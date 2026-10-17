@@ -116,7 +116,10 @@
   flex: 1;
   min-width: 0;
   margin: 0;
-  align-self: stretch;
+  /* every card's answer box is the same size; longer text scrolls inside it */
+  height: 200px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: #fcfaf8;
   border-radius: 10px;
   padding: 18px 22px;
@@ -155,5 +158,8 @@
   .image {
     width: 100%;
     height: 120px;
+  }
+  .answer {
+    height: 190px;
   }
 }

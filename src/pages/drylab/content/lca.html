@@ -1,0 +1,60 @@
+<details class="acc" open><summary><h2 id="goal-of-the-study">Goal of the study</h2></summary><div class="acc-body">
+<p>This study quantifies the cradle-to-gate environmental impacts of methyl myristate (MM) made by engineered <i>Saccharomyces cerevisiae</i>, and compares it with commercial immersion coolants. It also tests how MM's thermal performance in a server tank changes that comparison.</p>
+<h3>1.1 Context</h3>
+<p>Air cooling is reaching its limits as data-centre and HPC power density rises, and single-phase immersion cooling is a leading alternative. The incumbent dielectric fluids each carry a liability:</p>
+<ul>
+<li><strong>Fluorinated fluids (PFAS)</strong> face phase-out under the proposed EU universal PFAS restriction because of extreme persistence and high GWP.</li>
+<li><strong>Ester-based coolants and mineral-oil-based coolants</strong> (refined mineral oils and synthetic hydrocarbon grades) are made largely from fossil feedstocks: crude-oil refining or ethylene oligomerisation for the mineral-oil-based fluids, petrochemical or palm-derived acids and polyols for the esters.</li>
+</ul>
+<h3>1.2 Objectives</h3>
+<ol>
+<li><strong>Comparative assessment:</strong> quantify MM's impacts against two commercial coolant families, ester-based and mineral-oil-based, using the same database, method and level of process detail.</li>
+<li><strong>Hotspot identification:</strong> find which fermentation and downstream steps (centrifugation, cell disruption, solvent extraction, distillation, drying) drive MM's impacts, to guide strain and process design.</li>
+<li><strong>Decarbonisation pathway:</strong> test what productivity, energy integration and renewable energy MM needs to match the incumbents, instead of assuming that it does.</li>
+</ol>
+<h3>1.3 Audience</h3>
+<ul>
+<li><strong>Primary:</strong> the iGEM 2026 judging panel and the synthetic-biology community.</li>
+<li><strong>Secondary:</strong> data-centre thermal engineers, sustainability leads and bioprocess developers.</li>
+</ul>
+<p>The study is not intended for public comparative assertions under ISO 14044 §5.2 without critical review.</p>
+</div></details>
+
+<details class="acc" open><summary><h2 id="functional-units-and-reference-flows">Functional units and reference flows</h2></summary><div class="acc-body">
+<p>The study uses two functional units: one for production and one for the cooling service the fluid delivers. Per-kg results alone ignore the fact that the fluids need different flow rates and pumping energy to cool the same server.</p>
+<div class="lca-fus">
+<div class="lca-fu f1">
+<div class="lca-fu-tag">FU-1</div>
+<h3>Production</h3>
+<dl>
+<dt>Definition</dt><dd>1 kg of finished coolant at the plant gate</dd>
+<dt>Boundary</dt><dd>Cradle-to-gate</dd>
+<dt>Reference flow</dt><dd>1 kg of coolant (MM purity 98.5%)</dd>
+<dt>Used for</dt><dd>Hotspots, all 16 EF 3.1 categories</dd>
+</dl>
+</div>
+<div class="lca-fu f2">
+<div class="lca-fu-tag">FU-2</div>
+<h3>Cooling service</h3>
+<dl>
+<dt>Definition</dt><dd>Cooling one 1,200 W server for 1 year (8,760 h), hottest component ≤ 85&nbsp;°C, coolant supply at 25&nbsp;°C</dd>
+<dt>Boundary</dt><dd>Cradle-to-gate production + use-phase cooling electricity</dd>
+<dt>Reference flow</dt><dd>Coolant per year = tank fill (L) × density ÷ service life, plus cooling electricity (kWh/yr) at the lowest flow that meets 85&nbsp;°C</dd>
+<dt>Used for</dt><dd>Climate change, pPUE, break-even</dd>
+</dl>
+</div>
+</div>
+<p>FU-2 follows the performance-based approach recommended in ISO 14044 §4.2.3.2, where products are compared on the function they deliver. PUE itself is a ratio, not a quantity of service, so it is reported as a result (partial PUE, pPUE) rather than used as the functional unit. The server's own IT electricity (10,512&nbsp;kWh/yr) is the same for every coolant and is excluded from FU-2.</p>
+</div></details>
+
+<details class="acc" open><summary><h2 id="summary">Summary</h2></summary><div class="acc-body">
+<div class="lca-headline">
+<p>In use, methyl myristate (MM) has a lower carbon footprint than commercial coolants. Cooling one 1.2&nbsp;kW server for a year with MM emits <strong>5,012&nbsp;kg CO₂-eq</strong> vs 6,071&nbsp;kg with an ester-based coolant (<strong>−17%</strong>), and <strong>−25%</strong> with free cooling; with the planned process steps this grows to −28% and −46%. MM costs more CO₂ to make per kg, but a server needs only ~3.4&nbsp;kg of coolant a year, while MM saves ~1,600&nbsp;kWh of cooling electricity in that year.</p>
+</div>
+<p class="lca-basis">openLCA per-kg results [27] + team OpenFOAM CFD [28]; same 20&nbsp;L fill and 5-year life for every coolant; §7.4 base case.</p>
+<ul>
+<li><strong>Per kg (cradle-to-gate):</strong> MM baseline 632, MM optimised process 449 (openLCA, 14 Oct), MM with process steps 1–3 ~270 (estimate). Commercial: ester-based coolants 5.17–5.25, mineral-oil-based coolants ~1.5–3.00 (refined grade to synthetic grade).</li>
+<li><strong>Per server-year</strong> (1.2&nbsp;kW server, one consistent grid factor): MM needs one third of the flow and 26× less pump power than the ester-based coolant. That saves ~1,600&nbsp;kWh a year, so MM's optimised process emits 5,012&nbsp;kg CO₂-eq vs 6,071 for the ester-based coolant (−17%), and −25% with free cooling (§7.4; tank results from the team's OpenFOAM CFD simulations, see the <a href="/dry-lab/cfd">CFD</a> tab).</li>
+<li><strong>Where MM wins outright:</strong> 9.9&nbsp;°C cooler at equal flow, pPUE 1.035, 93% biogenic carbon, 17× less fossil CO₂ at end of life than the mineral-oil-based coolants, 33% lower land-use-change CO₂ than the ester-based coolants, PFAS-free (§4.2) and readily biodegradable.</li>
+</ul>
+</div></details>

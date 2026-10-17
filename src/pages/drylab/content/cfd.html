@@ -1,0 +1,217 @@
+<details class="acc" open><summary><h2 id="overview">Overview</h2></summary><div class="acc-body">
+<p>Our project explores methyl myristate (MM) as a potential bio-based dielectric coolant for single-phase immersion cooling in AI data centres. Since physical tank experiments were not conducted, we used three-dimensional computational fluid dynamics (CFD) simulations in OpenFOAM to study coolant flow and heat transfer around a 1U server under a design heat load of 1,200 W. By comparing MM with conventional coolants under identical conditions, we aim to understand its cooling performance and estimate the energy requirements of the cooling system.</p>
+<p>These results help us assess whether methyl myristate can provide effective server cooling while reducing the energy required to operate the cooling system. The estimated energy savings are based on the assumptions used in our cooling-system and life cycle assessment models.</p>
+<h3>Objective and scope</h3>
+<p>The primary objective of our CFD study was to determine the coolant flow rate required to maintain the hottest server temperature (T<sub>max</sub>) at or below 85&nbsp;°C. By comparing the coolants at equivalent thermal performance, we could estimate the energy required for pumping and heat rejection and use these results in our LCA.</p>
+</div></details>
+
+<details class="acc" open><summary><h2 id="simulation-setup">Simulation setup</h2></summary><div class="acc-body">
+<p class="cfd-lead">We modelled a single 1U server immersed in a tank containing a dielectric coolant. The server was assigned a uniform heat load of 1,200&nbsp;W, and the coolant entered the tank at 25&nbsp;°C.</p>
+<h3>Coolants compared</h3>
+<div class="cfd-coolants">
+<div class="cfd-coolant c-mm"><h4>Methyl myristate (MM)</h4><p>Our bio-based candidate coolant, methyl tetradecanoate (C₁₅H₃₀O₂).</p></div>
+<div class="cfd-coolant c-oil"><h4>Mineral oil</h4><p>A generic refined mineral-oil-based coolant used as a conventional reference.</p></div>
+<div class="cfd-coolant c-ester"><h4>Ester-based coolant</h4><p>A commercial synthetic ester dielectric fluid (MIVOLT DF7).</p></div>
+<div class="cfd-coolant c-gtl"><h4>GTL-based coolant</h4><p>Shell Immersion Cooling Fluid S5 X.</p></div>
+</div>
+<h3>Boundary conditions and simulation matrix</h3>
+<p>All simulations used the same tank geometry, server configuration, heat load and inlet temperature. Only the coolant and inlet velocity were varied, allowing a consistent comparison of cooling performance.</p>
+<div class="table-wrap"><table>
+<caption>Boundary conditions deployed</caption>
+<thead><tr><th>Boundary</th><th>Condition</th></tr></thead>
+<tbody>
+<tr><td>Inlet</td><td>Uniform velocity along the +x direction (0.10–1.00 m/s); temperature fixed at 25&nbsp;°C</td></tr>
+<tr><td>Outlet</td><td>Fixed pressure (p<sub>rgh</sub> = 0); zero-gradient velocity and temperature</td></tr>
+<tr><td>Tank walls</td><td>No-slip and adiabatic</td></tr>
+<tr><td>Server–coolant interface</td><td>Coupled temperature and heat flux for conjugate heat transfer [3]</td></tr>
+<tr><td>Server</td><td>Uniform volumetric heat generation corresponding to a total heat load of 1,200&nbsp;W</td></tr>
+</tbody></table></div>
+<p>The inlet cross-sectional area was 1.366 × 10<sup>−3</sup>&nbsp;m². Accordingly, inlet velocities of 0.27, 0.42 and 0.80&nbsp;m/s correspond to flow rates of approximately 22.1, 34.4 and 65.5&nbsp;L/min, respectively.</p>
+<p>The simulations were designed to compare coolant performance at equal flow rates, identify the minimum flow required to maintain the server temperature at or below 85&nbsp;°C, and examine the effect of increasing flow.</p>
+<div class="table-wrap"><table>
+<caption>Simulation matrix</caption>
+<thead><tr><th>Study</th><th>Coolants</th><th>Inlet velocity (m/s)</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>Same-flow comparison</td><td>All four coolants</td><td>0.42</td><td>Compare cooling performance at equal flow</td></tr>
+<tr><td>Temperature-limit assessment</td><td>All four coolants</td><td>0.80</td><td>Evaluate performance at higher flow</td></tr>
+<tr><td>Higher-flow sensitivity</td><td>Mineral oil, ester-based coolant</td><td>1.00</td><td>Assess the effect of further increasing flow</td></tr>
+<tr><td>Minimum-flow search</td><td>Methyl myristate</td><td>0.25, 0.27, 0.30</td><td>Identify the lowest compliant flow</td></tr>
+<tr><td>Minimum-flow search</td><td>Mineral oil, ester-based coolant</td><td>0.50, 0.60</td><td>Check whether intermediate flow rates meet the temperature limit</td></tr>
+<tr><td>Time to steady state</td><td>Methyl myristate</td><td>0.10, 0.20, 0.30</td><td>Examine warm-up time and maximum server temperature</td></tr>
+</tbody></table></div>
+<p>The study comprised 19 simulations: 17 runs covering methyl myristate, mineral oil and the ester-based coolant, as documented in Appendix A of the LCA report [27], and two additional runs for the GTL-based coolant.</p>
+</div></details>
+
+<details class="acc"><summary><h2 id="numerics-and-convergence-check">Numerics and convergence check</h2></summary><div class="acc-body">
+<p>A simulation was considered complete only after the server temperature stabilised and the coolant removed approximately the full 1,200&nbsp;W heat load. The following checks were used to assess numerical convergence and consistency.</p>
+<ul>
+<li><strong>Steady state:</strong> Maximum server temperature changed by less than 0.02&nbsp;K over 200&nbsp;s, followed by a 1,000&nbsp;s run after averaging stabilised [1].</li>
+<li><strong>Energy balance:</strong> Heat removal was calculated using mass flow rate, specific heat capacity and bulk inlet–outlet temperature difference. Converged cases balanced within ±2% of the 1,200&nbsp;W heat load.</li>
+<li><strong>Faster simulations:</strong> Server heat capacity was reduced tenfold to shorten warm-up time. Warm starts from neighbouring converged cases improved computational efficiency.</li>
+<li><strong>Pressure-drop consistency:</strong> At 0.80&nbsp;m/s, pressure drops were 234&nbsp;Pa for mineral oil, ~242&nbsp;Pa for MM and 259&nbsp;Pa for the ester-based coolant, consistent with inertia-dominated losses.</li>
+</ul>
+</div></details>
+
+<details class="acc"><summary><h2 id="coolant-properties">Coolant properties</h2></summary><div class="acc-body">
+<p>The thermophysical properties used in our CFD simulations were compiled from published literature and manufacturer datasheets. All properties were treated as constant at 25&nbsp;°C (298.15&nbsp;K) to ensure a consistent comparison between coolants.</p>
+<p>Viscosity is a key factor in this comparison. Methyl myristate (MM) has a lower dynamic viscosity than the other coolants, allowing it to flow more easily and reducing the pumping requirements at its operating point.</p>
+<div class="table-wrap"><table>
+<caption>Properties used in the simulations</caption>
+<thead><tr><th>Coolant</th><th>Density (kg/m³)</th><th>Specific heat (J/kg·K)</th><th>Dynamic viscosity (Pa·s)</th><th>Thermal conductivity (W/m·K)</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td>Methyl myristate (MM)</td><td>865</td><td>2,080</td><td>0.0051</td><td>0.145</td><td>Literature [7–10]</td></tr>
+<tr><td>Ester-based coolant</td><td>916</td><td>1,907</td><td>0.0150</td><td>0.129</td><td>MIVOLT DF7 datasheet [11]</td></tr>
+<tr><td>Mineral oil</td><td>828</td><td>1,850</td><td>0.0121</td><td>0.131</td><td>Literature [12]</td></tr>
+<tr><td>GTL-based coolant (Shell S5 X)</td><td>800</td><td>2,274</td><td>0.0129</td><td>0.142</td><td>Shell datasheet [13, 14]</td></tr>
+</tbody></table></div>
+<p>Kinematic viscosity, Prandtl number and thermal expansion coefficient were also derived for the simulations.</p>
+</div></details>
+
+<details class="acc" open><summary><h2 id="simulation-results">Simulation results</h2></summary><div class="acc-body">
+<p>We evaluated the coolants using two approaches: at a fixed inlet flow rate to compare cooling performance under identical conditions, and at steady state under the 85&nbsp;°C server temperature limit to identify the minimum compliant flow rate. The results below compare their thermal performance, pressure drop and energy requirements.</p>
+
+<div class="cfd-basis">
+<div class="cfd-basis-card b1">
+<div class="cfd-basis-tag">Basis 1</div>
+<h3>Same flow rate of coolant</h3>
+<div class="cfd-stat">0.42 m/s</div>
+<p>At identical inlet conditions, MM runs the server <strong>9–10&nbsp;°C cooler</strong> than mineral oil and the ester-based coolant, and is the only one of the three under 85&nbsp;°C.</p>
+</div>
+<div class="cfd-basis-card b2">
+<div class="cfd-basis-tag">Basis 2</div>
+<h3>Steady-state temperature fixed at 85&nbsp;°C</h3>
+<div class="cfd-stat">0.27 m/s</div>
+<p>MM meets the 85&nbsp;°C limit at <strong>about a third of the flow</strong> that mineral oil and the ester-based coolant need (0.80&nbsp;m/s), so the same cooling costs far less pumping.</p>
+</div>
+</div>
+
+<h3>Basis 1: same flow rate, 0.42 m/s</h3>
+<figure class="cfd-fig"><img src="/drylab/cfd/fig1-same-flow-comparison.jpg" alt="Server temperature (top) and coolant speed (bottom) for methyl myristate, mineral oil and the ester-based coolant at 0.42 m/s inlet velocity, 25 °C inlet and 1,200 W." loading="lazy"><figcaption><strong>Figure 1.</strong> Server temperature (top) and coolant speed (bottom) at the same inlet conditions for all three coolants: inlet velocity 0.42&nbsp;m/s (34.4&nbsp;L/min), inlet temperature 25&nbsp;°C, server heat 1,200&nbsp;W.</figcaption></figure>
+<div class="table-wrap"><table>
+<thead><tr><th>Coolant</th><th>Mass flow (kg/s)</th><th>Server T<sub>max</sub> (°C)</th><th>Margin to 85&nbsp;°C (K)</th><th>Tank Δp (Pa)</th></tr></thead>
+<tbody>
+<tr class="cfd-hl"><td>Methyl myristate (MM)</td><td>0.496</td><td>78.1</td><td>+6.9</td><td>65</td></tr>
+<tr><td>GTL-based coolant</td><td>0.459</td><td>84.0</td><td>+1.0</td><td>63</td></tr>
+<tr><td>Mineral oil</td><td>0.475</td><td>87.2</td><td>−2.2</td><td>≈64 (est.)</td></tr>
+<tr><td>Ester-based coolant</td><td>0.525</td><td>88.0</td><td>−3.0</td><td>72.5</td></tr>
+</tbody></table></div>
+
+<h3>Basis 2: steady-state temperature fixed at 85&nbsp;°C</h3>
+<p>MM meets the 85&nbsp;°C limit at about a third of the flow that mineral oil and the ester-based coolant need, so the same cooling costs far less pumping (Figure 2) [28].</p>
+<figure class="cfd-fig"><img src="/drylab/cfd/fig2-tmax-vs-velocity.jpg" alt="Hottest server temperature against inlet velocity. Methyl myristate crosses the 85 °C limit near 0.27 m/s; mineral oil and the ester-based coolant stay near 86 to 87 °C until about 0.80 m/s." loading="lazy"><figcaption><strong>Figure 2.</strong> Hottest server temperature (T<sub>max</sub>) against inlet velocity, 1,200&nbsp;W server, 25&nbsp;°C coolant inlet. The hollow point marks an upper bound: MM at 0.80&nbsp;m/s, where the run was stopped by a numerical instability while still cooling.</figcaption></figure>
+<p>Figure 2 plots all 19 steady-state results. Between 0.42 and 0.60&nbsp;m/s, mineral oil and the ester-based coolant improve by less than 1&nbsp;K: their T<sub>max</sub> plateaus near 86–87&nbsp;°C until the flow nearly doubles. MM's limit lies between 0.25 and 0.27&nbsp;m/s; the LCA uses 0.27&nbsp;m/s, the lowest flow actually simulated that passes [27].</p>
+
+<h3>OpenFOAM run results</h3>
+<p>These operating points were used to compare the coolants at their minimum flow rates that satisfy the 85&nbsp;°C temperature limit.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Coolant</th><th>Lowest compliant flow found</th><th>Flow (L/min)</th><th>Server T<sub>max</sub> there (°C)</th><th>Tank Δp there (Pa)</th></tr></thead>
+<tbody>
+<tr class="cfd-hl"><td>Methyl myristate (MM)</td><td>0.27 m/s (fails at 0.25 m/s)</td><td>22.1</td><td>82.0</td><td>26</td></tr>
+<tr><td>GTL-based coolant (Shell S5 X)</td><td>≤ 0.42 m/s</td><td>34.4</td><td>84.0</td><td>63</td></tr>
+<tr><td>Mineral oil</td><td>0.80 m/s (fails at 0.60 m/s)</td><td>65.5</td><td>83.4</td><td>234</td></tr>
+<tr><td>Ester-based coolant</td><td>0.80 m/s (fails at 0.60 m/s)</td><td>65.5</td><td>83.6</td><td>259</td></tr>
+</tbody></table></div>
+<div class="table-wrap"><table><caption>Appendix A. The 17 OpenFOAM runs</caption><thead><tr><th>Coolant</th><th>Velocity (m/s)</th><th>Meets 85&nbsp;°C</th><th>Pump (W)</th><th>Chiller (kWh/yr)</th><th>Free cooling (kWh/yr)</th></tr></thead><tbody><tr><td>MM</td><td>0.10</td><td>No</td><td>0.3</td><td>2,106</td><td>—</td></tr><tr><td>MM</td><td>0.20</td><td>No</td><td>2.5</td><td>2,129</td><td>—</td></tr><tr><td>MM</td><td>0.255</td><td>No</td><td>4.9</td><td>2,154</td><td>—</td></tr><tr class="cfd-hl"><td>MM</td><td>0.27</td><td>Yes</td><td>6.1</td><td>2,167</td><td>370</td></tr><tr><td>MM</td><td>0.30</td><td>Yes</td><td>8.4</td><td>2,191</td><td>391</td></tr><tr><td>MM</td><td>0.42</td><td>Yes</td><td>23.0</td><td>2,344</td><td>523</td></tr><tr><td>MM</td><td>0.80</td><td>Yes</td><td>158.8</td><td>3,772</td><td>1,749</td></tr><tr><td>Mineral oil</td><td>0.42</td><td>No</td><td>23.0</td><td>2,344</td><td>—</td></tr><tr><td>Mineral oil</td><td>0.50</td><td>No</td><td>39.0</td><td>2,512</td><td>—</td></tr><tr><td>Mineral oil</td><td>0.60</td><td>No</td><td>67.3</td><td>2,810</td><td>—</td></tr><tr class="cfd-hl"><td>Mineral oil</td><td>0.80</td><td>Yes</td><td>158.8</td><td>3,772</td><td>1,748</td></tr><tr><td>Mineral oil</td><td>1.00</td><td>Yes</td><td>310.5</td><td>5,366</td><td>3,117</td></tr><tr><td>Ester-based</td><td>0.42</td><td>No</td><td>23.0</td><td>2,344</td><td>—</td></tr><tr><td>Ester-based</td><td>0.50</td><td>No</td><td>39.0</td><td>2,512</td><td>—</td></tr><tr><td>Ester-based</td><td>0.60</td><td>No</td><td>67.3</td><td>2,810</td><td>—</td></tr><tr class="cfd-hl"><td>Ester-based</td><td>0.80</td><td>Yes</td><td>158.9</td><td>3,773</td><td>1,749</td></tr><tr><td>Ester-based</td><td>1.00</td><td>Yes</td><td>310.6</td><td>5,367</td><td>3,118</td></tr></tbody></table></div><p class="cfd-note">Solver: OpenFOAM chtMultiRegionFoam, 3-D conjugate heat transfer of a 1U server (1,200&nbsp;W) and the coolant; 25&nbsp;°C inlet; each run marched from a cold start to steady state (about 5,700–6,000&nbsp;s simulated). Highlighted rows are the operating points used in the LCA. A dash means free cooling is not possible at that flow. Pump electricity = flow × (tank + loop Δp) ÷ 0.5; chiller electricity = (server + pump heat) ÷ COP 5 [28].</p>
+
+<div class="cfd-conclusion">
+<div class="cfd-conclusion-tag">Conclusion</div>
+<p>Across both comparisons, methyl myristate (MM) demonstrates the strongest cooling performance among the tested coolants. At an identical inlet velocity of 0.42&nbsp;m/s, it keeps the maximum server temperature at <strong>78.1&nbsp;°C</strong>, around <strong>9–10&nbsp;°C lower</strong> than mineral oil and the ester-based coolant. When the server temperature is constrained to 85&nbsp;°C, MM meets the limit at just <strong>0.27&nbsp;m/s</strong>, compared with 0.80&nbsp;m/s for both coolants. This lower flow requirement reduces estimated pump power by approximately <strong>26 times</strong>, highlighting MM's potential to improve cooling efficiency and reduce energy consumption in AI data centres.</p>
+</div>
+</div></details>
+
+<details class="acc"><summary><h2 id="visualisations">Visualisations</h2></summary><div class="acc-body">
+<p>The 3-D renders show the same result as the numbers: the server surface is green-yellow (about 55–65&nbsp;°C) in MM and orange-red in mineral oil and the ester-based coolant. All renders and videos were made with ParaView 5.10 and FFmpeg [16–18, 22].</p>
+<figure class="cfd-fig"><img src="/drylab/cfd/fig3-flow-tubes-3d.jpg" alt="Three-dimensional renders of the server with flow tubes for methyl myristate, mineral oil and the ester-based coolant." loading="lazy"><figcaption><strong>Figure 3.</strong> 3-D renders with flow tubes for methyl myristate, mineral oil and the ester-based coolant.</figcaption></figure>
+<p>In the flow tubes of Figure 3, coolant enters cold (dark) at the inlet, sweeps past the end of the server, warms along its hot faces (orange to yellow) and leaves at the outlet. For readability, the 3-D views show the server's long axis upright; gravity acts along the model's z axis (see the axis triad). All visuals use the same colour scales: server temperature 25–90&nbsp;°C (Turbo), coolant temperature 25–30&nbsp;°C (Inferno), coolant speed 0–0.45&nbsp;m/s (Viridis).</p>
+<figure class="cfd-fig"><img src="/drylab/cfd/fig4-mm-steady-state.jpg" alt="Methyl myristate at 0.42 m/s, steady state: temperature with isotherms (left) and coolant speed with contours and arrows (right)." loading="lazy"><figcaption><strong>Figure 4.</strong> Methyl myristate at 0.42&nbsp;m/s, steady state: temperature (left) and flow speed, contours and direction (right).</figcaption></figure>
+<p>The visualisations illustrate how coolant flow and heat distribution influence server temperature. Together with the numerical results, they support methyl myristate's potential to maintain safe operating temperatures at lower flow rates under the simulated conditions.</p>
+</div></details>
+
+<details class="acc"><summary><h2 id="model-and-solver">Model and solver</h2></summary><div class="acc-body">
+<p>The model uses a full 3-D conjugate heat-transfer approach, coupling heat conduction within the server with heat transfer to the surrounding coolant [1–3]. A uniform heat source represents the server's thermal load, while the coolant flow transports heat away from its surface. This allows us to compare the temperature distribution and cooling performance of different coolants under the same operating conditions.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Item</th><th>Setting</th><th>Ref.</th></tr></thead>
+<tbody>
+<tr><td>Software</td><td>OpenFOAM v2412 (OpenCFD Ltd.), run in an Apptainer 1.4.1 container</td><td>[1, 2, 19]</td></tr>
+<tr><td>Solver</td><td>chtMultiRegionFoam: transient, compressible formulation (heRhoThermo, sensible enthalpy), PIMPLE pressure–velocity coupling (2 outer, 2 pressure correctors)</td><td>[3]</td></tr>
+<tr><td>Regions</td><td>fluid (coolant in the tank) and solid (server block), coupled at the fluid_to_solid interface</td><td>[3]</td></tr>
+<tr><td>Buoyancy</td><td>Boussinesq equation of state for the coolant; gravity (0, 0, −9.81) m/s², so z is vertical</td><td>[6]</td></tr>
+<tr><td>Turbulence</td><td>RANS, k–ω SST (kOmegaSST)</td><td>[4, 5]</td></tr>
+<tr><td>Server solid</td><td>heSolidThermo, constant properties: ρ = 8,000 kg/m³, c<sub>p</sub> = 500 J/kg·K, k = 15 W/m·K (stainless-steel-like block)</td><td>[15]</td></tr>
+<tr><td>Heat source</td><td>Uniform volumetric source (scalarSemiImplicitSource): 237,581 W/m³ × 0.0050509 m³ = 1,200 W</td><td>[28]</td></tr>
+<tr><td>Convection schemes</td><td>bounded Gauss linearUpwind for U, h, K; upwind for k and ω</td><td>[1]</td></tr>
+<tr><td>Time stepping</td><td>Adaptive, maximum Courant number 0.5–1.0</td><td>[1]</td></tr>
+<tr><td>Hardware</td><td>PARAM Rudra, IIT Bombay; 48 MPI ranks per case on one node; SLURM scheduler; Open MPI</td><td>[20, 21]</td></tr>
+<tr><td>Monitors</td><td>Server and coolant min/max T; inlet/outlet area- and flow-weighted T; inlet p<sub>rgh</sub>; inlet mass flow</td><td>[1]</td></tr>
+<tr><td>Post-processing</td><td>ParaView 5.10 (Python scripting), FFmpeg for video, glTF 2.0 export for web models</td><td>[16–18, 22–24]</td></tr>
+</tbody></table></div>
+<p>The tank has one inlet and one outlet; coolant enters along +x at 25&nbsp;°C. Geometry, mesh and solver settings were identical for every coolant, so only fluid properties and inlet velocity change between cases.</p>
+</div></details>
+
+<details class="acc"><summary><h2 id="software-and-tools">Software and tools</h2></summary><div class="acc-body">
+<p>We used a combination of simulation, post-processing and visualisation tools to model heat transfer and coolant flow around the server. This section lists the software used at each stage, along with the versions and references needed to reproduce our CFD workflow.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Software</th><th>Version</th><th>Role</th><th>Ref.</th></tr></thead>
+<tbody>
+<tr><td>OpenFOAM (OpenCFD Ltd.)</td><td>v2412</td><td>CFD solver (chtMultiRegionFoam), meshing utilities, pre- and post-processing (decomposePar, reconstructPar, foamDictionary, function objects)</td><td>[1–3]</td></tr>
+<tr><td>Apptainer</td><td>1.4.1</td><td>Container that runs OpenFOAM on the HPC cluster</td><td>[19]</td></tr>
+<tr><td>Slurm Workload Manager</td><td>cluster default</td><td>Job scheduling on PARAM Rudra</td><td>[20]</td></tr>
+<tr><td>Open MPI</td><td>bundled in the container</td><td>Parallel runs (48 MPI ranks per case)</td><td>[21]</td></tr>
+<tr><td>ParaView (with VTK and pvpython)</td><td>5.10</td><td>Slices, isotherms, contours, streamlines, 3-D renders, glTF export</td><td>[16–18]</td></tr>
+<tr><td>FFmpeg (libx264)</td><td>Ubuntu 22.04 package</td><td>Encoding rendered frames into MP4 videos</td><td>[22]</td></tr>
+<tr><td>glTF 2.0 specification</td><td>—</td><td>File format of the interactive 3-D models</td><td>[23]</td></tr>
+<tr><td>&lt;model-viewer&gt;</td><td>3.5.0</td><td>Web component that displays the 3-D models on the wiki</td><td>[24]</td></tr>
+</tbody></table></div>
+</div></details>
+
+<details class="acc"><summary><h2 id="limitations-and-assumptions">Limitations and assumptions</h2></summary><div class="acc-body">
+<p>To ensure a fair comparison, all coolants were simulated using the same geometry, mesh and numerical settings. However, the results are subject to the following assumptions and limitations, which should be considered when interpreting the findings.</p>
+<ol>
+<li><strong>Simplified setup.</strong> We modelled the server as a solid block with uniform heat generation of 1,200&nbsp;W, rather than realistic server components. Only one server was modelled, so the predicted flow requirements may differ from those in a full-scale tank.</li>
+<li><strong>Constant properties.</strong> Coolant properties were held constant at 25&nbsp;°C, although they vary with temperature in practice.</li>
+<li><strong>Numerical instability.</strong> The MM simulation at 0.80&nbsp;m/s did not converge, although its pressure drop did. The design cases at 0.27–0.42&nbsp;m/s converged successfully.</li>
+<li><strong>Validation.</strong> Mesh-independence testing and experimental validation have not yet been completed.</li>
+</ol>
+<p>Despite these limitations, using consistent geometry and simulation settings provides a common basis for comparing coolant performance.</p>
+</div></details>
+
+<details class="acc" open><summary><h2 id="energy-implications-for-the-lca">Energy implications for the life cycle analysis</h2></summary><div class="acc-body">
+<div class="cfd-green">
+<h3>From cooling performance to environmental impact</h3>
+<p>CFD provides the cooling performance and flow requirements for each coolant, which are then used to estimate pumping power and annual cooling energy consumption. These estimates serve as inputs to the Life Cycle Assessment (LCA), allowing us to evaluate how differences in cooling performance translate into energy use and potential environmental impacts over time. The LCA methodology and results are discussed in the <a href="/dry-lab/lca">LCA</a> tab.</p>
+</div>
+</div></details>
+
+<details class="acc refs"><summary><h2 id="references">Acknowledgement and references</h2></summary><div class="acc-body">
+<p><strong>Acknowledgement:</strong> Simulations were run on PARAM Rudra at IIT Bombay, a system of the National Supercomputing Mission (NSM), Government of India.</p>
+<ol class="cfd-refs">
+<li>OpenCFD Ltd. (2024). OpenFOAM v2412 [open-source CFD software, GNU GPL v3]. <a href="https://www.openfoam.com">openfoam.com</a></li>
+<li>Weller H.G., Tabor G., Jasak H., Fureby C. (1998). A tensorial approach to computational continuum mechanics using object-oriented techniques. <i>Computers in Physics</i> 12(6), 620–631. doi:10.1063/1.168744</li>
+<li>OpenCFD Ltd. (2024). OpenFOAM v2412 User Guide and source documentation: chtMultiRegionFoam, solver for transient fluid flow and solid heat conduction with conjugate heat transfer between regions. <a href="https://www.openfoam.com/documentation">openfoam.com/documentation</a></li>
+<li>Menter F.R. (1994). Two-equation eddy-viscosity turbulence models for engineering applications. <i>AIAA Journal</i> 32(8), 1598–1605. doi:10.2514/3.12149</li>
+<li>Menter F.R., Kuntz M., Langtry R. (2003). Ten years of industrial experience with the SST turbulence model. In <i>Turbulence, Heat and Mass Transfer 4</i>, Begell House, 625–632.</li>
+<li>Gray D.D., Giorgini A. (1976). The validity of the Boussinesq approximation for liquids and gases. <i>International Journal of Heat and Mass Transfer</i> 19(5), 545–551. doi:10.1016/0017-9310(76)90168-X</li>
+<li>Pratas M.J., Freitas S., Oliveira M.B., Monteiro S.C., Lima A.S., Coutinho J.A.P. (2010). Densities and viscosities of fatty acid methyl and ethyl esters. <i>Journal of Chemical &amp; Engineering Data</i> 55(9), 3983–3990. doi:10.1021/je100042c</li>
+<li>Linstrom P.J., Mallard W.G. (eds.). NIST Chemistry WebBook, NIST Standard Reference Database 69: methyl tetradecanoate (CAS 124-10-7), liquid heat capacity and phase-change data. National Institute of Standards and Technology. doi:10.18434/T4D303. <a href="https://webbook.nist.gov/cgi/cbook.cgi?ID=C124107">webbook.nist.gov</a></li>
+<li>Fan J., Zhu Z., Wang X., Song F., Zhang L. (2018). Experimental studies on the liquid thermal conductivity of three saturated fatty acid methyl esters components of biodiesel. <i>Journal of Chemical Thermodynamics</i> 125, 200–204. doi:10.1016/j.jct.2018.06.005</li>
+<li>PubChem. Methyl myristate (methyl tetradecanoate), compound summary. National Library of Medicine. <a href="https://pubchem.ncbi.nlm.nih.gov/compound/Methyl-myristate">pubchem.ncbi.nlm.nih.gov</a></li>
+<li>M&amp;I Materials Ltd. MIVOLT DF7 synthetic ester dielectric fluid: technical data sheet (source of the ester-based coolant properties; same as ref. [22] of the LCA report).</li>
+<li>Liu S., Xu Z., Yin S., Li X., Zhang X., Sun H. (2023). Optimization of the single-phase immersion cooling system: impact of heat sink and coolant. <i>Energy Proceedings</i> 30. <a href="https://www.energy-proceedings.org/wp-content/uploads/cue2022/1671500447.pdf">energy-proceedings.org</a></li>
+<li>Shell Lubricants. Shell Immersion Cooling Fluid S5 X: technical data sheet (GTL-based single-phase immersion cooling fluid).</li>
+<li>Mariami I., Lecomte L., Dehon C. (2024). Evaluating immersion cooling fluids for data centers: a comparative study between hydrocarbon oils and fluorinated fluids. Inventec Performance Chemicals white paper, Table 1.</li>
+<li>Incropera F.P., DeWitt D.P., Bergman T.L., Lavine A.S. (2007). <i>Fundamentals of Heat and Mass Transfer</i>, 6th ed. Wiley. Table A.1 (AISI 304 stainless steel: ρ = 7,900 kg/m³, c<sub>p</sub> = 477 J/kg·K, k = 14.9 W/m·K at 300 K).</li>
+<li>Ahrens J., Geveci B., Law C. (2005). ParaView: an end-user tool for large-data visualization. In Hansen C.D., Johnson C.R. (eds.), <i>The Visualization Handbook</i>, Elsevier, 717–731.</li>
+<li>Ayachit U. (2015). <i>The ParaView Guide: A Parallel Visualization Application</i>. Kitware. ISBN 978-1-930934-30-6. <a href="https://www.paraview.org">paraview.org</a></li>
+<li>Schroeder W., Martin K., Lorensen B. (2006). <i>The Visualization Toolkit: An Object-Oriented Approach to 3D Graphics</i>, 4th ed. Kitware. ISBN 978-1-930934-19-1.</li>
+<li>Kurtzer G.M., Sochat V., Bauer M.W. (2017). Singularity: scientific containers for mobility of compute. <i>PLoS ONE</i> 12(5), e0177459. doi:10.1371/journal.pone.0177459. Apptainer project: <a href="https://apptainer.org">apptainer.org</a></li>
+<li>Yoo A.B., Jette M.A., Grondona M. (2003). SLURM: Simple Linux Utility for Resource Management. In <i>Job Scheduling Strategies for Parallel Processing (JSSPP 2003)</i>, LNCS 2862, Springer, 44–60. doi:10.1007/10968987_3</li>
+<li>Gabriel E., Fagg G.E., Bosilca G., et al. (2004). Open MPI: goals, concept, and design of a next generation MPI implementation. In <i>Recent Advances in Parallel Virtual Machine and Message Passing Interface (EuroPVM/MPI 2004)</i>, LNCS 3241, Springer, 97–104. doi:10.1007/978-3-540-30218-6_19</li>
+<li>FFmpeg Developers. FFmpeg multimedia framework, with the libx264 H.264 encoder. <a href="https://ffmpeg.org">ffmpeg.org</a></li>
+<li>Khronos Group (2017). glTF 2.0 specification; published as ISO/IEC 12113:2022. <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html">registry.khronos.org</a></li>
+<li>Google. &lt;model-viewer&gt; web component, v3.5.0. <a href="https://modelviewer.dev">modelviewer.dev</a></li>
+<li>Avelar V., Azevedo D., French A. (eds.) (2012). PUE: a comprehensive examination of the metric. The Green Grid, White Paper #49.</li>
+<li>ASHRAE (2019). ANSI/ASHRAE/IES Standard 90.1-2019, Energy Standard for Buildings Except Low-Rise Residential Buildings, Table 6.8.1-3 (water-chilling packages).</li>
+<li>Renze P., Akermann K. (2019). Simulation of conjugate heat transfer in thermal processes with open source CFD. <i>ChemEngineering</i> 3(2), 59. doi:10.3390/chemengineering3020059</li>
+<li>Dogan A., Yilmaz S., Kuzay M., Demirel E. (2023). OpenFOAM cases for the validation of the CHT model [dataset]. Zenodo. doi:10.5281/zenodo.7635861</li>
+</ol>
+</div></details>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Footer from './Footer';
 import footerCss from './Footer.module.css?inline';
@@ -39,6 +39,16 @@ export default function EmbeddedPage({ src, title }: EmbeddedPageProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [footerRoot, setFooterRoot] = useState<ShadowRoot | null>(null);
 
+  // The embedded page scrolls inside its iframe, so the outer page must not
+  // scroll as well (that produced a second scrollbar).
+  useEffect(() => {
+    const prev = document.documentElement.style.overflowY;
+    document.documentElement.style.overflowY = 'hidden';
+    return () => {
+      document.documentElement.style.overflowY = prev;
+    };
+  }, []);
+
   const mountFooterHost = () => {
     const doc = iframeRef.current?.contentDocument;
     if (!doc || doc.getElementById(HOST_ID)) return;
@@ -69,7 +79,7 @@ export default function EmbeddedPage({ src, title }: EmbeddedPageProps) {
         title={title}
         onLoad={mountFooterHost}
         className="w-full border-0 block"
-        style={{ height: 'calc(100dvh - 72px)' }}
+        style={{ height: 'calc(100dvh - 73px)' }}
       />
       {/* Transparent so the embedded page's own background flows into the waves */}
       {footerRoot && createPortal(<Footer bgColor="transparent" />, footerRoot)}

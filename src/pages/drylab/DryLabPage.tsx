@@ -25,7 +25,7 @@ const MODEL_SLUGS = new Set(modelTabs.map((t) => t.slug));
 const pageBySlug = (slug: string) => dryLabPages.find((p) => p.slug === slug);
 
 // Links listed in the draft's footer.
-const NOTE_LINKS = ['home', 'model', 'engineering', 'results', 'life-cycle-assessment', 'software', 'contribution'];
+const NOTE_LINKS = ['model', 'software', 'cfd', 'lca'];
 
 export default function DryLabPage({ slug }: { slug: string }) {
   const page = pageBySlug(slug)!;

@@ -692,3 +692,234 @@
   border-left-color: #3f94d2;
   color: #0d2a52;
 }
+
+/* ---------- CFD + LCA pages ---------- */
+
+.content :global(.cfd-lead) {
+  font-size: 1.25em;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #17365d;
+}
+
+/* Four coolant boxes, one colour each */
+.content :global(.cfd-coolants) {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 10px 0 22px;
+}
+.content :global(.cfd-coolant) {
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 16px 16px 18px;
+}
+.content :global(.cfd-coolant h4) {
+  margin: 0 0 8px;
+  font-size: 1.05em;
+  font-weight: 700;
+}
+.content :global(.cfd-coolant p) {
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+.content :global(.c-mm) { background: #e4f3ee; border-color: #63aea6; }
+.content :global(.c-mm h4) { color: #245c53; }
+.content :global(.c-oil) { background: #fbf2dc; border-color: #e0a93c; }
+.content :global(.c-oil h4) { color: #8a6d1f; }
+.content :global(.c-ester) { background: #eeeefd; border-color: #a0a2f5; }
+.content :global(.c-ester h4) { color: #3d3f9e; }
+.content :global(.c-gtl) { background: #fbe7e1; border-color: #e8594c; }
+.content :global(.c-gtl h4) { color: #8c3a2b; }
+
+/* The two result bases: the main highlight */
+.content :global(.cfd-basis) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 20px 0 28px;
+}
+.content :global(.cfd-basis-card) {
+  border: 3px solid;
+  border-radius: 26px;
+  padding: 22px 24px 24px;
+  box-shadow: 0 6px 20px rgba(9, 52, 123, 0.14);
+}
+.content :global(.cfd-basis-card.b1) { background: #e8f0fb; border-color: #3f94d2; }
+.content :global(.cfd-basis-card.b2) { background: #e4f3ee; border-color: #245c53; }
+.content :global(.cfd-basis-tag) {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: #17365d;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.content :global(.cfd-basis-card h3) { margin: 0 0 6px; }
+.content :global(.cfd-stat) {
+  font-size: 2.6em;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #17365d;
+  margin: 4px 0 10px;
+}
+.content :global(.cfd-basis-card p) { margin: 0; }
+
+/* Conclusion: big and bold */
+.content :global(.cfd-conclusion) {
+  margin: 30px 0 6px;
+  padding: 30px 34px 32px;
+  border-radius: 28px;
+  background: #17365d;
+  color: #fff;
+  box-shadow: 0 8px 26px rgba(9, 52, 123, 0.3);
+}
+.content :global(.cfd-conclusion-tag) {
+  font-weight: 800;
+  font-size: 1.05em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #88c0e6;
+  margin-bottom: 10px;
+}
+.content :global(.cfd-conclusion p) {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #fff;
+}
+
+/* Green energy box */
+.content :global(.cfd-green) {
+  background: #e4f3ee;
+  border: 2px solid #63aea6;
+  border-left: 8px solid #245c53;
+  border-radius: 22px;
+  padding: 22px 26px;
+}
+.content :global(.cfd-green h3) { margin: 0 0 8px; color: #245c53; }
+.content :global(.cfd-green p) { margin: 0; }
+
+.content :global(figure.cfd-fig) {
+  margin: 18px 0 22px;
+}
+.content :global(figure.cfd-fig img) {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid #cfe0ee;
+  background: #fff;
+}
+.content :global(figure.cfd-fig figcaption) {
+  margin-top: 8px;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #4a5a72;
+}
+.content :global(tr.cfd-hl td) {
+  background: #e4f3ee !important;
+  font-weight: 700;
+}
+.content :global(ol.cfd-refs) {
+  font-size: 0.9em;
+  line-height: 1.5;
+  padding-left: 26px;
+}
+.content :global(ol.cfd-refs li) {
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+}
+
+/* LCA */
+.content :global(.lca-fus) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 12px 0 18px;
+}
+.content :global(.lca-fu) {
+  border: 2px solid;
+  border-radius: 22px;
+  padding: 18px 22px 20px;
+}
+.content :global(.lca-fu.f1) { background: #e8f0fb; border-color: #3f94d2; }
+.content :global(.lca-fu.f2) { background: #e4f3ee; border-color: #63aea6; }
+.content :global(.lca-fu-tag) {
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  font-size: 0.85em;
+  color: #3f94d2;
+}
+.content :global(.lca-fu h3) { margin: 2px 0 10px; }
+.content :global(.lca-fu dt) {
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4a5a72;
+  margin-top: 10px;
+}
+.content :global(.lca-fu dd) { margin: 2px 0 0; }
+.content :global(.lca-headline) {
+  background: #e4f3ee;
+  border: 2px solid #63aea6;
+  border-left: 8px solid #245c53;
+  border-radius: 22px;
+  padding: 20px 26px;
+  margin-bottom: 12px;
+}
+.content :global(.lca-headline p) { margin: 0; font-size: 1.1em; line-height: 1.55; }
+.content :global(.lca-basis) { font-size: 0.85em; color: #4a5a72; }
+
+@media (max-width: 900px) {
+  .content :global(.cfd-coolants) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .content :global(.cfd-basis),
+  .content :global(.lca-fus) { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .content :global(.cfd-coolants) { grid-template-columns: 1fr; }
+}
+
+.content :global(.cfd-conclusion strong) {
+  color: #ffd96b;
+  font-weight: 800;
+}
+
+/* ---------- Calmer emphasis: same text size, set apart by colour and shape ---------- */
+.content :global(.cfd-lead) { font-size: 1em; font-weight: 600; }
+.content :global(.cfd-basis-card) { box-shadow: none; border-width: 2px; border-left-width: 8px; }
+.content :global(.cfd-stat) {
+  display: inline-block;
+  margin: 2px 0 10px;
+  padding: 2px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid currentColor;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1.6;
+  color: #17365d;
+}
+.content :global(.cfd-basis-card.b1 .cfd-stat) { color: #17365d; }
+.content :global(.cfd-basis-card.b2 .cfd-stat) { color: #245c53; }
+.content :global(.cfd-conclusion) {
+  background: #e4f3ee;
+  color: #1e1e1e;
+  border: 2px solid #63aea6;
+  border-left: 8px solid #245c53;
+  border-radius: 22px;
+  box-shadow: none;
+  padding: 22px 26px;
+}
+.content :global(.cfd-conclusion-tag) { color: #245c53; font-size: 0.85em; }
+.content :global(.cfd-conclusion p) { font-size: 1em; font-weight: 400; line-height: 1.6; color: inherit; }
+.content :global(.cfd-conclusion strong),
+.content :global(.cfd-conclusion p strong) { color: #245c53; font-weight: 700; }
+.content :global(.cfd-note) { font-size: 0.85em; color: #4a5a72; }

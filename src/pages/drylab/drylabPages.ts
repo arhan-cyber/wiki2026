@@ -6,7 +6,7 @@ export type DryLabPage = { slug: string; path: string; title: string; subtitle: 
 
 export const dryLabPages: DryLabPage[] = [
   { slug: "home", path: "/dry-lab", title: "Home", subtitle: "The modelling behind a fatty-acid-engineering project, in the order in which it was carried out: from a residue, to a protein pocket, to the whole cell, to the coolant." },
-  { slug: "model", path: "/dry-lab/model", title: "Model", subtitle: "The models, their assumptions, data, parameters and results, in the order in which they build on each other. Every claim carries a status: computed, from literature, hypothesis, or pending." },
+  { slug: "model", path: "/dry-lab/model", title: "Modeling", subtitle: "The models, their assumptions, data, parameters and results, in the order in which they build on each other. Every claim carries a status: computed, from literature, hypothesis, or pending." },
   { slug: "sequence", path: "/dry-lab/model/sequence", title: "Sequence", subtitle: "Step 1: the residue of yeast fatty acid synthase that corresponds to the chain-length-determining residue in Yarrowia." },
   { slug: "fas-interaction", path: "/dry-lab/model/fas-interaction", title: "FAS Interaction", subtitle: "Step 2: whether the KS pocket accommodates a C14 chain, which residues must remain unaltered, and how far the Boltz-2 results depend on setup." },
   { slug: "bridge", path: "/dry-lab/model/bridge", title: "Bridge", subtitle: "Step 3: representation of the mutation in a metabolic model as an early-release reaction." },
@@ -17,6 +17,8 @@ export const dryLabPages: DryLabPage[] = [
   { slug: "results", path: "/dry-lab/model/results", title: "Results", subtitle: "The headline findings of the models, the changes they prompted in the plan, and what has not been validated." },
   { slug: "life-cycle-assessment", path: "/dry-lab/model/life-cycle-assessment", title: "Life Cycle Assessment", subtitle: "A screening-level life cycle assessment of methyl myristate as a bio-based immersion coolant, with its limits stated first." },
   { slug: "software", path: "/dry-lab/software", title: "Software", subtitle: "Pre-flight: six automated checks that test whether the scoring function of a model measures anything, before its ranking is acted upon." },
+  { slug: "cfd", path: "/dry-lab/cfd", title: "CFD", subtitle: "Immersion cooling of a 1U server with the bio-coolant methyl myristate: three-dimensional conjugate heat-transfer simulations in OpenFOAM, compared with mineral oil, an ester-based coolant and a GTL-based coolant." },
+  { slug: "lca", path: "/dry-lab/lca", title: "LCA", subtitle: "Cradle-to-gate life cycle assessment of methyl myristate made by engineered yeast, compared with ester-based and mineral-oil-based immersion coolants, including the cooling service each delivers." },
   { slug: "contribution", path: "/dry-lab/contribution", title: "Contribution", subtitle: "What the modelling work offers other teams: a checker for scoring functions, a benchmark of when machine learning is not required, and a screening life cycle assessment of a bio-based coolant." },
 ];
 

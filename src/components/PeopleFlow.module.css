@@ -1,0 +1,137 @@
+/* The People Flow board. Everything is positioned in percentages of the
+   715 x 540 reference sketch and text scales with the board (cqw), so it stays
+   sharp and identical in proportion at any width. */
+
+.paper {
+  max-width: 980px;
+  margin: 0 auto;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #fbfbfb;
+  /* grid paper */
+  background-image:
+    linear-gradient(rgba(150, 150, 150, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 150, 150, 0.22) 1px, transparent 1px),
+    linear-gradient(rgba(150, 150, 150, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 150, 150, 0.1) 1px, transparent 1px);
+  background-size: 70px 70px, 70px 70px, 14px 14px, 14px 14px;
+  box-shadow: 0 6px 22px rgba(9, 52, 123, 0.18);
+}
+
+.canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 715 / 540;
+  container-type: inline-size;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hub {
+  position: absolute;
+  left: 50.4%;
+  top: 46.6%;
+  transform: translate(-50%, -50%);
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-weight: 300;
+  font-size: 5.2cqw;
+  letter-spacing: 0.04em;
+  color: #2b2b2b;
+}
+
+.note {
+  position: absolute;
+}
+
+/* grey curl showing behind the left edge of each sticky note */
+.shadow {
+  position: absolute;
+  left: -3%;
+  top: 6%;
+  width: 100%;
+  height: 100%;
+  background: #9d9d9d;
+  opacity: 0.7;
+  clip-path: polygon(0 0, 30% 0, 20% 100%, 4% 96%);
+}
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  /* slightly peeled bottom-right corner */
+  clip-path: polygon(0 0, 100% 0, 99% 80%, 96% 96%, 88% 100%, 3% 99%);
+  padding: 0 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 11%;
+}
+
+.label {
+  margin: 15% 0 3%;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-weight: 300;
+  font-size: 3.2cqw;
+  line-height: 1.05;
+  letter-spacing: 0.015em;
+  color: #2a2a2a;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.person {
+  background: none;
+  border: 0;
+  padding: 0 0.8cqw;
+  cursor: pointer;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  font-size: max(8px, 1.42cqw);
+  line-height: 1.22;
+  color: #2a2a2a;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.person:hover {
+  text-decoration: underline;
+  color: #09347b;
+}
+
+.person:focus-visible {
+  outline: 2px solid #3f94d2;
+  border-radius: 3px;
+}
+
+.noteMuted .label {
+  font-size: 2.8cqw;
+}
+
+@media (max-width: 560px) {
+  .person {
+    font-size: 8px;
+  }
+}
