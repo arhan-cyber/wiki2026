@@ -3,7 +3,7 @@
 <title>Project BiFrost — Entrepreneurship</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -277,7 +277,7 @@ a.x:hover{border-bottom-color:var(--cold)}
 .ask li{margin-bottom:.55rem}
 
 /* ================= v8: iGEM-wiki layout (sidebar + white rounded cards) ================= */
-:root{ --f:"Lexend","IBM Plex Sans",system-ui,sans-serif; --head:#5AA2D8; --gold:#E3D18A; --paper:#FDF1F0; --rule:#EBDDD0; --rule-2:#F3E9E4;
+:root{ --f:"Montserrat","IBM Plex Sans",system-ui,sans-serif; --head:#5AA2D8; --gold:#E3D18A; --paper:#FDF1F0; --rule:#EBDDD0; --rule-2:#F3E9E4;
   --cold:#2F7DB8; --cool:#5AA2D8; --chill:#CFE4F3; --mint:#DDF4EA; --mint-ink:#5E9A45 }
 body{font-family:var(--f); font-size:16px; line-height:1.75; background:var(--paper)}
 h1,h2,h3,h4,th,.stat-v,.card-h,.eyebrow,.sec-no,.chip,.stat-k,.fig-t,.note-h,.todo-h,.brief-h,.next-h,.p,.toc-h,.seg button,.toc .n-,.fig-hint{font-family:var(--f)!important}
@@ -352,24 +352,27 @@ th{background:var(--cold)} tbody tr:nth-child(even) td{background:#FFFAF8} tbody
 figcaption{border-top-color:var(--rule-2)}
 @media print{ .hero,.sec{box-shadow:none; padding:0} .hero::before,.sec::before{display:none} }
 
-/* ================= v9: palette  #F2E6EE #FFCCF2 #977DFF #0033FF #0600AF #00003D ================= */
-:root{ --ink:#0B0B3B; --ink-2:#3C3B68; --muted:#6B688F; --faint:#9A97B8;
-  --paper:#F2E6EE; --rule:#E6D6E2; --rule-2:#F1E7EE;
-  --head:#0033FF; --cold:#0600AF; --cool:#977DFF; --chill:#E3DBFF; --gold:#977DFF;
-  --mint:#FFCCF2; --mint-ink:#0600AF; --tint:#EFEAFF; --pinktint:#FFF1FB }
-a{color:#0033FF} ::selection{background:#FFCCF2; color:#00003D}
-h1{background:linear-gradient(100deg,#0033FF 25%,#977DFF); -webkit-background-clip:text; background-clip:text; color:transparent}
-h2{color:#0033FF} h3{color:#0600AF}
-.hero,.sec,.wrap>.rail{box-shadow:0 2px 16px rgba(6,0,175,.07)}
-.wrap>.rail::before{color:#0033FF}
-.wrap>.rail a.on::before{background:#0033FF}
+/* ================= v10: wiki palette — matches the rest of the site ================= */
+:root{ --ink:#17365D; --ink-2:#2A3A57; --muted:#6B7B96; --faint:#93A0A8;
+  --paper:transparent; --rule:#BBDDFB; --rule-2:#DCEBF9;
+  --head:#17365D; --cold:#0D2A52; --cool:#3F94D2; --chill:#CFE4F3; --gold:#88C0E6;
+  --mint:#E4F3EE; --mint-ink:#245C53; --tint:#E8F0FB; --pinktint:#EDF3FF }
+/* the site's page gradient, as on every other tab */
+body{background:linear-gradient(180deg,#FAFAFA 0%,#6DB8EA 101.6%); background-attachment:fixed}
+a{color:#1A6FD1} ::selection{background:#CFE4F3; color:#0D2A52}
+h1{background:none; -webkit-background-clip:border-box; background-clip:border-box; color:#1E1E1E;
+   font-family:'Inria Serif',Georgia,serif; font-weight:400}
+h2{color:#3F94D2} h3{color:#17365D}
+.hero,.sec,.wrap>.rail{background:#FAFAFA; border-radius:30px; box-shadow:0 2px 16px rgba(9,52,123,.12)}
+.wrap>.rail::before{color:#3F94D2}
+.wrap>.rail a.on::before{background:#3F94D2}
 .wrap>.rail a:hover{background:var(--tint)}
-.prog{background:linear-gradient(90deg,#977DFF,#0033FF)}
+.prog{background:linear-gradient(90deg,#88C0E6,#3F94D2)}
 .stat{background:var(--pinktint)} .stat:nth-child(even){background:var(--tint)}
-.stat-v{color:#0600AF} .stat:nth-child(1){border-top:3px solid #FFCCF2} 
-.stage-line{background:var(--pinktint); border-left-color:#977DFF}
-th{background:#0600AF} tbody tr:nth-child(even) td{background:#FBF6FA} tbody tr:hover td{background:var(--tint)}
-.doc-head,.ask{background:#00003D} .ask .note-h{color:#C9BCFF}
+.stat-v{color:#0D2A52} .stat:nth-child(1){border-top:3px solid #88C0E6}
+.stage-line{background:var(--pinktint); border-left-color:#3F94D2}
+th{background:#17365D} tbody tr:nth-child(even) td{background:#F4F8FD} tbody tr:hover td{background:var(--tint)}
+.doc-head,.ask{background:#17365D} .ask .note-h{color:#A9CDE8}
 .note,.brief{border-left-color:#977DFF} .next{border-left-color:#FFCCF2}
 .sec-no{background:#FFCCF2; color:#0600AF} .chip{background:var(--tint)}
 .toc a:hover{color:#0033FF} a.x{color:#0033FF; border-bottom-color:#977DFF}

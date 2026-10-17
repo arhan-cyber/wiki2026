@@ -1,120 +1,116 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import Footer from '../components/Footer';
-import { boxes, lines, arrows, texts, CANVAS_W, CONTENT_H } from './engineeringData';
-
-const fontStack = (f: 'inria' | 'inter') =>
-  f === 'inria' ? "'Inria Serif', Georgia, serif" : "'Inter', system-ui, sans-serif";
+import { useState } from 'react';
+import Accordion from '../components/Accordion';
+import PageShell from '../components/PageShell';
+import styles from './engineering.module.css';
+import {
+  cycle0,
+  cycle0Intro,
+  drylabCycles,
+  drylabIntro,
+  masterStages,
+  wetlabCycles,
+  type Block,
+} from './engineeringContent';
 
 /**
- * Project Engineering — rebuilt as real HTML from the Figma export: selectable
- * text, CSS panels/bars, and drawn flowchart chevrons on a fixed 1440-wide canvas
- * that scales to fit. The design's own navbar/footer are dropped in favour of the
- * app's navbar and shared <Footer/>.
+ * Project Engineering — the template the other tabs follow: a tight title band,
+ * a sticky left rail that actually navigates, and a wide content column. Every
+ * question and DBTL cycle is a working accordion.
  */
-export default function ProjectEngineeringPage() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
 
-  useLayoutEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const update = () => setScale(Math.min(1, el.clientWidth / CANVAS_W));
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
+function Blocks({ blocks }: { blocks: Block[] }) {
   return (
-    <main className="w-full">
-      <div
-        className="w-full flex justify-center"
-        style={{ background: 'linear-gradient(180deg, #FAFAFA 0%, #6DB8EA 101.6%)' }}
-      >
-        <div
-          ref={wrapRef}
-          style={{ width: '100%', maxWidth: CANVAS_W, height: CONTENT_H * scale, overflow: 'hidden' }}
-        >
-          <div
-            style={{
-              width: CANVAS_W,
-              height: CONTENT_H,
-              position: 'relative',
-              transformOrigin: 'top left',
-              transform: `scale(${scale})`,
-            }}
-          >
-            {/* Panels, rail, accordion bars */}
-            {boxes.map((b, i) => (
-              <div
-                key={`b${i}`}
-                style={{
-                  position: 'absolute',
-                  left: b.left,
-                  top: b.top,
-                  width: b.width,
-                  height: b.height,
-                  background: b.bg,
-                  border: b.border,
-                  borderRadius: b.radius,
-                  boxShadow: b.shadow,
-                  boxSizing: 'border-box',
-                }}
-              />
-            ))}
-
-            {/* Accent rules */}
-            {lines.map((l, i) => (
-              <div
-                key={`l${i}`}
-                style={{ position: 'absolute', left: l.left, top: l.top, width: l.width, height: l.height, background: l.bg }}
-              />
-            ))}
-
-            {/* Down-chevrons */}
-            {arrows.map((a, i) => (
-              <svg
-                key={`a${i}`}
-                width={26}
-                height={26}
-                viewBox="0 0 24 24"
-                fill="none"
-                style={{ position: 'absolute', left: a.left, top: a.top }}
-              >
-                <path d="M6 9l6 6 6-6" stroke={a.color} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            ))}
-
-            {/* Text */}
-            {texts.map((t, i) => (
-              <div
-                key={`t${i}`}
-                style={{
-                  position: 'absolute',
-                  left: t.left,
-                  top: t.top,
-                  width: t.width,
-                  height: t.height,
-                  margin: 0,
-                  fontFamily: fontStack(t.font),
-                  fontSize: t.size,
-                  lineHeight: `${t.lineHeight}px`,
-                  fontWeight: t.weight,
-                  fontStyle: t.italic ? 'italic' : 'normal',
-                  color: t.color,
-                  textTransform: t.upper ? 'uppercase' : 'none',
-                  textAlign: t.align ?? 'left',
-                  overflow: 'visible',
-                  whiteSpace: 'pre-wrap',
-                }}
-              >
-                {t.text}
-              </div>
+    <>
+      {blocks.map((b, i) => {
+        if (b.t === 'p') return <p key={i}>{b.text}</p>;
+        if (b.t === 'h') return <h4 key={i}>{b.text}</h4>;
+        if (b.t === 'ul')
+          return (
+            <ul key={i}>
+              {b.items.map((it) => (
+                <li key={it}>{it}</li>
+              ))}
+            </ul>
+          );
+        return (
+          <div key={i} className={styles.flow}>
+            {b.steps.map((s, j) => (
+              <span key={s} style={{ display: 'contents' }}>
+                <span className={styles.flowStep}>{s}</span>
+                {j < b.steps.length - 1 && <span className={styles.flowArrow}>→</span>}
+              </span>
             ))}
           </div>
+        );
+      })}
+    </>
+  );
+}
+
+const INDEX = [
+  { id: 'cycle-0', label: 'Cycle 0' },
+  { id: 'master-dbtl', label: 'Master DBTL' },
+  { id: 'wetlab-dbtl', label: 'Wet Lab DBTL' },
+  { id: 'drylab-dbtl', label: 'Dry Lab DBTL' },
+];
+
+export default function ProjectEngineeringPage() {
+  const [stage, setStage] = useState(masterStages[0].key);
+  const active = masterStages.find((s) => s.key === stage) ?? masterStages[0];
+
+  return (
+    <PageShell title="Project Engineering" index={INDEX} footerBg="#6DB8EA">
+      {/* Cycle 0 */}
+      <section id="cycle-0" className={styles.panel}>
+        <p className={styles.eyebrow}>Cycle 0 :</p>
+        <h2 className={styles.panelTitle}>Application Specification: Is methyl myristate a viable coolant?</h2>
+        <p className={styles.panelIntro}>{cycle0Intro}</p>
+        <Accordion alignStart items={cycle0.map((c) => ({ id: c.id, title: c.title, content: <div className={styles.prose}><Blocks blocks={c.blocks} /></div> }))} theme={{ bar: '#245C53', barText: '#FFFFFF', body: '#E4F3EE', accent: '#63AEA6' }} />
+      </section>
+
+      {/* Master DBTL */}
+      <section id="master-dbtl" className={styles.panel}>
+        <h2 className={styles.sectionHead}>Master DBTL</h2>
+        <div className={styles.stageRow} style={{ marginTop: 20 }}>
+          {masterStages.map((s) => (
+            <button
+              key={s.key}
+              type="button"
+              className={`${styles.stageCard} ${s.key === stage ? styles.stageActive : ''}`}
+              style={{ background: s.tint, color: s.accent }}
+              aria-pressed={s.key === stage}
+              onClick={() => setStage(s.key)}
+            >
+              <span className={styles.stageLetter}>{s.letter}</span>
+              <span className={styles.stageLabel}>{s.label}</span>
+            </button>
+          ))}
         </div>
-      </div>
-      <Footer bgColor="#6DB8EA" />
-    </main>
+        <div
+          className={`${styles.stagePanel} ${styles.prose}`}
+          style={{ background: active.tint, borderLeftColor: active.accent }}
+        >
+          <p className={styles.stageQuestion} style={{ color: active.accent }}>
+            {active.question}
+          </p>
+          <Blocks blocks={active.blocks} />
+        </div>
+      </section>
+
+      {/* Wet lab DBTL */}
+      <section id="wetlab-dbtl" className={styles.panel}>
+        <h2 className={styles.sectionHead}>Wet Lab DBTL</h2>
+        <Accordion alignStart items={wetlabCycles.map((c) => ({ id: c.id, title: c.title, content: <div className={styles.prose}><Blocks blocks={c.blocks} /></div> }))} theme={{ bar: '#D7E5F0', barText: '#172B4D', body: '#EDF3FF', accent: '#2A3A57' }} />
+      </section>
+
+      {/* Dry lab DBTL */}
+      <section id="drylab-dbtl" className={styles.panel}>
+        <h2 className={styles.sectionHead}>Dry Lab DBTL</h2>
+        <p className={styles.panelIntro} style={{ marginTop: 16 }}>
+          {drylabIntro}
+        </p>
+        <Accordion alignStart items={drylabCycles.map((c) => ({ id: c.id, title: c.title, content: <div className={styles.prose}><Blocks blocks={c.blocks} /></div> }))} theme={{ bar: '#D7E5F0', barText: '#172B4D', body: '#EDF3FF', accent: '#2A3A57' }} />
+      </section>
+    </PageShell>
   );
 }

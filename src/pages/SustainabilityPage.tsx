@@ -1,4 +1,5 @@
 import LiquidIndex, { LiquidIndexItem } from '../components/LiquidIndex';
+import TitleCard from '../components/TitleCard';
 
 const items: LiquidIndexItem[] = [
   {
@@ -29,7 +30,7 @@ const items: LiquidIndexItem[] = [
 
 export default function SustainabilityPage() {
   return (
-    <LiquidIndex items={items}>
+    <LiquidIndex items={items} header={<TitleCard title="Sustainability" />}>
       {/* Overview Block */}
       <div className="mb-10 p-8 rounded-2xl border border-slate-200/80 bg-white shadow-[0_2px_8px_rgba(99,102,241,0.04)]">
         <h1 className="text-3xl font-bold text-[#0d1738] mb-6 font-['Space_Grotesk'] tracking-tight">Sustainability &amp; SDG Alignment</h1>

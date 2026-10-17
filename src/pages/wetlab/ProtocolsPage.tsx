@@ -1,19 +1,21 @@
 import { useState, type MouseEvent } from 'react';
-import Footer from '../../components/Footer';
+import Accordion from '../../components/Accordion';
+import PageShell from '../../components/PageShell';
 import styles from './wetlab.module.css';
 import { sections, wheelSegments, type Block, type ProtocolSection } from './protocolsData';
 
-// Wheel centre and ring radii inside the wheel card (from the Figma frame).
-const WHEEL_CX = 471.84;
-const WHEEL_CY = 364.5;
-const HIT_R_MIN = 150;
-const HIT_R_MAX = 330;
+// Wheel geometry as fractions of the rendered wheel image, so the hit areas
+// follow the image at whatever size it is displayed.
+const WHEEL_FX = 0.48901;
+const WHEEL_FY = 0.47041;
+const HIT_FR_MIN = 0.2475;
+const HIT_FR_MAX = 0.5446;
 
-function segmentAt(x: number, y: number) {
-  const dx = x - WHEEL_CX;
-  const dy = y - WHEEL_CY;
-  const r = Math.hypot(dx, dy);
-  if (r < HIT_R_MIN || r > HIT_R_MAX) return null;
+function segmentAt(x: number, y: number, w: number, h: number) {
+  const dx = x - WHEEL_FX * w;
+  const dy = y - WHEEL_FY * h;
+  const r = Math.hypot(dx, dy) / w;
+  if (r < HIT_FR_MIN || r > HIT_FR_MAX) return null;
   const deg = (Math.atan2(dy, dx) * 180) / Math.PI;
   const a = (deg + 360) % 360;
   return wheelSegments.find((s) => a >= s.from && a < s.to) ?? null;
@@ -83,8 +85,6 @@ function ProtocolBlocks({ blocks }: { blocks: Block[] }) {
 }
 
 function Section({ section, first }: { section: ProtocolSection; first: boolean }) {
-  const [open, setOpen] = useState<string | null>(null);
-
   return (
     <section
       id={section.id}
@@ -96,32 +96,18 @@ function Section({ section, first }: { section: ProtocolSection; first: boolean 
         <div className={styles.sectionLine} style={{ marginTop: section.lineTop - section.titleTop - 39 }} />
       </h2>
       <div className={styles.pills} style={{ marginTop: section.buttonsTop - section.lineTop - 1 }}>
-        {section.protocols.map((p) => {
-          const isOpen = open === p.title;
-          return (
-            <div key={p.title}>
-              <button
-                type="button"
-                className={styles.pill}
-                style={{ background: section.button }}
-                aria-expanded={isOpen}
-                onClick={() => setOpen(isOpen ? null : p.title)}
-              >
-                <span>{p.title}</span>
-                <img
-                  src="/wetlab/protocols/arrow.svg"
-                  alt=""
-                  className={`${styles.pillArrow} ${isOpen ? styles.pillArrowOpen : ''}`}
-                />
-              </button>
-              {isOpen && (
-                <div className={styles.protocolBody}>
-                  <ProtocolBlocks blocks={p.blocks} />
-                </div>
-              )}
-            </div>
-          );
-        })}
+        <Accordion
+          items={section.protocols.map((p) => ({
+            id: p.title,
+            title: p.title,
+            content: (
+              <div className={styles.protocolBody}>
+                <ProtocolBlocks blocks={p.blocks} />
+              </div>
+            ),
+          }))}
+          theme={{ bar: section.button, barText: '#1e1e1e', body: section.body, accent: section.segment }}
+        />
       </div>
     </section>
   );
@@ -130,47 +116,33 @@ function Section({ section, first }: { section: ProtocolSection; first: boolean 
 export default function ProtocolsPage() {
   const [hover, setHover] = useState(false);
 
-  const onWheelClick = (e: MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const seg = segmentAt(e.clientX - rect.left, e.clientY - rect.top);
+  const onWheelClick = (e: MouseEvent<HTMLImageElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const seg = segmentAt(e.clientX - r.left, e.clientY - r.top, r.width, r.height);
     if (seg) document.getElementById(seg.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const onWheelMove = (e: MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setHover(segmentAt(e.clientX - rect.left, e.clientY - rect.top) !== null);
+  const onWheelMove = (e: MouseEvent<HTMLImageElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    setHover(segmentAt(e.clientX - r.left, e.clientY - r.top, r.width, r.height) !== null);
   };
 
   return (
-    <main className={styles.page}>
-      <div className={styles.canvas}>
-        <img src="/wetlab/protocols/title-card.svg" alt="" className={styles.titleCard} />
-        <h1 className={styles.title}>PROTOCOLS</h1>
-
-        <div className={styles.row} style={{ minHeight: 3940 }}>
-          <aside className={styles.sidebar} />
-          <div className={styles.column}>
-            <div className={styles.wheelCard}>
-              <img
-                src="/wetlab/protocols/wheel.png"
-                alt="Protocol wheel: Media Preparation, DNA Extraction, PCR & Analysis, Restriction & Cloning, Transformation, Culture & Storage"
-                className={styles.wheelImg}
-              />
-              <div
-                className={styles.wheelHit}
-                style={{ cursor: hover ? 'pointer' : 'default' }}
-                onClick={onWheelClick}
-                onMouseMove={onWheelMove}
-                onMouseLeave={() => setHover(false)}
-              />
-            </div>
-            {sections.map((s, i) => (
-              <Section key={s.id} section={s} first={i === 0} />
-            ))}
-          </div>
-        </div>
+    <PageShell title="Protocols" index={[{ id: 'wheel', label: 'Protocol wheel' }, ...sections.map((s) => ({ id: s.id, label: s.title }))]}>
+      <div id="wheel" className={styles.wheelCard}>
+        <img
+          src="/wetlab/protocols/wheel.png"
+          alt="Protocol wheel: Media Preparation, DNA Extraction, PCR & Analysis, Restriction & Cloning, Transformation, Culture & Storage"
+          className={styles.wheelImg}
+          style={{ cursor: hover ? 'pointer' : 'default' }}
+          onClick={onWheelClick}
+          onMouseMove={onWheelMove}
+          onMouseLeave={() => setHover(false)}
+        />
       </div>
-      <Footer bgColor="transparent" />
-    </main>
+      {sections.map((s, i) => (
+        <Section key={s.id} section={s} first={i === 0} />
+      ))}
+    </PageShell>
   );
 }

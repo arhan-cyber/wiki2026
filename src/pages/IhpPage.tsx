@@ -1,37 +1,32 @@
 import { useEffect, useRef, useState } from 'react';
 import Footer from '../components/Footer';
 import WriteUpCard from '../components/WriteUpCard';
-import { esterSteps, innerRingIds, writeUps } from './ihpData';
+import { esterSteps, peopleGroups, writeUps } from './ihpData';
 import styles from './ihp.module.css';
 
 const CONCLUSION =
   'ESTER is not a straight line from problem to solution. It is a living loop: observation becomes dialogue, dialogue becomes a testable idea, testing becomes implementation, and implementation returns to people for refinement. The “integrated” in integrated human practices is therefore not a separate chapter — it is the connective tissue of the entire project.';
 
-// Split the people onto the inner / outer network rings and give each a slot.
-const innerPeople = writeUps.filter((w) => innerRingIds.includes(w.id));
-const outerPeople = writeUps.filter((w) => !innerRingIds.includes(w.id));
+// The People Flow board: six clusters around a central iHP hub. Each group
+// resolves its member ids to write-ups; anyone the board left out is already
+// collected in the trailing "others" group in ihpData.
+const byId = new Map(writeUps.map((w) => [w.id, w]));
+const groups = peopleGroups.map((g) => ({
+  ...g,
+  members: g.memberIds.map((id) => byId.get(id)).filter((w): w is NonNullable<typeof w> => Boolean(w)),
+}));
 
-// Perfect-circle rings. dx/dy are the unit direction from the centre.
-function ringPositions(count: number, r: number) {
-  return Array.from({ length: count }, (_, i) => {
-    const angle = (-90 + (360 / count) * i) * (Math.PI / 180);
-    return {
-      x: 50 + r * Math.cos(angle),
-      y: 50 + r * Math.sin(angle),
-      dx: Math.cos(angle),
-      dy: Math.sin(angle),
-    };
-  });
-}
-
-const INNER_R = 24;
-const OUTER_R = 39;
-const innerPos = ringPositions(innerPeople.length, INNER_R);
-const outerPos = ringPositions(outerPeople.length, OUTER_R);
-const placedNodes = [
-  ...innerPeople.map((p, i) => ({ ...p, ...innerPos[i] })),
-  ...outerPeople.map((p, i) => ({ ...p, ...outerPos[i] })),
-];
+// Board positions, mirroring the team's sketch: wetlabs / PIs / dry labs across
+// the top, product dev and regulations flanking the hub, alumni below it.
+const GRID_AREA: Record<string, string> = {
+  wetlab: 'a',
+  pis: 'b',
+  drylab: 'c',
+  'product-dev': 'd',
+  regulations: 'f',
+  alumni: 'h',
+  others: 'i',
+};
 
 export default function IhpPage() {
   const [opened, setOpened] = useState(false);
@@ -198,36 +193,51 @@ export default function IhpPage() {
             <h2 className={styles.networkHeading}>Network Summary</h2>
             <p className={styles.networkHint}>Everyone we reached out to, orbiting the process.</p>
             <div className={styles.networkScroll}>
-              <div className={styles.networkWrap} ref={networkRef}>
-                <svg className={styles.networkSvg} viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r={INNER_R} />
-                  <circle cx="50" cy="50" r={OUTER_R} />
-                </svg>
-                <div className={styles.networkGlow} />
-                <div className={styles.networkCore}>ESTER</div>
-                {placedNodes.map((n) => (
-                  <button
-                    key={n.id}
-                    className={styles.node}
-                    style={{ left: `${n.x}%`, top: `${n.y}%` }}
-                    onClick={() => scrollToWriteUp(n.id)}
+              <div className={styles.board} ref={networkRef}>
+                {groups.map((g) => (
+                  <div
+                    key={g.id}
+                    className={styles.groupNote}
+                    style={{ gridArea: GRID_AREA[g.id], background: g.tint }}
                   >
-                    {n.name}
-                  </button>
+                    <div className={styles.groupBar} style={{ background: g.accent }} />
+                    <h3 className={styles.groupLabel}>{g.label}</h3>
+                    <ul className={styles.groupList}>
+                      {g.members.map((m) => (
+                        <li key={m.id}>
+                          <button className={styles.node} onClick={() => scrollToWriteUp(m.id)}>
+                            {m.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
+                <div className={styles.boardHub}>
+                  <div className={styles.networkGlow} />
+                  <span className={styles.networkCore}>iHP</span>
+                </div>
               </div>
             </div>
             <p className={styles.networkOpenCue}>Click to open full write up</p>
 
             {/* Individual write-ups — always fully expanded, no collapse */}
             <h2 className={styles.writeHeading}>Individual write-ups</h2>
-            <div className={styles.bars}>
-              {writeUps.map((w) => (
-                <div key={w.id} id={`writeup-${w.id}`} className={styles.barItem}>
-                  <WriteUpCard person={w} onBackToNetwork={backToNetwork} />
+            {groups.map((g) => (
+              <section key={g.id} className={styles.groupSection}>
+                <h3 className={styles.groupSectionHeading}>
+                  <span className={styles.groupSwatch} style={{ background: g.accent }} />
+                  {g.label}
+                </h3>
+                <div className={styles.bars}>
+                  {g.members.map((w) => (
+                    <div key={w.id} id={`writeup-${w.id}`} className={styles.barItem}>
+                      <WriteUpCard person={w} onBackToNetwork={backToNetwork} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </section>
+            ))}
           </div>
         </div>
 

@@ -2,12 +2,12 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Project Description – BIFROST</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ink:#343A40;--blue:#3F94D2;--panel:#FAFAFA;--line:#8FBCE6;--sph:#7B7FE8;--sphA:#4A3FD8}
 html{scroll-behavior:smooth;scroll-padding-top:20px}
 *,*:before,*:after{box-sizing:inherit}
-body{margin:0;font-family:Inter,system-ui,sans-serif;font-size:20px;line-height:1.65;color:var(--ink);background:linear-gradient(180deg,#F6F8FB 0%,#D6E6F5 45%,#A5CBEC 100%) fixed;min-height:100vh}
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;font-size:20px;line-height:1.65;color:var(--ink);background:linear-gradient(180deg,#F6F8FB 0%,#D6E6F5 45%,#A5CBEC 100%) fixed;min-height:100vh}
 .wrap{max-width:1180px;margin:0 auto;padding:24px 16px 60px}
 .title{background:var(--panel);border:3px solid var(--line);border-radius:26px 18px 22px 36px/60px 20px 30px 18px;box-shadow:0 0 12px rgba(63,148,210,.35);padding:22px 32px;margin:0 auto 22px;max-width:900px;text-align:center}
 .title h1{margin:0;font-size:32px;line-height:1.2;color:var(--blue);font-weight:700}
@@ -156,12 +156,13 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <p>Our project targets <b>single-phase, open-bath immersion</b>, where the fluid remains liquid, absorbs heat by sensible heating, and is circulated through an external heat exchanger. Unlike two-phase systems, which rely on boiling and condensation, single-phase cooling depends directly on the fluid's <b>thermal and dielectric properties</b>.</p>
 <p><b>This makes the cooling fluid the critical component that determines system performance and not the hardware.</b></p></section>
 
-<section id="s3" data-s="2"><hr><h2>3. What Makes an Ideal Coolant?</h2>
-<p>A coolant for immersion cooling cannot optimise for just one property. It has to be electrically safe, thermally stable, easy to pump and environmentally responsible, all at once. The Open Compute Project (OCP) publishes the reference targets for single-phase immersion, and every candidate fluid in this project, including ours, is screened against them.</p>
+<section id="s3" data-s="2"><hr><h2>3. What Does the Ideal Coolant Need to Do?</h2>
+<p>A coolant for immersion cooling cannot optimise for just one property. It must be electrically safe, thermally stable, easy to pump, and environmentally responsible — all at once. The Open Compute Project (OCP) provides the reference targets for single-phase immersion cooling.</p>
+<h3>The BIFROST Design Matrix</h3>
 <div class="tw"><table class="tabs"><tr id="tabrow"></tr>
 <tr><td><i>Insulate live parts without degrading high-speed signals</i></td><td><i>Stay liquid and stable at operating temperature</i></td><td><i>Circulate through dense hardware on minimal pumping energy</i></td><td><i>Fire-safe across the temperature range, with no lasting footprint</i></td></tr>
 <tr><td>Dielectric strength &gt;6 kV/mm</td><td>Boiling point &gt;150°C</td><td>Viscosity @ 25°C &lt;15 mPa·s</td><td>Flash point &gt;150°C</td></tr>
-<tr><td>Dielectric constant ≤2.3</td><td>Vapour pressure @ 25°C &lt;0.8 kPa</td><td>Density &lt;2000 kg/m³</td><td>Pour point &lt;−30°C</td></tr></table></div>
+<tr><td>Dielectric constant ≤2.3</td><td>Vapour pressure @ 25°C &lt;0.8 kPa</td><td>Density &lt;2000 kg/m³</td><td>Pour point &lt;−30°C</td></tr><tr><td>Loss tangent ≤0.05</td><td>Service life ≥10 years</td><td></td><td>Ozone depletion 0</td></tr><tr><td>Volume resistivity &gt;10¹¹ Ω·cm</td><td></td><td></td><td></td></tr></table></div>
 <p class="hint">Tap a column heading to see why it matters.</p>
 <div id="why" class="panel" aria-live="polite"></div></section>
 
@@ -179,15 +180,8 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 
 </section><section><h2>Why C14?</h2>
 <p>Chain length is the main knob controlling ester coolant properties, and the trade-off is sharp. Every property below moves monotonically with chain length, in opposite directions.</p>
-<div class="tw"><table><caption style="text-align:left;font-weight:700;padding-bottom:8px">Chain-length comparison of saturated methyl esters</caption>
-<tr><th>Methyl ester</th><th>Melting pt (°C)</th><th>Boiling pt (°C)</th><th>Thermal cond. (W/m·K)</th><th>Viscosity at 40 °C (cP)</th><th>Flash pt (°C)</th></tr>
-<tr><td>Caprylate, C8</td><td class="g">−40</td><td>193</td><td>~0.14–0.17</td><td class="g">1.04</td><td class="r">82</td></tr>
-<tr><td>Caprate, C10</td><td class="g">−18</td><td>224</td><td>~0.14–0.17</td><td class="g">1.48</td><td class="r">110.5</td></tr>
-<tr><td>Laurate, C12</td><td class="g">4–5</td><td>262</td><td>~0.14–0.17</td><td class="g">2.08</td><td class="r">139</td></tr>
-<tr><td>Myristate, C14</td><td class="g">18–19</td><td>295</td><td>~0.14–0.17</td><td class="g">2.84</td><td class="y">&gt;112 *</td></tr>
-<tr><td>Palmitate, C16</td><td class="r">32–35</td><td>~330 *</td><td>~0.14–0.17</td><td class="g">3.76</td><td class="y">113 *</td></tr>
-<tr><td>Stearate, C18</td><td class="r">37–41</td><td>~370</td><td>~0.14–0.17</td><td class="g">4.99</td><td class="y">&gt;110 *</td></tr></table></div>
-<p style="font-size:16px"><i>Green = suitable for an open-bath data-hall coolant; red = not suitable; amber = provisional. C14 is the only chain length green on melting point while still carrying a high enough flash point: shorter chains are too easy to ignite, longer ones are waxy solids at data-hall ambient. Sources: Merck (C8, C10) and Sigma-Aldrich (C12, C16) product specifications; viscosity from Barabás &amp; Todoruţ (2011), Table 14.</i></p>
+<div class="tw"><table><caption style="text-align:left;font-weight:700;padding-bottom:8px">Chain-length comparison of saturated methyl esters</caption><tr><th>Methyl ester</th><th>Melting point (°C)</th><th>Boiling point (°C)</th><th>Flash point (°C)</th><th>Viscosity @ 40°C (cSt)</th></tr><tr><td>Caprylate C8</td><td class="g">−40</td><td class="r">236</td><td class="r">~100</td><td class="g">1.22</td></tr><tr><td>Caprate C10</td><td class="g">−13</td><td class="g">260</td><td class="r">~120</td><td class="g">1.73</td></tr><tr><td>Laurate C12</td><td class="g">5</td><td class="g">267–279</td><td class="r">~140</td><td class="g">2.43</td></tr><tr><td>Myristate C14</td><td class="y">18–19</td><td class="g">291–295</td><td class="r">~112</td><td class="g">3.34</td></tr><tr><td>Palmitate C16</td><td class="r">29–30</td><td class="g">302–304</td><td class="g">~160</td><td class="y">4.41</td></tr><tr><td>Stearate C18</td><td class="r">&gt;39</td><td class="g">&gt;310</td><td class="g">~170+</td><td class="r">5.87</td></tr></table></div>
+<p style="font-size:16px"><i>Green = suitable for an open-bath data-hall coolant; red = not suitable; amber = provisional. Our target is to come as close as possible to the design matrix above.</i></p>
 <h3>C14 is the balance point</h3>
 <p>It is the longest saturated methyl ester that remains liquid at or near typical operating ambient, melting at 18 to 19 °C against 29 to 30 °C for methyl palmitate and 39 to 40 °C for methyl stearate, while retaining the high boiling point, low volatility and oxidative stability that longer saturated chains provide. It gets those properties without needing the double bonds that give unsaturated esters their low melting points at the cost of oxidative stability.</p>
 <p>This is precisely why our engineering target is chain-length control, not simply "more lipid." Yeast already makes fatty acids in bulk. It makes the wrong ones.</p></section>
@@ -236,6 +230,9 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <p><b>Our engineering target shaped the choice of chassis. We needed an organism that could efficiently make fatty acids, be genetically engineered at the C14 bottleneck, and scale beyond the lab.</b></p>
 <ul><li><b>A tractable FAS system:</b> a type I fatty acid synthase concentrates chain-length control in a specific domain, making targeted engineering of C14 production feasible.</li><li><b>Native fatty-acid flux:</b> the cell already directs substantial metabolic flux toward fatty-acid synthesis, so we redirect an existing pathway rather than build one from scratch.</li><li><b>Well-characterised genetics:</b> established vectors, promoters, markers and LiAc/PEG transformation make it straightforward to engineer. Its experimentally solved FAS structure also enables structure-guided mutations.</li><li><b>Industrial robustness:</b> yeast fermentation is already used at large scale. Its tolerance to low pH and ethanol also helps limit bacterial contamination.</li><li><b>GRAS status:</b> an established safety profile supports simpler biosafety, containment and future regulatory considerations.</li><li><b>Eukaryotic machinery:</b> as a eukaryote, it can express heterologous eukaryotic enzymes such as DmJHAMT.</li></ul></div></details>
 </section>
+<section id="refs"><hr><h2>References</h2>
+<p style="font-size:16px">Sources cited in the sections above.</p>
+<ol style="font-size:17px;line-height:1.6;padding-left:22px"><li>Li, P. et al. Making AI Less Thirsty. <i>Communications of the ACM</i>, 2025. &mdash; projected AI water demand of 4.2&ndash;6.6 billion m&sup3; a year by 2027.</li><li>Anarock Capital, 2026. &mdash; India&rsquo;s installed data-centre IT capacity, the 2030 projection and the city-level breakdown.</li><li>S&amp;P Global. &mdash; study projecting that 60&ndash;80% of India&rsquo;s data centres face high water stress within this decade.</li><li>Open Compute Project (OCP). &mdash; reference targets for single-phase immersion cooling used in the design matrix.</li><li>Merck. &mdash; product specifications for methyl caprylate (C8) and methyl caprate (C10).</li><li>Sigma-Aldrich. &mdash; product specifications for methyl laurate (C12) and methyl palmitate (C16).</li><li>Barab&aacute;s, I. &amp; Todoru&#539;, A., 2011, Table 14. &mdash; dynamic viscosity of saturated methyl esters.</li><li>Rigouin, C. et al. &mdash; engineering of the <i>Yarrowia lipolytica</i> fatty acid synthase ketoacyl synthase domain; the I1220W mutant accumulating C14 at 11.6% of total fatty acids, and the follow-up Yl<i>ELO1</i> deletion study.</li><li>Protein Data Bank entry 8PRW. &mdash; experimental structure of yeast fatty acid synthase used for the V1254W structural validation.</li></ol></section>
 </main></div></div>
 <script>
 const names=["Cooling Problem","Immersion","Ideal Coolant","Current Coolants"];
@@ -255,7 +252,7 @@ const secs=[...document.querySelectorAll('section[data-s]')];
 function onScroll(){let a=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*0.4)a=i});setActive(a);rail.classList.toggle("gone",document.getElementById("after4").getBoundingClientRect().top<150)}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 const heads=["Electrical","Thermal","Flow & Handling","Environmental & Safety"];
-const why=[["Protect the electronics","A coolant touches live boards directly. Too conductive and it shorts them; too polarisable and it blurs the high-speed signals running between them."],["Survive the heat","A chip in thermal runaway can reach 125 °C. The fluid has to sit well clear of boiling at that temperature, and lose almost nothing to evaporation across a ten-year service life."],["Keep the system flowing","Viscosity decides whether the fluid reaches the chip at all. Thick oils cannot pass between heatsink fins, which forces wider fin spacing and throws away heat-transfer area."],["Be safe and sustainable","An open bath is an open fire risk, so the flash point has to stay far above operating temperature. Whatever eventually leaks or is disposed of should break down rather than persist."]];
+const why=[["Protect the electronics","The fluid must insulate live components without compromising high-speed signals."],["Survive the heat","It must remain stable at high operating temperatures without boiling or excessive evaporation."],["Keep the system flowing","Low viscosity means the coolant can circulate through dense hardware with less pumping energy."],["Be safe &amp; sustainable","A practical coolant must have a high flash point, remain usable across temperatures, and minimise environmental impact."]];
 const row=document.getElementById('tabrow'),panel=document.getElementById('why');
 function show(i){[...row.children].forEach((th,k)=>th.firstChild.classList.toggle('on',k===i));panel.innerHTML='<h4>'+why[i][0]+'</h4><p style="margin:0">'+why[i][1]+'</p>';panel.style.animation='none';panel.offsetHeight;panel.style.animation=''}
 heads.forEach((h,i)=>{const th=document.createElement('th');const b=document.createElement('button');b.textContent=h;b.onclick=()=>show(i);th.appendChild(b);row.appendChild(th)});

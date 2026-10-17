@@ -16,6 +16,7 @@ export type ProtocolSection = {
   title: string;
   segment: string; // wheel segment colour
   button: string; // pill colour
+  body: string; // open-panel tint
   border: string; // card border colour
   titleTop: number;
   lineTop: number;
@@ -29,6 +30,7 @@ export const sections: ProtocolSection[] = [
     title: 'Media Preparation',
     segment: '#65b3f9',
     button: '#93ccff',
+    body: '#e7f2ff',
     border: '#bbddfb',
     titleTop: 34,
     lineTop: 75.5,
@@ -158,6 +160,7 @@ export const sections: ProtocolSection[] = [
     title: 'DNA Extraction & Purification',
     segment: '#a0a2f5',
     button: '#c6c7f8',
+    body: '#eeeefd',
     border: '#c6c7f8',
     titleTop: 31,
     lineTop: 77,
@@ -297,6 +300,7 @@ export const sections: ProtocolSection[] = [
     title: 'PCR & Analysis',
     segment: '#d48bc2',
     button: '#e4b4d8',
+    body: '#f8ecf5',
     border: '#e4b4d8',
     titleTop: 31,
     lineTop: 77,
@@ -414,6 +418,7 @@ export const sections: ProtocolSection[] = [
     title: 'Restriction & Cloning',
     segment: '#f9ce57',
     button: '#fbe09a',
+    body: '#fdf4dd',
     border: '#fbe09a',
     titleTop: 31,
     lineTop: 77,
@@ -542,6 +547,7 @@ export const sections: ProtocolSection[] = [
     title: 'Transformation',
     segment: '#94d8bf',
     button: '#bce7d7',
+    body: '#e9f7f2',
     border: '#bce7d7',
     titleTop: 31,
     lineTop: 77,
@@ -678,6 +684,7 @@ export const sections: ProtocolSection[] = [
     title: 'Culture & Storage',
     segment: '#8dcee0',
     button: '#b8e1ec',
+    body: '#eaf5f9',
     border: '#b8e1ec',
     titleTop: 31,
     lineTop: 77,
