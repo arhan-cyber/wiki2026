@@ -1,10 +1,10 @@
 <details class="acc" open><summary><h2 id="what-it-is-in-plain-language">Purpose of the software</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Pre-flight is a free tool that checks whether the score used to rank candidate gene edits can tell the candidates apart, before anyone acts on the ranking. It is a check, not a search method. In the team&rsquo;s own case, the score could not separate the best design from doing nothing. <strong>[computed]</strong></p>
+<p>Pre-flight is a free tool that checks whether the score used to rank candidate gene edits can tell the candidates apart, before anyone acts on the ranking. It is a check, not a search method. In the team&rsquo;s own case, the score could not separate the best design from doing nothing. The tool has been used on that one case; there is no pass case and no use by another team yet. <strong>[computed]</strong></p>
 </div>
 <p><strong>Pre-flight tests whether the scoring function of a model measures anything before its output is acted upon.</strong></p>
-<p>When flux balance analysis (FBA) is used to choose knockouts, overexpression targets or other interventions, a scoring function forms part of the pipeline. Such a function can be entirely uninformative while producing output that appears valid, and COBRApy<sup class="r"><a href="#ref-1">1</a></sup> issues no warning. This occurred in the present project: the search was exact and the arithmetic correct, yet the top recommendation exceeded the unedited strain by 0.010 %, a difference that gas chromatography–mass spectrometry (GC-MS) cannot measure, and it was close to being passed to the wet lab. Pre-flight detects this in about ten minutes for any scoring function.</p>
+<p>When flux balance analysis (FBA) is used to choose knockouts, overexpression targets or other interventions, a scoring function forms part of the pipeline. Such a function can be entirely uninformative while producing output that appears valid, and COBRApy<sup class="r"><a href="#ref-1">1</a></sup> issues no warning. This occurred in the present project: the search was exact and the arithmetic correct, yet the top recommendation exceeded the unedited strain by 0.010 %, a difference that gas chromatography–mass spectrometry (GC-MS) cannot measure, and it was close to being passed to the wet lab. On the team&rsquo;s own pipeline, the diagnostics script found this in about 15 minutes (Table 2). The tool has been run on one scoring function only (the team&rsquo;s, which fails); it should work on any scoring function that exposes an <code>evaluate(combo, target)</code> method, but no other scoring function has been tested.</p>
 <p>Pre-flight is <strong>not a search method</strong>. Brute force, greedy search and reinforcement learning address <em>which candidate scores best</em>. Pre-flight addresses <em>whether &ldquo;best&rdquo; is meaningful</em>. Both questions are relevant, and neither replaces the other.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="does-it-apply-to-you">Applicability</h2></summary><div class="acc-body">
@@ -18,7 +18,7 @@
 <details class="acc" open><summary><h2 id="the-six-checks">The six checks</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Six automated checks each return pass, warning or fail with an explanation. Two of them (does doing nothing score as well as the best design, and can the score separate candidates at measurable resolution) were not found automated in any other tool. When either fails, the tool prints no ranked list. <strong>[computed]</strong></p>
+<p>Six automated checks each return pass, warning or fail with an explanation. Two of them (does doing nothing score as well as the best design, and can the score separate candidates at measurable resolution) were not found automated by the team in the other tools it read about. When either fails, the tool prints no ranked list. <strong>[computed]</strong></p>
 </div>
 <p>Each check returns PASS, WARN or FAIL, with an explanation and a suggested remedy (Table 1).</p>
 <div class="key">
@@ -37,19 +37,19 @@
 <td>D1</td>
 <td>Doing nothing scores as well as the best design</td>
 <td>The score does not respond to the intervention</td>
-<td>Automated implementation not found in any tool surveyed</td>
+<td>Automated implementation not found by the team in the tools it read about</td>
 </tr>
 <tr>
 <td>D2</td>
 <td>All candidates lie within one measurement-resolution band</td>
 <td>The ranking is numerically real but experimentally untestable</td>
-<td>Automated implementation not found in any tool surveyed</td>
+<td>Automated implementation not found by the team in the tools it read about</td>
 </tr>
 <tr>
 <td>D3</td>
 <td>A weighted sum over several products returns only one of them</td>
 <td>A linear program visits vertices only; weights cannot produce a blend</td>
-<td>Not new: established methods (flux variability, alternate optima; Das and Dennis 1997<sup class="r"><a href="#ref-3">3</a></sup>)</td>
+<td>Not new: established methods (flux variability, alternate optima); Das and Dennis 1997<sup class="r"><a href="#ref-3">3</a></sup> is cited for weighted-sum limits in multicriteria optimisation, and its relevance to D3 is the team&rsquo;s reading</td>
 </tr>
 <tr>
 <td>D4</td>
@@ -61,7 +61,7 @@
 <td>D5</td>
 <td>The score tracks biomass rather than product</td>
 <td>Often intended, so the check asks and never fails</td>
-<td>Not new (Schuetz et al. 2007<sup class="r"><a href="#ref-4">4</a></sup>)</td>
+<td>Not new; Schuetz et al. 2007<sup class="r"><a href="#ref-4">4</a></sup> is cited for the choice of objective in flux prediction, and its relevance to D5 is the team&rsquo;s reading</td>
 </tr>
 <tr>
 <td>D6</td>
@@ -72,8 +72,19 @@
 </tbody>
 </table></div>
 </div>
-<p><strong>Proposals are withheld.</strong> When D1 or D2 fails, the tool prints no ranked list and states the reason. Of the eight strain-design tools surveyed (OptKnock,<sup class="r"><a href="#ref-5">5</a></sup> OptGene,<sup class="r"><a href="#ref-6">6</a></sup> OptForce,<sup class="r"><a href="#ref-7">7</a></sup> RobustKnock,<sup class="r"><a href="#ref-8">8</a></sup> cameo,<sup class="r"><a href="#ref-9">9</a></sup> MEWpy,<sup class="r"><a href="#ref-10">10</a></sup> OptFlux<sup class="r"><a href="#ref-11">11</a></sup> and StrainDesign<sup class="r"><a href="#ref-12">12</a></sup>), none checks its own scoring before emitting designs, and none withholds output.</p>
-<p><strong>The threshold that matters is the resolution of the assay, not that of the solver.</strong> The first version compared score differences with the solver tolerance and passed the defective pipeline. The thresholds are relative and tied to measurement resolution (<code>DETECTABLE_RELATIVE_MARGIN</code> = 1 %, <code>MEASURABLE_RELATIVE_MARGIN</code> = 5 %). For an assay more precise than GC-MS, the values should be reduced.</p>
+<p><strong>Proposals are withheld.</strong> When D1 or D2 fails, the tool prints no ranked list and states the reason. The team read about eight strain-design tools (OptKnock,<sup class="r"><a href="#ref-5">5</a></sup> OptGene,<sup class="r"><a href="#ref-6">6</a></sup> OptForce,<sup class="r"><a href="#ref-7">7</a></sup> RobustKnock,<sup class="r"><a href="#ref-8">8</a></sup> cameo,<sup class="r"><a href="#ref-9">9</a></sup> MEWpy,<sup class="r"><a href="#ref-10">10</a></sup> OptFlux<sup class="r"><a href="#ref-11">11</a></sup> and StrainDesign<sup class="r"><a href="#ref-12">12</a></sup>) and did not find a check of the scoring function before designs are emitted, or a refusal to output them. The tool versions, documents read and search terms were not recorded, and the tools were not run on a test case, so this is an absence of finding and not a verified survey; it should be tested by running one of these tools on the team&rsquo;s null-intervention case.</p>
+<p><strong>The threshold that matters is the resolution of the assay, not that of the solver.</strong> The first version compared score differences with the solver tolerance and passed the defective pipeline. The thresholds are relative and tied to measurement resolution (<code>DETECTABLE_RELATIVE_MARGIN</code> = 1 %, <code>MEASURABLE_RELATIVE_MARGIN</code> = 5 %). These margins follow the assumed GC-MS replicate variation of 1&ndash;5 %, for which no source or team replicate data are cited. For an assay more precise than GC-MS, the values should be reduced.</p>
+<p>The report printed for the team&rsquo;s setup (run on 17 October 2026 from the repository) reads:</p>
+<pre><code>D1 null-intervention parity   FAIL   best intervention beats doing nothing by 0.010%
+D2 landscape discrimination   FAIL   20 candidates, all inside one measurement band
+D3 scalarization degeneracy   FAIL   weighted sum gave one product at every weight
+D4 free production            WARN   all four target exchanges bounded at 1000
+D5 growth confound            WARN   growth identical across candidates
+D6 parameter sensitivity      WARN   ratio_match_alpha moves no score
+
+VERDICT: NOT USABLE
+*** NO PROPOSALS ISSUED ***
+</code></pre>
 </div></details>
 <details class="acc" open><summary><h2 id="how-little-you-have-to-adopt">Minimal adoption requirements</h2></summary><div class="acc-body">
 <div class="brief">
@@ -100,7 +111,7 @@ print(report.usable)  # False means any ranking is an artefact
 <details class="acc" open><summary><h2 id="install-and-run">Installation and execution</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The tool runs on Python 3.10 or newer with three packages and no separate solver. Four example scripts reproduce the team&rsquo;s analyses in 5 to 15 minutes each. The expected result of the diagnostics script is a failure, which is the demonstration. <strong>[computed]</strong></p>
+<p>The tool runs on Python 3.10 or newer with three packages and no separate solver. Four example scripts reproduce the team&rsquo;s analyses in about 5 to 15 minutes each. The expected result of the diagnostics script is a failure, which is the demonstration. <strong>[computed]</strong></p>
 </div>
 <p>Python 3.10 or newer is required, with three packages. No solver needs to be installed: GLPK is supplied with COBRApy.</p>
 <div class="table-wrap"><table>
@@ -135,7 +146,7 @@ print(report.usable)  # False means any ranking is an artefact
 </tbody>
 </table></div>
 <p>On Windows, if activation reports &ldquo;running scripts is disabled on this system&rdquo;, <code>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</code> should be run first; it applies to that window only.</p>
-<p><strong>Metabolic model.</strong> The model (about 11 MB) is not included because it belongs to SysBioChalmers/yeast-GEM<sup class="r"><a href="#ref-13">13</a></sup>; it is placed beside <code>README.md</code>. On Linux/macOS: <code>wget https://github.com/SysBioChalmers/yeast-GEM/raw/main/model/yeast-GEM.xml</code>. On Windows, <code>Invoke-WebRequest</code> is used (<code>wget</code> and <code>curl</code> are PowerShell aliases for other commands).</p>
+<p><strong>Metabolic model.</strong> The model (about 11 MB) is not included because it belongs to SysBioChalmers/yeast-GEM<sup class="r"><a href="#ref-13">13</a></sup>; it is placed beside <code>README.md</code>. The results here used release v9.1.1, so the download is pinned to that tag. On Linux/macOS: <code>wget https://github.com/SysBioChalmers/yeast-GEM/raw/v9.1.1/model/yeast-GEM.xml</code>. On Windows, <code>Invoke-WebRequest</code> is used (<code>wget</code> and <code>curl</code> are PowerShell aliases for other commands).</p>
 <p><strong>Analyses.</strong> The scripts are run from the folder containing <code>README.md</code>, with <code>-u</code> added on every platform, since output otherwise appears frozen (Table 2).</p>
 <p><em>Table 2. Example scripts, the question each addresses, whether the metabolic model is required, and the approximate run time.</em></p>
 <div class="table-wrap"><table>
@@ -206,16 +217,17 @@ print(report.usable)  # False means any ranking is an artefact
 <li><strong>Nothing here has been validated against wet-lab data.</strong> Every number is a statement about a model.</li>
 <li>The search benchmark was run on a <strong>synthetic landscape</strong>, because the real landscape is flat and a comparison of strategies on a flat landscape measures nothing.</li>
 <li>The reinforcement-learning agent is a simple linear Q-learner; the result shows that this agent was outperformed, not that the approach cannot work.</li>
-<li>The thresholds assume <strong>GC-MS composition analysis</strong> with 1–5 % replicate error. A different assay requires different values, which are set in a single constant.</li>
+<li>The thresholds assume <strong>GC-MS composition analysis</strong> with 1–5 % replicate error (an assumption with no cited source). A different assay requires different values, which are set in a single constant.</li>
+<li>The tool has been run on <strong>one scoring function and one organism</strong>, both the team&rsquo;s, and that scoring function fails. No scoring function that passes, and no third-party model, has been tried, so false-alarm behaviour is unknown. No other team has used or reviewed it.</li>
 </ul>
 </div></details>
 <details class="acc" open><summary><h2 id="licence-code-and-testing">Licence, code and testing</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The code is open source under the MIT licence. A second person re-ran the tests on a different operating system and obtained the same results, as reported in the team write-up. <strong>[computed]</strong></p>
+<p>The code is open source under the MIT licence. The repository&rsquo;s 26 tests pass. A second-person rerun on another operating system is recorded only in a team note and is not independently verifiable. <strong>[computed]</strong></p>
 </div>
-<p>The software is released under the MIT licence and may be used, modified and incorporated into other pipelines. Repository: <a href="https://github.com/Siddhant-Chowdhary/igem-preflight">github.com/Siddhant-Chowdhary/igem-preflight</a>.</p>
-<p><strong>Testing.</strong> The team write-up reports a clean-install rerun on a different operating system by a second person: 26 of 26 tests passed, the feasibility frontier was identical to four decimals, and the diagnostic verdict was the same. The write-up also states that <code>tests/test_diagnostics.py</code> prints <code>10 passed, 0 failed</code>. The two counts refer to different test suites.</p>
+<p>The software is released under the MIT licence and may be used, modified and incorporated into other pipelines. Repository: <a href="https://github.com/Siddhant-Chowdhary/igem-preflight">github.com/Siddhant-Chowdhary/igem-preflight</a> (a team member&rsquo;s GitHub account; a mirror on the iGEM GitLab is still to be made).</p>
+<p><strong>Testing.</strong> The repository holds 26 tests in three files (<code>test_benchmark.py</code> 7, <code>test_filters.py</code> 9, <code>test_diagnostics.py</code> 10). Running <code>python -m pytest tests</code> at commit f689baf on 17 October 2026 (Windows, Python 3.14) gave 26 passed. Running <code>tests/test_diagnostics.py</code> directly prints <code>10 passed, 0 failed</code>; that is the count for that one file, which resolves the apparent discrepancy between &lsquo;26 of 26&rsquo; and &lsquo;10 passed&rsquo;. A team note records a clean-install rerun by a second person on a different operating system with the same 26 passes and an identical feasibility frontier; the person and system are not recorded and this was not independently checked. Windows is the only system confirmed here; the install instructions cover Linux and macOS, but macOS has not been tested. No CI log is published.</p>
 <p>Reports of cases in which a check fires, and of failure modes that are not covered by the tests, are welcome.</p><h2 id="references">References</h2>
 <ol class="ref-list"><li id="ref-1">Ebrahim A, Lerman JA, Palsson BO, Hyduke DR (2013). COBRApy: COnstraints-Based Reconstruction and Analysis for Python. <em>BMC Systems Biology</em> 7:74. <a href="https://doi.org/10.1186/1752-0509-7-74">doi:10.1186/1752-0509-7-74</a></li><li id="ref-2">Lieven C, Beber ME, Olivier BG, et al. (2020). MEMOTE for standardized genome-scale metabolic model testing. <em>Nature Biotechnology</em> 38:272-276. <a href="https://doi.org/10.1038/s41587-020-0446-y">doi:10.1038/s41587-020-0446-y</a></li><li id="ref-3">Das I, Dennis JE (1997). A closer look at drawbacks of minimizing weighted sums of objectives for Pareto set generation in multicriteria optimization problems. <em>Structural Optimization</em> 14:63-69. <a href="https://doi.org/10.1007/BF01197559">doi:10.1007/BF01197559</a></li><li id="ref-4">Schuetz R, Kuepfer L, Sauer U (2007). Systematic evaluation of objective functions for predicting intracellular fluxes in Escherichia coli. <em>Molecular Systems Biology</em> 3. <a href="https://doi.org/10.1038/msb4100162">doi:10.1038/msb4100162</a></li><li id="ref-5">Burgard A, Pharkya P, Maranas C (2003). OptKnock: a bilevel programming framework for identifying gene knockout strategies for microbial strain optimization. <em>Biotechnology and Bioengineering</em> 84:647-657. <a href="https://doi.org/10.1002/bit.10803">doi:10.1002/bit.10803</a></li><li id="ref-6">Patil K, Rocha I, Förster J, Nielsen J (2005). Evolutionary programming as a platform for in silico metabolic engineering. <em>BMC Bioinformatics</em> 6:308. <a href="https://doi.org/10.1186/1471-2105-6-308">doi:10.1186/1471-2105-6-308</a></li><li id="ref-7">Ranganathan S, Suthers P, Maranas C (2010). OptForce: an optimization procedure for identifying all genetic manipulations leading to targeted overproductions. <em>PLoS Computational Biology</em> 6:e1000744. <a href="https://doi.org/10.1371/journal.pcbi.1000744">doi:10.1371/journal.pcbi.1000744</a></li><li id="ref-8">Tepper N, Shlomi T (2010). Predicting metabolic engineering knockout strategies for chemical production: accounting for competing pathways. <em>Bioinformatics</em> 26:536-543. <a href="https://doi.org/10.1093/bioinformatics/btp704">doi:10.1093/bioinformatics/btp704</a></li><li id="ref-9">Cardoso J, Jensen K, Lieven C, Lærke Hansen A, Galkina S, Beber M, Özdemir E, Herrgård M, Redestig H, Sonnenschein N (2018). Cameo: a Python library for computer aided metabolic engineering and optimization of cell factories. <em>ACS Synthetic Biology</em> 7:1163-1166. <a href="https://doi.org/10.1021/acssynbio.7b00423">doi:10.1021/acssynbio.7b00423</a></li><li id="ref-10">Pereira V, Cruz F, Rocha M (2021). MEWpy: a computational strain optimization workbench in Python. <em>Bioinformatics</em> 37:2494-2496. <a href="https://doi.org/10.1093/bioinformatics/btab013">doi:10.1093/bioinformatics/btab013</a></li><li id="ref-11">Rocha I, Maia P, Evangelista P, Vilaça P, Soares S, Pinto J, Nielsen J, Patil K, Ferreira E, Rocha M (2010). OptFlux: an open-source software platform for in silico metabolic engineering. <em>BMC Systems Biology</em> 4:45. <a href="https://doi.org/10.1186/1752-0509-4-45">doi:10.1186/1752-0509-4-45</a></li><li id="ref-12">Schneider P, Bekiaris P, von Kamp A, Klamt S (2022). StrainDesign: a comprehensive Python package for computational design of metabolic networks. <em>Bioinformatics</em> 38:4981-4983. <a href="https://doi.org/10.1093/bioinformatics/btac632">doi:10.1093/bioinformatics/btac632</a></li><li id="ref-13">Zhang C, Sánchez BJ, Li F, Eiden CWQ, Scott WT, Liebal UW, Blank LM, Mengers HG, Anton M, Rangel AT, Mendoza SN, Zhang L, Nielsen J, Lu H, Kerkhoven EJ (2024). Yeast9: a consensus genome-scale metabolic model for S. cerevisiae curated by the community. <em>Molecular Systems Biology</em> 20:1134-1150. <a href="https://doi.org/10.1038/s44320-024-00060-7">doi:10.1038/s44320-024-00060-7</a></li></ol>
 <h3 id="source-table">Source table</h3>

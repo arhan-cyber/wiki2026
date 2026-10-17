@@ -13,7 +13,7 @@
 <div class="brief-h">In brief</div>
 <p>The best-ranked knockout scored only 0.010 % better than the unedited strain, far less than the 1–5 % variation expected between repeated measurements. The ranking therefore could not be acted on. <strong>[computed]</strong></p>
 </div>
-<p><strong>[computed]</strong> The pipeline ranked gene knockouts by the agreement between the predicted fatty-acid profile and a target profile. Exhaustive evaluation of all 175 combinations returned FAA1 + FAA4 as the highest-scoring set (score 0.202529). The unedited strain scored 0.202509, a difference of 0.010 %. The composition of fatty acids measured by gas chromatography–mass spectrometry (GC-MS) varies by roughly 1–5 % between biological replicates, so an experiment could not be expected to separate the two strains. The search was exact and the arithmetic correct; the scoring function did not discriminate between candidates, and no error message indicated this.</p>
+<p><strong>[computed]</strong> The pipeline ranked gene knockouts by the agreement (cosine similarity, with a growth penalty) between the predicted fatty-acid profile and a target profile (C14:0 0.6, C16:0 0.2, C18:0 0.1, C18:1 0.1). The candidate genes were ten named genes: <em>POX1</em>, <em>PXA1</em>, <em>PXA2</em>, <em>FAA1</em>, <em>FAA4</em>, <em>DGA1</em>, <em>LRO1</em>, <em>ARE1</em>, <em>ARE2</em> and <em>OLE1</em> (the team&rsquo;s choice of genes in fatty-acid degradation, activation, storage and desaturation; the choice was not tested against alternatives), giving 10 + 45 + 120 = 175 combinations of up to three knockouts. Exhaustive evaluation of all 175 returned FAA1 + FAA4 as the highest-scoring set (score 0.202529). The unedited strain scored 0.202509, a difference of 0.010 %. Note that this objective (profile match) differs from the objective of the Metabolism page (maximum C14 export at a growth floor), where FAA1 + FAA4 is 2 % below wild type; the two statements describe different quantities and do not contradict each other. The composition of fatty acids measured by gas chromatography–mass spectrometry (GC-MS) is assumed to vary by roughly 1–5 % between biological replicates (an assumption without a cited source or team replicate data), so an experiment could not be expected to separate the two strains if that assumption holds. The search was exact and the arithmetic correct; the scoring function did not discriminate between candidates, and no error message indicated this.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="six-checks">Pre-flight checks D1–D6</h2></summary><div class="acc-body">
 <div class="brief">
@@ -40,7 +40,7 @@
 <tr>
 <td>D2</td>
 <td>Can the score separate candidates at measurable resolution?</td>
-<td><strong>FAIL</strong>: 20 candidates, all within one measurement band</td>
+<td><strong>FAIL</strong>: 20 candidates, all within one measurement band (the first 20 valid single and double knockouts of the ten genes, a subset of the 175)</td>
 </tr>
 <tr>
 <td>D3</td>
@@ -65,7 +65,7 @@
 </tbody>
 </table></div>
 </div>
-<p>The verdict was NOT USABLE: the tool withheld strain proposals because checks D1, D2 and D3 failed, and no ranked knockout list was therefore passed to experimental work. Four of the six checks are not new: D3–D6 automate established methods, and D4 is already implemented in memote.<sup class="r"><a href="#ref-1">1</a></sup> Automated versions of D1 and D2 were not found in any tool surveyed by the team (Figure 1).</p>
+<p>The verdict was NOT USABLE: the tool withheld strain proposals because checks D1, D2 and D3 failed, and no ranked knockout list was therefore passed to experimental work. Four of the six checks are not new: D3–D6 automate established methods, and D4 is, in the team&rsquo;s understanding, already covered by memote<sup class="r"><a href="#ref-1">1</a></sup> (the specific memote test was not checked). Automated versions of D1 and D2 were not found by the team in the eight strain-design tools it read about; no survey table was kept (Figure 1).</p>
 <figure class="figure my-4">
   <img src="/drylab/figures/explainer_preflight_gate.png" loading="lazy" class="figure-img img-fluid" alt="A scoring function feeds a table of six pre-flight checks, D1 to D6, with their questions and the team results (D1, D2 and D3 FAIL; D4, D5 and D6 WARN). A decision, D1 or D2 failed, leads on yes to Not usable with no proposals issued, and on no to the search and a proposal sheet.">
   <figcaption class="figure-caption"><strong>Figure 1.</strong> Pre-flight runs six checks on the scoring function before any search. Failure of D1 or D2 withholds proposals. For the team's scoring, D1, D2 and D3 failed and D4 to D6 gave warnings, so no proposals were issued. Thresholds follow assay resolution (1 % detectable, 5 % measurable; replicate variation 1–5 %), not solver tolerance. Model-implied; not validated against wet-lab data.</figcaption>
@@ -77,16 +77,33 @@
 <div class="brief-h">In brief</div>
 <p>Ten ways of measuring how far a predicted fatty-acid mixture is from a target were compared. A simple one, total variation, is the recommended default, and designs closer than about 0.014 cannot be told apart at 3 % measurement noise. The target used was illustrative. <strong>[computed]</strong></p>
 </div>
-<p><strong>[computed]</strong> Ten distance measures for fatty-acid profiles were compared: total variation, L2, cosine, Jensen–Shannon, Hellinger, Kullback–Leibler (KL), Bray–Curtis, Aitchison, and one- and two-dimensional Earth Mover&rsquo;s distance. Every metric except cosine and Aitchison resolved only about 4–8 % relative differences at 3 % noise. Total variation is the recommended default (a true metric between 0 and 1; for a pure-C14 target it equals one minus the C14:0 fraction). The runner-up is the two-dimensional chain-aware Earth Mover&rsquo;s distance, the only candidate for which C14:0 is closer to C16:0 than to C18:1. Designs whose total-variation losses differ by less than about 0.014 are tied at 3 % noise. The profile target and the yeast-like background used here are illustrative.</p>
+<p><strong>[computed]</strong> Ten distance measures for fatty-acid profiles were compared: total variation, L2, cosine, Jensen–Shannon, Hellinger, Kullback–Leibler (KL), Bray–Curtis, Aitchison, and one- and two-dimensional Earth Mover&rsquo;s distance. Every metric except cosine and Aitchison resolved only about 4–8 % relative differences at 3 % noise (Table 1b). Here &lsquo;resolved&rsquo; means the 95th percentile of the change in the distance between target and candidate when the candidate profile is re-measured with 3 % noise, divided by the typical distance. Total variation is the recommended default (a true metric between 0 and 1; for a pure-C14 target it equals one minus the C14:0 fraction). The runner-up is the two-dimensional chain-aware Earth Mover&rsquo;s distance, the only candidate for which C14:0 is closer to C16:0 than to C18:1. Designs whose total-variation losses differ by less than about 0.014 are tied at 3 % noise. The profile target and the yeast-like background used here are illustrative; the GC-MS noise level of 1&ndash;5 % is itself an assumption.</p>
+<p><em>Table 1b. Ten distances compared at 3 % noise on an illustrative yeast-like profile: mean and 95th percentile of the change in distance, and the minimum meaningful difference (MMD) as a fraction of the typical distance. Model-implied; the target and background are illustrative.</em></p>
+<div class="table-wrap"><table>
+<thead><tr><th>Distance</th><th>Mean / p95 at 3 %</th><th>MMD</th><th>MMD / typical distance</th></tr></thead>
+<tbody>
+<tr><td>Total variation</td><td>0.0096 / 0.0182</td><td>0.0143</td><td>6.6 %</td></tr>
+<tr><td>L2</td><td>0.0113 / 0.0226</td><td>0.0179</td><td>8.0 %</td></tr>
+<tr><td>Cosine</td><td>0.0003 / 0.0008</td><td>0.0074</td><td>16.4 %</td></tr>
+<tr><td>Jensen&ndash;Shannon</td><td>0.0097 / 0.0178</td><td>0.0109</td><td>4.3 %</td></tr>
+<tr><td>Hellinger</td><td>0.0080 / 0.0141</td><td>0.0096</td><td>4.4 %</td></tr>
+<tr><td>Kullback&ndash;Leibler</td><td>0.0005 / 0.0013</td><td>0.0184</td><td>8.3 %</td></tr>
+<tr><td>Bray&ndash;Curtis</td><td>0.0096 / 0.0182</td><td>0.0141</td><td>6.5 %</td></tr>
+<tr><td>Aitchison</td><td>0.0667 / 0.0994</td><td>0.0567</td><td>2.1 %</td></tr>
+<tr><td>Earth Mover&rsquo;s, 1-D</td><td>0.0140 / 0.0322</td><td>0.0377</td><td>6.3 %</td></tr>
+<tr><td>Earth Mover&rsquo;s, 2-D</td><td>0.0245 / 0.0461</td><td>0.0656</td><td>6.4 %</td></tr>
+</tbody></table></div>
+<p>Raw floors are not comparable between distances (cosine and KL are quadratic near zero). The ranking of real Yeast9 designs rests on only five distinct profiles, so rank agreement between distances on real data is weak evidence. Source: the team&rsquo;s metrics report (not yet published).</p>
 </div></details>
 <details class="acc" open><summary><h2 id="is-learned-search-worth-it">Cost-effectiveness of learned search relative to brute force and greedy search</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
 <p>On an artificial test problem, a simple greedy search found the best answer 65 % of the time, while a basic reinforcement-learning method found it 10 % of the time and needed far more evaluations. This does not show that the learning approach cannot work. <strong>[computed]</strong></p>
 </div>
-<p><strong>[computed, synthetic landscape]</strong> A reinforcement-learning (RL) agent for knockout search was benchmarked over 20 random seeds against brute force and greedy hill-climbing (Table 2, Figure 2). Random search on the RL agent&rsquo;s budget also matched greedy search, which indicates that the landscape contains many near-optimal solutions. A separate earlier RL run on a four-product profile found only 3 distinct flux vectors in 122 evaluations, consistent with the same degeneracy. Independent verification of that run has not been done.</p>
+<p><strong>[computed, synthetic landscape]</strong> A reinforcement-learning (RL) agent for knockout search was benchmarked over 20 random seeds against brute force and greedy hill-climbing (Table 2, Figure 2). The result concerns one linear Q-learning agent on one family of synthetic landscapes (Gaussian main effects of each gene on four products, a growth cost per gene, sparse pairwise interactions, score = cosine similarity to a target times a growth penalty). It does not show that learned search is unnecessary in general.</p>
+<p>Random search on the RL agent&rsquo;s budget (1,204 evaluations) matched greedy search (99.5&ndash;100 % of the exact optimum at 10 to 50 genes, one seed). This is uninformative at 10 genes, where the budget is seven times the size of the whole space (175 combinations); at 30 to 50 genes it suggests many near-optimal solutions. An earlier RL run on a four-product profile of the real model reported only 3 distinct flux vectors in 122 evaluations; that observation was <strong>not independently verified and is not used as evidence here</strong>.</p>
 <div class="key">
-<p><em>Table 2. Search methods on a synthetic landscape of 10 genes with up to 3 knockouts (20 seeds). Shortfall is the gap to the exact optimum.</em></p>
+<p><em>Table 2. Search methods on a synthetic landscape of 10 genes with up to 3 knockouts (20 seeds), as reported in the tool repository. Shortfall is the gap to the exact optimum. Approximate 95 % Wilson intervals for the share finding the exact best: greedy 13/20, 43&ndash;82 %; RL 2/20, 3&ndash;30 %.</em></p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -118,6 +135,7 @@
 </tbody>
 </table></div>
 </div>
+<p>Re-run on 17 October 2026 with the repository code and landscape seeds 0 to 19 (the original 20-seed script and seed list are not in the repository, so this is a reproduction, not the original): greedy found the exact best in 15 of 20 seeds (75 %; 53&ndash;89 %), mean shortfall 0.27 %, median 24 evaluations; RL 2 of 20 (10 %; 3&ndash;30 %), mean shortfall 8.14 %, 1,204 evaluations; random search with the RL budget 19 of 20 (95 %). The RL result reproduces (10 %); the greedy share and the shortfalls differ from Table 2, so the exact greedy percentage should be read as roughly 65&ndash;75 %. The ordering (brute force, greedy and budget-matched random search above RL) is the same in both. <strong>[computed]</strong></p>
 <figure class="figure my-4">
   <img src="/drylab/figures/rl_benchmark.png" loading="lazy" class="figure-img img-fluid" alt="Three bar charts comparing brute force, greedy and reinforcement learning: share finding the exact best answer (100, 65, 10 percent), mean shortfall (0, 1.14, 10.13 percent) and evaluations (175, 23, 1204).">
   <figcaption class="figure-caption"><strong>Figure 2.</strong> Share of seeds reaching the exact optimum, mean shortfall and evaluations for brute force, greedy search and reinforcement learning (20 seeds, synthetic landscape). The RL agent was a simple linear Q-learner, so the result shows that this agent was outperformed, not that the approach cannot work.</figcaption>
@@ -127,14 +145,14 @@
 <details class="acc" open><summary><h2 id="when-does-enumeration-stop-being-affordable">Cost of enumeration</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Trying every combination stays practical for up to about 50 candidate genes at the measured speed of 0.30 s per calculation, and greedy search was much faster and came close to the best answer. In this range a learned search was not needed. <strong>[computed]</strong></p>
+<p>With up to three simultaneous knockouts, trying every combination stays practical for up to about 50 candidate genes at the measured speed of 0.30 s per calculation, and greedy search was much faster and came close to the best answer. With four or five knockouts the same 50 genes would take about 21 hours or 8 days. In this range a learned search was not needed. <strong>[computed]</strong></p>
 </div>
-<p>At 0.30 s per flux balance analysis (FBA) solve (measured on the team&rsquo;s evaluator), exact search over 10 candidate genes takes 52 s, 20 genes 7 min, 30 genes 23 min, 40 genes 54 min and 50 genes 1.7 h. Greedy search took 6–35 s throughout and reached 99.5–100 % of the exact optimum (single seed; indicative only). In this range a learned search was not required.</p>
+<p>At 0.30 s per flux balance analysis (FBA) solve (measured on the team&rsquo;s evaluator), exact search over up to three simultaneous knockouts of 10 candidate genes takes 52 s, 20 genes 7 min, 30 genes 23 min, 40 genes 54 min and 50 genes 1.7 h. Greedy search took 6–35 s throughout and reached 99.5–100 % of the exact optimum (single seed; indicative only). In this range a learned search was not required. The combination counts (175; 1,350; 4,525; 10,700; 20,875) multiplied by 0.30 s reproduce these times. For four knockouts at 50 genes there are 251,175 combinations (21 h), and for five 2,369,935 (8 days).</p>
 </div></details>
 <details class="acc refs" open><summary><h2 id="references">References</h2></summary><div class="acc-body">
 <ol class="ref-list"><li id="ref-1">Lieven C, Beber ME, Olivier BG, et al. (2020). MEMOTE for standardized genome-scale metabolic model testing. <em>Nature Biotechnology</em> 38:272-276. <a href="https://doi.org/10.1038/s41587-020-0446-y">doi:10.1038/s41587-020-0446-y</a></li></ol>
 <h3 id="source-table">Source table</h3>
-<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Lieven C (2020)</td><td><a href="#six-checks">Pre-flight checks D1–D6</a> &mdash; memote, the model-testing tool; the overlap with D4 is a team statement that was not checked against the memote tests</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Lieven C (2020)</td><td><a href="#six-checks">Pre-flight checks D1–D6</a> &mdash; memote, the model-testing tool; the overlap with D4 is a team statement that was not checked against the memote tests (the specific memote test for unbounded exchanges has not been verified)</td></tr></tbody></table></div>
 </div></details>
 <hr />
 <p><strong>Previous:</strong> <a href="/dry-lab/model/metabolism">Step 4 Metabolism</a> · <strong>Next:</strong> <a href="/dry-lab/cfd">CFD</a></p>
