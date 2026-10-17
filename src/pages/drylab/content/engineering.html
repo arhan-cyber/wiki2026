@@ -1,4 +1,4 @@
-<p>The modelling work comprised one complete Design, Build, Test, Learn (DBTL) cycle, in which the Test stage indicated that the design should be changed. The cycle is computational: the Test stage is model against model and model against literature, and no wet-lab data closed the loop.</p>
+<p>The modelling work comprised two kinds of Design, Build, Test, Learn (DBTL) cycle. This page describes the strain-design cycle, in which the Test stage indicated that the design should be changed. The structure-validation cycles (six Boltz-2 rounds and six independent-check cycles, including the failures) are on the <a href="/dry-lab/dbtl">DBTL</a> page. All cycles are computational: the Test stage is model against model and model against literature, and no wet-lab data closed the loop. None of the cycles has yet been tied to a wet-lab decision.</p>
 <details class="acc" open><summary><h2 id="design">Design</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
@@ -14,7 +14,7 @@
 </div>
 <ul>
 <li>A fast FBA evaluator and a scoring function over fatty-acid profiles.</li>
-<li>A search over knockout combinations: brute force, greedy and a reinforcement-learning agent.</li>
+<li>A search over knockout combinations (up to three at a time): brute force, greedy and a reinforcement-learning agent.</li>
 <li>A structural pipeline for the FAS2 ketoacyl synthase (KS) domain: homology-based site identification and Boltz-2 ligand placement.</li>
 </ul>
 </div></details>
@@ -39,8 +39,8 @@
 <li><strong>The degradation-knockdown strategy was inverted.</strong> In the model, degradation is the only source of C14:0, and the strategy was therefore no longer planned.</li>
 <li><strong>The scoring function could not support any ranking</strong>, and no knockout list was passed to the wet lab.</li>
 <li><strong>The metabolic model could not represent the intended intervention.</strong> Yeast9 has no early C14 release from FAS, and a documented reaction was therefore added.</li>
-<li><strong>Simple search was sufficient.</strong> At the present scale, exact enumeration finishes in minutes to under two hours.</li>
-<li><strong>M1251 is probably a gate and not a site for mutation</strong> (<strong>[hypothesis]</strong>), and it was therefore excluded.</li>
+<li><strong>Simple search was sufficient.</strong> At the present scale, exact enumeration of up to three simultaneous knockouts finishes in minutes to under two hours for up to 50 candidate genes.</li>
+<li><strong>M1251 was deprioritised as a mutation site as a precaution</strong>, on the hypothesis that it is a conformational gate (<strong>[hypothesis]</strong>). Published <em>S. cerevisiae</em> strains with M1251W show that the position tolerates substitution and shifts chain length to C6/C8, so this is not a finding about the enzyme (see Step 2).</li>
 </ul>
 </div></details>
 <details class="acc" open><summary><h2 id="next-iteration">Next iteration</h2></summary><div class="acc-body">
@@ -48,7 +48,7 @@
 <div class="brief-h">In brief</div>
 <p>After the new reaction was added, myristic acid output rose by 2.6 % and the limit moved to NADPH. The next cycle repeats the analyses with the reaction and compares the model with published results. <strong>[pending]</strong></p>
 </div>
-<p>The early-release reaction was added and the analysis was repeated: C14:0 export increased by 2.6 % and the limit moved to NADPH. The next cycle repeats the frontier and knockout screen with the reaction, computes growth penalties and tests the model against published literature outcomes. See <a href="/dry-lab/model">Model</a> and <a href="/dry-lab/model/results">Results</a>.</p>
+<p>The early-release reaction was added and the analysis was repeated: C14:0 export increased by 2.6 % and the limit moved to NADPH. On 17 October 2026 the 175-set knockout screen and the single-deletion growth penalties were also computed (Step 4). The next cycle repeats the frontier with the reaction and tests the model against published literature outcomes, which has not been done. See <a href="/dry-lab/model">Model</a> and <a href="/dry-lab/model/results">Results</a>.</p>
 <div class="alert alert-secondary" role="alert">
 <p><strong>Scope.</strong> This cycle is computational. The Test stage is model against model and model against literature; no wet-lab data closed the loop.</p>
 </div></div></details>

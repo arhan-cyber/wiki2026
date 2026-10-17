@@ -1,6 +1,7 @@
 // Generated from the IIT Bombay iGEM drylab wiki draft (helper set/iitb-igem-drylab-wiki-draft):
 // titles and subtitles from wiki/base.html, page HTML in ./content rendered by the draft's own
-// pipeline (citations, references, sections). Do not hand-edit the content files.
+// pipeline (citations, references, sections). The content files were edited by hand on 2026-10-17
+// (judge-review corrections); mirror those edits in the draft repository or they will be overwritten.
 
 export type DryLabPage = { slug: string; path: string; title: string; subtitle: string };
 
@@ -8,11 +9,11 @@ export const dryLabPages: DryLabPage[] = [
   { slug: "home", path: "/dry-lab", title: "Home", subtitle: "The modelling behind a fatty-acid-engineering project, in the order in which it was carried out: from a residue, to a protein pocket, to the whole cell, to the coolant." },
   { slug: "model", path: "/dry-lab/model", title: "Model", subtitle: "The models, their assumptions, data, parameters and results, in the order in which they build on each other. Every claim carries a status: computed, from literature, hypothesis, or pending." },
   { slug: "sequence", path: "/dry-lab/model/sequence", title: "Sequence", subtitle: "Step 1: the residue of yeast fatty acid synthase that corresponds to the chain-length-determining residue in Yarrowia." },
-  { slug: "fas-interaction", path: "/dry-lab/model/fas-interaction", title: "FAS Interaction", subtitle: "Step 2: whether the KS pocket accommodates a C14 chain, which residues must remain unaltered, and how far the Boltz-2 results depend on setup." },
+  { slug: "fas-interaction", path: "/dry-lab/model/fas-interaction", title: "FAS Interaction", subtitle: "Step 2: whether the KS pocket accommodates a C14 chain, which residues are set aside as mutation sites, and how far the Boltz-2 results depend on setup." },
   { slug: "bridge", path: "/dry-lab/model/bridge", title: "Bridge", subtitle: "Step 3: representation of the mutation in a metabolic model as an early-release reaction." },
   { slug: "metabolism", path: "/dry-lab/model/metabolism", title: "Metabolism", subtitle: "Step 4: what the whole cell can reach, at what growth cost, by flux balance analysis." },
   { slug: "trust", path: "/dry-lab/model/trust", title: "Trust", subtitle: "Step 5: whether a strain-design ranking is informative, and whether learned search is required." },
-  { slug: "engineering", path: "/dry-lab/model/engineering", title: "Engineering", subtitle: "The Design, Build, Test, Learn cycle, including the strategy that the model indicated should be abandoned." },
+  { slug: "engineering", path: "/dry-lab/model/engineering", title: "Engineering", subtitle: "The strain-design Design, Build, Test, Learn cycle, including the strategy that the model indicated should be abandoned." },
   { slug: "results", path: "/dry-lab/model/results", title: "Results", subtitle: "The headline findings of the models, the changes they prompted in the plan, and what has not been validated." },
   { slug: "cfd", path: "/dry-lab/cfd", title: "CFD", subtitle: "Heat-flow simulations of the candidate coolant, methyl myristate, in an immersion-cooled server, and the separate comparison of two candidate esters." },
   { slug: "lca", path: "/dry-lab/lca", title: "Life Cycle Assessment", subtitle: "A screening-level life cycle assessment of methyl myristate as a bio-based immersion coolant, with its limits stated first." },
