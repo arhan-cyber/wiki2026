@@ -91,10 +91,10 @@ export default function SideNav({ slug, headings, activeId, onJump, onExpandAll,
             ))}
           </ul>
           <div className={styles.sideTools}>
-            <button type="button" className={styles.lnk} onClick={onExpandAll}>
+            <button type="button" className={styles.btn} onClick={onExpandAll}>
               Expand all
             </button>
-            <button type="button" className={styles.lnk} onClick={onCollapseAll}>
+            <button type="button" className={styles.btn} onClick={onCollapseAll}>
               Collapse all
             </button>
           </div>

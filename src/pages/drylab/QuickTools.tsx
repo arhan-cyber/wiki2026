@@ -54,24 +54,24 @@ export default function QuickTools() {
     <>
       <div className={styles.fabs}>
         {showTop && (
-          <button type="button" className={styles.fab} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to the top of the page" title="Back to top">
-            ↑
+          <button type="button" className={`${styles.btn} ${styles.fab}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to the top of the page" title="Back to top">
+            Top
           </button>
         )}
-        <button type="button" className={styles.fab} onClick={() => go('/dry-lab')} aria-label="Dry Lab home" title="Dry Lab home">
-          ⌂
+        <button type="button" className={`${styles.btn} ${styles.fab}`} onClick={() => go('/dry-lab')} aria-label="Dry Lab home" title="Dry Lab home">
+          Home
         </button>
-        <button type="button" className={`${styles.fab} ${styles.fabMain}`} onClick={() => setOpen(true)} aria-label="Open the quick tab switcher" title="Quick switcher (Ctrl+K)">
-          ☰
+        <button type="button" className={`${styles.btn} ${styles.fab}`} onClick={() => setOpen(true)} aria-label="Open the quick tab switcher" title="Quick switcher (Ctrl+K)">
+          Pages
         </button>
       </div>
 
       {open && (
         <div className={styles.qsBack} onMouseDown={() => setOpen(false)}>
-          <div className={styles.qs} role="dialog" aria-modal="true" aria-label="Quick tab switcher" onMouseDown={(e) => e.stopPropagation()}>
+          <div className={`${styles.card} ${styles.qs}`} role="dialog" aria-modal="true" aria-label="Quick tab switcher" onMouseDown={(e) => e.stopPropagation()}>
             <input
               ref={input}
-              className={styles.qsInput}
+              className={styles.input}
               placeholder="Go to a Dry Lab page…"
               value={q}
               onChange={(e) => {

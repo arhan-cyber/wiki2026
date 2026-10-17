@@ -15,58 +15,52 @@ const steps: Node[] = [
 const downstream: Node[] = [
   { n: 'CFD', title: 'Heat flow', ask: 'Does the coolant keep a server cool?', found: 'Below 85 °C at 0.27 m/s, against 0.80 m/s for two reference coolants.', to: '/dry-lab/cfd' },
   { n: 'LCA', title: 'Life cycle', ask: 'What is the footprint?', found: 'Production footprint is high today; the net result depends on the grid carbon factor.', to: '/dry-lab/lca' },
+  { n: 'DBTL', title: 'Cycles and failures', ask: 'What was tried, what failed, and what did each failure change?', found: '', to: '/dry-lab/dbtl' },
 ];
 
-function Card({ node, tone }: { node: Node; tone?: 'down' }) {
-  return (
-    <Link to={node.to} className={`${styles.flowNode} ${tone === 'down' ? styles.flowNodeDown : ''}`}>
-      <span className={styles.flowNum}>{node.n}</span>
-      <span className={styles.flowTitle}>{node.title}</span>
-      <span className={styles.flowAsk}>{node.ask}</span>
-      <span className={styles.flowFound}>{node.found}</span>
-      <span className={styles.flowGo}>Open page →</span>
-    </Link>
-  );
-}
-
-/** Clickable overview: the five-step modelling flow, the two downstream analyses, and the DBTL record. */
+/** Clickable overview: the five-step modelling flow, the downstream analyses and the DBTL record. */
 export default function ChainFlow() {
   return (
     <section className={styles.flow} aria-label="Overview of the modelling flow">
-      <div className={styles.flowHead}>
-        <h2 className={styles.flowH}>At a glance</h2>
-        <p className={styles.flowLead}>
-          One question, from a single residue to a coolant: can baker’s yeast be engineered to make myristic acid
-          (C14:0) for a bio-based data-centre coolant? Select a step to open its page. All results are model outputs and
-          none has been validated against wet-lab data.
-        </p>
-      </div>
+      <h2 className={styles.flowH}>At a glance</h2>
+      <p className={styles.flowLead}>
+        One question, from a single residue to a coolant: can baker’s yeast be engineered to make myristic acid (C14:0)
+        for a bio-based data-centre coolant? Select a step to open its page. All results are model outputs and none has
+        been validated against wet-lab data.
+      </p>
 
       <p className={styles.flowLabel}>Strain-design flow</p>
-      <ol className={styles.flowRow}>
-        {steps.map((s, i) => (
-          <li key={s.n} className={styles.flowItem}>
-            <Card node={s} />
-            {i < steps.length - 1 && <span className={styles.flowArrow} aria-hidden="true">→</span>}
+      <ol className={styles.flowSteps}>
+        {steps.map((s) => (
+          <li key={s.n}>
+            <Link to={s.to} className={`${styles.card} ${styles.flowStep}`}>
+              <span className={styles.flowNum}>{s.n}</span>
+              <span className={styles.flowCell}>
+                <span className={styles.flowTitle}>{s.title}</span>
+                <span className={styles.flowAsk}>{s.ask}</span>
+              </span>
+              <span className={styles.flowCell}>
+                <span className={styles.flowFound}>{s.found}</span>
+                <span className={styles.flowGo}>Open page →</span>
+              </span>
+            </Link>
           </li>
         ))}
       </ol>
 
-      <p className={styles.flowLabel}>Downstream: the product as a coolant</p>
-      <ul className={styles.flowRow}>
+      <p className={styles.flowLabel}>Downstream and record</p>
+      <ul className={styles.flowDown}>
         {downstream.map((s) => (
-          <li key={s.n} className={styles.flowItem}>
-            <Card node={s} tone="down" />
+          <li key={s.n}>
+            <Link to={s.to} className={`${styles.card} ${styles.flowCell}`}>
+              <span className={styles.flowNum}>{s.n}</span>
+              <span className={styles.flowTitle}>{s.title}</span>
+              <span className={styles.flowAsk}>{s.ask}</span>
+              {s.found && <span className={styles.flowFound}>{s.found}</span>}
+              <span className={styles.flowGo}>Open page →</span>
+            </Link>
           </li>
         ))}
-        <li className={styles.flowItem}>
-          <Link to="/dry-lab/dbtl" className={`${styles.flowNode} ${styles.flowNodeLog}`}>
-            <span className={styles.flowNum}>DBTL</span>
-            <span className={styles.flowTitle}>Cycles and failures</span>
-            <span className={styles.flowAsk}>What was tried, what failed, and what each failure changed.</span>
-            <span className={styles.flowGo}>Open page →</span>
-          </Link>
-        </li>
       </ul>
     </section>
   );

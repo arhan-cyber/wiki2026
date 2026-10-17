@@ -117,13 +117,8 @@ export default function DryLabPage({ slug }: { slug: string }) {
   return (
     <main className={styles.page}>
       <header className={styles.hero}>
-        <div className={styles.titleCard}>
-          <img src="/wetlab/protocols/title-card.svg" alt="" className={styles.titleCardImg} />
-          <div className={styles.titleInner}>
-            <span className={styles.eyebrow}>Dry Lab</span>
-            <h1 className={styles.title}>{page.title}</h1>
-          </div>
-        </div>
+        <span className={styles.eyebrow}>Dry Lab</span>
+        <h1 className={styles.title}>{page.title}</h1>
         <p className={styles.subtitle}>{page.subtitle}</p>
       </header>
 
