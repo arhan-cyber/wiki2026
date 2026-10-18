@@ -1,7 +1,7 @@
 <details class="acc" open><summary><h2 id="what-it-is-in-plain-language">Purpose of the software</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Pre-flight is a free tool that checks whether the score used to rank candidate gene edits can tell the candidates apart, before anyone acts on the ranking. It is a check, not a search method. In the team&rsquo;s own case, the score could not separate the best design from doing nothing. The tool has been used on that one case; there is no pass case and no use by another team yet. <strong>[computed]</strong></p>
+<p>Pre-flight is a free tool that checks whether the score used to rank candidate gene edits can tell the candidates apart, before anyone acts on the ranking. It is a check, not a search method. In the team&rsquo;s own case, the score could not separate the best design from doing nothing. The tool has been used on that one case; there is no pass case and no use by another team yet.</p>
 </div>
 <p><strong>Pre-flight tests whether the scoring function of a model measures anything before its output is acted upon.</strong></p>
 <p>When flux balance analysis (FBA) is used to choose knockouts, overexpression targets or other interventions, a scoring function forms part of the pipeline. Such a function can be entirely uninformative while producing output that appears valid, and COBRApy<sup class="r"><a href="#ref-1">1</a></sup> issues no warning. This occurred in the present project: the search was exact and the arithmetic correct, yet the top recommendation exceeded the unedited strain by 0.010 %, a difference that gas chromatography–mass spectrometry (GC-MS) cannot measure, and it was close to being passed to the wet lab. On the team&rsquo;s own pipeline, the diagnostics script found this in about 15 minutes (Table 2). The tool has been run on one scoring function only (the team&rsquo;s, which fails); it should work on any scoring function that exposes an <code>evaluate(combo, target)</code> method, but no other scoring function has been tested.</p>
@@ -18,7 +18,7 @@
 <details class="acc" open><summary><h2 id="the-six-checks">The six checks</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Six automated checks each return pass, warning or fail with an explanation. Two of them (does doing nothing score as well as the best design, and can the score separate candidates at measurable resolution) were not found automated by the team in the other tools it read about. When either fails, the tool prints no ranked list. <strong>[computed]</strong></p>
+<p>Six automated checks each return pass, warning or fail with an explanation. Two of them (does doing nothing score as well as the best design, and can the score separate candidates at measurable resolution) were not found automated by the team in the other tools it read about. When either fails, the tool prints no ranked list.</p>
 </div>
 <p>Each check returns PASS, WARN or FAIL, with an explanation and a suggested remedy (Table 1).</p>
 <div class="key">
@@ -89,7 +89,7 @@ VERDICT: NOT USABLE
 <details class="acc" open><summary><h2 id="how-little-you-have-to-adopt">Minimal adoption requirements</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The tool needs only one function that returns a score for a set of edits. Checks that need more simply skip, so even a bare scoring function gets a useful report. <strong>[computed]</strong></p>
+<p>The tool needs only one function that returns a score for a set of edits. Checks that need more simply skip, so even a bare scoring function gets a useful report.</p>
 </div>
 <p>The checks require a single method, <code>evaluate(combo, target) -&gt; float</code>. No COBRApy dependency is imposed, and the configuration system, evaluator and file layout need not be used. Checks that require more capability are skipped and do not fail, so that a bare scoring function still receives a useful report.</p>
 <pre><code class="language-python">from preflight import run_diagnostics
@@ -111,7 +111,7 @@ print(report.usable)  # False means any ranking is an artefact
 <details class="acc" open><summary><h2 id="install-and-run">Installation and execution</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The tool runs on Python 3.10 or newer with three packages and no separate solver. Four example scripts reproduce the team&rsquo;s analyses in about 5 to 15 minutes each. The expected result of the diagnostics script is a failure, which is the demonstration. <strong>[computed]</strong></p>
+<p>The tool runs on Python 3.10 or newer with three packages and no separate solver. Four example scripts reproduce the team&rsquo;s analyses in about 5 to 15 minutes each. The expected result of the diagnostics script is a failure, which is the demonstration.</p>
 </div>
 <p>Python 3.10 or newer is required, with three packages. No solver needs to be installed: GLPK is supplied with COBRApy.</p>
 <div class="table-wrap"><table>
@@ -190,7 +190,7 @@ print(report.usable)  # False means any ranking is an artefact
 <details class="acc" open><summary><h2 id="design-choices-and-trade-offs">Design choices and trade-offs</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Five design choices were made, each with a cost: thresholds tied to the user&rsquo;s assay, skipping instead of crashing, refusing instead of warning, one configuration file per organism, and brute force as the default search. <strong>[computed]</strong></p>
+<p>Five design choices were made, each with a cost: thresholds tied to the user&rsquo;s assay, skipping instead of crashing, refusing instead of warning, one configuration file per organism, and brute force as the default search.</p>
 </div>
 <ul>
 <li><strong>Assay-tied thresholds</strong> instead of solver tolerance. Trade-off: the resolution of the assay must be stated.</li>
@@ -203,14 +203,14 @@ print(report.usable)  # False means any ranking is an artefact
 <details class="acc" open><summary><h2 id="architecture">Architecture</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The code is a small Python package with separate parts for the checks, an optional metabolic-model evaluator, configuration, search methods, a benchmark and a proposal sheet. <strong>[computed]</strong></p>
+<p>The code is a small Python package with separate parts for the checks, an optional metabolic-model evaluator, configuration, search methods, a benchmark and a proposal sheet.</p>
 </div>
 <p>The package <code>preflight/</code> contains <code>diagnostics</code> (the six checks), <code>cobra_evaluator</code> (an optional COBRApy-backed evaluator), <code>config</code> (the YAML-driven setup), <code>filters</code>, <code>search</code> and <code>agent</code> (brute force, greedy and reinforcement learning), <code>benchmark</code> (the search benchmark) and <code>proposals</code> (the proposal sheet, empty when D1 or D2 fails). Examples are in <code>examples/</code> and tests in <code>tests/</code>.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="what-not-to-take-from-this">Limits of applicability</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The tool is not a search method, nothing about it has been validated against laboratory data, and its benchmark uses an artificial test problem. Its thresholds assume a particular measurement method and can be changed. <strong>[computed]</strong></p>
+<p>The tool is not a search method, nothing about it has been validated against laboratory data, and its benchmark uses an artificial test problem. Its thresholds assume a particular measurement method and can be changed.</p>
 </div>
 <ul>
 <li>Pre-flight is <strong>not a search method</strong>.</li>
@@ -224,7 +224,7 @@ print(report.usable)  # False means any ranking is an artefact
 <details class="acc" open><summary><h2 id="licence-code-and-testing">Licence, code and testing</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The code is open source under the MIT licence. The repository&rsquo;s 26 tests pass. A second-person rerun on another operating system is recorded only in a team note and is not independently verifiable. <strong>[computed]</strong></p>
+<p>The code is open source under the MIT licence. The repository&rsquo;s 26 tests pass. A second-person rerun on another operating system is recorded only in a team note and is not independently verifiable.</p>
 </div>
 <p>The software is released under the MIT licence and may be used, modified and incorporated into other pipelines. Repository: <a href="https://github.com/Siddhant-Chowdhary/igem-preflight">github.com/Siddhant-Chowdhary/igem-preflight</a> (a team member&rsquo;s GitHub account; a mirror on the iGEM GitLab is still to be made).</p>
 <p><strong>Testing.</strong> The repository holds 26 tests in three files (<code>test_benchmark.py</code> 7, <code>test_filters.py</code> 9, <code>test_diagnostics.py</code> 10). Running <code>python -m pytest tests</code> at commit f689baf on 17 October 2026 (Windows, Python 3.14) gave 26 passed. Running <code>tests/test_diagnostics.py</code> directly prints <code>10 passed, 0 failed</code>; that is the count for that one file, which resolves the apparent discrepancy between &lsquo;26 of 26&rsquo; and &lsquo;10 passed&rsquo;. A team note records a clean-install rerun by a second person on a different operating system with the same 26 passes and an identical feasibility frontier; the person and system are not recorded and this was not independently checked. Windows is the only system confirmed here; the install instructions cover Linux and macOS, but macOS has not been tested. No CI log is published.</p>

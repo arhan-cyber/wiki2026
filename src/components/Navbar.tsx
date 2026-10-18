@@ -46,12 +46,14 @@ const navigation: NavItem[] = [
   },
   {
     label: 'DryLab',
-    href: '/dry-lab/model',
+    href: '/dry-lab',
     subnav: [
+      { label: 'Home', href: '/dry-lab' },
       { label: 'Modeling', href: '/dry-lab/model' },
       { label: 'Software', href: '/dry-lab/software' },
       { label: 'CFD', href: '/dry-lab/cfd' },
       { label: 'LCA', href: '/dry-lab/lca' },
+      { label: 'Contribution', href: '/dry-lab/contribution' },
     ],
   },
   {

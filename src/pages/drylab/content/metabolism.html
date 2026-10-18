@@ -1,10 +1,10 @@
 <div class="alert alert-secondary" role="alert">
-<p>Part of the <a href="/dry-lab/model">model</a>. Status labels: <strong>[computed]</strong> produced in this study; <strong>[literature]</strong> taken from a published source; <strong>[hypothesis]</strong> reasoned but untested; <strong>[pending]</strong> not completed. <strong>None of the values on this page has been validated against wet-lab data.</strong></p>
+<p>Part of the <a href="/dry-lab/model">model</a>. <strong>None of the values on this page has been validated against wet-lab data.</strong></p>
 </div>
 <details class="acc" open><summary><h2 id="metabolism">Step 4. Whole-cell metabolic analysis</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Flux balance analysis, a way of calculating the most a cell&rsquo;s metabolism could produce, was applied to a genome-scale yeast model. Without the early-release reaction the model makes myristic acid only by shortening longer fatty acids at the optimum, the maximum output falls steadily as growth is required, and none of the 175 knockout sets tested beat the unedited strain, with or without the early-release reaction. <strong>[computed]</strong></p>
+<p>Flux balance analysis, a way of calculating the most a cell&rsquo;s metabolism could produce, was applied to a genome-scale yeast model. Without the early-release reaction the model makes myristic acid only by shortening longer fatty acids at the optimum, the maximum output falls steadily as growth is required, and none of the 175 knockout sets tested beat the unedited strain, with or without the early-release reaction.</p>
 </div>
 <p><strong>Question.</strong> Which quantity of C14:0 can the cell reach in the model, at what cost to growth, and by which route? The analyses used flux balance analysis (FBA)<sup class="r"><a href="#ref-1">1</a></sup> on Yeast9<sup class="r"><a href="#ref-2">2</a></sup> with COBRApy<sup class="r"><a href="#ref-3">3</a></sup>. Conditions of analysis B are given in the <a href="/dry-lab/model#m3">Data</a> section of the model overview.</p>
 <p><strong>Formulation.</strong> Every result below is the solution of a linear program: maximise the flux v<sub>i</sub> of the chosen objective reaction (r_2193, myristate export, unless stated) subject to S v = 0 (steady state, S the stoichiometric matrix of Yeast9), lower and upper flux bounds on every reaction (glucose uptake r_1714 at least &minus;1.0 mmol gDW⁻¹ h⁻¹ in analysis A, &minus;1.1 in B; non-growth-associated maintenance r_4046 fixed at 0.7), and a growth requirement v<sub>r_2111</sub> &ge; f &middot; &mu;<sub>WT</sub> with f the fraction of wild-type growth. A gene deletion sets the flux of every reaction that needs the gene to zero.</p>
@@ -12,9 +12,9 @@
 <details class="acc" open><summary><h2 id="feasibility-frontier-analysis-a">Feasibility frontier (analysis A)</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>In the unedited model, pure myristic acid can be exported at any growth up to 90 % of normal, and output falls in a straight line as more growth is required: 0.211 at 10 % growth to 0.024 at 90 % (mmol per gram dry weight per hour). <strong>[computed]</strong></p>
+<p>In the unedited model, pure myristic acid can be exported at any growth up to 90 % of normal, and output falls in a straight line as more growth is required: 0.211 at 10 % growth to 0.024 at 90 % (mmol per gram dry weight per hour).</p>
 </div>
-<p><strong>[computed]</strong> In unmodified Yeast9, the wild-type model exported C14:0 at any growth up to 90 % of the wild-type rate without genetic edits when C14:0 export was the only objective. Purity is 100 % here because only C14:0 is maximised; it is a property of the objective and not a prediction of a strain, and these values are theoretical upper bounds and not titre predictions (no membrane fatty-acid requirement beyond the biomass reaction, no regulation). Growth traded off linearly against yield (Table 1, Figure 1).</p>
+<p>In unmodified Yeast9, the wild-type model exported C14:0 at any growth up to 90 % of the wild-type rate without genetic edits when C14:0 export was the only objective. Purity is 100 % here because only C14:0 is maximised; it is a property of the objective and not a prediction of a strain, and these values are theoretical upper bounds and not titre predictions (no membrane fatty-acid requirement beyond the biomass reaction, no regulation). Growth traded off linearly against yield (Table 1, Figure 1).</p>
 <div class="key">
 <p><em>Table 1. Maximum C14:0 export in unmodified Yeast9 at fixed fractions of the wild-type growth rate (analysis A).</em></p>
 <div class="table-wrap"><table>
@@ -64,9 +64,9 @@
 <details class="acc" open><summary><h2 id="same-envelope-second-analysis-analysis-b">Feasibility envelope under the conditions of analysis B</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>A second analysis under slightly different conditions gave the same shape, with values 6–7 % higher. At full growth the model makes no myristic acid, so production does not come with growth for free. <strong>[computed]</strong></p>
+<p>A second analysis under slightly different conditions gave the same shape, with values 6–7 % higher. At full growth the model makes no myristic acid, so production does not come with growth for free.</p>
 </div>
-<p><strong>[computed]</strong> Under the conditions of analysis B (see <a href="/dry-lab/model#m3">Data</a>), the maximum export with a minimum growth requirement is given in Table 2.</p>
+<p>Under the conditions of analysis B (see <a href="/dry-lab/model#m3">Data</a>), the maximum export with a minimum growth requirement is given in Table 2.</p>
 <p><em>Table 2. Maximum C14 export under a minimum growth requirement (analysis B).</em></p>
 <div class="table-wrap"><table>
 <thead>
@@ -119,9 +119,9 @@
 <details class="acc" open><summary><h2 id="the-route">Metabolic route to C14:0</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Without the added reaction, the model makes myristic acid only by chopping two carbons off palmitic acid (C16:0) in the peroxisome, so deleting the gene <em>POX1</em> removes it completely. The original plan of reducing breakdown is therefore inverted relative to what the model predicts. <strong>[computed]</strong></p>
+<p>Without the added reaction, the model makes myristic acid only by chopping two carbons off palmitic acid (C16:0) in the peroxisome, so deleting the gene <em>POX1</em> removes it completely. The original plan of reducing breakdown is therefore inverted relative to what the model predicts.</p>
 </div>
-<p><strong>[computed]</strong> At 50 % growth every step of one route carried identical flux (0.1192 mmol gDW⁻¹ h⁻¹). Identical flux alone would not show that no alternative route exists, so flux variability analysis was run at the maximum C14 export (17 October 2026): every step of the route varies by less than 10⁻⁵ mmol gDW⁻¹ h⁻¹, so at this optimum no alternative route carries the same export. Blocking one step (r_0102) does open another route at a lower export (below). The route is therefore the only one at the optimum, not a proof that the network has no other:</p>
+<p>At 50 % growth every step of one route carried identical flux (0.1192 mmol gDW⁻¹ h⁻¹). Identical flux alone would not show that no alternative route exists, so flux variability analysis was run at the maximum C14 export (17 October 2026): every step of the route varies by less than 10⁻⁵ mmol gDW⁻¹ h⁻¹, so at this optimum no alternative route carries the same export. Blocking one step (r_0102) does open another route at a lower export (below). The route is therefore the only one at the optimum, not a proof that the network has no other:</p>
 <p>C16:0 → (r_0402) hexadecanoyl-CoA → (r_0123, acyl-CoA oxidase, <em>POX1</em>) → (r_2251) enoyl-CoA hydratase → (r_0102) myristoyl-CoA → (r_0412) free C14:0 → export (Figure B).</p>
 <figure class="figure my-4">
   <img src="/drylab/figures/explainer_c14_route.png" loading="lazy" class="figure-img img-fluid" alt="Vertical chain of seven boxes from C16:0 (palmitic acid) through hexadecanoyl-CoA, acyl-CoA oxidase (POX1, the committed step), enoyl-CoA hydratase, myristoyl-CoA and free C14:0 to export. Side notes give the ligase-reversal check, deletion of POX1, FOX2, POT1, PXA1 or PXA2 giving exactly zero, the r_0102 blocking result, and the consequence for the plan.">
@@ -134,9 +134,9 @@
 <details class="acc" open><summary><h2 id="knockout-and-blocking-screen-analysis-b">Knockout and blocking screen (analysis B)</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>All 1,143 single-gene deletions were screened in the model. None forced myristic acid export, and removing genes for peroxisomal fat breakdown abolished it. <strong>[computed]</strong></p>
+<p>All 1,143 single-gene deletions were screened in the model. None forced myristic acid export, and removing genes for peroxisomal fat breakdown abolished it.</p>
 </div>
-<p><strong>[computed]</strong></p>
+<p></p>
 <ul>
 <li>All 1,143 single-gene deletions were screened in both ligase scenarios: 965 were viable and 178 lethal (lethal denotes no positive biomass flux, a computational classification and not a prediction of cell death; the numerical threshold of the original analysis was not recorded). None forced myristate export at the maximum growth rate of the deleted strain. A recomputation under analysis A conditions (17 October 2026; threshold 10⁻⁹ h⁻¹) gave 954 viable and 189 lethal; two genes (YDR044W, YJL101C) hit a 20 s solver limit and are counted as lethal. The difference from analysis B (11 genes) is plausibly the BY4742 supplements of analysis B, which was not tested.</li>
 <li>Deletion of <em>POX1</em>, <em>FOX2</em>, <em>POT1</em>, <em>PXA1</em> or <em>PXA2</em> abolished modelled C14 export, because the C14-producing routes depend on peroxisomal β-oxidation. Deletions of <em>FAS1</em>, <em>FAS2</em>, <em>ACC1</em> and <em>OLE1</em> were lethal in the specified medium.</li>
@@ -153,28 +153,28 @@
 <tr><td>Exactly zero export</td><td>85 (every set containing <em>POX1</em>, <em>PXA1</em> or <em>PXA2</em>)</td><td>0</td></tr>
 <tr><td>Cannot reach 50 % of wild-type growth</td><td>54 (sets containing <em>OLE1</em>, or <em>ARE1</em> with <em>ARE2</em>)</td><td>54 (the same sets)</td></tr>
 </tbody></table></div>
-<p>The ten genes and the 175 sets were computed on the iGEM GPU server (CPU only) with COBRApy 0.32.1 and GLPK; the per-set values are held by the team and not yet published. <strong>[computed]</strong></p>
+<p>The ten genes and the 175 sets were computed on the iGEM GPU server (CPU only) with COBRApy 0.32.1 and GLPK; the per-set values are held by the team and not yet published.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="consistency-checks">Consistency checks</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Two ways of writing the cell&rsquo;s growth in the model gave identical results, so one was used throughout. <strong>[computed]</strong></p>
+<p>Two ways of writing the cell&rsquo;s growth in the model gave identical results, so one was used throughout.</p>
 </div>
-<p><strong>[computed]</strong> The biomass reaction r_2111 and the biomass pseudo-reaction r_4041 carried identical flux in every solution (the biomass metabolite has exactly one producer and one consumer), so either gives the same results. Reaction r_2111 was used throughout, being the default objective of the model.</p>
+<p>The biomass reaction r_2111 and the biomass pseudo-reaction r_4041 carried identical flux in every solution (the biomass metabolite has exactly one producer and one consumer), so either gives the same results. Reaction r_2111 was used throughout, being the default objective of the model.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="growth-rate-penalty">Growth-rate penalty</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The growth penalty of each single-gene deletion has been calculated (below); multi-gene sets and early-release strains have not. <strong>[computed]</strong></p>
+<p>The growth penalty of each single-gene deletion has been calculated (below); multi-gene sets and early-release strains have not.</p>
 </div>
-<p>The penalty of an intervention is defined as (1 − μ<sub>max,i</sub> / μ<sub>max,WT</sub>) × 100, where μ<sub>max,WT</sub> is the maximum growth rate of the unmodified model and μ<sub>max,i</sub> that after intervention <em>i</em>. For all 1,143 single-gene deletions under analysis A conditions (wild type 0.0811 h⁻¹; computed 17 October 2026): 954 deletions are viable, and of these 893 have a penalty below 0.1 %, 43 a penalty above 1 % and 31 above 10 %; 189 are lethal. Deletion of <em>POX1</em>, <em>PXA1</em>, <em>PXA2</em>, <em>FAA1</em>, <em>FAA4</em>, <em>DGA1</em>, <em>LRO1</em>, <em>ARE1</em> and <em>ARE2</em> each has a penalty of 0.0 %; <em>OLE1</em>, <em>FAS1</em> and <em>FAS2</em> are lethal. The knockout sets of Table 3 carry no growth cost beyond those that cannot reach the 50 % floor (54 sets, for example <em>ARE1</em> with <em>ARE2</em>). The penalty of strains carrying the early-release reaction is not defined, because that reaction is not a deletion; the 2.6 % gain in export is at a fixed 50 % growth. <strong>[computed]</strong></p>
+<p>The penalty of an intervention is defined as (1 − μ<sub>max,i</sub> / μ<sub>max,WT</sub>) × 100, where μ<sub>max,WT</sub> is the maximum growth rate of the unmodified model and μ<sub>max,i</sub> that after intervention <em>i</em>. For all 1,143 single-gene deletions under analysis A conditions (wild type 0.0811 h⁻¹; computed 17 October 2026): 954 deletions are viable, and of these 893 have a penalty below 0.1 %, 43 a penalty above 1 % and 31 above 10 %; 189 are lethal. Deletion of <em>POX1</em>, <em>PXA1</em>, <em>PXA2</em>, <em>FAA1</em>, <em>FAA4</em>, <em>DGA1</em>, <em>LRO1</em>, <em>ARE1</em> and <em>ARE2</em> each has a penalty of 0.0 %; <em>OLE1</em>, <em>FAS1</em> and <em>FAS2</em> are lethal. The knockout sets of Table 3 carry no growth cost beyond those that cannot reach the 50 % floor (54 sets, for example <em>ARE1</em> with <em>ARE2</em>). The penalty of strains carrying the early-release reaction is not defined, because that reaction is not a deletion; the 2.6 % gain in export is at a fixed 50 % growth.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="reachable-set-and-frontier">Reachable set and frontier</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The same model can also map which fatty-acid mixtures are reachable. The example uses an illustrative target, not a measurement, so it demonstrates the method and does not predict a result. <strong>[computed]</strong></p>
+<p>The same model can also map which fatty-acid mixtures are reachable. The example uses an illustrative target, not a measurement, so it demonstrates the method and does not predict a result.</p>
 </div>
-<p><strong>[computed]</strong> The same model supports a reachable-set analysis for a fatty-acid profile and not only for the amount of C14. Figure 2 shows the result for an illustrative C14-rich target (C12:0 0.10, C14:0 0.70, C16:0 0.10, C16:1 0.05, C18:1 0.05); the target is an assumption and not a measurement. The analysis used analysis A conditions (growth at least 50 % of wild type, 0.04055 of 0.0811 h⁻¹) and the model without the early-release reaction; the maximum total fatty-acid titre reachable is 0.1866 mmol gDW⁻¹ h⁻¹. The curve data are held by the team and not tabulated here.</p>
+<p>The same model supports a reachable-set analysis for a fatty-acid profile and not only for the amount of C14. Figure 2 shows the result for an illustrative C14-rich target (C12:0 0.10, C14:0 0.70, C16:0 0.10, C16:1 0.05, C18:1 0.05); the target is an assumption and not a measurement. The analysis used analysis A conditions (growth at least 50 % of wild type, 0.04055 of 0.0811 h⁻¹) and the model without the early-release reaction; the maximum total fatty-acid titre reachable is 0.1866 mmol gDW⁻¹ h⁻¹. The curve data are held by the team and not tabulated here.</p>
 <figure class="figure my-4">
   <img src="/drylab/figures/reachable_c14.png" loading="lazy" class="figure-img img-fluid" alt="Left: curve of best achievable distance to the target profile against minimum total fatty-acid titre, flat near zero until a knee at 0.118 and then rising, with an unreachable region shaded above the maximum titre. Right: stacked bars showing fatty-acid composition at selected points on the frontier.">
   <figcaption class="figure-caption"><strong>Figure 2.</strong> Left: best achievable distance to an illustrative C14-rich target profile against the minimum total fatty-acid titre (Yeast9); the shaded region is unreachable. Right: fatty-acid composition at selected points on the frontier. The knee at 0.118 mmol gDW⁻¹ h⁻¹ is the largest titre within the assay's tie band of the target. Model-implied upper bounds; not validated against wet-lab data.</figcaption>
