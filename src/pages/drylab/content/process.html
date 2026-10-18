@@ -1,0 +1,57 @@
+<div class="alert alert-secondary" role="alert">
+<p>Part of the <a href="/dry-lab/model">model</a>. <strong>None of the values on this page has been validated against wet-lab data.</strong></p>
+</div>
+<details class="acc" open><summary><h2 id="process">Step 6. Process level</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>In simulation, methyl myristate keeps a 1,200 W server below 85 &deg;C at about a third of the flow of two commercial coolants. In use it emits 17 % less CO&#8322;-eq per server-year; making it emits far more per kilogram.</p>
+</div>
+<p>This step connects the strain to its intended use as an immersion coolant. The full analyses are on the <a href="/dry-lab/cfd">CFD</a> and <a href="/dry-lab/lca">LCA</a> pages; the results are summarised here.</p>
+<p><em>Table 1. Process-level results for methyl myristate (MM) against an ester-based and a mineral-oil-based coolant.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Methyl myristate</th>
+<th>Ester-based</th>
+<th>Mineral-oil-based</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hottest server part at equal flow, 0.42 m/s (&deg;C)</td>
+<td>78.1</td>
+<td>88.0</td>
+<td>87.2</td>
+</tr>
+<tr>
+<td>Flow needed to stay at or below 85 &deg;C (m/s)</td>
+<td>0.27</td>
+<td>0.80</td>
+<td>0.80</td>
+</tr>
+<tr>
+<td>Pump power at that flow (W)</td>
+<td>6.1</td>
+<td>158.9</td>
+<td>158.8</td>
+</tr>
+<tr>
+<td>CO&#8322;-eq per server-year, chiller (kg)</td>
+<td>5,012</td>
+<td>6,071</td>
+<td>6,055</td>
+</tr>
+<tr>
+<td>Production footprint (kg CO&#8322;-eq per kg of coolant)</td>
+<td>449</td>
+<td>5.25</td>
+<td>about 1.5 (placeholder)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Computational fluid dynamics.</strong> Three-dimensional conjugate heat-transfer simulations in OpenFOAM (19 runs) compared the coolants for a 1,200 W server in one tank geometry. Methyl myristate meets the 85 &deg;C limit at 0.27 m/s; the other coolants need 0.80 m/s. Details are on the <a href="/dry-lab/cfd">CFD</a> page.</p>
+<p><strong>Life cycle assessment.</strong> The screening study counts raw materials to factory gate, plus cooling electricity in use. Methyl myristate emits 17 % less CO&#8322;-eq per server-year than the ester-based coolant on the India grid factor (about 1.6 kg CO&#8322;-eq per kWh), and the extra production CO&#8322; is paid back in about 2.9 years. Making 1 kg emits 449 kg CO&#8322;-eq (632 in the first process design) against about 5 for ester-based coolants. The study has not been critically reviewed under ISO 14044. Details are on the <a href="/dry-lab/lca">LCA</a> page.</p>
+</div></details>
+<hr />
+<p><strong>Previous:</strong> <a href="/dry-lab/model/trust">Step 5 Trust</a> &middot; <strong>Next:</strong> <a href="/dry-lab/cfd">CFD</a></p>
