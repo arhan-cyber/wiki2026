@@ -42,7 +42,7 @@ export default function CardSection() {
               lineHeight: '1.6',
             }}
           >
-            As AI computing demands force a shift to liquid immersion cooling, the industry's go-to PFAS fluids face global bans while the fallback — petroleum hydrocarbons — is fossil-derived and equally unsustainable. The deadlock is real, and the window to break it is closing fast.
+            As AI computing demands force a shift to liquid immersion cooling, the industry's go-to PFAS fluids face global bans while the fallback, petroleum hydrocarbons, is fossil-derived and equally unsustainable. The deadlock is real, and the window to break it is closing fast.
           </p>
         </div>
       </div>

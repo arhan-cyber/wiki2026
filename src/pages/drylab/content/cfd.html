@@ -86,7 +86,7 @@
 </div>
 
 <h3>Basis 1: same flow rate, 0.42 m/s</h3>
-<figure class="cfd-fig"><img src="/drylab/cfd/fig1-same-flow-comparison.jpg" alt="Server temperature (top) and coolant speed (bottom) for methyl myristate, mineral oil and the ester-based coolant at 0.42 m/s inlet velocity, 25 °C inlet and 1,200 W." loading="lazy"><figcaption><strong>Figure 1.</strong> Server temperature (top) and coolant speed (bottom) at the same inlet conditions for all three coolants: inlet velocity 0.42&nbsp;m/s (34.4&nbsp;L/min), inlet temperature 25&nbsp;°C, server heat 1,200&nbsp;W.</figcaption></figure>
+<figure class="cfd-fig"><video src="/drylab/cfd/comparison-3coolants-temperature-speed.mp4" poster="/drylab/cfd/fig1-same-flow-comparison.jpg" controls muted loop playsinline preload="metadata" aria-label="Server temperature (top) and coolant speed (bottom) for methyl myristate, mineral oil and the ester-based coolant at 0.42 m/s inlet velocity, 25 °C inlet and 1,200 W, from warm-up to steady state."><a href="/drylab/cfd/fig1-same-flow-comparison.jpg">Server temperature and coolant speed for the three coolants (still image)</a></video><figcaption><strong>Figure 1.</strong> Server temperature (top) and coolant speed (bottom) at the same inlet conditions for all three coolants: inlet velocity 0.42&nbsp;m/s (34.4&nbsp;L/min), inlet temperature 25&nbsp;°C, server heat 1,200&nbsp;W.</figcaption></figure>
 <div class="table-wrap"><table>
 <thead><tr><th>Coolant</th><th>Mass flow (kg/s)</th><th>Server T<sub>max</sub> (°C)</th><th>Margin to 85&nbsp;°C (K)</th><th>Tank Δp (Pa)</th></tr></thead>
 <tbody>
@@ -111,7 +111,7 @@
 <tr><td>Mineral oil</td><td>0.80 m/s (fails at 0.60 m/s)</td><td>65.5</td><td>83.4</td><td>234</td></tr>
 <tr><td>Ester-based coolant</td><td>0.80 m/s (fails at 0.60 m/s)</td><td>65.5</td><td>83.6</td><td>259</td></tr>
 </tbody></table></div>
-<div class="table-wrap"><table><caption>Appendix A. The 17 OpenFOAM runs</caption><thead><tr><th>Coolant</th><th>Velocity (m/s)</th><th>Meets 85&nbsp;°C</th><th>Pump (W)</th><th>Chiller (kWh/yr)</th><th>Free cooling (kWh/yr)</th></tr></thead><tbody><tr><td>MM</td><td>0.10</td><td>No</td><td>0.3</td><td>2,106</td><td>—</td></tr><tr><td>MM</td><td>0.20</td><td>No</td><td>2.5</td><td>2,129</td><td>—</td></tr><tr><td>MM</td><td>0.255</td><td>No</td><td>4.9</td><td>2,154</td><td>—</td></tr><tr class="cfd-hl"><td>MM</td><td>0.27</td><td>Yes</td><td>6.1</td><td>2,167</td><td>370</td></tr><tr><td>MM</td><td>0.30</td><td>Yes</td><td>8.4</td><td>2,191</td><td>391</td></tr><tr><td>MM</td><td>0.42</td><td>Yes</td><td>23.0</td><td>2,344</td><td>523</td></tr><tr><td>MM</td><td>0.80</td><td>Yes</td><td>158.8</td><td>3,772</td><td>1,749</td></tr><tr><td>Mineral oil</td><td>0.42</td><td>No</td><td>23.0</td><td>2,344</td><td>—</td></tr><tr><td>Mineral oil</td><td>0.50</td><td>No</td><td>39.0</td><td>2,512</td><td>—</td></tr><tr><td>Mineral oil</td><td>0.60</td><td>No</td><td>67.3</td><td>2,810</td><td>—</td></tr><tr class="cfd-hl"><td>Mineral oil</td><td>0.80</td><td>Yes</td><td>158.8</td><td>3,772</td><td>1,748</td></tr><tr><td>Mineral oil</td><td>1.00</td><td>Yes</td><td>310.5</td><td>5,366</td><td>3,117</td></tr><tr><td>Ester-based</td><td>0.42</td><td>No</td><td>23.0</td><td>2,344</td><td>—</td></tr><tr><td>Ester-based</td><td>0.50</td><td>No</td><td>39.0</td><td>2,512</td><td>—</td></tr><tr><td>Ester-based</td><td>0.60</td><td>No</td><td>67.3</td><td>2,810</td><td>—</td></tr><tr class="cfd-hl"><td>Ester-based</td><td>0.80</td><td>Yes</td><td>158.9</td><td>3,773</td><td>1,749</td></tr><tr><td>Ester-based</td><td>1.00</td><td>Yes</td><td>310.6</td><td>5,367</td><td>3,118</td></tr></tbody></table></div><p class="cfd-note">Solver: OpenFOAM chtMultiRegionFoam, 3-D conjugate heat transfer of a 1U server (1,200&nbsp;W) and the coolant; 25&nbsp;°C inlet; each run marched from a cold start to steady state (about 5,700–6,000&nbsp;s simulated). Highlighted rows are the operating points used in the LCA. A dash means free cooling is not possible at that flow. Pump electricity = flow × (tank + loop Δp) ÷ 0.5; chiller electricity = (server + pump heat) ÷ COP 5 [28].</p>
+<div class="table-wrap"><table><caption>Appendix A. The 17 OpenFOAM runs</caption><thead><tr><th>Coolant</th><th>Velocity (m/s)</th><th>Meets 85&nbsp;°C</th><th>Pump (W)</th><th>Chiller (kWh/yr)</th><th>Free cooling (kWh/yr)</th></tr></thead><tbody><tr><td>MM</td><td>0.10</td><td>No</td><td>0.3</td><td>2,106</td><td>N/A</td></tr><tr><td>MM</td><td>0.20</td><td>No</td><td>2.5</td><td>2,129</td><td>N/A</td></tr><tr><td>MM</td><td>0.255</td><td>No</td><td>4.9</td><td>2,154</td><td>N/A</td></tr><tr class="cfd-hl"><td>MM</td><td>0.27</td><td>Yes</td><td>6.1</td><td>2,167</td><td>370</td></tr><tr><td>MM</td><td>0.30</td><td>Yes</td><td>8.4</td><td>2,191</td><td>391</td></tr><tr><td>MM</td><td>0.42</td><td>Yes</td><td>23.0</td><td>2,344</td><td>523</td></tr><tr><td>MM</td><td>0.80</td><td>Yes</td><td>158.8</td><td>3,772</td><td>1,749</td></tr><tr><td>Mineral oil</td><td>0.42</td><td>No</td><td>23.0</td><td>2,344</td><td>N/A</td></tr><tr><td>Mineral oil</td><td>0.50</td><td>No</td><td>39.0</td><td>2,512</td><td>N/A</td></tr><tr><td>Mineral oil</td><td>0.60</td><td>No</td><td>67.3</td><td>2,810</td><td>N/A</td></tr><tr class="cfd-hl"><td>Mineral oil</td><td>0.80</td><td>Yes</td><td>158.8</td><td>3,772</td><td>1,748</td></tr><tr><td>Mineral oil</td><td>1.00</td><td>Yes</td><td>310.5</td><td>5,366</td><td>3,117</td></tr><tr><td>Ester-based</td><td>0.42</td><td>No</td><td>23.0</td><td>2,344</td><td>N/A</td></tr><tr><td>Ester-based</td><td>0.50</td><td>No</td><td>39.0</td><td>2,512</td><td>N/A</td></tr><tr><td>Ester-based</td><td>0.60</td><td>No</td><td>67.3</td><td>2,810</td><td>N/A</td></tr><tr class="cfd-hl"><td>Ester-based</td><td>0.80</td><td>Yes</td><td>158.9</td><td>3,773</td><td>1,749</td></tr><tr><td>Ester-based</td><td>1.00</td><td>Yes</td><td>310.6</td><td>5,367</td><td>3,118</td></tr></tbody></table></div><p class="cfd-note">Solver: OpenFOAM chtMultiRegionFoam, 3-D conjugate heat transfer of a 1U server (1,200&nbsp;W) and the coolant; 25&nbsp;°C inlet; each run marched from a cold start to steady state (about 5,700–6,000&nbsp;s simulated). Highlighted rows are the operating points used in the LCA. A dash means free cooling is not possible at that flow. Pump electricity = flow × (tank + loop Δp) ÷ 0.5; chiller electricity = (server + pump heat) ÷ COP 5 [28].</p>
 
 <div class="cfd-conclusion">
 <div class="cfd-conclusion-tag">Conclusion</div>
@@ -119,13 +119,13 @@
 </div>
 </div></details>
 
-<details class="acc"><summary><h2 id="visualisations">Visualisations</h2></summary><div class="acc-body">
+<section class="acc-static"><h2 id="visualisations">Visualisations</h2><div class="acc-body">
 <p>The 3-D renders show the same result as the numbers: the server surface is green-yellow (about 55–65&nbsp;°C) in MM and orange-red in mineral oil and the ester-based coolant. All renders and videos were made with ParaView 5.10 and FFmpeg [16–18, 22].</p>
 <figure class="cfd-fig"><img src="/drylab/cfd/fig3-flow-tubes-3d.jpg" alt="Three-dimensional renders of the server with flow tubes for methyl myristate, mineral oil and the ester-based coolant." loading="lazy"><figcaption><strong>Figure 3.</strong> 3-D renders with flow tubes for methyl myristate, mineral oil and the ester-based coolant.</figcaption></figure>
 <p>In the flow tubes of Figure 3, coolant enters cold (dark) at the inlet, sweeps past the end of the server, warms along its hot faces (orange to yellow) and leaves at the outlet. For readability, the 3-D views show the server's long axis upright; gravity acts along the model's z axis (see the axis triad). All visuals use the same colour scales: server temperature 25–90&nbsp;°C (Turbo), coolant temperature 25–30&nbsp;°C (Inferno), coolant speed 0–0.45&nbsp;m/s (Viridis).</p>
 <figure class="cfd-fig"><img src="/drylab/cfd/fig4-mm-steady-state.jpg" alt="Methyl myristate at 0.42 m/s, steady state: temperature with isotherms (left) and coolant speed with contours and arrows (right)." loading="lazy"><figcaption><strong>Figure 4.</strong> Methyl myristate at 0.42&nbsp;m/s, steady state: temperature (left) and flow speed, contours and direction (right).</figcaption></figure>
 <p>The visualisations illustrate how coolant flow and heat distribution influence server temperature. Together with the numerical results, they support methyl myristate's potential to maintain safe operating temperatures at lower flow rates under the simulated conditions.</p>
-</div></details>
+</div></section>
 
 <details class="acc"><summary><h2 id="model-and-solver">Model and solver</h2></summary><div class="acc-body">
 <p>The model uses a full 3-D conjugate heat-transfer approach, coupling heat conduction within the server with heat transfer to the surrounding coolant [1–3]. A uniform heat source represents the server's thermal load, while the coolant flow transports heat away from its surface. This allows us to compare the temperature distribution and cooling performance of different coolants under the same operating conditions.</p>
@@ -159,7 +159,7 @@
 <tr><td>Open MPI</td><td>bundled in the container</td><td>Parallel runs (48 MPI ranks per case)</td><td>[21]</td></tr>
 <tr><td>ParaView (with VTK and pvpython)</td><td>5.10</td><td>Slices, isotherms, contours, streamlines, 3-D renders, glTF export</td><td>[16–18]</td></tr>
 <tr><td>FFmpeg (libx264)</td><td>Ubuntu 22.04 package</td><td>Encoding rendered frames into MP4 videos</td><td>[22]</td></tr>
-<tr><td>glTF 2.0 specification</td><td>—</td><td>File format of the interactive 3-D models</td><td>[23]</td></tr>
+<tr><td>glTF 2.0 specification</td><td>N/A</td><td>File format of the interactive 3-D models</td><td>[23]</td></tr>
 <tr><td>&lt;model-viewer&gt;</td><td>3.5.0</td><td>Web component that displays the 3-D models on the wiki</td><td>[24]</td></tr>
 </tbody></table></div>
 </div></details>
@@ -175,12 +175,10 @@
 <p>Despite these limitations, using consistent geometry and simulation settings provides a common basis for comparing coolant performance.</p>
 </div></details>
 
-<details class="acc" open><summary><h2 id="energy-implications-for-the-lca">Energy implications for the life cycle analysis</h2></summary><div class="acc-body">
-<div class="cfd-green">
-<h3>From cooling performance to environmental impact</h3>
+<div class="cfd-green cfd-energy">
+<h2 id="energy-implications-for-the-lca">Energy implications for the life cycle analysis</h2>
 <p>CFD provides the cooling performance and flow requirements for each coolant, which are then used to estimate pumping power and annual cooling energy consumption. These estimates serve as inputs to the Life Cycle Assessment (LCA), allowing us to evaluate how differences in cooling performance translate into energy use and potential environmental impacts over time. The LCA methodology and results are discussed in the <a href="/dry-lab/lca">LCA</a> tab.</p>
 </div>
-</div></details>
 
 <details class="acc refs"><summary><h2 id="references">Acknowledgement and references</h2></summary><div class="acc-body">
 <p><strong>Acknowledgement:</strong> Simulations were run on PARAM Rudra at IIT Bombay, a system of the National Supercomputing Mission (NSM), Government of India.</p>

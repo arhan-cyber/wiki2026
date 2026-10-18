@@ -32,7 +32,7 @@
   left: 0;
   right: 0;
   height: 50%;
-  background: var(--lavender);
+  background: #d3e9f8;
   overflow: hidden;
   transition: transform 1.15s cubic-bezier(0.77, 0, 0.175, 1);
   z-index: 1;
@@ -41,11 +41,15 @@
 }
 .doorTop {
   top: 0;
+  /* sky blue that runs on across the seam into the bottom half, matching the
+     page's own white-to-blue gradient */
+  background: linear-gradient(to bottom, #f4f9fd 0%, #d3e9f8 100%);
   align-items: flex-end;
   padding-bottom: 42px;
 }
 .doorBottom {
   bottom: 0;
+  background: linear-gradient(to bottom, #d3e9f8 0%, #a6d1ef 100%);
   align-items: flex-end;
   padding-bottom: 8%;
 }
@@ -93,7 +97,7 @@
   letter-spacing: 0.35em;
   text-transform: uppercase;
   font-size: 13px;
-  color: #6b6786;
+  color: #3d5f86;
   animation: pulse 1.8s ease-in-out infinite 1.6s both;
 }
 .door.opened .doorHint {
@@ -566,9 +570,14 @@
 .conclusion {
   position: relative;
   max-width: 1245px;
+  width: calc(100% - 48px);
   margin: 96px auto 40px;
   padding: 40px clamp(24px, 5vw, 72px);
   min-height: 260px;
+  /* card behind the conclusion, matching the white content slab above */
+  background: #fdfcf8;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(9, 52, 123, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: center;

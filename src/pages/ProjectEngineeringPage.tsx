@@ -71,7 +71,7 @@ export default function ProjectEngineeringPage() {
       {/* Master DBTL */}
       <section id="master-dbtl" className={styles.panel}>
         <h2 className={styles.sectionHead}>Master DBTL</h2>
-        <div className={styles.stageRow} style={{ marginTop: 20 }}>
+        <div className={styles.stageRow}>
           {masterStages.map((s) => (
             <button
               key={s.key}
@@ -106,7 +106,7 @@ export default function ProjectEngineeringPage() {
       {/* Dry lab DBTL */}
       <section id="drylab-dbtl" className={styles.panel}>
         <h2 className={styles.sectionHead}>Dry Lab DBTL</h2>
-        <p className={styles.panelIntro} style={{ marginTop: 16 }}>
+        <p className={styles.panelIntro}>
           {drylabIntro}
         </p>
         <Accordion alignStart items={drylabCycles.map((c) => ({ id: c.id, title: c.title, content: <div className={styles.prose}><Blocks blocks={c.blocks} /></div> }))} theme={{ bar: '#D7E5F0', barText: '#172B4D', body: '#EDF3FF', accent: '#2A3A57' }} />

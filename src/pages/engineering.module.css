@@ -139,7 +139,8 @@
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: #3f94d2;
-  margin: 0;
+  /* same gap under every section heading, whatever follows it */
+  margin: 0 0 20px;
   display: inline-block;
   border-bottom: 3px solid #3f94d2;
   padding-bottom: 6px;

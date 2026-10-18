@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react';
 import { Link, Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import styles from './drylab.module.css';
@@ -10,17 +10,6 @@ const loaders = import.meta.glob('./content/*.html', {
   import: 'default',
 }) as Record<string, () => Promise<string>>;
 
-type Mode = 'brief' | 'full';
-const MODE_KEY = 'wikiReadingMode'; // same key as the draft's reading-mode.js
-
-function storedMode(): Mode {
-  try {
-    return localStorage.getItem(MODE_KEY) === 'brief' ? 'brief' : 'full';
-  } catch {
-    return 'full';
-  }
-}
-
 const MODEL_SLUGS = new Set(modelTabs.map((t) => t.slug));
 const pageBySlug = (slug: string) => dryLabPages.find((p) => p.slug === slug);
 
@@ -30,11 +19,6 @@ const NOTE_LINKS = ['model', 'software', 'cfd', 'lca'];
 export default function DryLabPage({ slug }: { slug: string }) {
   const page = pageBySlug(slug)!;
   const [loaded, setLoaded] = useState<{ slug: string; html: string } | null>(null);
-  const [mode, setModeState] = useState<Mode>(storedMode);
-  const modeRef = useRef(mode);
-  modeRef.current = mode;
-  // Target to scroll to once a Brief -> Full switch has been rendered.
-  const pendingScroll = useRef<HTMLElement | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { hash } = useLocation();
@@ -64,7 +48,7 @@ export default function DryLabPage({ slug }: { slug: string }) {
     });
     setToc(items);
     setActiveId(items[0]?.id ?? '');
-  }, [loaded, mode]);
+  }, [loaded]);
 
   useEffect(() => {
     if (!toc.length) return;
@@ -81,41 +65,21 @@ export default function DryLabPage({ slug }: { slug: string }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [toc]);
 
-  const setMode = (next: Mode) => {
-    setModeState(next);
-    try {
-      localStorage.setItem(MODE_KEY, next);
-    } catch {
-      /* storage blocked */
-    }
-  };
-
   const setAllOpen = (open: boolean) => {
     contentRef.current?.querySelectorAll<HTMLDetailsElement>('details.acc').forEach((d) => {
       d.open = open;
     });
   };
 
-  // Open the section(s) containing a link target. A target hidden by Brief mode
-  // switches the page to Full (without changing the stored preference).
+  // Open the section(s) containing a link target, then go to it.
   const reveal = useCallback((target: string) => {
     const id = decodeURIComponent(target.slice(1));
     const el = id ? document.getElementById(id) : null;
     if (!el || !contentRef.current?.contains(el)) return false;
     for (let d = el.closest('details'); d; d = d.parentElement?.closest('details') ?? null) d.open = true;
-    if (el.getClientRects().length === 0 && modeRef.current === 'brief') {
-      pendingScroll.current = el;
-      setModeState('full');
-    } else {
-      el.scrollIntoView();
-    }
+    el.scrollIntoView();
     return true;
   }, []);
-
-  useLayoutEffect(() => {
-    pendingScroll.current?.scrollIntoView();
-    pendingScroll.current = null;
-  }, [mode]);
 
   // New page content: start at the top (a jump, not the site's smooth scroll),
   // then go to the linked section if the URL names one.
@@ -130,6 +94,43 @@ export default function DryLabPage({ slug }: { slug: string }) {
     window.addEventListener('beforeprint', openAll);
     return () => window.removeEventListener('beforeprint', openAll);
   }, []);
+
+  // Interactive diagrams embedded in the content (same-origin pages, e.g. the
+  // LCA process maps) take the height of their own document and follow it.
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el || !loaded) return;
+    const observers: { disconnect(): void }[] = [];
+    const fit = (frame: HTMLIFrameElement) => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      // The frame always matches the document's height, so the document itself
+      // never needs to scroll (collapsed <details> can otherwise leave a phantom scrollbar).
+      doc.documentElement.style.overflowY = 'hidden';
+      // Height of the content itself (scrollHeight never drops below the frame, so it
+      // could only grow) + the frame's borders (box-sizing is border-box) + 2px for
+      // sub-pixel heights; either gap would otherwise show an inner scrollbar.
+      const apply = () => {
+        const content = Math.ceil(doc.documentElement.getBoundingClientRect().height);
+        frame.style.height = `${content + frame.offsetHeight - frame.clientHeight + 2}px`;
+      };
+      apply();
+      // Observe from the frame's own window: an observer from this window does not
+      // reliably see changes inside another document. Resizes catch reflow; mutations
+      // catch the diagram's own dropdowns and tabs opening or closing.
+      const win = frame.contentWindow as (Window & typeof globalThis) | null;
+      const ro = new (win?.ResizeObserver ?? ResizeObserver)(apply);
+      ro.observe(doc.body);
+      const mo = new (win?.MutationObserver ?? MutationObserver)(apply);
+      mo.observe(doc.body, { subtree: true, childList: true, attributes: true, characterData: true });
+      observers.push(ro, mo);
+    };
+    el.querySelectorAll<HTMLIFrameElement>('iframe.lca-pfd').forEach((frame) => {
+      if (frame.contentDocument?.readyState === 'complete' && frame.contentDocument.body?.childElementCount) fit(frame);
+      frame.addEventListener('load', () => fit(frame));
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, [loaded]);
 
   // In-page anchors reveal their section; Dry Lab page links stay inside the app.
   const onContentClick = (e: MouseEvent<HTMLDivElement>) => {
@@ -150,7 +151,9 @@ export default function DryLabPage({ slug }: { slug: string }) {
   const ready = loaded?.slug === slug;
 
   return (
-    <main className={`${styles.page} ${mode === 'brief' ? styles.modeBrief : ''}`}>
+    // Pages always read in full: the draft's Brief/Full switch and the
+    // expand/collapse-all bar are not shown.
+    <main className={styles.page}>
       <header className={styles.hero}>
         <div className={styles.titleCard}>
           <div className={styles.titleInner}>
@@ -196,28 +199,7 @@ export default function DryLabPage({ slug }: { slug: string }) {
             </nav>
           )}
 
-          {/* Wrapper bounds the sticky reading bar to the article. */}
           <div>
-            <div className={styles.readingBar}>
-              <span className={styles.rbLabel} id="rb-label">
-                Reading depth
-              </span>
-              <div className={styles.seg} role="group" aria-labelledby="rb-label">
-                <button type="button" aria-pressed={mode === 'brief'} onClick={() => setMode('brief')}>
-                  Brief
-                </button>
-                <button type="button" aria-pressed={mode === 'full'} onClick={() => setMode('full')}>
-                  Full
-                </button>
-              </div>
-              <button type="button" className={styles.lnk} onClick={() => setAllOpen(true)}>
-                Expand all
-              </button>
-              <button type="button" className={styles.lnk} onClick={() => setAllOpen(false)}>
-                Collapse all
-              </button>
-            </div>
-
             <article className={styles.card}>
               {ready ? (
                 <div

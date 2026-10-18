@@ -1,42 +1,40 @@
-import styles from './kyt.module.css';
-import TeamCard from '../components/TeamCard';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import Footer from '../components/Footer';
+import styles from './kyt.module.css';
 
 type Member = { name: string; photo: string; objectPosition?: string; zoom?: number };
 
-type Section = {
+type Group = {
   id: string;
   label: string;
-  panelImage: string;
+  /** Role shown in the popup. */
+  role: string;
   members: Member[];
-  layout: 'two' | 'three' | 'four' | 'six';
 };
 
-const sections: Section[] = [
+const groups: Group[] = [
   {
     id: 'pi',
-    label: 'PROJECT INVESTIGATOR',
-    panelImage: '/knowurteam/investigator.png',
+    label: 'Project Investigators',
+    role: 'Principal Investigator',
     members: [
       { name: 'Prof. Saket Choudhary', photo: '/members/profSaket.png', objectPosition: 'center 100%', zoom: 1.3 },
       { name: 'Prof. Rajesh Patkar', photo: '/members/profRajesh.png', objectPosition: 'center 0%' },
     ],
-    layout: 'two',
   },
   {
-    id: 'pl',
-    label: 'PROJECT LEADS',
-    panelImage: '/knowurteam/teamlead.png',
+    id: 'leads',
+    label: 'Project Leads',
+    role: 'Project Lead',
     members: [
-      { name: 'Aarohi Gupta', photo: '/members/aaorhi.jpg', objectPosition: 'center 0%', zoom: 1.0 },
-      { name: 'Angel Singhvi', photo: '/members/angel-singhvi.jpg', objectPosition: 'center -20%', zoom: 1 },
+      { name: 'Aarohi Gupta', photo: '/members/aaorhi.jpg', objectPosition: 'center 0%' },
+      { name: 'Angel Singhvi', photo: '/members/angel-singhvi.jpg', objectPosition: 'center -20%' },
     ],
-    layout: 'two',
   },
   {
-    id: 'wl',
-    label: 'WET LAB',
-    panelImage: '/knowurteam/wetleb.png',
+    id: 'wet',
+    label: 'Wet Lab',
+    role: 'Wet Lab',
     members: [
       { name: 'Durva Sachin Saraf', photo: '/members/durva.jpg', objectPosition: 'center 0%' },
       { name: 'Madhur', photo: '/members/madhur.jpg', objectPosition: 'center 60%', zoom: 1.1 },
@@ -46,12 +44,11 @@ const sections: Section[] = [
       { name: 'Abhinav Gupta', photo: '/members/abhinav.jpg', objectPosition: 'center 50%' },
       { name: 'Manish S', photo: '/members/manish.jpg', objectPosition: 'center 30%', zoom: 1.1 },
     ],
-    layout: 'four',
   },
   {
-    id: 'dl',
-    label: 'DRY LAB',
-    panelImage: '/knowurteam/drylab.png',
+    id: 'dry',
+    label: 'Dry Lab',
+    role: 'Dry Lab',
     members: [
       { name: 'Arhan Khade', photo: '/members/arhan.jpg', objectPosition: 'center 0%' },
       { name: 'Bipra Bhanu Mohanty', photo: '/members/bipra-bhanu-mohanty.jpg', objectPosition: 'center 15%' },
@@ -61,142 +58,167 @@ const sections: Section[] = [
       { name: 'Ekansh', photo: '/members/ekansh.jpg', objectPosition: 'center 20%', zoom: 1.7 },
       { name: 'Gururatna Upadhyay', photo: '/members/guru.png', objectPosition: 'center 20%', zoom: 1.2 },
     ],
-    layout: 'four',
   },
   {
     id: 'hp',
-    label: 'HUMAN PRACTICES',
-    panelImage: '/knowurteam/human.png',
+    label: 'Human Practices',
+    role: 'Human Practices',
     members: [
       { name: 'Yashika', photo: '/members/yashika.jpg', objectPosition: 'center 40%', zoom: 1.3 },
       { name: 'Arnav Oza', photo: '/members/arnav.jpg', objectPosition: 'center 30%' },
       { name: 'Tanish Jain', photo: '/members/tanish.jpg', objectPosition: 'center 10%', zoom: 1.1 },
-      { name: 'Shinjini Jain', photo: '/members/shinjini.jpg', objectPosition: 'center top', zoom: 1 },
-      { name: 'Latisha Meena', photo: '/members/latisha.jpg', objectPosition: 'center top', zoom: 1 },
-      { name: 'Mitali Arya', photo: '/members/mitali.jpg', objectPosition: 'center 20%', zoom: 1 },
+      { name: 'Shinjini Jain', photo: '/members/shinjini.jpg', objectPosition: 'center top' },
+      { name: 'Latisha Meena', photo: '/members/latisha.jpg', objectPosition: 'center top' },
+      { name: 'Mitali Arya', photo: '/members/mitali.jpg', objectPosition: 'center 20%' },
     ],
-    layout: 'six',
   },
   {
     id: 'web',
-    label: 'WEB',
-    panelImage: '/knowurteam/web.png',
+    label: 'Web',
+    role: 'Web & Design',
     members: [
-      { name: 'Sagnik Dey', photo: '/members/sagnik_dey.png', objectPosition: 'center 0%', zoom: 1.0 },
-      { name: 'Nisarg Rathod', photo: '/members/nisarg-rathod.jpeg', objectPosition: 'center 3%' , zoom : 1.3 },
+      { name: 'Sagnik Dey', photo: '/members/sagnik_dey.png', objectPosition: 'center 0%' },
+      { name: 'Nisarg Rathod', photo: '/members/nisarg-rathod.jpeg', objectPosition: 'center 3%', zoom: 1.3 },
       { name: 'Aryan Prasad', photo: '/members/aryan-prasad.png', objectPosition: 'center 35%' },
     ],
-    layout: 'six',
   },
 ];
 
-export default function KytPage() {
+// Everyone in page order, so the popup's Next / Prev runs through the whole team.
+const everyone = groups.flatMap((g) => g.members.map((m) => ({ ...m, role: g.role })));
+const firstIndex = groups.reduce<number[]>((acc, _g, i) => {
+  acc.push(i === 0 ? 0 : acc[i - 1] + groups[i - 1].members.length);
+  return acc;
+}, []);
+
+function Photo({ m }: { m: Member }) {
+  const style: CSSProperties = {
+    objectPosition: m.objectPosition || 'center top',
+    transform: m.zoom && m.zoom !== 1 ? `scale(${m.zoom})` : undefined,
+  };
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden flex flex-col">
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <img
-          src="/team_pic.png"
-          alt="iGEM IIT Bombay Team"
-          className={styles.heroImage}
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
-        />
-        <div className={styles.heroOverlay}>
-          <h1 className={styles.heroTitle} style={{ lineHeight: 1.1 }}>
-            TEAM<br />PHOTO
-          </h1>
+    <div className={styles.pic}>
+      <img src={m.photo} alt={m.name} style={style} loading="lazy" />
+    </div>
+  );
+}
+
+export default function KytPage() {
+  const [open, setOpen] = useState<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const lastCard = useRef<HTMLElement | null>(null);
+
+  const show = useCallback((k: number) => setOpen((k + everyone.length) % everyone.length), []);
+  const close = useCallback(() => {
+    setOpen(null);
+    lastCard.current?.focus();
+  }, []);
+
+  // Esc closes, arrow keys step; the page behind does not scroll while open.
+  useEffect(() => {
+    if (open === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') show(open + 1);
+      if (e.key === 'ArrowLeft') show(open - 1);
+    };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, show, close]);
+
+  const m = open === null ? null : everyone[open];
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.title}>
+        <div className={styles.bubble}>
+          <svg viewBox="0 0 970 330" preserveAspectRatio="none" aria-hidden>
+            <path
+              d="M58 46L925 8Q954 6 957 34C976 110 976 205 932 306Q926 324 904 324L58 313Q40 312 38 295C-2 225 6 118 36 62Q42 47 58 46Z"
+              fill="#fbfbfc"
+              stroke="#94c1e6"
+              strokeWidth="8"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <h1>meet our team</h1>
         </div>
-      </section>
+      </div>
 
-      {/* Folder Sections */}
-      <div className="w-full flex flex-col items-center">
-        {sections.map((section, idx) => (
+      <div className={styles.photo}>
+        <img src="/team_pic.png" alt="The iGEM IIT Bombay 2026 team" />
+      </div>
+
+      <main>
+        {groups.map((g, gi) => (
           <section
-            key={section.id}
-            className="w-full relative flex flex-col items-center"
-            style={{
-              marginTop: idx === 0 ? '2vw' : '-14vw',
-              zIndex: idx + 1
-            }}
+            key={g.id}
+            id={g.id}
+            className={`${styles.group} ${g.members.length <= 2 ? styles.pair : ''}`}
           >
-            {/* Background Panel Image */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none">
-              <img
-                src={section.panelImage}
-                alt={`${section.label} Background`}
-                className="w-full h-full object-fill"
-              />
-            </div>
-
-            {/* Content Container */}
-            <div
-              className="relative z-10 w-full max-w-[1440px] mx-auto flex flex-col items-center px-4 sm:px-8"
-              style={{
-                paddingTop: 'clamp(120px, 24vw, 350px)',
-                paddingBottom: 'clamp(80px, 16vw, 230px)'
-              }}
-            >
-              {section.layout === 'two' ? (
-                <div className="mx-auto grid grid-cols-2 w-[80%] sm:w-[65%] md:w-[55.8%] gap-x-[8%]">
-                  {section.members.map((member, i) => (
-                    <TeamCard
-                      key={i}
-                      name={member.name}
-                      photo={member.photo}
-                      objectPosition={member.objectPosition}
-                      zoom={member.zoom}
-                    />
-                  ))}
-                </div>
-              ) : section.layout === 'four' ? (
-                <div className="mx-auto w-[92%] sm:w-[85%] md:w-[80%] flex flex-col items-center gap-y-14">
-                  {/* Row 1: first 3 */}
-                  <div className="grid grid-cols-3 w-[75%] sm:w-[70%] md:w-[65%] gap-x-[6%]">
-                    {section.members.slice(0, 3).map((member, i) => (
-                      <TeamCard
-                        key={i}
-                        name={member.name}
-                        photo={member.photo}
-                        objectPosition={member.objectPosition}
-                        zoom={member.zoom}
-                      />
-                    ))}
-                  </div>
-                  {/* Row 2: remaining 4 */}
-                  <div className="grid grid-cols-4 w-[95%] sm:w-[92%] md:w-[90%] gap-x-[8%]">
-                    {section.members.slice(3).map((member, i) => (
-                      <TeamCard
-                        key={i + 3}
-                        name={member.name}
-                        photo={member.photo}
-                        objectPosition={member.objectPosition}
-                        zoom={member.zoom}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="mx-auto grid grid-cols-2 sm:grid-cols-3 w-[90%] sm:w-[80%] md:w-[74.5%] gap-x-[5%] sm:gap-x-[8%] md:gap-x-[15.4%] gap-y-[5%]">
-                  {section.members.map((member, i) => (
-                    <TeamCard
-                      key={i}
-                      name={member.name}
-                      photo={member.photo}
-                      objectPosition={member.objectPosition}
-                      zoom={member.zoom}
-                    />
-                  ))}
-                </div>
-              )}
+            <div className={styles.label}>{g.label}</div>
+            <div className={styles.grid}>
+              {g.members.map((mem, mi) => (
+                <button
+                  key={mem.name}
+                  type="button"
+                  className={styles.card}
+                  aria-haspopup="dialog"
+                  onClick={(e) => {
+                    lastCard.current = e.currentTarget;
+                    show(firstIndex[gi] + mi);
+                  }}
+                >
+                  <Photo m={mem} />
+                  <div className={styles.nm}>{mem.name}</div>
+                </button>
+              ))}
             </div>
           </section>
         ))}
-      </div>
+      </main>
 
-      {/* Footer */}
-      <Footer bgColor="#ffffff" />
+      <div style={{ height: 90 }} />
+      <Footer bgColor="transparent" />
+
+      {m && open !== null && (
+        <div
+          className={styles.modal}
+          role="dialog"
+          aria-modal="true"
+          aria-label={m.name}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) close();
+          }}
+        >
+          <div className={styles.polar} key={open}>
+            <button ref={closeRef} type="button" className={styles.x} aria-label="Close" onClick={close}>
+              ×
+            </button>
+            <Photo m={m} />
+            <h3>{m.name}</h3>
+            <p className={styles.role}>{m.role}</p>
+            <p className={styles.count}>
+              {open + 1} of {everyone.length}
+            </p>
+            <div className={styles.nv}>
+              <button type="button" onClick={() => show(open - 1)}>
+                ← Prev
+              </button>
+              <button type="button" onClick={() => show(open + 1)}>
+                Next →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

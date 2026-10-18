@@ -71,6 +71,15 @@ const NEWSPRINT = [
   'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(214,201,172,0.22) 100%)',
 ].join(', ');
 
+// The desk the sheet lies on: a warm linen tone with a soft light falling from
+// the top, a fine woven texture, and a darker rim so the paper stands forward.
+const DESK = [
+  'radial-gradient(ellipse 80% 45% at 50% 0%, rgba(255,250,238,0.85) 0%, rgba(255,250,238,0) 70%)',
+  'repeating-linear-gradient(45deg, rgba(110,90,60,0.035) 0 2px, transparent 2px 6px)',
+  'repeating-linear-gradient(-45deg, rgba(110,90,60,0.03) 0 2px, transparent 2px 6px)',
+  'linear-gradient(180deg, #E8DFCB 0%, #D9CBAE 45%, #C4B293 100%)',
+].join(', ');
+
 export default function NewsPage() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -86,7 +95,8 @@ export default function NewsPage() {
   }, []);
 
   return (
-    <main className="w-full" style={{ background: '#2E2A24' }}>
+    <main className="w-full" style={{ background: DESK }}>
+      <div style={{ padding: 'clamp(0px, 3vw, 44px) clamp(0px, 3vw, 44px) 0' }}>
       <div
         ref={wrapRef}
         style={{
@@ -95,7 +105,8 @@ export default function NewsPage() {
           height: CANVAS_H * scale,
           overflow: 'hidden',
           margin: '0 auto',
-          boxShadow: '0 18px 60px rgba(0,0,0,0.55)',
+          borderRadius: 3,
+          boxShadow: '0 2px 4px rgba(60,44,20,0.18), 0 22px 50px -10px rgba(60,44,20,0.45)',
         }}
       >
         <div
@@ -104,8 +115,10 @@ export default function NewsPage() {
             height: CANVAS_H,
             position: 'relative',
             background: NEWSPRINT,
-            backgroundColor: '#F4F1E8',
-            border: '1px solid #000',
+            backgroundColor: '#F6F2E7',
+            // aged edges: the cream deepens slightly towards the border
+            boxShadow: 'inset 0 0 120px rgba(170,140,90,0.16)',
+            border: '1px solid rgba(0,0,0,0.55)',
             boxSizing: 'border-box',
             transformOrigin: 'top left',
             transform: `scale(${scale})`,
@@ -206,7 +219,8 @@ export default function NewsPage() {
           </div>
         </div>
       </div>
-      <Footer bgColor="#2E2A24" />
+      </div>
+      <Footer bgColor="transparent" />
     </main>
   );
 }

@@ -6,7 +6,7 @@ import { esterSteps, peopleGroups, writeUps } from './ihpData';
 import styles from './ihp.module.css';
 
 const CONCLUSION =
-  'ESTER is not a straight line from problem to solution. It is a living loop: observation becomes dialogue, dialogue becomes a testable idea, testing becomes implementation, and implementation returns to people for refinement. The “integrated” in integrated human practices is therefore not a separate chapter — it is the connective tissue of the entire project.';
+  'ESTER is not a straight line from problem to solution. It is a living loop: observation becomes dialogue, dialogue becomes a testable idea, testing becomes implementation, and implementation returns to people for refinement. The “integrated” in integrated human practices is therefore not a separate chapter; it is the connective tissue of the entire project.';
 
 // The People Flow board: six clusters around a central iHP hub. Each group
 // resolves its member ids to write-ups; anyone the board left out is already
@@ -210,7 +210,7 @@ export default function IhpPage() {
         {/* Conclusion */}
         <section className={styles.conclusion}>
           <span className={styles.bigI}>i</span>
-          <h2>Conclusion — the i in iHP</h2>
+          <h2>Conclusion: the i in iHP</h2>
           <p>{CONCLUSION}</p>
         </section>
 

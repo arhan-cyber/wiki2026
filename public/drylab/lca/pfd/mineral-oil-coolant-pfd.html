@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mineral Oil Coolant Map</title>
+<style>
+#cpfd{
+  --ink:#0f172a; --ink2:#475569; --ink3:#64748b; --line:#e2e8f0; --card:#ffffff; --bg:#f8fafc;
+  --step:#a9e2f7; --stepS:#3c9ccc; --io:#fde3a7; --ioS:#e0a73a; --util:#ede9fe; --utilS:#7c3aed; --accent:#ea580c;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); background:var(--bg); line-height:1.45; padding:20px 16px 28px; box-sizing:border-box;
+}
+#cpfd *{box-sizing:border-box}
+#cpfd h2{font-size:clamp(20px,2.4vw,28px); margin:0 0 4px; letter-spacing:-.01em; font-weight:750}
+#cpfd .lede{color:var(--ink2); margin:0 0 16px; max-width:78ch; font-size:15px}
+#cpfd .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-bottom:14px}
+#cpfd .kpi{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px}
+#cpfd .kpi b{display:block; font-size:20px; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+#cpfd .kpi span{font-size:12px; color:var(--ink3)}
+#cpfd .kpi i{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px}
+#cpfd .bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:6px 0 10px}
+#cpfd .seg{display:inline-flex; background:#e2e8f0; border-radius:9px; padding:3px; flex-wrap:wrap}
+#cpfd .seg button{all:unset; cursor:pointer; padding:6px 11px; border-radius:7px; font-size:13px; color:var(--ink2); font-weight:550}
+#cpfd .seg button[aria-pressed="true"]{background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(15,23,42,.15)}
+#cpfd .seg button:focus-visible{outline:2px solid var(--accent)}
+#cpfd .hint{font-size:12.5px; color:var(--ink3)}
+#cpfd .legend{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink3); flex-wrap:wrap}
+#cpfd .ramp{width:140px; height:10px; border-radius:3px}
+#cpfd .main{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:14px; align-items:start}
+#cpfd .stage{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow-x:auto}
+#cpfd svg.pfd{display:block; width:100%; min-width:720px; height:auto}
+#cpfd .panel{position:sticky; top:12px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; max-height:calc(100vh - 24px); overflow:auto}
+@media (max-width:1100px){ #cpfd .main{grid-template-columns:1fr} #cpfd .panel{position:static; max-height:none} }
+#cpfd .n{cursor:pointer; outline:none}
+#cpfd .n .sh{transition:fill .25s, stroke .2s, opacity .2s; stroke-width:1.4}
+#cpfd .n .id{font-weight:750; fill:var(--ink); pointer-events:none}
+#cpfd .n .sub{fill:#1e293b; font-weight:600; pointer-events:none}
+#cpfd .n .val{font-size:12px; font-weight:700; pointer-events:none; font-variant-numeric:tabular-nums}
+#cpfd .n:hover .sh, #cpfd .n:focus .sh, #cpfd .n.on .sh{stroke:var(--accent)!important; stroke-width:3}
+#cpfd .e{fill:none; stroke:#334155; stroke-width:1.3; transition:stroke .2s, opacity .2s}
+#cpfd .e.u{stroke:#7c3aed; stroke-dasharray:5 4}
+#cpfd .e.hl{stroke:var(--accent); stroke-width:2.6}
+#cpfd svg.dim .n:not(.rel) .sh{opacity:.35}
+#cpfd svg.dim .e:not(.hl){opacity:.25}
+#cpfd .lab{font-size:12.5px; font-weight:650; fill:#1e293b; pointer-events:none}
+#cpfd .lab.u{fill:#6d28d9; font-weight:600; font-size:11.5px}
+#cpfd .p-kind{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink3); font-weight:700}
+#cpfd .p-title{font-size:18px; font-weight:750; margin:2px 0 2px; line-height:1.25}
+#cpfd .p-sub{font-size:13px; color:var(--ink2); margin-bottom:8px}
+#cpfd .p-desc{font-size:13.5px; color:#334155; margin:0 0 12px}
+#cpfd .co2{background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:10px 12px; margin-bottom:12px}
+#cpfd .co2.zero{background:#f8fafc; border-color:#e2e8f0}
+#cpfd .co2 .big{font-size:24px; font-weight:780; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+#cpfd .co2 .u{font-size:12px; color:var(--ink2); font-weight:600}
+#cpfd .meter{height:6px; background:#fde4cc; border-radius:3px; margin:6px 0 4px; overflow:hidden}
+#cpfd .meter > div{height:100%; background:var(--accent); border-radius:3px}
+#cpfd .co2 small{font-size:12px; color:var(--ink2); display:block}
+#cpfd .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px}
+#cpfd .cell{border:1px solid var(--line); border-radius:8px; padding:7px 8px}
+#cpfd .cell b{display:block; font-size:15px; font-variant-numeric:tabular-nums}
+#cpfd .cell span{font-size:11px; color:var(--ink3)}
+#cpfd .cell.z b{color:#94a3b8; font-weight:600}
+#cpfd h4{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink3); margin:14px 0 6px}
+#cpfd table{width:100%; border-collapse:collapse; font-size:13px}
+#cpfd td{padding:5px 0; border-bottom:1px solid #f1f5f9; vertical-align:top}
+#cpfd td.r{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; padding-left:8px; font-weight:600}
+#cpfd .src{font-size:9.5px; font-weight:700; border-radius:4px; padding:1px 5px; margin-left:5px; vertical-align:1px}
+#cpfd .src.LCA{background:#ffedd5; color:#9a3412}
+#cpfd .src.Route{background:#e0f2fe; color:#075985}
+#cpfd .sys{background:#f1f5f9; border-radius:8px; padding:8px 10px; font-size:12.5px; color:#334155; margin-top:12px}
+#cpfd .rank{list-style:none; margin:0; padding:0}
+#cpfd .rank li{display:grid; grid-template-columns:92px 1fr 64px; gap:8px; align-items:center; font-size:12.5px; padding:4px 0; cursor:pointer; border-radius:6px}
+#cpfd .rank li:hover{background:#f8fafc}
+#cpfd .rank .t{height:8px; background:#f1f5f9; border-radius:4px; overflow:hidden}
+#cpfd .rank .t div{height:100%; background:var(--accent)}
+#cpfd .rank .v{text-align:right; font-variant-numeric:tabular-nums; font-weight:650}
+#cpfd .stack{display:flex; height:14px; border-radius:4px; overflow:hidden; margin:6px 0 6px}
+#cpfd .sl{display:grid; grid-template-columns:14px 1fr auto; gap:6px; font-size:12.5px; padding:2px 0}
+#cpfd .sl i{width:10px; height:10px; border-radius:2px; margin-top:4px}
+#cpfd .sl b{font-variant-numeric:tabular-nums}
+#cpfd details{margin-top:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; font-size:13.5px; color:#334155}
+#cpfd summary{cursor:pointer; font-weight:700; color:var(--ink)}
+#cpfd details li{max-width:90ch}
+#cpfd .pin{font-size:11px; color:var(--accent); font-weight:700; margin-left:6px}
+#cpfd .close{all:unset; cursor:pointer; float:right; font-size:12px; color:var(--ink3); padding:2px 6px; border-radius:5px; border:1px solid var(--line)}
+</style>
+</head>
+<body style="margin:0;background:#f8fafc">
+<div id="cpfd">
+  <h2 id="c-title"></h2>
+  <p class="lede" id="c-lede"></p>
+  <div class="kpis" id="kpis"></div>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Colour units by" id="modes">
+      <button data-m="type" aria-pressed="true">Process type</button>
+      <button data-m="gwp" aria-pressed="false">Carbon footprint</button>
+      <button data-m="fos" aria-pressed="false">Fossil energy</button>
+      <button data-m="wat" aria-pressed="false">Water use</button>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="main">
+    <div class="stage"><svg class="pfd" id="pfd" role="img" aria-label="Interactive process flow diagram"></svg></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <details><summary>Data sources &amp; method</summary><ul id="c-method"></ul></details>
+</div>
+<script>
+(function(){
+const D = {"viewBox": "0 0 960 640", "nodes": [{"id": "ELEC", "kind": "util", "shape": "rect", "x": 360, "y": 20, "w": 180, "h": 66, "lines": ["Electricity"], "short": "Grid power", "title": "Electricity", "sub": "Shared utility · grid power", "desc": "Electricity used across the production steps and their direct suppliers. The LCA export gives the impact of the electricity but not the kWh per step, so it is shown as one shared supply.", "facts": [["Grid mix", "Indian regional grids (Chhattisgarh, Maharashtra, Madhya Pradesh, Gujarat) — mostly hard coal and lignite", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "Electricity", "gwp": 0.947364, "fos": 9.922216719621263, "wat": 0.15873601854873007, "luc": 0.0011161959097150214, "top": [["electricity production, hard coal", 0.5670083523431751], ["electricity production, lignite", 0.24945875472985282], ["electricity production, natural gas, combined cycle power plant", 0.017112208400926504], ["electricity production, oil", 0.01493608872683126], ["electricity production, natural gas, conventional power plant", 0.007522761675249691]]}, {"id": "HEAT", "kind": "util", "shape": "rect", "x": 590, "y": 20, "w": 180, "h": 66, "lines": ["Process heat"], "short": "Gas · coal · fuel oil", "title": "Process heat", "sub": "Shared utility · industrial furnaces", "desc": "Heat for reactors and distillation, supplied by natural-gas, hard-coal and light-fuel-oil industrial furnaces. Like electricity, it is not split by step in the LCA export.", "facts": [], "note": null, "zeroWhy": null, "fs": null, "rankName": "Process heat", "gwp": 0.399278, "fos": 2.0931325214065204, "wat": 0.0022190034271354145, "luc": 0.0, "top": [["heat production, natural gas, at industrial furnace >100kW", 0.14321019370876004], ["heat production, at hard coal industrial furnace 1-10MW", 0.11694461047975796], ["heat production, light fuel oil, at industrial furnace 1MW", 0.11321371456829064], ["heat production, light fuel oil, at boiler 100kW, non-modulating", 0.0011968402297903914], ["heat production, natural gas, at boiler modulating >100kW", 0.0008596050828484854]]}, {"id": "ETH", "kind": "input", "shape": "ellipse", "x": 88, "y": 260, "w": 62, "h": 32, "lines": ["Ethylene"], "short": null, "title": "Ethylene", "sub": "Raw material", "desc": "Petrochemical feedstock from steam cracking of naphtha or ethane. Its production footprint is counted in LAO-1, the step that consumes it.", "facts": [["Modelled as", "ethylene production, average (ecoinvent)", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "ETH", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "LAO-1", "kind": "step", "shape": "rect", "x": 200, "y": 215, "w": 170, "h": 90, "lines": ["LAO-1"], "short": "1-Decene synthesis", "title": "LAO-1 · 1-Decene synthesis", "sub": "Ethylene oligomerisation (LAO-proxy)", "desc": "Ethylene is oligomerised to linear alpha-olefins, and the C10 cut (1-decene) is separated as the base-oil building block. The footprint shown includes the ethylene feedstock.", "facts": [["LCA process", "LAO-proxy (1-decene from ethylene)", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "LAO-1 (+ ethylene)", "gwp": 1.655272, "fos": 74.13392825347002, "wat": 0.5047098714293969, "luc": 0.0, "top": [["ethylene production, average", 1.5836595218917744], ["polyethylene production, high density, granulate", 2.738006905401872e-06], ["polyethylene production, low density, granulate", 3.6789370548074047e-07], ["tetrachloroethylene production", 1.3715618438813868e-07], ["tetrafluoroethylene production", 1.532243769761183e-08]]}, {"id": "BFIN", "kind": "input", "shape": "ellipse", "x": 88, "y": 460, "w": 62, "h": 32, "lines": ["Boron &", "fluorine"], "short": null, "title": "Boron & fluorine chemicals", "sub": "Raw material", "desc": "Mineral-derived boron and fluorine compounds used to make the BF₃ catalyst.", "facts": [], "note": null, "zeroWhy": null, "fs": null, "rankName": "BFIN", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "BF3-1", "kind": "step", "shape": "rect", "x": 200, "y": 415, "w": 170, "h": 90, "lines": ["BF3-1"], "short": "BF₃ catalyst", "title": "BF3-1 · BF₃ catalyst", "sub": "Boron trifluoride production (BF3-proxy)", "desc": "Boron trifluoride, the Lewis-acid catalyst (used with an alcohol co-catalyst) that oligomerises 1-decene.", "facts": [["LCA process", "BF3-proxy (boron trifluoride)", "LCA"]], "note": null, "zeroWhy": "The catalyst is used in very small amounts per kg of coolant, so its material supply chain adds almost nothing. Any electricity or heat it needs is counted in the shared utilities.", "fs": null, "rankName": "BF3-1", "gwp": 3.1e-05, "fos": 8.67330538403853e-05, "wat": 0.0030779030559463664, "luc": 0.0, "top": [["sulfur hexafluoride production, liquid", 1.4844693238174284e-05], ["1,1-difluoroethane production, HFC-152a", 6.904918322067932e-06], ["vinyl fluoride production", 6.90411250773076e-06], ["chlorodifluoromethane production", 6.434280973159037e-07], ["boron carbide production", 4.02978511289379e-08]]}, {"id": "MO-1", "kind": "step", "shape": "rect", "x": 460, "y": 200, "w": 220, "h": 330, "lines": ["MO-1"], "short": "Base-oil production", "title": "MO-1 · Base-oil production", "sub": "Oligomerisation · hydrogenation · distillation", "desc": "1-Decene is oligomerised with the BF₃ catalyst into dimers, trimers and tetramers. These are hydrogenated to saturate the remaining double bonds and distilled into the low-viscosity grade used for immersion cooling. The footprint shown covers hydrogen and other chemical inputs; its energy use sits in the shared utilities.", "facts": [["LCA process", "Mineral-oil-based coolant production (main step)", "LCA"], ["Steps", "BF₃-catalysed oligomerisation → H₂ hydrogenation → vacuum distillation", "Route"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "MO-1", "gwp": 0.066343, "fos": 1.7568975664407085, "wat": 0.043616309352820175, "luc": 0.0, "top": [["methyl methacrylate production", 0.020556170151546378], ["hydrogen cracking, APME", 0.012986438993946792], ["benzene production", 0.012524064052807305], ["propylene production", 0.006709291769705027], ["nitric acid production, product in 50% solution state", 0.005602387684218583]]}, {"id": "H2", "kind": "input", "shape": "ellipse", "x": 520, "y": 590, "w": 46, "h": 28, "lines": ["Hydrogen"], "short": null, "title": "Hydrogen", "sub": "Raw material", "desc": "Hydrogen used to hydrogenate (saturate) the oligomers. Modelled as hydrogen from cracking (APME); counted in MO-1.", "facts": [["Footprint (included in MO-1)", "13.6 g CO₂-eq", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "H2", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "CHEM", "kind": "input", "shape": "ellipse", "x": 380, "y": 590, "w": 62, "h": 28, "lines": ["Other", "chemicals"], "short": null, "title": "Other chemicals", "sub": "Raw material", "desc": "Smaller chemical inputs in the mineral-oil-based coolant model (largest: methyl methacrylate, benzene and propylene chains). Counted in MO-1.", "facts": [["Footprint (included in MO-1)", "53 g CO₂-eq", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "CHEM", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "PROD", "kind": "output", "shape": "rect", "x": 775, "y": 250, "w": 160, "h": 84, "lines": ["Mineral-oil-", "based coolant"], "short": "1 kg · product", "title": "Mineral-oil-based immersion coolant", "sub": "Product · reference flow 1 kg", "desc": "Mineral-oil-based (hydrocarbon) dielectric coolant, the reference product of this LCA. All values on this page are per 1 kg.", "facts": [["Carbon footprint", "3.07 kg CO₂-eq per kg", "LCA"], ["Fossil energy", "87.9 MJ per kg", "LCA"], ["Water use", "0.71 m³ world-eq per kg", "LCA"]], "note": null, "zeroWhy": null, "fs": 12.5, "rankName": "PROD", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "WASTE", "kind": "output", "shape": "rect", "x": 775, "y": 430, "w": 160, "h": 76, "lines": ["Spent catalyst", "& waste"], "short": "to incineration", "title": "Spent catalyst & hazardous waste", "sub": "Output · waste treatment", "desc": "Spent BF₃ catalyst residues and other hazardous waste sent to incineration.", "facts": [], "note": null, "zeroWhy": null, "fs": 12, "rankName": "Waste", "gwp": 0.00386, "fos": 0.0, "wat": 2.751378265859352e-05, "luc": 0.0, "top": [["treatment of hazardous waste, hazardous waste incineration", 0.0019101661301343924], ["treatment of hazardous waste, hazardous waste incineration, with energy recovery", 0.0019101661301343924]]}], "edges": [["ETH", "LAO-1", [[150, 260], [200, 260]]], ["LAO-1", "MO-1", [[370, 260], [460, 260]]], ["BFIN", "BF3-1", [[150, 460], [200, 460]]], ["BF3-1", "MO-1", [[370, 460], [460, 460]]], ["H2", "MO-1", [[520, 562], [520, 530]]], ["CHEM", "MO-1", [[380, 562], [380, 500], [460, 500]]], ["MO-1", "PROD", [[680, 292], [775, 292]]], ["MO-1", "WASTE", [[680, 468], [775, 468]]], ["ELEC", "UTIL", [[450, 86], [450, 150]], 1], ["HEAT", "UTIL", [[680, 86], [680, 150]], 1], ["UTIL", "UTIL", [[180, 150], [680, 150]], 1], ["UTIL", "LAO-1", [[285, 150], [285, 215]], 1], ["UTIL", "MO-1", [[570, 150], [570, 200]], 1], ["UTIL", "BF3-1", [[180, 150], [180, 440], [200, 440]], 1]], "labels": [["1-decene", 415, 250], ["BF₃", 415, 450], ["H₂", 536, 552], ["shared electricity & heat", 450, 142, 1]], "meta": {"title": "Mineral-oil-based immersion coolant: process & carbon map", "lede": "Hover over (or tap) a box to see its carbon footprint, fossil energy and water use, and the background processes behind them. All values are <b>per 1 kg of mineral-oil-based immersion coolant</b>, cradle to gate.", "product": "Mineral-oil-based coolant", "gwp": 3.0721487435739814, "parts": [["Ethylene feedstock", 1.6552722046332289, "#f59e0b"], ["Electricity (grid)", 0.9473638577447214, "#2563eb"], ["Process heat", 0.39927814926260397, "#dc2626"], ["Hydrogen, catalyst & other chemicals", 0.0702345319334271, "#9333ea"]], "takeaway": "The <b>ethylene feedstock</b> alone accounts for 54 % of the coolant’s footprint, followed by <b>grid electricity</b> (31 %). This coolant is almost entirely fossil-based: 88 MJ of fossil energy per kg, much of it embodied in the ethylene itself.", "kpis": [["var(--accent)", "3.07 kg CO₂-eq", "Carbon footprint per kg coolant"], ["#2563eb", "0.95 kg CO₂-eq", "from electricity (31 %)"], ["#dc2626", "0.40 kg CO₂-eq", "from process heat (13 %)"], ["#64748b", "87.9 MJ", "Fossil energy use per kg"], ["#0891b2", "0.71 m³", "Water use per kg (deprivation-weighted)"]], "method": ["All impacts come from the openLCA model of the mineral-oil-based coolant (cradle to gate, version 2.2) (ecoinvent cut-off, EF v3.1), for 1 kg of coolant. Tagged <span class='src LCA'>LCA</span>.", "Process descriptions marked <span class='src Route'>typical route</span> describe the standard industrial chemistry; the LCA itself uses proxy processes for these steps.", "The LCA export lists the impact of every background process but not the electricity (kWh) or heat each step consumes. Electricity and heat are therefore shown as two shared utility boxes, not as kWh per step.", "Each background process was assigned to the box it supplies (for example, ethylene production to LAO-1, coconut farming to FA-1). Fuel extraction and supply chains are split between electricity, heat and petrochemical feedstocks in proportion to their direct emissions, and minor processes (transport, infrastructure) are spread proportionally. The boxes add up exactly to the LCA total.", "Electricity: Indian regional grids (Chhattisgarh, Maharashtra, Madhya Pradesh, Gujarat) — mostly hard coal and lignite."]}};
+const M = D.meta, NODES = D.nodes, byId = Object.fromEntries(NODES.map(n=>[n.id,n]));
+const svg = document.getElementById('pfd'), panel = document.getElementById('panel');
+svg.setAttribute('viewBox', D.viewBox);
+const NS='http://www.w3.org/2000/svg';
+let mode='type', pinned=null;
+document.getElementById('c-title').textContent = M.title;
+document.getElementById('c-lede').innerHTML = M.lede;
+document.getElementById('c-method').innerHTML = M.method.map(x=>`<li>${x}</li>`).join('');
+
+const fmt=(v,d)=>{ if(v==null) return '–'; const a=Math.abs(v);
+  const dd = d!=null?d:(a>=100?0:a>=10?1:a>=1?2:a>=0.01?3:4);
+  return v.toLocaleString('en-US',{minimumFractionDigits:dd,maximumFractionDigits:dd}); };
+const gS = v => v>=1 ? fmt(v,2)+' kg' : v>=0.001 ? fmt(v*1000, v*1000>=10?0:1)+' g' : v>0 ? '<1 g' : '0';
+const UNITS={gwp:'kg CO₂-eq',fos:'MJ',wat:'m³ world-eq'};
+const valS = (m,v)=> m==='gwp'? gS(v) : m==='fos'? fmt(v, v>=10?1:2)+' MJ' : fmt(v, v>=1?2:3)+' m³';
+const KIND={step:'Process step', input:'Raw material', output:'Output', util:'Shared utility'};
+
+document.getElementById('kpis').innerHTML = M.kpis.map(([c,b,s])=>`<div class="kpi"><b>${b}</b><span><i style="background:${c}"></i>${s}</span></div>`).join('');
+
+const RAMPS={gwp:['#fff7ed','#fdba74','#ea580c','#7c2d12'], fos:['#f8fafc','#cbd5e1','#64748b','#1e293b'], wat:['#ecfeff','#67e8f9','#0891b2','#164e63']};
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+function rampAt(st,t){ t=Math.max(0,Math.min(1,t)); const s=t*(st.length-1), i=Math.min(Math.floor(s),st.length-2), f=s-i;
+  const a=hex(st[i]), b=hex(st[i+1]); return 'rgb('+a.map((x,k)=>Math.round(x+(b[k]-x)*f)).join(',')+')'; }
+const maxOf=m=>Math.max(...NODES.map(n=>n[m]||0));
+function scaleT(m,v){ if(!v||v<=0) return null; const mx=maxOf(m), mn=mx/1e3; return Math.log(Math.max(v,mn)/mn)/Math.log(mx/mn); }
+const hasVal = n => n.kind==='step'||n.kind==='util'||(n.kind==='output'&&n.gwp>0);
+function fillFor(n){
+  if (mode==='type' || !hasVal(n)) return n.kind==='step'?'var(--step)': n.kind==='util'?'var(--util)':'var(--io)';
+  const t=scaleT(mode,n[mode]); return t==null?'#f1f5f9':rampAt(RAMPS[mode],0.08+0.92*t);
+}
+const strokeFor=n=> n.kind==='step'?'var(--stepS)': n.kind==='util'?'var(--utilS)':'var(--ioS)';
+
+const el=(t,a,p)=>{ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); (p||svg).appendChild(e); return e; };
+const defs=el('defs',{});
+[['ar','#334155'],['arH','#ea580c'],['arU','#7c3aed']].forEach(([id,c])=>{ const m=el('marker',{id:'cp'+id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},defs);
+  el('path',{d:'M0,1 L10,5 L0,9 z',fill:c},m); });
+const edgeEls = D.edges.map(([a,b,pts,u])=>{
+  const p=el('polyline',{points:pts.map(q=>q.join(',')).join(' '),class:'e'+(u?' u':'')});
+  if (b!=='UTIL') p.setAttribute('marker-end', u?'url(#cparU)':'url(#cpar)');
+  p.dataset.a=a; p.dataset.b=b; p.dataset.u=u?1:0; return p; });
+D.labels.forEach(([t,x,y,u])=>{ const e=el('text',{x,y,class:'lab'+(u?' u':''),'text-anchor':'middle'}); e.textContent=t; });
+
+const nodeEls={};
+NODES.forEach(n=>{
+  const g=el('g',{class:'n',tabindex:0,role:'button','aria-label':n.title});
+  let cx,cy;
+  if(n.shape==='ellipse'){ el('ellipse',{cx:n.x,cy:n.y,rx:n.w,ry:n.h,class:'sh',stroke:strokeFor(n)},g); cx=n.x; cy=n.y; }
+  else { el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,rx:n.kind==='output'?4:8,class:'sh',stroke:strokeFor(n)},g); cx=n.x+n.w/2; cy=n.y+n.h/2; }
+  const lines=n.lines, fs=n.fs||13, lh=fs*1.15, subFs=Math.max(9.5,fs*0.78);
+  const block = lines.length*lh + (n.short? subFs*1.3:0) + (hasVal(n)? 15:0);
+  let y = cy - block/2 + fs*0.85;
+  lines.forEach(l=>{ const t=el('text',{x:cx,y,class:'id','text-anchor':'middle'},g); t.textContent=l; t.style.fontSize=fs+'px'; y+=lh; });
+  let t2=null; if(n.short){ t2=el('text',{x:cx,y:y-lh+subFs*1.35,class:'sub','text-anchor':'middle'},g); t2.textContent=n.short; t2.style.fontSize=subFs+'px'; y+=subFs*1.3; }
+  const tv=el('text',{x:cx,y:y+4,class:'val','text-anchor':'middle'},g);
+  nodeEls[n.id]={g,sh:g.firstChild,tv};
+  g.addEventListener('mouseenter',()=>{ if(!pinned) show(n.id); });
+  g.addEventListener('focus',()=>show(n.id));
+  g.addEventListener('mouseleave',()=>{ if(!pinned) overview(); });
+  g.addEventListener('click',e=>{ e.stopPropagation(); pin(n.id); });
+  g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault(); pin(n.id);} if(e.key==='Escape') unpin(); });
+});
+svg.addEventListener('click',()=>unpin());
+
+function paint(){
+  NODES.forEach(n=>{ const o=nodeEls[n.id]; o.sh.setAttribute('fill',fillFor(n));
+    const show = mode!=='type' && hasVal(n); const t=scaleT(mode,n[mode]);
+    o.tv.textContent = show ? valS(mode,n[mode]||0) : '';
+    const dark = show && t!=null && t>0.6;
+    o.g.querySelectorAll('text').forEach(tx=>tx.style.fill = dark ? '#fff' : '');
+  });
+  const lg=document.getElementById('legend');
+  if(mode==='type') lg.innerHTML=`<span class="hint">Blue: process steps · Purple: shared utilities (dashed = supplies all steps) · Yellow: raw materials &amp; outputs. Click a box to pin it.</span>`;
+  else { const mx=maxOf(mode); lg.innerHTML=`<span>${fmt(mx/1e3)}</span><div class="ramp" style="background:linear-gradient(90deg,${RAMPS[mode].join(',')})"></div><span>${fmt(mx)} ${UNITS[mode]} per kg coolant</span><span class="hint">(log scale; grey = none)</span>`; }
+}
+function highlight(id){
+  svg.classList.toggle('dim',!!id);
+  NODES.forEach(n=>nodeEls[n.id].g.classList.remove('rel','on'));
+  edgeEls.forEach(e=>{ e.classList.remove('hl'); if(e.dataset.b!=='UTIL') e.setAttribute('marker-end', e.dataset.u==='1'?'url(#cparU)':'url(#cpar)'); });
+  if(!id) return;
+  const isU = byId[id].kind==='util';
+  nodeEls[id].g.classList.add('rel','on');
+  edgeEls.forEach(e=>{ const a=e.dataset.a, b=e.dataset.b;
+    if(a===id||b===id||(isU&&a==='UTIL')){ e.classList.add('hl'); if(b!=='UTIL') e.setAttribute('marker-end','url(#cparH)');
+      [a,b].forEach(x=>{ if(byId[x]) nodeEls[x].g.classList.add('rel'); }); }});
+}
+function show(id){
+  const n=byId[id]; highlight(id);
+  let h=`${pinned===id?'<button class="close" id="cpclose">Unpin ✕</button>':''}<div class="p-kind">${KIND[n.kind]}${pinned===id?'<span class="pin">· pinned</span>':''}</div>
+    <div class="p-title">${n.title}</div><div class="p-sub">${n.sub}</div><p class="p-desc">${n.desc}</p>`;
+  if (hasVal(n)){
+    const pct=n.gwp/M.gwp*100;
+    if (n.gwp < M.gwp*0.001 && n.zeroWhy){
+      h+=`<div class="co2 zero"><div class="u">Carbon footprint <span class="src LCA">LCA</span></div><div class="big" style="font-size:18px">${gS(n.gwp)} <span class="u">CO₂-eq per kg coolant</span></div><small>${n.zeroWhy}</small></div>`;
+    } else {
+      h+=`<div class="co2"><div class="u">Carbon footprint (attributed) <span class="src LCA">LCA</span></div>
+        <div class="big">${gS(n.gwp)} <span class="u">CO₂-eq per kg coolant</span></div>
+        <div class="meter"><div style="width:${Math.max(pct,0.4)}%"></div></div><small>${fmt(pct,pct<1?2:1)} % of the ${fmt(M.gwp,2)} kg CO₂-eq total</small></div>`;
+    }
+    const c=(v,s,l)=>`<div class="cell${v>0.0005?'':' z'}"><b>${v>0.0005?s:'0'}</b><span>${l}</span></div>`;
+    h+=`<div class="grid3">${c(n.fos,fmt(n.fos,n.fos>=10?1:2)+' MJ','Fossil energy')}${c(n.wat,fmt(n.wat,n.wat>=1?2:3)+' m³','Water use')}${c(n.luc,gS(n.luc),'Land-use CO₂')}</div>`;
+    if (n.top && n.top.length) h+=`<h4>Largest contributing processes <span class="src LCA">LCA</span></h4><table>`+
+      n.top.map(([p,v])=>`<tr><td>${p}</td><td class="r">${gS(v)}</td></tr>`).join('')+`</table>`;
+  }
+  if (n.facts && n.facts.length) h+=`<h4>Details</h4><table>`+n.facts.map(([l,v,s])=>`<tr><td>${l}${s?`<span class="src ${s}">${s==='Route'?'typical route':s}</span>`:''}</td><td class="r" style="white-space:normal">${v}</td></tr>`).join('')+`</table>`;
+  if (n.note) h+=`<div class="sys">${n.note}</div>`;
+  panel.innerHTML=h;
+  const cb=document.getElementById('cpclose'); if(cb) cb.onclick=e=>{e.stopPropagation(); unpin();};
+}
+function overview(){
+  highlight(null);
+  const parts=M.parts, ranked=NODES.filter(hasVal).filter(n=>n.gwp>0).sort((a,b)=>b.gwp-a.gwp).slice(0,7), mx=ranked[0].gwp;
+  panel.innerHTML=`<div class="p-kind">Overview</div><div class="p-title">Where the carbon footprint comes from</div>
+    <p class="p-desc">Hover over a box in the diagram for details, or click one to pin it.</p>
+    <h4>By source <span class="src LCA">LCA</span></h4>
+    <div class="stack">${parts.map(([l,v,c])=>`<div style="width:${v/M.gwp*100}%;background:${c}" title="${l}"></div>`).join('')}</div>
+    ${parts.map(([l,v,c])=>`<div class="sl"><i style="background:${c}"></i><span>${l}</span><b>${fmt(v/M.gwp*100,1)} %</b></div>`).join('')}
+    <h4>Ranking (CO₂-eq per kg coolant)</h4>
+    <ul class="rank">${ranked.map(u=>`<li data-id="${u.id}"><b>${u.rankName}</b><div class="t"><div style="width:${u.gwp/mx*100}%"></div></div><span class="v">${gS(u.gwp)}</span></li>`).join('')}</ul>
+    <div class="sys">${M.takeaway}</div>`;
+  panel.querySelectorAll('.rank li').forEach(li=>{ li.onmouseenter=()=>highlight(li.dataset.id); li.onmouseleave=()=>highlight(null);
+    li.onclick=e=>{ e.stopPropagation(); pin(li.dataset.id); }; });
+}
+function pin(id){ pinned=(pinned===id)?null:id; pinned?show(id):overview(); }
+function unpin(){ pinned=null; overview(); }
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m;
+  document.querySelectorAll('#modes button').forEach(x=>x.setAttribute('aria-pressed',x===b)); paint(); });
+paint(); overview();
+})();
+</script>
+</body>
+</html>

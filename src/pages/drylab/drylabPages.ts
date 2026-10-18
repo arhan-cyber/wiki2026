@@ -18,7 +18,7 @@ export const dryLabPages: DryLabPage[] = [
   { slug: "life-cycle-assessment", path: "/dry-lab/model/life-cycle-assessment", title: "Life Cycle Assessment", subtitle: "A screening-level life cycle assessment of methyl myristate as a bio-based immersion coolant, with its limits stated first." },
   { slug: "software", path: "/dry-lab/software", title: "Software", subtitle: "Pre-flight: six automated checks that test whether the scoring function of a model measures anything, before its ranking is acted upon." },
   { slug: "cfd", path: "/dry-lab/cfd", title: "CFD", subtitle: "Immersion cooling of a 1U server with the bio-coolant methyl myristate: three-dimensional conjugate heat-transfer simulations in OpenFOAM, compared with mineral oil, an ester-based coolant and a GTL-based coolant." },
-  { slug: "lca", path: "/dry-lab/lca", title: "LCA", subtitle: "Cradle-to-gate life cycle assessment of methyl myristate made by engineered yeast, compared with ester-based and mineral-oil-based immersion coolants, including the cooling service each delivers." },
+  { slug: "lca", path: "/dry-lab/lca", title: "Life Cycle Assessment", subtitle: "Methyl Myristate Bio-Coolant vs Commercial Immersion Coolants" },
   { slug: "contribution", path: "/dry-lab/contribution", title: "Contribution", subtitle: "What the modelling work offers other teams: a checker for scoring functions, a benchmark of when machine learning is not required, and a screening life cycle assessment of a bio-based coolant." },
 ];
 

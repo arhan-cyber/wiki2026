@@ -29,7 +29,7 @@ const navigation: NavItem[] = [
       { label: 'Contribution', href: '#', disabled: true },
       { label: 'Cooling Measurement', href: '#', disabled: true },
       { label: 'News Headlines', href: '/project/news' },
-      { label: 'Future Plans', href: '#', disabled: true },
+      { label: 'Future Scope', href: '/project/future-scope' },
     ],
   },
   {

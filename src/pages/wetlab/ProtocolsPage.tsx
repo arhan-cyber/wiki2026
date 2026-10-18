@@ -11,6 +11,19 @@ const WHEEL_FY = 0.47041;
 const HIT_FR_MIN = 0.2475;
 const HIT_FR_MAX = 0.5446;
 
+// Icon + label for each segment, drawn over the wheel artwork (positions are in
+// the wheel image's 1212x1352 pixel space, at each circle's centre).
+const WHEEL_W = 1212;
+const WHEEL_H = 1352;
+const wheelLabels: { id: string; icon: string; label: string; x: number; y: number }[] = [
+  { id: 'media-preparation', icon: 'media', label: 'Media Preparation', x: 549, y: -16 },
+  { id: 'dna-extraction-purification', icon: 'dna', label: 'DNA Extraction', x: 1110, y: 282 },
+  { id: 'pcr-analysis', icon: 'pcr', label: 'PCR & Analysis', x: 1172, y: 846 },
+  { id: 'restriction-cloning', icon: 'restriction', label: 'Restriction & Cloning', x: 686, y: 1240 },
+  { id: 'transformation', icon: 'transformation', label: 'Transformation', x: 92, y: 980 },
+  { id: 'culture-storage', icon: 'culture', label: 'Culture & Storage', x: 42, y: 372 },
+];
+
 function segmentAt(x: number, y: number, w: number, h: number) {
   const dx = x - WHEEL_FX * w;
   const dy = y - WHEEL_FY * h;
@@ -130,6 +143,7 @@ export default function ProtocolsPage() {
   return (
     <PageShell title="Protocols" index={[{ id: 'wheel', label: 'Protocol wheel' }, ...sections.map((s) => ({ id: s.id, label: s.title }))]}>
       <div id="wheel" className={styles.wheelCard}>
+        <div className={styles.wheelWrap}>
         <img
           src="/wetlab/protocols/wheel.png"
           alt="Protocol wheel: Media Preparation, DNA Extraction, PCR & Analysis, Restriction & Cloning, Transformation, Culture & Storage"
@@ -139,6 +153,24 @@ export default function ProtocolsPage() {
           onMouseMove={onWheelMove}
           onMouseLeave={() => setHover(false)}
         />
+        <p className={styles.wheelHint}>
+          Click on a segment
+          <br />
+          to explore protocols
+        </p>
+        {wheelLabels.map((l) => (
+          <button
+            key={l.id}
+            type="button"
+            className={styles.wheelLabel}
+            style={{ left: `${(l.x / WHEEL_W) * 100}%`, top: `${(l.y / WHEEL_H) * 100}%` }}
+            onClick={() => document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          >
+            <img src={`/wetlab/protocols/icon-${l.icon}.png`} alt="" className={styles.wheelIcon} />
+            <span>{l.label}</span>
+          </button>
+        ))}
+        </div>
       </div>
       {sections.map((s, i) => (
         <Section key={s.id} section={s} first={i === 0} />

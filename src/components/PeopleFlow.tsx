@@ -10,8 +10,8 @@ type Note = {
   h: number;
   body: string;
   bar: string;
-  /** People in the note: label shown, and the id of their write-up. */
-  people: [string, string][];
+  /** People in the note: label shown, and the id of their write-up (null = no write-up). */
+  people: [string, string | null][];
   muted?: boolean;
 };
 
@@ -26,12 +26,12 @@ const NOTES: Note[] = [
   },
   {
     id: 'pis', label: "PI'S", x: 278, y: 14, w: 145, h: 146, body: '#b9e5f8', bar: '#7fb6e0',
-    people: [['Professor Saket', 'prof-saket'], ['Professor Rajesh', 'prof-rajesh']],
+    people: [['Professor Saket', null], ['Professor Rajesh', null]],
   },
   {
     id: 'drylab', label: 'DRY LABS', x: 505, y: 40, w: 163, h: 148, body: '#e3c8f4', bar: '#c77fd0',
     people: [
-      ['Professor Yogendra Shashtri', 'yogendra-shastri'], ['Professor Sandeep', 'prof-sandeep'], ['Professor Suyash', 'prof-suyash'],
+      ['Professor Yogendra Shastri', 'yogendra-shastri'], ['Professor Sandip', 'prof-sandeep'], ['Professor Suyash', 'prof-suyash'],
       ['Shubham', 'shubham'], ['Rutuja Maam', 'rutuja'],
     ],
   },
@@ -48,15 +48,12 @@ const NOTES: Note[] = [
   },
   {
     id: 'alumni', label: 'ALUMNI', x: 278, y: 358, w: 144, h: 139, body: '#c7f0ac', bar: '#4fd262',
-    people: [['Husayn', 'husayn'], ['Aditya', 'aditya-ict'], ['Anagha', 'anagdha'], ['Deepan', 'deepan'], ['Dawar', 'dawar']],
+    people: [['Husayn', 'husayn'], ['Aditya', 'aditya-ict'], ['Anagdha', 'anagdha'], ['Deepan', 'deepan'], ['Dawar', 'dawar']],
   },
   // Not on the team's board, but they have write-ups, so they stay reachable here.
   {
     id: 'others', label: 'OTHERS', x: 545, y: 384, w: 145, h: 148, body: '#e6e6ea', bar: '#a9a9b4', muted: true,
-    people: [
-      ['Kadambari', 'kadambari'], ['Hrushikesh', 'hrushikesh'], ['Archana', 'archana'],
-      ['iGEM Denmark', 'igem-denmark'], ['Nicola O’Riordan', 'nicola-oriordan'],
-    ],
+    people: [['iGEM Denmark', 'igem-denmark']],
   },
 ];
 
@@ -78,8 +75,8 @@ type Props = { onPick: (id: string) => void };
 
 /**
  * The People Flow board, drawn the way the team sketched it: sticky notes on
- * grid paper, arrows out from a hand-drawn iHP hub. Every name opens that
- * person's write-up.
+ * grid paper, arrows out from a hand-drawn iHP hub. Every name with a write-up
+ * opens it.
  */
 export default function PeopleFlow({ onPick }: Props) {
   return (
@@ -113,10 +110,14 @@ export default function PeopleFlow({ onPick }: Props) {
               <h3 className={styles.label}>{n.label}</h3>
               <ul className={styles.people}>
                 {n.people.map(([name, id]) => (
-                  <li key={id}>
-                    <button type="button" className={styles.person} onClick={() => onPick(id)}>
-                      {name}
-                    </button>
+                  <li key={name}>
+                    {id ? (
+                      <button type="button" className={styles.person} onClick={() => onPick(id)}>
+                        {name}
+                      </button>
+                    ) : (
+                      <span className={`${styles.person} ${styles.personStatic}`}>{name}</span>
+                    )}
                   </li>
                 ))}
               </ul>

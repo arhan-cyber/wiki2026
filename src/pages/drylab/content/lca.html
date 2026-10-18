@@ -1,60 +1,315 @@
-<details class="acc" open><summary><h2 id="goal-of-the-study">Goal of the study</h2></summary><div class="acc-body">
-<p>This study quantifies the cradle-to-gate environmental impacts of methyl myristate (MM) made by engineered <i>Saccharomyces cerevisiae</i>, and compares it with commercial immersion coolants. It also tests how MM's thermal performance in a server tank changes that comparison.</p>
-<h3>1.1 Context</h3>
-<p>Air cooling is reaching its limits as data-centre and HPC power density rises, and single-phase immersion cooling is a leading alternative. The incumbent dielectric fluids each carry a liability:</p>
-<ul>
-<li><strong>Fluorinated fluids (PFAS)</strong> face phase-out under the proposed EU universal PFAS restriction because of extreme persistence and high GWP.</li>
-<li><strong>Ester-based coolants and mineral-oil-based coolants</strong> (refined mineral oils and synthetic hydrocarbon grades) are made largely from fossil feedstocks: crude-oil refining or ethylene oligomerisation for the mineral-oil-based fluids, petrochemical or palm-derived acids and polyols for the esters.</li>
-</ul>
-<h3>1.2 Objectives</h3>
-<ol>
-<li><strong>Comparative assessment:</strong> quantify MM's impacts against two commercial coolant families, ester-based and mineral-oil-based, using the same database, method and level of process detail.</li>
-<li><strong>Hotspot identification:</strong> find which fermentation and downstream steps (centrifugation, cell disruption, solvent extraction, distillation, drying) drive MM's impacts, to guide strain and process design.</li>
-<li><strong>Decarbonisation pathway:</strong> test what productivity, energy integration and renewable energy MM needs to match the incumbents, instead of assuming that it does.</li>
+<details class="acc" open><summary><h2 id="overview">Overview</h2></summary><div class="acc-body">
+<p>Our CFD tab showed that <strong>methyl myristate (MM)</strong> keeps a 1,200 W server below 85 °C with about a third of the coolant flow that commercial coolants need. But a coolant is only greener if its whole life is greener, including the factory that makes it. So we ran a <strong>life cycle assessment (LCA)</strong>: we followed MM and two commercial coolant families, ester-based and mineral-oil-based, from raw materials through manufacturing to a year of cooling a server, and added up the environmental impact at every step.</p>
+<div class="lca-question"><div class="cfd-basis-tag">The question</div><p>Making MM costs more CO₂ than making today's coolants. Does the electricity it saves in the data centre make up for it?</p></div>
+</div></details>
+<details class="acc" open><summary><h2 id="what-is-a-life-cycle-assessment">What is a Life Cycle Assessment?</h2></summary><div class="acc-body">
+<p>An LCA is the standard way to answer &quot;which product is better for the planet?&quot; fairly. Three ideas are all you need:</p>
+<div class="cfd-coolants lca-boxes n3">
+<div class="cfd-coolant c-mm"><h4>1. A carbon receipt for a product's whole life</h4><p>Every kilogram of molasses, litre of methanol and kilowatt-hour of electricity used to make and run the coolant becomes a line item with an environmental cost, from cradle (raw materials) to use.</p></div>
+<div class="cfd-coolant c-oil"><h4>2. Establish a basis</h4><p>Products are only comparable on the same basis, called the functional unit. We establish two: <strong>1 kg of coolant</strong> (how clean is production?) and <strong>cooling one 1.2 kW server for a year</strong> (what does a data centre actually pay?).</p></div>
+<div class="cfd-coolant c-ester"><h4>3. A standard, four-step method</h4><p>ISO 14040/14044 set the steps: goal and scope, inventory, impact assessment, interpretation [1, 2]. Impacts go beyond CO₂: we scored <strong>16 categories</strong>, from water use to toxicity [6].</p></div>
+</div>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/lca_phases.png" alt="Figure 1. The four phases of an LCA [1, 2], filled in with what we did." loading="lazy"><figcaption><strong>Figure 1.</strong> The four phases of an LCA [1, 2], filled in with what we did.</figcaption></figure>
+<details class="lca-drop"><summary>Key terms</summary>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Term</strong></th><th><strong>What it means</strong></th><th><strong>In our study</strong></th></tr></thead><tbody>
+<tr><td>Functional unit</td><td>The common basis that makes products comparable</td><td>1 kg of coolant; cooling one 1.2 kW server for a year</td></tr>
+<tr><td>System boundary</td><td>Which life stages are counted</td><td>Raw materials to factory gate, plus cooling electricity in use</td></tr>
+<tr><td>Life cycle inventory</td><td>The list of every input and output</td><td>Molasses, methanol, steam, electricity, CO₂ and wastewater per batch</td></tr>
+<tr><td>Background database</td><td>Ready-made data for upstream supply chains</td><td>ecoinvent 3.9.1, e.g. CO₂ per kWh of Indian electricity [4, 5]</td></tr>
+<tr><td>kg CO₂-eq</td><td>All greenhouse gases converted to the warming effect of CO₂</td><td>The unit of every climate number on this page</td></tr>
+<tr><td>Allocation</td><td>Sharing the burden between co-products</td><td>Our FAME column makes MM and heavy FAME; MM carries 16.5%</td></tr>
+<tr><td>Hotspot</td><td>The step that causes most of the impact</td><td>Methanol recovery: 44% of MM's climate impact</td></tr>
+<tr><td>Sensitivity analysis</td><td>Re-running with a different assumption</td><td>Grid factor 1.6 vs 0.716 kg CO₂-eq/kWh</td></tr>
+</tbody></table></div>
+</details>
+</div></details>
+<details class="acc" open><summary><h2 id="our-results-mm-wins-where-it-matters-in-use">Our Results: MM Wins Where It Matters, in Use</h2></summary><div class="acc-body">
+<div class="lca-tiles lca-stats">
+<div class="lca-tile"><div class="lca-tile-num">−17%</div><p>CO₂ per server-year vs an ester-based coolant (−25% with free cooling)</p></div>
+<div class="lca-tile"><div class="lca-tile-num">26×</div><p>less pump power: 6.1 W vs 158.9 W</p></div>
+<div class="lca-tile"><div class="lca-tile-num">~1,600 kWh</div><p>cooling electricity saved per server, every year</p></div>
+<div class="lca-tile"><div class="lca-tile-num">2.9 yr</div><p>to pay back MM's extra production CO₂</p></div>
+<div class="lca-tile"><div class="lca-tile-num">93%</div><p>of MM's carbon is biogenic (from plants, not fossil)</p></div>
+<div class="lca-tile"><div class="lca-tile-num">0 g</div><p>PFAS: halogen-free and readily biodegradable</p></div>
+</div>
+<p class="cfd-note"><em>Base case: ecoinvent India grid (~1.6 kg CO₂-eq/kWh), chiller, 20 L fill over a 5-year coolant life, MM optimised process (449 kg CO₂-eq/kg). Screening study, not yet critically reviewed under ISO 14044.</em></p>
+<p>We compared the coolants on two bases, just like the two bases on the CFD tab.</p>
+<div class="cfd-basis lca-basis-pair">
+<div class="cfd-basis-card b1"><div class="cfd-basis-tag">Basis 1</div><h3>per kg of coolant at the factory gate</h3>
+<p><strong>Here MM loses, and we say so.</strong> Making 1 kg of MM today emits <strong>449 kg CO₂-eq</strong> (optimised process; 632 in our first design), against <strong>5.17–5.25</strong> for ester-based coolants and <strong>~1.5–3.0</strong> for mineral-oil-based ones. The reason is scale: one 100 m³ batch yields only 45.6 kg of MM, and recovering the methanol solvent dominates the energy bill.</p>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Coolant</strong></th><th><strong>kg CO₂-eq per kg</strong></th><th><strong>Status</strong></th></tr></thead><tbody>
+<tr><td><strong>Methyl myristate, optimised process</strong></td><td><strong>449</strong></td><td>openLCA</td></tr>
+<tr><td>Methyl myristate, first design</td><td>632</td><td>openLCA</td></tr>
+<tr><td>Ester-based (measured plant / process model)</td><td>5.25 / 5.17</td><td>openLCA</td></tr>
+<tr><td>Mineral-oil-based, synthetic grade</td><td>3.00</td><td>openLCA</td></tr>
+<tr><td>Mineral oil, refined</td><td>~1.5</td><td>Placeholder</td></tr>
+</tbody></table></div>
+</div>
+<div class="cfd-basis-card b2"><div class="cfd-basis-tag">Basis 2</div><h3>cooling one 1.2 kW server for a year</h3>
+<p><strong>Here MM wins.</strong> A server only needs <strong>~3.4 kg of coolant a year</strong> (a 20 L fill lasting 5 years), so the production footprint is spread thin. The cooling electricity MM saves is counted every hour of every day.</p>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/lca_in_use.png" alt="Figure 2. CO₂ per server-year, split into making the coolant (light) and running the cooling (dark). MM optimised process: 5,012 kg vs 6,071 kg for an ester-based coolant (−17%). After process steps 1–3: ~4,399 kg (−28%)." loading="lazy"><figcaption><strong>Figure 2.</strong> CO₂ per server-year, split into making the coolant (light) and running the cooling (dark). MM optimised process: 5,012 kg vs 6,071 kg for an ester-based coolant (−17%). After process steps 1–3: ~4,399 kg (−28%).</figcaption></figure>
+</div>
+</div>
+<h3 id="why-our-coolant-is-superior-in-use">Why our coolant is superior in use</h3>
+<div class="cfd-coolants lca-boxes n4">
+<div class="cfd-coolant c-mm"><h4>It flows easily</h4><p>MM's viscosity is 0.0051 Pa·s, about a third of the ester-based (0.0150) and mineral oil (0.0121) values used on the CFD tab, so it carries heat away at low flow.</p></div>
+<div class="cfd-coolant c-oil"><h4>It needs a third of the flow</h4><p>MM meets 85 °C at <strong>0.27 m/s</strong>; the others need <strong>0.80 m/s</strong>. Pump power rises with the cube of flow: <strong>6.1 W vs 158.9 W</strong>.</p></div>
+<div class="cfd-coolant c-ester"><h4>It cuts cooling electricity</h4><p><strong>2,167 vs 3,773 kWh/yr</strong> with a chiller (−43%); <strong>370 vs 1,749 kWh/yr</strong> with free cooling (−79%). With free cooling, the cooling overhead is 3.5% vs 16.6% of the server power.</p></div>
+<div class="cfd-coolant c-gtl"><h4>Its carbon is cleaner</h4><p><strong>93%</strong> biogenic carbon (ester 82%, mineral oil 0%), <strong>17× less</strong> fossil CO₂ if burned at end of life, no PFAS, and readily biodegradable.</p></div>
+</div>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Metric</strong></th><th><strong>Methyl myristate</strong></th><th><strong>Ester-based</strong></th><th><strong>Mineral-oil-based</strong></th></tr></thead><tbody>
+<tr><td>Hottest server part at equal flow, 0.42 m/s (°C)</td><td class="lca-win"><strong>78.1</strong></td><td>88.0</td><td>87.2</td></tr>
+<tr><td>Flow needed to stay ≤ 85 °C (m/s)</td><td class="lca-win"><strong>0.27</strong></td><td>0.80</td><td>0.80</td></tr>
+<tr><td>Pump power at that flow (W)</td><td class="lca-win"><strong>6.1</strong></td><td>158.9</td><td>158.8</td></tr>
+<tr><td>Cooling electricity, chiller (kWh/yr)</td><td class="lca-win"><strong>2,167</strong></td><td>3,773</td><td>3,772</td></tr>
+<tr><td>Partial PUE, free cooling</td><td class="lca-win"><strong>1.035</strong></td><td>1.166</td><td>1.166</td></tr>
+<tr><td>CO₂ per server-year, chiller (kg CO₂-eq)</td><td class="lca-win"><strong>5,012</strong></td><td>6,071</td><td>6,055</td></tr>
+<tr><td>Biogenic share of product carbon (%)</td><td class="lca-win"><strong>93</strong></td><td>82</td><td>0</td></tr>
+<tr><td>End-of-life fossil CO₂ if incinerated (kg/kg)</td><td class="lca-win"><strong>0.18</strong></td><td>0.48</td><td>3.12</td></tr>
+<tr><td>Production footprint (kg CO₂-eq/kg)</td><td class="lca-lose">449</td><td>5.25</td><td>~1.5</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 1.</strong> MM is best on 8 of 9 metrics (green) and loses on production per kg (red). Thermal values for mineral oil are refined mineral oil (CFD tab); end of life is the synthetic grade; ~1.5 is a placeholder.</p>
+<h3 id="how-long-until-mm-pays-back-its-production-co₂">How long until MM pays back its production CO₂?</h3>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/lca_payback.png" alt="Figure 3. Cumulative CO₂ per server. MM starts higher (production) but rises more slowly. Each year of cooling with MM saves ~2,600 kg CO₂-eq against the ester-based coolant." loading="lazy"><figcaption><strong>Figure 3.</strong> Cumulative CO₂ per server. MM starts higher (production) but rises more slowly. Each year of cooling with MM saves ~2,600 kg CO₂-eq against the ester-based coolant.</figcaption></figure>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>MM process vs ester-based coolant</strong></th><th><strong>India grid, chiller</strong></th><th><strong>India grid, free cooling</strong></th><th><strong>CEA grid, chiller</strong></th><th><strong>CEA grid, free cooling</strong></th></tr></thead><tbody>
+<tr><td>First design (632)</td><td>4.2 yr</td><td>4.8 yr</td><td>9.3 yr ✗</td><td>10.9 yr ✗</td></tr>
+<tr><td><strong>Optimised process (449)</strong></td><td><strong>2.9 yr</strong></td><td>3.4 yr</td><td>6.6 yr ✗</td><td>7.7 yr ✗</td></tr>
+<tr><td>After steps 1–3 (~270, estimate)</td><td><strong>1.8 yr</strong></td><td>2.0 yr</td><td>3.9 yr</td><td>4.6 yr</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 2.</strong> Payback = extra CO₂ of the 20 L MM fill ÷ CO₂ saved per year. ✗ = longer than the assumed 5-year coolant life.</p>
+<details class="lca-drop"><summary>Does it hold on a cleaner grid?</summary>
+<p>MM's advantage is electricity it does not use, so the advantage shrinks when that electricity is cleaner. Our base case uses the ecoinvent India grid (~1.6 kg CO₂-eq/kWh) for both production and use; as a sensitivity we used the Central Electricity Authority's grid-average factor (0.716) [31].</p>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>MM vs ester-based, per server-year, chiller</strong></th><th><strong>First design (632)</strong></th><th><strong>Optimised (449)</strong></th><th><strong>Steps 1–3 (~270)</strong></th></tr></thead><tbody>
+<tr><td>Base case: ecoinvent India grid, ~1.6</td><td>−7%</td><td><strong>−17%</strong></td><td><strong>−28%</strong></td></tr>
+<tr><td>Free cooling, same grid</td><td>−2%</td><td><strong>−25%</strong></td><td><strong>−46%</strong></td></tr>
+<tr><td>Sensitivity: CEA grid factor, 0.716</td><td>+37%</td><td>+14%</td><td><strong>−9%</strong></td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 3.</strong> On the cleaner grid only the steps 1–3 process stays ahead, which is why we keep cutting MM's production footprint.</p>
+</details>
+<div class="cfd-conclusion lca-big"><div class="cfd-conclusion-tag">Conclusion</div><p><strong>Per kilogram, MM is still expensive to make. Per server, it is the greener coolant: 17% less CO₂ a year today, 28% after our next process steps, and it pays back its production footprint in under 3 years.</strong></p><p></p></div>
+</div></details>
+<details class="acc" open><summary><h2 id="how-we-modelled-it">How We Modelled It</h2></summary><div class="acc-body">
+<p>Every coolant went through the same pipeline: same database (ecoinvent 3.9.1 [4, 5]), same impact method (EF 3.1 [6]), same software (openLCA 2.6.2 [3]), same Indian electricity and steam datasets, same functional units. Only what happens inside each factory differs.</p>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/model_workflow.png" alt="Figure 4. How the pieces fit together. Boxes 1–3 are built by us; openLCA links them to the ecoinvent supply-chain database and scores them with EF 3.1 plus PFAS factors." loading="lazy"><figcaption><strong>Figure 4.</strong> How the pieces fit together. Boxes 1–3 are built by us; openLCA links them to the ecoinvent supply-chain database and scores them with EF 3.1 plus PFAS factors.</figcaption></figure>
+<h3 id="goal-scope-and-key-assumptions">Goal, scope and key assumptions</h3>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/lca_boundary.jpg" alt="Figure 5. What is counted: cradle-to-gate production plus cooling electricity in use. Packaging, transport and end of life are not yet modelled (dashed)." loading="lazy"><figcaption><strong>Figure 5.</strong> What is counted: cradle-to-gate production plus cooling electricity in use. Packaging, transport and end of life are not yet modelled (dashed).</figcaption></figure>
+<details class="lca-drop"><summary>Key assumptions</summary>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Assumption</strong></th><th><strong>Value used</strong></th><th><strong>Note</strong></th></tr></thead><tbody>
+<tr><td>Functional unit 1</td><td>1 kg of coolant at the factory gate</td><td>Cradle-to-gate</td></tr>
+<tr><td>Functional unit 2</td><td>Cool one 1,200 W server for 1 year (8,760 h); hottest part ≤ 85 °C; 25 °C supply</td><td>Production + cooling electricity</td></tr>
+<tr><td>Tank fill and life</td><td>20 L per server, 5 years, same for every coolant</td><td>Placeholder</td></tr>
+<tr><td>Densities</td><td>MM 0.855, ester 0.916, mineral oil 0.828 kg/L</td><td>→ 3.42 / 3.66 / 3.31 kg coolant per year</td></tr>
+<tr><td>Grid factor</td><td>~1.6 kg CO₂-eq/kWh (ecoinvent India); 0.716 (CEA) as sensitivity</td><td>[4, 31]</td></tr>
+<tr><td>Pump and loop</td><td>Wire-to-water efficiency 0.5; 20 kPa external loop</td><td>Same for all coolants</td></tr>
+<tr><td>Heat rejection</td><td>Chiller COP 5, or free cooling at 3% of heat rejected</td><td>[32]</td></tr>
+<tr><td>MM batch</td><td>100 m³ fermenter → 5,498 kg dry cells → 45.6 kg MM at 98.5%</td><td>Team PFD calculations [12]</td></tr>
+<tr><td>MM feedstocks</td><td>Sugarcane molasses, then AFEX corn-stover hydrolysate</td><td>[17, 18]</td></tr>
+<tr><td>Fatty-acid profile</td><td>Borrowed from an engineered Yarrowia strain (FAS I1220W)</td><td>Until our strain is measured [37]</td></tr>
+<tr><td>Allocation</td><td>Economic at the FAME column: 16.5% to MM, 83.5% to heavy FAME</td><td>Stricter than mass (~10%)</td></tr>
+<tr><td>Commercial ester</td><td>Measured plant energy 5.32 MJ + 0.63 kWh per kg</td><td>[23]</td></tr>
+<tr><td>Cut-off</td><td>Flows &lt; 1% of mass or energy unless toxic; total ≤ 5%; capital goods excluded</td><td>[2]</td></tr>
+</tbody></table></div>
+</details>
+<h3 id="our-bioprocess-model-process-flow-diagram-pfd-calculations">Our bioprocess model: process flow diagram (PFD) calculations</h3>
+<p>No MM factory exists yet, so we designed one on paper. We drew the full process flow diagram for one <strong>100 m³ batch</strong> and calculated a mass and energy balance for every unit in it. Those numbers became the MM inventory in openLCA.</p>
+<h4 id="process-flow-diagram-of-our-mm-plant">Process flow diagram of our MM plant</h4>
+<figure class="cfd-fig lca-pfd-fig"><iframe class="lca-pfd" src="/drylab/lca/pfd/methyl-myristate-pfd.html" title="Interactive process map of the methyl myristate plant" loading="lazy"></iframe><noscript><img src="/drylab/lca/figures/mm_pfd_new.png" alt="Figure 6. MM plant for one 100 m³ batch. Green = upstream (compression, BC-1 bubble-column fermentation, SDC-1 centrifuge, VD-1 vacuum dryer, CD-3 condenser); blue = conversion and separation (HR-1 homogeniser-reactor, DCT-1 decanter, ANF-1 Nutsche filter, FV-1/FV-2 flash vessels, DC-1 FAME column, DC-2 methanol column); yellow = feeds and outputs. Methanol and ethyl acetate are recycled [12]." loading="lazy"></noscript><p class="lca-pfd-alt"><a href="/drylab/lca/figures/mm_pfd_new.png">Open the static diagram</a></p><figcaption><strong>Figure 6.</strong> MM plant for one 100 m³ batch. Green = upstream (compression, BC-1 bubble-column fermentation, SDC-1 centrifuge, VD-1 vacuum dryer, CD-3 condenser); blue = conversion and separation (HR-1 homogeniser-reactor, DCT-1 decanter, ANF-1 Nutsche filter, FV-1/FV-2 flash vessels, DC-1 FAME column, DC-2 methanol column); yellow = feeds and outputs. Methanol and ethyl acetate are recycled [12].</figcaption></figure>
+<div class="cfd-coolants lca-boxes n4">
+<div class="cfd-coolant c-mm"><h4>1. Grow</h4><p>Engineered yeast grows on molasses and corn-stover hydrolysate in an aerated bubble-column fermenter (<strong>BC-1</strong>), fed by air compressors.</p></div>
+<div class="cfd-coolant c-oil"><h4>2. Harvest and dry</h4><p>A centrifuge (<strong>SDC-1</strong>) and vacuum dryer (<strong>VD-1</strong>) recover <strong>5,498 kg</strong> of dry cells per batch.</p></div>
+<div class="cfd-coolant c-ester"><h4>3. Convert</h4><p>In-situ transesterification in <strong>HR-1</strong>: cells are broken and their fatty acids turned into methyl esters with methanol and 0.2 M H₂SO₄ [13–16].</p></div>
+<div class="cfd-coolant c-gtl"><h4>4. Purify</h4><p>Decanter, Nutsche filter and flash vessels, then <strong>DC-2</strong> recovers methanol for recycle and <strong>DC-1</strong> distils <strong>45.6 kg</strong> of 98.5% MM plus a heavy FAME co-product.</p></div>
+</div>
+<h4 id="how-the-pfd-calculations-work">How the PFD calculations work</h4>
+<ol><li><strong>Mass balance per unit:</strong> each stream (feeds, cells, methanol, acid, water, CO₂, product, waste) is tracked through every unit from stoichiometry, yields and recovery fractions [12–16].</li><li><strong>Energy per unit:</strong> sensible heating, evaporation (latent heat) and vacuum for the columns and dryer [20]; aeration, mixing, homogenisation and pumping power for the electrical units; fermentation heat removal from oxygen uptake [19].</li><li><strong>Utilities:</strong> process cooling by chiller (COP 4.5) and cooling tower (0.03 kWh per kWh rejected, 1.6 kg water per kWh) [32].</li><li><strong>Into openLCA:</strong> each unit became an openLCA process; its steam, electricity and chemicals were linked to ecoinvent datasets (Indian first, then rest-of-world, then global).</li><li><strong>Allocation:</strong> DC-1 makes MM and heavy FAME, so its burden is split by economic value: 16.5% to MM.</li></ol>
+<h4 id="equipment-models-and-industry-standard-efficiencies">Equipment models and industry-standard efficiencies</h4>
+<p>Each piece of equipment was sized with a standard engineering method and a typical industrial efficiency, so the energy numbers reflect real machines, not ideal ones [19, 20, 40, 41]:</p>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Unit</strong></th><th><strong>How we calculated it</strong></th><th><strong>Efficiency and design basis</strong></th><th><strong>Result per batch</strong></th></tr></thead><tbody>
+<tr><td>BC-1 aeration compressors</td><td>Air flow = O₂ uptake ÷ (sparger O₂ transfer efficiency × 0.232); adiabatic compression, 2 stages with intercooling</td><td>Compressor η 75%, γ 1.4; 20 kPa line loss; column H = 6D (2.8 m × 16.7 m)</td><td>8,594 kWh; 272,569 kg air</td></tr>
+<tr><td>SDC-1 disc-stack centrifuge</td><td>Σ-theory and Ambler's equation</td><td>η 50%; 100 discs; 4 h run</td><td>27 kWh</td></tr>
+<tr><td>VD-1 vacuum dryer</td><td>Sensible + latent heat to 95% dry matter at 45 °C</td><td>Low temperature to avoid thermal decay</td><td>14,892 kWh heat</td></tr>
+<tr><td>HR-1 homogeniser-reactor</td><td>Heat to 50 °C; reaction heat −20 kJ/mol; 90% conversion in 8 h</td><td>Homogeniser 3 kWh/kg dry cells, η 90%</td><td>18,328 kWh power; 12,199 kWh cooling</td></tr>
+<tr><td>Decanter centrifuge</td><td>Σ-theory, three-phase</td><td>40% liquid entrained in cake</td><td>441 kWh</td></tr>
+<tr><td>FV-1/FV-2 flash vessels</td><td>DWSIM flash: 47 °C, then 120 °C at 0.1 bar to 99% FAME</td><td>N₂ blanket at 2× air leak</td><td>3,044 kWh heat</td></tr>
+<tr><td>DC-1 FAME column</td><td>DWSIM shortcut column (FUG), 1.5 mbar</td><td>Reflux 1.32 (1.5 × minimum), 11.7 stages</td><td>45.6 kg MM + 415 kg heavy FAME</td></tr>
+<tr><td>DC-2 methanol column</td><td>DWSIM shortcut column (FUG), atmospheric</td><td>Reflux 0.945, 11 stages</td><td>157,976 kWh reboiler; 233,599 kWh cooling</td></tr>
+<tr><td>Utilities</td><td>Heating → steam; cooling → electricity</td><td>Process chiller COP 4.5 (ASHRAE 90.1 minimum); cooling tower 0.03 kWh per kWh; 1.6 kg water evaporated per kWh</td><td>ecoinvent steam and Indian grid electricity</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 4.</strong> Equipment basis of the MM inventory [12]. The first design has <strong><em>no heat integration</strong><em>: every heating duty is bought as steam and every cooling duty as electricity. That is deliberately conservative; heat integration is added in the optimised process.</p>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Per 100 m³ batch (first design)</strong></th><th><strong>Value</strong></th></tr></thead><tbody>
+<tr><td>Dry cells harvested</td><td>5,498 kg</td></tr>
+<tr><td>Methyl myristate produced</td><td><strong>45.6 kg</strong> (98.5% pure) + heavy FAME</td></tr>
+<tr><td>Methanol consumed by the reaction</td><td>52 kg</td></tr>
+<tr><td>Methanol lost and replaced</td><td>4,359 kg</td></tr>
+<tr><td>Methanol boiled in DC-2 for recovery</td><td><strong>217,729 kg</strong></td></tr>
+<tr><td>Process steam</td><td>657,595 MJ (DC-2 alone: 568,715 MJ)</td></tr>
+<tr><td>Electricity</td><td>54,390 kWh (aeration 25,183; HR-1 lysis 18,694)</td></tr>
+<tr><td>Energy per kg MM (before allocation)</td><td>14,421 MJ heat + 1,193 kWh</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 5.</strong> Key flows from our PFD calculations [12]. Methanol is reagent and solvent at once: the reaction uses 52 kg, but 217,729 kg must be boiled to recover it.</p>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/hotspots.png" alt="Figure 7. Where MM&#x27;s climate impact comes from. Three energy-hungry units cause 86%; methanol recovery alone causes 44%." loading="lazy"><figcaption><strong>Figure 7.</strong> Where MM's climate impact comes from. Three energy-hungry units cause 86%; methanol recovery alone causes 44%.</figcaption></figure>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/allocation.png" alt="Figure 8. With no allocation MM would carry 3,830 kg CO₂-eq/kg; by mass about 394; by economic value 632 (first design). We kept economic allocation because it is the stricter choice for MM." loading="lazy"><figcaption><strong>Figure 8.</strong> With no allocation MM would carry 3,830 kg CO₂-eq/kg; by mass about 394; by economic value 632 (first design). We kept economic allocation because it is the stricter choice for MM.</figcaption></figure>
+<h3 id="modelling-the-commercial-coolants-with-openlca-and-ecoinvent">Modelling the commercial coolants with openLCA and ecoinvent</h3>
+<p>Commercial coolant makers do not publish their inventories, so we rebuilt each factory from its published industrial route, the same way we built ours, then let openLCA and ecoinvent supply the upstream chain (ethylene, coconut oil, electricity, steam, transport).</p>
+<ol><li><strong>Route from industrial practice:</strong> BF₃-catalysed oligomerisation of 1-decene from ethylene for the synthetic mineral-oil grade [24, 26]; acid-catalysed esterification of trimethylolpropane with C8–C10 acids for the ester [25, 27].</li><li><strong>Mass balance from stoichiometry:</strong> feeds, recycles, co-products and wastes from reaction stoichiometry and typical conversions.</li><li><strong>Energy per unit operation:</strong> heating, vaporisation, vacuum and pumping duties, step by step [20].</li><li><strong>Proxies for missing chemicals:</strong> nine materials with no ecoinvent dataset (linear alpha-olefin, BF₃, trimethylolpropane, p-toluenesulfonic acid, a PFAS additive, corn stover and others) were built from their reaction stoichiometry, a published method for filling inventory gaps [28, 29, 38].</li><li><strong>Checked against a real plant:</strong> for the ester we swapped our bottom-up energy (2.00 MJ + 0.107 kWh/kg) for a measured commercial plant (5.32 MJ + 0.63 kWh/kg) [23]. Both results (5.17 and 5.25) sit inside the published 3.07–5.87 kg CO₂-eq/kg range for ester base oils [23].</li></ol>
+<h4 id="equipment-efficiencies-and-heat-integration-in-the-commercial-models">Equipment, efficiencies and heat integration in the commercial models</h4>
+<ul><li><strong>Same utilities as MM:</strong> every heating duty draws on the same ecoinvent steam dataset and every kWh on the same Indian grid, so no coolant gets a cleaner energy supply.</li><li><strong>Duties step by step:</strong> reactor heating, distillation reboilers, vacuum stripping, drying and pumping were calculated per kg from heat capacities, latent heats and typical industrial conditions [20]. In the synthetic grade, the two distillation columns take 1.4 of the 2.73 MJ per kg.</li><li><strong>No extra heat-integration credit:</strong> we did not add recompression or heat pumps to the commercial bottom-up models.</li><li><strong>Real plants set the reported number:</strong> a bottom-up model assumes ideal equipment, so for the ester we report a <strong>measured commercial plant</strong> instead (5.32 MJ + 0.63 kWh per kg [23]), which already contains that plant's real equipment efficiencies and heat recovery. It uses 2.7× the heat of our bottom-up model, a reminder that ideal calculations underestimate real plants.</li></ul>
+<figure class="cfd-fig lca-pfd-fig"><iframe class="lca-pfd" src="/drylab/lca/pfd/synthetic-ester-coolant-pfd.html" title="Interactive process map of the ester-based coolant" loading="lazy"></iframe><noscript><img src="/drylab/lca/figures/flow_ester.png" alt="Figure 9. Ester-based coolant, per kg: every input, output and step energy. Esterification takes about half the heat." loading="lazy"></noscript><p class="lca-pfd-alt"><a href="/drylab/lca/figures/flow_ester.png">Open the static diagram</a></p><figcaption><strong>Figure 9.</strong> Ester-based coolant, per kg: every input, output and step energy. Esterification takes about half the heat.</figcaption></figure>
+<figure class="cfd-fig lca-pfd-fig"><iframe class="lca-pfd" src="/drylab/lca/pfd/mineral-oil-coolant-pfd.html" title="Interactive process map of the synthetic-grade mineral-oil-based coolant" loading="lazy"></iframe><noscript><img src="/drylab/lca/figures/flow_mineral.png" alt="Figure 10. Synthetic-grade mineral-oil-based coolant, per kg. The plant is light on energy; most of the footprint is the fossil ethylene it starts from." loading="lazy"></noscript><p class="lca-pfd-alt"><a href="/drylab/lca/figures/flow_mineral.png">Open the static diagram</a></p><figcaption><strong>Figure 10.</strong> Synthetic-grade mineral-oil-based coolant, per kg. The plant is light on energy; most of the footprint is the fossil ethylene it starts from.</figcaption></figure>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Model</strong></th><th><strong>Plant energy per kg</strong></th><th><strong>kg CO₂-eq/kg</strong></th><th><strong>Status</strong></th></tr></thead><tbody>
+<tr><td>Ester-based, measured plant</td><td>5.32 MJ + 0.63 kWh</td><td><strong>5.25</strong></td><td>openLCA</td></tr>
+<tr><td>Ester-based, our process model</td><td>2.00 MJ + 0.107 kWh</td><td><strong>5.17</strong></td><td>openLCA</td></tr>
+<tr><td>Ester + fluorinated additive</td><td>+0.01 MJ + 0.001 kWh</td><td>~5.26</td><td>Hypothetical, illustration</td></tr>
+<tr><td>Mineral-oil-based, synthetic grade</td><td>2.73 MJ + 0.371 kWh</td><td><strong>3.00</strong></td><td>openLCA</td></tr>
+<tr><td>Mineral oil, refined</td><td>Not modelled yet</td><td>~1.5</td><td>Placeholder</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 6.</strong> Commercial models. They describe mature, optimised plants while MM is scaled from lab and design data, so if anything the per-kg gap is overstated against MM.</p>
+<h3 id="integrating-the-cfd-simulations-into-the-lca">Integrating the CFD simulations into the LCA</h3>
+<p>The use phase of the LCA is built directly on the OpenFOAM runs from the CFD tab [9–11]. Same tank, same 1U server, same 1,200 W load and same 25 °C inlet for every coolant; only the fluid and its flow change. From the 17 runs on MM, mineral oil and the ester-based coolant, the LCA takes four things:</p>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>From the CFD runs</strong></th><th><strong>Used in the LCA as</strong></th><th><strong>Methyl myristate</strong></th><th><strong>Ester-based</strong></th><th><strong>Mineral oil</strong></th></tr></thead><tbody>
+<tr><td>Lowest simulated flow that keeps the server ≤ 85 °C</td><td>Operating flow</td><td><strong>0.27 m/s</strong> (22.1 L/min)</td><td>0.80 m/s (65.5 L/min)</td><td>0.80 m/s (65.5 L/min)</td></tr>
+<tr><td>Tank pressure drop at that flow</td><td>Added to the external loop for pump power</td><td>26 Pa</td><td>259 Pa</td><td>234 Pa</td></tr>
+<tr><td>Hottest server temperature at that flow</td><td>Warmest allowed supply = 85 − (T_max − 25)</td><td>82.0 °C → <strong>28.0 °C</strong></td><td>83.6 °C → 26.4 °C</td><td>83.4 °C → 26.6 °C</td></tr>
+<tr><td>Heat balance within ±2% of 1,200 W</td><td>Check that heat rejected = server heat</td><td>✓</td><td>✓</td><td>✓</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 7.</strong> How CFD outputs become LCA inputs. The GTL-based coolant on the CFD tab is not in the LCA yet.</p>
+<div class="cfd-coolants lca-boxes n4">
+<div class="cfd-coolant c-mm"><h4>Fair operating point</h4><p>We use the lowest flow actually simulated that passes. MM fails at 0.25 m/s, so 0.27 m/s is slightly conservative for MM.</p></div>
+<div class="cfd-coolant c-oil"><h4>Honest about the bracket</h4><p>The commercial coolants fail at 0.60 and pass at 0.80 m/s. Even at 0.70 m/s their pump would draw ~106 W, still 17× MM's 6.1 W. Runs at 0.65 and 0.70 m/s are planned.</p></div>
+<div class="cfd-coolant c-ester"><h4>More free-cooling hours</h4><p>With a 7 K cooling-tower approach, MM's 28 °C supply limit allows free cooling up to ~21 °C wet-bulb, against ~19.5 °C for the others.</p></div>
+<div class="cfd-coolant c-gtl"><h4>Same loop for everyone</h4><p>Plate heat exchanger, pipes and filter: 20 kPa at 34.4 L/min, scaling with flow². This is conservative for low-viscosity MM.</p></div>
+</div>
+<h4 id="from-cfd-to-kilowatt-hours">From CFD to kilowatt-hours</h4>
+<p>We turned each operating point into electricity and CO₂ with four short equations, applied identically to every coolant [32, 33]:</p>
+<div class="lca-eq"><p class="lca-eq-line"><strong>Pump power:</strong>  P = 23.0 W × (v ÷ 0.42 m/s)³</p><p class="lca-eq-note">(20 kPa loop + tank pressure drop at 34.4 L/min, wire-to-water efficiency 0.5; pressure drop ∝ flow², so power ∝ flow³)</p><p class="lca-eq-line"><strong>Cooling electricity, chiller:</strong>  E = 8,760 h × [ (1,200 W + P) ÷ COP 5 + P ]</p><p class="lca-eq-line"><strong>Cooling electricity, free cooling:</strong>  E = 8,760 h × [ 0.03 × (1,200 W + P) + P ]</p><p class="lca-eq-line"><strong>CO₂ per server-year:</strong>  (20 L × density ÷ 5 yr) × production footprint + E × grid factor</p></div>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Coolant</strong></th><th><strong>Flow for ≤ 85 °C</strong></th><th><strong>Pump (W)</strong></th><th><strong>Chiller (kWh/yr)</strong></th><th><strong>Free cooling (kWh/yr)</strong></th><th><strong>Partial PUE (free)</strong></th></tr></thead><tbody>
+<tr><td><strong>Methyl myristate</strong></td><td><strong>0.27 m/s</strong></td><td><strong>6.1</strong></td><td><strong>2,167</strong></td><td><strong>370</strong></td><td><strong>1.035</strong></td></tr>
+<tr><td>Mineral oil</td><td>0.80 m/s</td><td>158.8</td><td>3,772</td><td>1,748</td><td>1.166</td></tr>
+<tr><td>Ester-based</td><td>0.80 m/s</td><td>158.9</td><td>3,773</td><td>1,749</td><td>1.166</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 8.</strong> Use-phase energy per server. Example, MM with a chiller: 8,760 × (1,206.1 ÷ 5 + 6.1) ÷ 1,000 = 2,167 kWh; × 1.604 = 3,476 kg CO₂-eq, plus 3.42 kg × 449 = 1,536 kg for production = 5,012 kg CO₂-eq.</p>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/cfd_cooling_split.png" alt="Figure 11. Where the cooling electricity goes. With free cooling, pumping dominates the commercial coolants; MM almost eliminates it." loading="lazy"><figcaption><strong>Figure 11.</strong> Where the cooling electricity goes. With free cooling, pumping dominates the commercial coolants; MM almost eliminates it.</figcaption></figure>
+<h3 id="how-we-brought-pfas-into-the-lca">How we brought PFAS into the LCA</h3>
+<p>Some immersion coolants are fluorinated, and PFAS (&quot;forever chemicals&quot;) are now being restricted in Europe [8]. Standard LCA methods miss most of their harm, because they score how toxic an emission is, not how long it lasts.</p>
+<div class="lca-box"><h4>How we found the data: literature review</h4><p>We reviewed the PFAS literature for three things: why PFAS in fluids are being restricted (the ECHA restriction report [8]) and how they are classified [30]; which compound to track, since C6 fluorotelomer additives break down to the persistent PFHxA [7, 30]; and published toxicity factors for it, which we took from the PFAS-adapted USEtox framework of Holmquist et al. [7]. We then checked ecoinvent 3.9.1 and EF 3.1 and found no dataset for a fluorinated coolant additive and no PFHxA factor, so we built both ourselves in four steps:</p></div>
+<div class="cfd-coolants lca-boxes n4">
+<div class="cfd-coolant c-mm"><h4>1. Extend the method</h4><p>We copied EF 3.1 in openLCA and added PFHxA toxicity factors (200 CTUe/kg freshwater ecotoxicity; 6×10⁻⁶ CTUh/kg human toxicity) from the PFAS-adapted USEtox framework [7].</p></div>
+<div class="cfd-coolant c-oil"><h4>2. Build a PFAS proxy</h4><p>No fluorinated additive exists in ecoinvent, so we built one from fluorine chemistry stoichiometry [29, 30].</p></div>
+<div class="cfd-coolant c-ester"><h4>3. Model a hypothetical</h4><p>A clearly labelled ester with <strong>1 g/kg</strong> fluorinated additive: climate ~5.26 kg CO₂-eq/kg, almost the same as without it.</p></div>
+<div class="cfd-coolant c-gtl"><h4>4. Report hazard separately</h4><p>Since climate scores barely move, PFAS content is reported as its own hazard indicator. <strong>MM and both commercial families contain 0 g PFAS.</strong></p></div>
+</div>
+<p><strong>The lesson:</strong> a carbon number alone would call a fluorinated coolant &quot;almost as green&quot;. Persistence is why PFAS matter, so we flag it separately instead of hiding it inside a CO₂ total.</p>
+</div></details>
+<details class="acc" open><summary><h2 id="making-mm-greener-the-optimised-process">Making MM Greener: the Optimised Process</h2></summary><div class="acc-body">
+<p>The hotspot is methanol: it is both reagent and solvent, and recovering it in DC-2 causes 44% of MM's climate impact. The optimised process keeps the same strain, feedstocks and product, and changes how the plant uses methanol and energy.</p>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/lca_methanol.png" alt="Figure 12. Methanol per 100 m³ batch (log scale). Cutting the solvent ratio from 50 to 20 mL/g cuts the methanol boiled from 217,729 to 87,092 kg." loading="lazy"><figcaption><strong>Figure 12.</strong> Methanol per 100 m³ batch (log scale). Cutting the solvent ratio from 50 to 20 mL/g cuts the methanol boiled from 217,729 to 87,092 kg.</figcaption></figure>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Step</strong></th><th><strong>Change</strong></th><th><strong>Unit</strong></th><th><strong>First design → optimised (per batch)</strong></th></tr></thead><tbody>
+<tr><td>1</td><td>Methanol 50 → 20 mL per g dry cells, a range that still gives high yields [14–16]</td><td>HR-1, DC-2</td><td>Make-up 4,359 → 1,743 kg</td></tr>
+<tr><td>2a</td><td>Mechanical vapour recompression on the methanol column [22]</td><td>DC-2</td><td>Steam 568,715 → 22,749 MJ (−96%)</td></tr>
+<tr><td>2b</td><td>Heat-pump dryer [21]</td><td>VD-1</td><td>Steam 53,611 → 5,361 MJ; electricity 463 → 3,738 kWh</td></tr>
+<tr><td>3a</td><td>Gentler lysis: 1 instead of 3 kWh per kg cells</td><td>HR-1</td><td>18,694 → 6,230 kWh</td></tr>
+<tr><td>3b</td><td>30% more efficient aeration</td><td>BC-1</td><td>25,183 → 22,605 kWh</td></tr>
+<tr><td>4–7</td><td>Renewable power, bagasse steam, biogas from spent yeast; bio-methanol as a sensitivity</td><td>All</td><td>→ ~35–55 kg CO₂-eq/kg (estimate)</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 9.</strong> Steps 1–3 cut process steam by 90% (657,595 → 63,379 MJ) and electricity by 23% (54,390 → 42,129 kWh) per batch. The 449 openLCA result includes step 1 and bio-methanol; steps 2–3 are screening estimates.</p>
+<h4 id="how-we-added-heat-integration-to-the-model">How we added heat integration to the model</h4>
+<p>Each change was entered in openLCA as a <strong>copy of the baseline unit process</strong>, so the first design stays intact for comparison. The rules, and the equipment efficiencies behind them:</p>
+<div class="table-wrap"><table>
+<thead><tr><th><strong>Change</strong></th><th><strong>What it does</strong></th><th><strong>How it was modelled</strong></th><th><strong>Efficiency used</strong></th></tr></thead><tbody>
+<tr><td>Methanol 50 → 20 mL/g (step 1)</td><td>Less solvent to boil off</td><td>Quench water, decanter power and every DC-2 duty scaled with methanol volume (×0.4)</td><td>Same yield at 20 mL/g [14–16]</td></tr>
+<tr><td>Mechanical vapour recompression on DC-2 (step 2a)</td><td>Compresses the column's own overhead vapour and reuses it as reboiler heat</td><td>Reboiler steam cut to a 10% trim; compressor electricity = heat recovered ÷ COP; condenser cooling electricity removed</td><td>COP 10, typical for close-boiling methanol–water [22]</td></tr>
+<tr><td>Feed–bottoms exchanger on DC-2 (step 2a)</td><td>Hot column bottoms preheat the cold feed</td><td>23 MWh recovered per batch at 50 mL/g, scaled with methanol; bottoms-cooler electricity removed</td><td>Pinch-based heat recovery [21]</td></tr>
+<tr><td>Heat-pump dryer on VD-1 (step 2b)</td><td>Upgrades the dryer's waste heat instead of burning steam</td><td>Steam cut to a 10% trim; heat pump electricity added; the heat pump also does the condenser cooling</td><td>COP 4 [21]</td></tr>
+<tr><td>Gentler lysis in HR-1 (step 3a)</td><td>Bead mill or enzymatic lysis instead of a high-pressure homogeniser</td><td>3 → 1 kWh per kg dry cells; HR-1 cooling duty falls with it</td><td>Within a 0.5–1.5 kWh/kg range</td></tr>
+<tr><td>Better aeration in BC-1 (step 3b)</td><td>Fine-bubble spargers, lower line losses</td><td>−30% applied only to the 8,594 kWh compressor share</td><td>Screening assumption</td></tr>
+</tbody></table></div>
+<p class="cfd-note lca-tcap"><strong>Table 10.</strong> Heat integration and efficiency changes in the optimised process. The 449 openLCA result contains step 1 and bio-methanol only; steps 2–3 give the ~270 estimate until their openLCA re-run with fossil methanol.</p>
+<figure class="cfd-fig"><img src="/drylab/lca/figures/lca_pathway.png" alt="Figure 13. The roadmap: 632 → 449 (openLCA) → ~270 → ~210 → ~45 kg CO₂-eq/kg. Filled points are openLCA results; hollow points are estimates. Closing the last gap needs more lipid and C14 per cell, our strain-engineering target [37, 39]." loading="lazy"><figcaption><strong>Figure 13.</strong> The roadmap: 632 → 449 (openLCA) → ~270 → ~210 → ~45 kg CO₂-eq/kg. Filled points are openLCA results; hollow points are estimates. Closing the last gap needs more lipid and C14 per cell, our strain-engineering target [37, 39].</figcaption></figure>
+</div></details>
+<details class="acc" open><summary><h2 id="numbers-worth-knowing">Numbers Worth Knowing</h2></summary><div class="acc-body">
+<div class="lca-tiles lca-facts">
+<div class="lca-tile"><div class="lca-tile-num">4,187×</div><p>more methanol boiled than the reaction actually uses (217,729 vs 52 kg per batch)</p></div>
+<div class="lca-tile"><div class="lca-tile-num">3.4 kg</div><p>of coolant per server per year: why production matters less than use</p></div>
+<div class="lca-tile"><div class="lca-tile-num">−90%</div><p>process steam after optimisation steps 1–3</p></div>
+<div class="lca-tile"><div class="lca-tile-num">6×</div><p>how much allocation matters: 3,830 kg CO₂-eq/kg with none vs 632 with economic</p></div>
+<div class="lca-tile"><div class="lca-tile-num">17×</div><p>less fossil CO₂ than synthetic mineral oil if burned at end of life (0.18 vs 3.12 kg/kg)</p></div>
+<div class="lca-tile"><div class="lca-tile-num">85–88%</div><p>of fatty acid methyl esters biodegrade in 28 days in water [36]</p></div>
+<div class="lca-tile"><div class="lca-tile-num">3.5%</div><p>cooling overhead with MM and free cooling, vs 16.6% for commercial coolants</p></div>
+<div class="lca-tile"><div class="lca-tile-num">28 °C</div><p>warmest supply water MM can use for free cooling, so more free-cooling hours a year</p></div>
+<div class="lca-tile"><div class="lca-tile-num">−29%</div><p>MM production footprint already cut by redesign: 632 → 449 kg CO₂-eq/kg</p></div>
+</div>
+</div></details>
+<details class="acc"><summary><h2 id="limitations-and-assumptions">Limitations and Assumptions</h2></summary><div class="acc-body">
+<p>Every coolant used the same database, method and boundary, so the comparison is fair. The absolute numbers carry these caveats:</p>
+<div class="cfd-coolants lca-boxes n4">
+<div class="cfd-coolant c-mm"><h4>Screening study</h4><p>No ISO 14044 critical review yet, so these results are not a basis for public comparative claims. Packaging, transport and end of life are not yet modelled.</p></div>
+<div class="cfd-coolant c-oil"><h4>Placeholders</h4><p>20 L fill and 5-year life; refined mineral oil at ~1.5 kg CO₂-eq/kg; the ecoinvent grid factor (~1.6) is derived and still to be read from a 1 kWh run.</p></div>
+<div class="cfd-coolant c-ester"><h4>Grid matters</h4><p>On the cleaner CEA grid factor (0.716), the optimised process is +14% vs the ester; only the steps 1–3 process stays ahead (−9%).</p></div>
+<div class="cfd-coolant c-gtl"><h4>Lab to plant</h4><p>MM is scaled from lab and design data with a borrowed fatty-acid profile. MM melts at ~18 °C [35]; cold-start heating is not modelled.</p></div>
+</div>
+<p><strong>Despite these limits, one result is robust: in use, MM needs far less cooling energy, and the faster we cut its production footprint, the bigger and safer its advantage.</strong></p>
+</div></details>
+<div class="cfd-green lca-final"><h3 id="what-this-means-for-our-project">What this means for our project</h3><p>The LCA tells the wet lab exactly where to aim: more lipid and more C14 per cell means more MM per batch, which shrinks every per-kg number on this page. It tells the process design to cut methanol first. And it tells data centres that a bio-based coolant can already beat today's fluids over a server's life.</p><p></p></div>
+<details class="acc" open><summary><h2 id="acknowledgements">Acknowledgements</h2></summary><div class="acc-body">
+<p>We thank <strong>Prof. Yogendra Shastri</strong>, Department of Chemical Engineering, IIT Bombay, for his guidance on the bioprocess analysis and for providing access to the ecoinvent database used throughout this study.</p>
+<p>Guidance of Dr. <strong>Shubham Sonkusare </strong>for his guidance in the Bioprocess analysis</p>
+<p>Ronit Sahani for guidance of regarding LCA.</p>
+<p>The CFD simulations behind the use phase were run on PARAM Rudra at IIT Bombay, a system of the National Supercomputing Mission (NSM), Government of India.</p>
+</div></details>
+<details class="acc refs"><summary><h2 id="references">References</h2></summary><div class="acc-body">
+<ol class="cfd-refs">
+<li>ISO 14040:2006. Environmental management: life cycle assessment, principles and framework. International Organization for Standardization.</li>
+<li>ISO 14044:2006. Environmental management: life cycle assessment, requirements and guidelines. International Organization for Standardization.</li>
+<li>GreenDelta GmbH, Berlin. openLCA 2, version 2.6.2 [open-source life cycle assessment software]. <a href="https://www.openlca.org">https://www.openlca.org</a></li>
+<li>ecoinvent Association (2022). ecoinvent database version 3.9.1, cut-off system model, released 15 December 2022. Zurich. <a href="https://support.ecoinvent.org/ecoinvent-version-3.9.1">https://support.ecoinvent.org/ecoinvent-version-3.9.1</a></li>
+<li>Wernet G., Bauer C., Steubing B., Reinhard J., Moreno-Ruiz E., Weidema B. (2016). The ecoinvent database version 3 (part I): overview and methodology. Int. J. Life Cycle Assess. 21, 1218–1230. doi:10.1007/s11367-016-1087-8</li>
+<li>Andreasi Bassi S., Biganzoli F., Ferrara N., Amadei A., Valente A., Sala S., Ardente F. (2023). Updated characterisation and normalisation factors for the Environmental Footprint 3.1 method. JRC130796, EUR 31414 EN, Publications Office of the European Union. doi:10.2760/798894</li>
+<li>Holmquist H., Fantke P., Cousins I.T., Owsianiak M., Liagkouridis I., Peters G.M. (2020). An (eco)toxicity life cycle impact assessment framework for per- and polyfluoroalkyl substances. Environ. Sci. Technol. 54(10), 6224–6234.</li>
+<li>ECHA (2023). Annex XV restriction report: per- and polyfluoroalkyl substances (PFAS). European Chemicals Agency.</li>
+<li>OpenCFD Ltd. (2024). OpenFOAM v2412 [open-source CFD software, GNU GPL v3]. <a href="https://www.openfoam.com">https://www.openfoam.com</a></li>
+<li>OpenCFD Ltd. (2024). OpenFOAM v2412 User Guide and source documentation: chtMultiRegionFoam, solver for transient fluid flow and solid heat conduction with conjugate heat transfer between regions. <a href="https://www.openfoam.com/documentation">https://www.openfoam.com/documentation</a></li>
+<li>Weller H.G., Tabor G., Jasak H., Fureby C. (1998). A tensorial approach to computational continuum mechanics using object-oriented techniques. Computers in Physics 12(6), 620–631. doi:10.1063/1.168744</li>
+<li>Sooraj R.S. (2026). Methyl myristate PFD calculations. IIT Bombay iGEM 2026, internal document.</li>
+<li>Katre G., Raskar S., Zinjarde S., Ravi Kumar V., Kulkarni B.D., RaviKumar A. (2018). Optimization of the in situ transesterification step for biodiesel production using biomass of Yarrowia lipolytica NCIM 3589 grown on waste cooking oil. Energy 142, 944–952. doi:10.1016/j.energy.2017.10.082</li>
+<li>Liu B., Zhao Z.K. (2007). Biodiesel production by direct methanolysis of oleaginous microbial biomass. J. Chem. Technol. Biotechnol. 82, 775–780.</li>
+<li>Ehimen E.A., Sun Z.F., Carrington C.G. (2010). Variables affecting the in situ transesterification of microalgae lipids. Fuel 89(3), 677–684. doi:10.1016/j.fuel.2009.10.011</li>
+<li>Martínez Silveira A., Villareal R., Garmendia G., Rufo C., Vero S. (2019). Process conditions for a rapid in situ transesterification for biodiesel production from oleaginous yeasts. Electron. J. Biotechnol. 38, 1–9. doi:10.1016/j.ejbt.2018.11.006</li>
+<li>Lau M.W., Dale B.E. (2009). Cellulosic ethanol production from AFEX-treated corn stover using Saccharomyces cerevisiae 424A(LNH-ST). PNAS 106(5), 1368–1373.</li>
+<li>Palmonari A., Cavallini D., Sniffen C.J., et al. (2020). Short communication: characterization of molasses chemical composition. J. Dairy Sci. 103(7), 6244–6249. doi:10.3168/jds.2019-17644</li>
+<li>Cooney C.L., Wang D.I.C., Mateles R.I. (1969). Measurement of heat evolution and correlation with oxygen consumption during microbial growth. Biotechnol. Bioeng. 11, 269–281; and Doran P.M. (2013). Bioprocess Engineering Principles, 2nd ed. Academic Press.</li>
+<li>Green D.W., Southard M.Z. (eds.) (2019). Perry's Chemical Engineers' Handbook, 9th ed. McGraw-Hill.</li>
+<li>Kemp I.C. (2007). Pinch Analysis and Process Integration, 2nd ed. Butterworth-Heinemann.</li>
+<li>Kiss A.A., Flores Landaeta S.J., Infante Ferreira C.A. (2012). Towards energy efficient distillation technologies: making the right choice. Energy 47, 531–542.</li>
+<li>Ijeoma M.W., Hunt Z., Chen H., Carbajales-Dale M. (2026). From fossil to biobased: a life cycle assessment of commercial-scale polyol ester lubricant base oils. RSC Sustainability. doi:10.1039/D5SU00641D</li>
+<li>ExxonMobil Chemical Patents Inc. (2010). Process for producing high viscosity index poly-alpha-olefins. US Patent 7,652,186 B2.</li>
+<li>Oxea GmbH (2011). Process for preparing polyol esters. US Patent Application 2011/0087045 A1.</li>
+<li>Keim W. (2013). Oligomerization of ethylene to α-olefins: discovery and development of the Shell Higher Olefin Process (SHOP). Angew. Chem. Int. Ed. 52, 12492–12496.</li>
+<li>Werle P., Morawietz M., et al. (2008). Alcohols, polyhydric. Ullmann's Encyclopedia of Industrial Chemistry. Wiley-VCH.</li>
+<li>Parvatker A.G., Eckelman M.J. (2019). Comparative evaluation of chemical life cycle inventory generation methods and implications for life cycle assessment results. ACS Sustain. Chem. Eng. 7(1), 350–367.</li>
+<li>Aigueperse J., Mollard P., Devilliers D., et al. (2000). Fluorine compounds, inorganic. Ullmann's Encyclopedia of Industrial Chemistry. Wiley-VCH.</li>
+<li>Buck R.C., Franklin J., Berger U., et al. (2011). Perfluoroalkyl and polyfluoroalkyl substances in the environment: terminology, classification, and origins. Integr. Environ. Assess. Manag. 7(4), 513–541.</li>
+<li>Central Electricity Authority (2024). CO₂ Baseline Database for the Indian Power Sector, User Guide Version 19.0, Tables S-1 and S-2. <a href="https://cea.nic.in/wp-content/uploads/baseline/2024/01/User_Guide__Version_19.0.pdf">https://cea.nic.in/wp-content/uploads/baseline/2024/01/User_Guide__Version_19.0.pdf</a></li>
+<li>ASHRAE (2019). ANSI/ASHRAE/IES Standard 90.1-2019, Energy Standard for Buildings Except Low-Rise Residential Buildings, Table 6.8.1-3 (water-chilling packages).</li>
+<li>Avelar V., Azevedo D., French A. (eds.) (2012). PUE: a comprehensive examination of the metric. The Green Grid, White Paper #49.</li>
+<li>M&amp;I Materials Ltd. MIVOLT DF7 synthetic ester dielectric fluid: technical data sheet.</li>
+<li>PubChem. Methyl myristate (methyl tetradecanoate), compound summary. National Library of Medicine. <a href="https://pubchem.ncbi.nlm.nih.gov/compound/Methyl-myristate">https://pubchem.ncbi.nlm.nih.gov/compound/Methyl-myristate</a></li>
+<li>Zhang X., Peterson C., Reece D., Haws R., Möller G. (1998). Biodegradability of biodiesel in the aquatic environment. Trans. ASAE 41(5), 1423–1430.</li>
+<li>Rigouin C., et al. (2017). Production of medium chain fatty acids by Yarrowia lipolytica: combining molecular design and TALEN to engineer the fatty acid synthase. ACS Synth. Biol. 6(10), 1870–1879.</li>
+<li>Lindner O., Rodefeld L. (2000). Benzenesulfonic acids and their derivatives. Ullmann's Encyclopedia of Industrial Chemistry. Wiley-VCH.</li>
+<li>Zhou Y.J., et al. (2016). Production of fatty acid-derived oleochemicals and biofuels by synthetic yeast cell factories. Nat. Commun. 7, 11709.</li>
+<li>ASHRAE (2020). ASHRAE Handbook: HVAC Systems and Equipment, chapter on cooling towers. ASHRAE, Atlanta.</li>
+<li>Medeiros D.W.O. DWSIM: open-source chemical process simulator. <a href="https://dwsim.org">https://dwsim.org</a></li>
 </ol>
-<h3>1.3 Audience</h3>
-<ul>
-<li><strong>Primary:</strong> the iGEM 2026 judging panel and the synthetic-biology community.</li>
-<li><strong>Secondary:</strong> data-centre thermal engineers, sustainability leads and bioprocess developers.</li>
-</ul>
-<p>The study is not intended for public comparative assertions under ISO 14044 §5.2 without critical review.</p>
-</div></details>
-
-<details class="acc" open><summary><h2 id="functional-units-and-reference-flows">Functional units and reference flows</h2></summary><div class="acc-body">
-<p>The study uses two functional units: one for production and one for the cooling service the fluid delivers. Per-kg results alone ignore the fact that the fluids need different flow rates and pumping energy to cool the same server.</p>
-<div class="lca-fus">
-<div class="lca-fu f1">
-<div class="lca-fu-tag">FU-1</div>
-<h3>Production</h3>
-<dl>
-<dt>Definition</dt><dd>1 kg of finished coolant at the plant gate</dd>
-<dt>Boundary</dt><dd>Cradle-to-gate</dd>
-<dt>Reference flow</dt><dd>1 kg of coolant (MM purity 98.5%)</dd>
-<dt>Used for</dt><dd>Hotspots, all 16 EF 3.1 categories</dd>
-</dl>
-</div>
-<div class="lca-fu f2">
-<div class="lca-fu-tag">FU-2</div>
-<h3>Cooling service</h3>
-<dl>
-<dt>Definition</dt><dd>Cooling one 1,200 W server for 1 year (8,760 h), hottest component ≤ 85&nbsp;°C, coolant supply at 25&nbsp;°C</dd>
-<dt>Boundary</dt><dd>Cradle-to-gate production + use-phase cooling electricity</dd>
-<dt>Reference flow</dt><dd>Coolant per year = tank fill (L) × density ÷ service life, plus cooling electricity (kWh/yr) at the lowest flow that meets 85&nbsp;°C</dd>
-<dt>Used for</dt><dd>Climate change, pPUE, break-even</dd>
-</dl>
-</div>
-</div>
-<p>FU-2 follows the performance-based approach recommended in ISO 14044 §4.2.3.2, where products are compared on the function they deliver. PUE itself is a ratio, not a quantity of service, so it is reported as a result (partial PUE, pPUE) rather than used as the functional unit. The server's own IT electricity (10,512&nbsp;kWh/yr) is the same for every coolant and is excluded from FU-2.</p>
-</div></details>
-
-<details class="acc" open><summary><h2 id="summary">Summary</h2></summary><div class="acc-body">
-<div class="lca-headline">
-<p>In use, methyl myristate (MM) has a lower carbon footprint than commercial coolants. Cooling one 1.2&nbsp;kW server for a year with MM emits <strong>5,012&nbsp;kg CO₂-eq</strong> vs 6,071&nbsp;kg with an ester-based coolant (<strong>−17%</strong>), and <strong>−25%</strong> with free cooling; with the planned process steps this grows to −28% and −46%. MM costs more CO₂ to make per kg, but a server needs only ~3.4&nbsp;kg of coolant a year, while MM saves ~1,600&nbsp;kWh of cooling electricity in that year.</p>
-</div>
-<p class="lca-basis">openLCA per-kg results [27] + team OpenFOAM CFD [28]; same 20&nbsp;L fill and 5-year life for every coolant; §7.4 base case.</p>
-<ul>
-<li><strong>Per kg (cradle-to-gate):</strong> MM baseline 632, MM optimised process 449 (openLCA, 14 Oct), MM with process steps 1–3 ~270 (estimate). Commercial: ester-based coolants 5.17–5.25, mineral-oil-based coolants ~1.5–3.00 (refined grade to synthetic grade).</li>
-<li><strong>Per server-year</strong> (1.2&nbsp;kW server, one consistent grid factor): MM needs one third of the flow and 26× less pump power than the ester-based coolant. That saves ~1,600&nbsp;kWh a year, so MM's optimised process emits 5,012&nbsp;kg CO₂-eq vs 6,071 for the ester-based coolant (−17%), and −25% with free cooling (§7.4; tank results from the team's OpenFOAM CFD simulations, see the <a href="/dry-lab/cfd">CFD</a> tab).</li>
-<li><strong>Where MM wins outright:</strong> 9.9&nbsp;°C cooler at equal flow, pPUE 1.035, 93% biogenic carbon, 17× less fossil CO₂ at end of life than the mineral-oil-based coolants, 33% lower land-use-change CO₂ than the ester-based coolants, PFAS-free (§4.2) and readily biodegradable.</li>
-</ul>
 </div></details>

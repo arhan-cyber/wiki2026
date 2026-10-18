@@ -4,7 +4,7 @@ export default function EntrepreneurshipPage() {
   return (
     <EmbeddedPage
       src="/pages/entrepreneurship.html"
-      title="Project BiFrost — Entrepreneurship"
+      title="Project BiFrost: Entrepreneurship"
     />
   );
 }

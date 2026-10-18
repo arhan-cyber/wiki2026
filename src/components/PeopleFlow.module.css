@@ -135,3 +135,14 @@
     font-size: 8px;
   }
 }
+
+/* Named on the board but without a write-up (the PIs): plain text, not a link. */
+.personStatic {
+  display: inline-block;
+  cursor: default;
+}
+
+.personStatic:hover {
+  text-decoration: none;
+  color: #2a2a2a;
+}

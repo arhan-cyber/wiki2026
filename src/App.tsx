@@ -10,6 +10,7 @@ import ProjectDescriptionPage from './pages/ProjectDescriptionPage';
 import ProjectEngineeringPage from './pages/ProjectEngineeringPage';
 import EntrepreneurshipPage from './pages/EntrepreneurshipPage';
 import NewsPage from './pages/NewsPage';
+import FutureScopePage from './pages/FutureScopePage';
 import ProtocolsPage from './pages/wetlab/ProtocolsPage';
 import NotebookPage from './pages/wetlab/NotebookPage';
 import PartsPage from './pages/wetlab/PartsPage';
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/project/description" element={<ProjectDescriptionPage />} />
         <Route path="/project/engineering" element={<ProjectEngineeringPage />} />
         <Route path="/project/news" element={<NewsPage />} />
+        <Route path="/project/future-scope" element={<FutureScopePage />} />
         <Route path="/human-practices/entrepreneurship" element={<EntrepreneurshipPage />} />
         <Route path="/team/kyt" element={<KytPage />} />
         <Route path="/team/attribution" element={<AttributionPage />} />
