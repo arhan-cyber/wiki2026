@@ -32,9 +32,8 @@ export default function PhotoCarousel({ photos, label }: Props) {
   const [offset, setOffset] = useState(0);
 
   // Starts as soon as the card opens and keeps going: no pause on hover (the
-  // cursor is usually right over the strip after clicking the card open).
-  // With reduced motion the photos still change, just without the slide
-  // (the transition is switched off in the CSS).
+  // cursor is usually right over the strip after clicking the card open). It
+  // slides for everyone, including visitors whose system asks for reduced motion.
   useEffect(() => {
     if (n < 2) return;
     const id = window.setInterval(() => setOffset((o) => (o + 1) % t), STEP_MS);

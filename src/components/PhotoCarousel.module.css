@@ -19,12 +19,6 @@
   transition: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .tile {
-    transition: none;
-  }
-}
-
 @media (max-width: 600px) {
   .strip {
     margin: 16px 16px 0;
