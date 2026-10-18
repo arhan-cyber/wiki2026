@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import Footer from '../components/Footer';
 import WriteUpCard from '../components/WriteUpCard';
+import PeopleFlow from '../components/PeopleFlow';
 import { esterSteps, peopleGroups, writeUps } from './ihpData';
 import styles from './ihp.module.css';
 
 const CONCLUSION =
-  'ESTER is not a straight line from problem to solution. It is a living loop: observation becomes dialogue, dialogue becomes a testable idea, testing becomes implementation, and implementation returns to people for refinement. The “integrated” in integrated human practices is therefore not a separate chapter — it is the connective tissue of the entire project.';
+  'ESTER is not a straight line from problem to solution. It is a living loop: observation becomes dialogue, dialogue becomes a testable idea, testing becomes implementation, and implementation returns to people for refinement. The “integrated” in integrated human practices is therefore not a separate chapter; it is the connective tissue of the entire project.';
 
 // The People Flow board: six clusters around a central iHP hub. Each group
 // resolves its member ids to write-ups; anyone the board left out is already
@@ -16,17 +17,6 @@ const groups = peopleGroups.map((g) => ({
   members: g.memberIds.map((id) => byId.get(id)).filter((w): w is NonNullable<typeof w> => Boolean(w)),
 }));
 
-// Board positions, mirroring the team's sketch: wetlabs / PIs / dry labs across
-// the top, product dev and regulations flanking the hub, alumni below it.
-const GRID_AREA: Record<string, string> = {
-  wetlab: 'a',
-  pis: 'b',
-  drylab: 'c',
-  'product-dev': 'd',
-  regulations: 'f',
-  alumni: 'h',
-  others: 'i',
-};
 
 export default function IhpPage() {
   const [opened, setOpened] = useState(false);
@@ -192,32 +182,8 @@ export default function IhpPage() {
             {/* Network summary */}
             <h2 className={styles.networkHeading}>Network Summary</h2>
             <p className={styles.networkHint}>Everyone we reached out to, orbiting the process.</p>
-            <div className={styles.networkScroll}>
-              <div className={styles.board} ref={networkRef}>
-                {groups.map((g) => (
-                  <div
-                    key={g.id}
-                    className={styles.groupNote}
-                    style={{ gridArea: GRID_AREA[g.id], background: g.tint }}
-                  >
-                    <div className={styles.groupBar} style={{ background: g.accent }} />
-                    <h3 className={styles.groupLabel}>{g.label}</h3>
-                    <ul className={styles.groupList}>
-                      {g.members.map((m) => (
-                        <li key={m.id}>
-                          <button className={styles.node} onClick={() => scrollToWriteUp(m.id)}>
-                            {m.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-                <div className={styles.boardHub}>
-                  <div className={styles.networkGlow} />
-                  <span className={styles.networkCore}>iHP</span>
-                </div>
-              </div>
+            <div className={styles.networkScroll} ref={networkRef}>
+              <PeopleFlow onPick={scrollToWriteUp} />
             </div>
             <p className={styles.networkOpenCue}>Click to open full write up</p>
 
@@ -244,11 +210,11 @@ export default function IhpPage() {
         {/* Conclusion */}
         <section className={styles.conclusion}>
           <span className={styles.bigI}>i</span>
-          <h2>Conclusion — the i in iHP</h2>
+          <h2>Conclusion: the i in iHP</h2>
           <p>{CONCLUSION}</p>
         </section>
 
-        <Footer />
+        <Footer bgColor="transparent" />
       </div>
     </div>
   );

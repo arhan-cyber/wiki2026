@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methyl Myristate Process Map</title>
+<style>
+#mmpfd{
+  --ink:#0f172a; --ink2:#475569; --ink3:#64748b; --line:#e2e8f0; --card:#ffffff; --bg:#f8fafc;
+  --up:#a7ead2; --upS:#3fae8b; --down:#a9e2f7; --downS:#3c9ccc; --io:#fde3a7; --ioS:#e0a73a;
+  --elec:#2563eb; --heat:#dc2626; --cool:#0891b2; --co2:#0f172a; --accent:#ea580c;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); background:var(--bg); line-height:1.45; padding:20px 16px 28px; box-sizing:border-box;
+}
+#mmpfd *{box-sizing:border-box}
+#mmpfd h2{font-size:clamp(20px,2.4vw,28px); margin:0 0 4px; letter-spacing:-.01em; font-weight:750}
+#mmpfd .lede{color:var(--ink2); margin:0 0 16px; max-width:75ch; font-size:15px}
+#mmpfd .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-bottom:14px}
+#mmpfd .kpi{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px}
+#mmpfd .kpi b{display:block; font-size:20px; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+#mmpfd .kpi span{font-size:12px; color:var(--ink3)}
+#mmpfd .kpi i{font-style:normal; display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:baseline}
+#mmpfd .bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:6px 0 10px}
+#mmpfd .seg{display:inline-flex; background:#e2e8f0; border-radius:9px; padding:3px; flex-wrap:wrap}
+#mmpfd .seg button{all:unset; cursor:pointer; padding:6px 11px; border-radius:7px; font-size:13px; color:var(--ink2); font-weight:550}
+#mmpfd .seg button[aria-pressed="true"]{background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(15,23,42,.15)}
+#mmpfd .seg button:focus-visible{outline:2px solid var(--accent)}
+#mmpfd .hint{font-size:12.5px; color:var(--ink3)}
+#mmpfd .legend{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink3)}
+#mmpfd .ramp{width:140px; height:10px; border-radius:3px}
+#mmpfd .main{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:14px; align-items:start}
+#mmpfd .stage{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow-x:auto}
+#mmpfd svg.pfd{display:block; width:100%; min-width:880px; height:auto}
+#mmpfd .panel{position:sticky; top:12px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; max-height:calc(100vh - 24px); overflow:auto}
+@media (max-width:1100px){ #mmpfd .main{grid-template-columns:1fr} #mmpfd .panel{position:static; max-height:none} }
+/* svg */
+#mmpfd .n{cursor:pointer; outline:none}
+#mmpfd .n .sh{transition:fill .25s, stroke .2s, opacity .2s; stroke-width:1.4}
+#mmpfd .n .id{font-weight:750; fill:var(--ink); font-size:10.5px; pointer-events:none}
+#mmpfd .n .sub{fill:#1e293b; font-size:7.6px; font-weight:600; pointer-events:none}
+#mmpfd .n .val{font-size:9px; font-weight:700; pointer-events:none; font-variant-numeric:tabular-nums}
+#mmpfd .n:hover .sh, #mmpfd .n:focus .sh, #mmpfd .n.on .sh{stroke:var(--accent)!important; stroke-width:3}
+#mmpfd .e{fill:none; stroke:#334155; stroke-width:1.15; transition:stroke .2s, opacity .2s}
+#mmpfd .e.hl{stroke:var(--accent); stroke-width:2.4}
+#mmpfd svg.dim .n:not(.rel) .sh{opacity:.35}
+#mmpfd svg.dim .e:not(.hl){opacity:.25}
+#mmpfd .lab{font-size:11.5px; font-weight:650; fill:#1e293b; pointer-events:none}
+/* panel */
+#mmpfd .p-kind{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink3); font-weight:700}
+#mmpfd .p-title{font-size:18px; font-weight:750; margin:2px 0 2px; line-height:1.25}
+#mmpfd .p-sub{font-size:13px; color:var(--ink2); margin-bottom:8px}
+#mmpfd .p-desc{font-size:13.5px; color:#334155; margin:0 0 12px}
+#mmpfd .co2{background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:10px 12px; margin-bottom:12px}
+#mmpfd .co2 .big{font-size:24px; font-weight:780; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+#mmpfd .co2 .u{font-size:12px; color:var(--ink2); font-weight:600}
+#mmpfd .meter{height:6px; background:#fde4cc; border-radius:3px; margin:6px 0 4px; overflow:hidden}
+#mmpfd .meter > div{height:100%; background:var(--accent); border-radius:3px}
+#mmpfd .co2 small{font-size:12px; color:var(--ink2)}
+#mmpfd .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px}
+#mmpfd .cell{border:1px solid var(--line); border-radius:8px; padding:7px 8px}
+#mmpfd .cell b{display:block; font-size:15px; font-variant-numeric:tabular-nums}
+#mmpfd .cell span{font-size:11px; color:var(--ink3)}
+#mmpfd .cell.z b{color:#94a3b8; font-weight:600}
+#mmpfd h4{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink3); margin:14px 0 6px}
+#mmpfd table{width:100%; border-collapse:collapse; font-size:13px}
+#mmpfd td{padding:5px 0; border-bottom:1px solid #f1f5f9; vertical-align:top}
+#mmpfd td.r{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; padding-left:8px; font-weight:600}
+#mmpfd .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px}
+#mmpfd .src{font-size:9.5px; font-weight:700; border-radius:4px; padding:1px 5px; margin-left:5px; vertical-align:1px}
+#mmpfd .src.PDF{background:#e0f2fe; color:#075985}
+#mmpfd .src.LCA{background:#ffedd5; color:#9a3412}
+#mmpfd .sys{background:#f1f5f9; border-radius:8px; padding:8px 10px; font-size:12.5px; color:#334155; margin-top:12px}
+#mmpfd .rank{list-style:none; margin:0; padding:0}
+#mmpfd .rank li{display:grid; grid-template-columns:62px 1fr 74px; gap:8px; align-items:center; font-size:12.5px; padding:4px 0; cursor:pointer; border-radius:6px}
+#mmpfd .rank li:hover{background:#f8fafc}
+#mmpfd .rank .t{height:8px; background:#f1f5f9; border-radius:4px; overflow:hidden}
+#mmpfd .rank .t div{height:100%; background:var(--accent)}
+#mmpfd .rank .v{text-align:right; font-variant-numeric:tabular-nums; font-weight:650}
+#mmpfd .stack{display:flex; height:14px; border-radius:4px; overflow:hidden; margin:6px 0 6px}
+#mmpfd .sl{display:grid; grid-template-columns:14px 1fr auto; gap:6px; font-size:12.5px; padding:2px 0}
+#mmpfd .sl i{width:10px; height:10px; border-radius:2px; margin-top:4px}
+#mmpfd .sl b{font-variant-numeric:tabular-nums}
+#mmpfd details{margin-top:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; font-size:13.5px; color:#334155}
+#mmpfd summary{cursor:pointer; font-weight:700; color:var(--ink)}
+#mmpfd details p, #mmpfd details li{max-width:90ch}
+#mmpfd .pin{font-size:11px; color:var(--accent); font-weight:700; margin-left:6px}
+#mmpfd .close{all:unset; cursor:pointer; float:right; font-size:12px; color:var(--ink3); padding:2px 6px; border-radius:5px; border:1px solid var(--line)}
+</style>
+</head>
+<body style="margin:0;background:#f8fafc">
+<div id="mmpfd">
+  <h2>Methyl myristate process: energy &amp; carbon map</h2>
+  <p class="lede">Hover over (or tap) any unit in the flow diagram to see its electricity, heating and cooling demand and its share of the carbon footprint. All figures are for <b>one batch (100 m³ fermenter), which yields 45.6 kg of 98.5 % methyl myristate</b>.</p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Colour units by" id="modes">
+      <button data-m="type" aria-pressed="true">Process type</button>
+      <button data-m="gwp" aria-pressed="false">Carbon footprint</button>
+      <button data-m="elec" aria-pressed="false">Electricity</button>
+      <button data-m="heat" aria-pressed="false">Heating</button>
+      <button data-m="cool" aria-pressed="false">Cooling</button>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div class="main">
+    <div class="stage"><svg class="pfd" id="pfd" viewBox="0 0 1600 870" role="img" aria-label="Interactive process flow diagram"></svg></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <details>
+    <summary>Data sources &amp; method</summary>
+    <ul>
+      <li><b>Energy demand</b> (electricity, heating, cooling) per unit comes from the process design calculations (PFD calculations, Table 15). Tagged <span class="src PDF">PDF</span>.</li>
+      <li><b>Environmental impacts</b> come from the openLCA model <i>“MM – in-vivo methylation f = 0.2”</i> (ecoinvent cut-off, EF v3.1, India, reference flow 45.6 kg methyl myristate). Tagged <span class="src LCA">LCA</span>. Where the two sources disagree, the LCA value is shown.</li>
+      <li><b>Carbon footprint per unit</b> is an attribution of the LCA total: the LCA result is split into electricity supply, heat supply, fermentation feedstocks, solvents/catalyst, lime and other background processes. Electricity and heat impacts are shared out in proportion to each unit’s electricity and heating demand; feedstock impacts are assigned to BC-1, solvent and catalyst impacts to HR-1, lime to DCT-1, and the remainder in proportion to the rest. Unit values therefore add up exactly to the LCA total.</li>
+      <li>Cooling duties are met with cooling water, which the LCA counts as water use rather than greenhouse-gas emissions, so pure coolers and condensers carry no carbon footprint of their own.</li>
+      <li>Biogenic CO₂ from fermentation (3,679 kg) is reported but has a characterisation factor of zero in EF v3.1, because the carbon was recently taken up by the feedstock crops.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+(function(){
+const D = {"nodes": [{"id": "AIR", "kind": "input", "x": 38, "y": 282, "w": 26, "h": 26, "title": "Air", "sub": "Ambient", "desc": "Ambient air drawn in to aerate the bubble column.", "e": [], "s": [["Air supplied per batch", "272,569 kg", "PDF"], ["Inlet temperature", "25 °C", "PDF"]], "shape": "circle", "group": null, "label": "AIR", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "C-1", "kind": "up", "x": 1, "y": 345, "w": 75, "h": 75, "title": "C-1 · Compressor (stage 1)", "sub": "Air compression", "desc": "First of two adiabatic compressors (η = 75 %) feeding air to BC-1. Split into two stages because a single stage would reach 161 °C.", "e": [["Compressor power", "elec", 4296.95]], "s": [["Power per stage", "20.17 kW (phase 1) · 138.7 kW (phase 2)", "PDF"], ["Pressure ratio per stage", "1.416 · 1.676", "PDF"], ["Stage outlet temperature", "66.4 °C · 88.0 °C", "PDF"]], "shape": "rect", "group": "BC", "label": "C-1", "gwp": 2310.9973477495887, "fos": 25192.868941932742, "wat": 348.03812394111793, "pocp": 0, "elec": 4296.95, "heat": 0, "cool": 0}, {"id": "H-1", "kind": "up", "x": 1, "y": 487, "w": 75, "h": 75, "title": "H-1 · Intercooler", "sub": "Heat exchanger", "desc": "Cools compressed air back to 25 °C between the two compressor stages.", "e": [["Intercooler duty", "cool", 4300.3]], "s": [["Outlet temperature", "25 °C", "PDF"]], "shape": "rect", "group": "BC", "label": "H-1", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 4300.3}, {"id": "CM-2", "kind": "up", "x": 1, "y": 628, "w": 75, "h": 75, "title": "CM-2 · Compressor (stage 2)", "sub": "Air compression", "desc": "Second compressor stage, bringing air up to the discharge pressure needed at the column base.", "e": [["Compressor power", "elec", 4296.95]], "s": [["Discharge pressure", "203.1 kPa (phase 1) · 284.7 kPa (phase 2)", "PDF"]], "shape": "rect", "group": "BC", "label": "CM-2", "gwp": 2310.9973477495887, "fos": 25192.868941932742, "wat": 348.03812394111793, "pocp": 0, "elec": 4296.95, "heat": 0, "cool": 0}, {"id": "H-2", "kind": "up", "x": 136, "y": 628, "w": 75, "h": 75, "title": "H-2 · Final air cooler", "sub": "Heat exchanger", "desc": "Cools air leaving the last compressor to 30 °C, the optimum growth temperature for the yeast.", "e": [["Final cooler duty", "cool", 3919.7]], "s": [["Outlet temperature", "30 °C", "PDF"]], "shape": "rect", "group": "BC", "label": "H-2", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 3919.7}, {"id": "INOC", "kind": "input", "x": 132, "y": 415, "w": 36, "h": 28, "title": "Inoculum", "sub": "Seed culture", "desc": "Yeast seed culture added at the start of fermentation (10 % of reactor volume). Modelled as the SEED process in the LCA.", "e": [], "s": [["Amount", "10 m³ at 20 g/L", "PDF"], ["Temperature", "30 °C", "PDF"]], "shape": "ellipse", "group": null, "label": "INOC", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "MOL", "kind": "input", "x": 132, "y": 481, "w": 36, "h": 28, "title": "Molasses", "sub": "First (growth) medium", "desc": "Ammonia-supplemented sugar-cane molasses, fed steadily during the 2-day growth phase.", "e": [], "s": [["Amount", "40.39 m³ at 252.2 g/L (diluted)", "PDF"], ["Elemental formula", "CH₁.₈₄O₀.₈₉N₀.₀₂₄", "PDF"]], "shape": "ellipse", "group": null, "label": "MOL", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "HYD", "kind": "input", "x": 132, "y": 557, "w": 36, "h": 28, "title": "Cellulosic hydrolysate", "sub": "Second (N-deficient) medium", "desc": "AFEX-treated lignocellulosic hydrolysate fed during the 1-day nitrogen-starvation (lipid) phase. Modelled as the HYD process in the LCA.", "e": [], "s": [["Amount", "49.61 m³ at 221 g/L", "PDF"], ["Elemental formula", "CH₁.₉₆O₀.₉₃N₀.₀₃₅", "PDF"]], "shape": "ellipse", "group": null, "label": "HYD", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "BC-1", "kind": "up", "x": 211, "y": 387, "w": 94, "h": 196, "title": "BC-1 · Bubble column", "sub": "Fermentation", "desc": "100 m³ bubble column, 3-day two-phase fed-batch: 2 days growth on molasses, 1 day lipid accumulation on hydrolysate. No internal moving parts — mixing comes from the air bubbles, so its power is the compressors (C-1, CM-2).", "e": [], "s": [["Working volume", "100 m³ (H 16.65 m × D 2.775 m)", "PDF"], ["O₂ consumed", "15,809 kg", "PDF"], ["CO₂ released (biogenic)", "3,679 kg", "LCA"], ["Final biomass", "55 g/L · 5,498 kg", "PDF"]], "shape": "rect", "group": "BC", "label": "BC-1", "gwp": 591.2024650752263, "fos": 0.00019406861636155816, "wat": 7727.826971231436, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "OFF", "kind": "output", "x": 231, "y": 293, "w": 54, "h": 52, "title": "Off gas", "sub": "Vent", "desc": "Spent air and fermentation CO₂ vented from the top of the column.", "e": [], "s": [["N₂", "209,333 kg", "PDF"], ["O₂", "47,427 kg", "PDF"], ["CO₂ (biogenic)", "3,679 kg", "LCA"], ["Note", "Biogenic CO₂ has a GWP factor of 0 in EF 3.1", "LCA"]], "shape": "rect", "group": null, "label": "OFF", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "SDC-1", "kind": "up", "x": 376, "y": 508, "w": 76, "h": 75, "title": "SDC-1 · Disc-stack centrifuge", "sub": "Cell harvest", "desc": "Separates yeast cells from most of the spent medium (Σ-theory sizing, 4 h run).", "e": [["Drive power", "elec", 26.96]], "s": [["Power", "6.74 kW for 4 h", "PDF"], ["Speed", "1,486 rpm", "PDF"], ["Biomass recovered", "5,498.2 kg", "PDF"]], "shape": "rect", "group": null, "label": "SDC-1", "gwp": 14.499700600502429, "fos": 158.06554571835994, "wat": 2.1836669780780653, "pocp": 0, "elec": 26.96, "heat": 0, "cool": 0}, {"id": "SPENT", "kind": "output", "x": 388, "y": 628, "w": 52, "h": 52, "title": "Spent medium", "sub": "Liquid waste", "desc": "Spent fermentation broth removed by the centrifuge.", "e": [], "s": [["Amount", "21,992.8 kg (water, trace NH₃)", "PDF"]], "shape": "rect", "group": null, "label": "SPENT", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "VD-1", "kind": "up", "x": 376, "y": 383, "w": 76, "h": 75, "title": "VD-1 · Vacuum dryer", "sub": "Drying", "desc": "Dries the cell paste to 95 % dry matter at 45 °C under vacuum, to avoid thermal damage to the lipids.", "e": [["Heating (sensible + latent)", "heat", 14892], ["Vacuum pump", "elec", 15]], "s": [["Temperature", "45 °C", "PDF"], ["Water evaporated", "21,703 kg", "PDF"], ["Cooling water evaporated", "3.95 m³", "LCA"]], "shape": "rect", "group": null, "label": "VD-1", "gwp": 1130.443952768417, "fos": 16557.043142973565, "wat": 177.58770885273336, "pocp": 0, "elec": 15, "heat": 14892, "cool": 0}, {"id": "CD-3", "kind": "up", "x": 376, "y": 257, "w": 76, "h": 75, "title": "CD-3 · Condenser", "sub": "Dryer vapour condenser", "desc": "Condenses and cools the water vapour leaving the vacuum dryer to 25 °C.", "e": [["Condensing duty", "cool", 14941.6]], "s": [], "shape": "rect", "group": null, "label": "CD-3", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 14941.6}, {"id": "WCOND", "kind": "output", "x": 388, "y": 161, "w": 52, "h": 53, "title": "Water condensate", "sub": "Output", "desc": "Condensed water from the dryer.", "e": [], "s": [["Amount", "21,703.4 kg at 25 °C", "PDF"]], "shape": "rect", "group": null, "label": "WCOND", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "MEOH", "kind": "input", "x": 598, "y": 194, "w": 26, "h": 26, "title": "Methanol", "sub": "Fresh make-up", "desc": "Fresh methanol topping up the recycled methanol loop.", "e": [], "s": [["Fresh methanol per batch", "4,358.7 kg", "PDF"]], "shape": "circle", "group": null, "label": "MEOH", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "H2SO4", "kind": "input", "x": 598, "y": 272, "w": 26, "h": 26, "title": "H₂SO₄", "sub": "Dilute acid catalyst", "desc": "Sulphuric acid catalyst for the transesterification.", "e": [], "s": [["Amount", "5,553.2 kg of 0.2 M solution", "PDF"], ["Dosage", "1 mL per g biomass", "PDF"]], "shape": "circle", "group": null, "label": "H2SO4", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "MREC", "kind": "recycle", "x": 676, "y": 272, "w": 26, "h": 26, "title": "Methanol + recycle", "sub": "Mixing point", "desc": "Fresh methanol joins methanol recovered by DC-2.", "e": [], "s": [["Methanol entering HR-1", "217,728.7 kg", "PDF"]], "shape": "circle", "group": null, "label": "MREC", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "EREC1", "kind": "recycle", "x": 753, "y": 272, "w": 26, "h": 26, "title": "EtOAc recycled", "sub": "Solvent return", "desc": "Ethyl acetate recovered in the flash vessels and returned to the reactor.", "e": [], "s": [["EtOAc entering HR-1", "24,796.9 kg", "PDF"]], "shape": "circle", "group": null, "label": "EREC1", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "HR-1", "kind": "down", "x": 572, "y": 335, "w": 208, "h": 171, "title": "HR-1 · Homogenizer-reactor", "sub": "Cell disruption + transesterification", "desc": "Disrupts the dried cells and converts the lipids (TAG) to fatty acid methyl esters (FAME) in one vessel, using methanol with H₂SO₄ catalyst. Homogenizer friction heat warms the charge, so the vessel then needs cooling.", "e": [["Homogenizer", "elec", 18328], ["Cooling jacket / coil", "cool", 12199]], "s": [["Conditions", "50 °C · 8 h · 90 % conversion", "PDF"], ["Heat to reach 50 °C", "4,298.6 kWh (supplied by homogenizer)", "PDF"], ["Homogenizer specific energy", "3 kWh/kg DCW, η = 90 %", "PDF"]], "shape": "rect", "group": null, "label": "HR-1", "gwp": 9938.163343559516, "fos": 109660.67856076619, "wat": 1691.0498034502068, "pocp": 0, "elec": 18328, "heat": 0, "cool": 12199}, {"id": "CAOH", "kind": "input", "x": 546, "y": 691, "w": 26, "h": 26, "title": "Ca(OH)₂", "sub": "Ambient", "desc": "Calcium hydroxide solution that neutralises the acid and quenches the reaction, precipitating CaSO₄.", "e": [], "s": [["Solution", "302,482.5 kg at 0.027 % w/w", "PDF"], ["Ca(OH)₂", "81.5 kg", "PDF"]], "shape": "circle", "group": null, "label": "CAOH", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "DCT-1", "kind": "down", "x": 572, "y": 555, "w": 76, "h": 75, "title": "DCT-1 · Decanter centrifuge", "sub": "Three-phase separation", "desc": "Splits the neutralised reactor effluent into an organic (FAME + EtOAc) phase, an aqueous (methanol + water) phase and a solid cake.", "e": [["Drive power", "elec", 440.8]], "s": [["Feed", "556,349 kg over 4 h", "PDF"], ["Speed", "2,039 rpm", "PDF"], ["Organic · aqueous · solid", "21,800 · 525,902 · 8,647 kg", "PDF"]], "shape": "rect", "group": null, "label": "DCT-1", "gwp": 259.62632350835185, "fos": 2584.395124356568, "wat": 38.68952413704088, "pocp": 0, "elec": 440.8, "heat": 0, "cool": 0}, {"id": "EREC2", "kind": "recycle", "x": 785, "y": 642, "w": 26, "h": 26, "title": "EtOAc recycled", "sub": "Wash solvent", "desc": "Ethyl acetate used to wash entrained liquid out of the solid cake.", "e": [], "s": [["Wash", "3,459 kg (1:1 v/v with entrained liquid)", "PDF"]], "shape": "circle", "group": null, "label": "EREC2", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "ANF-1", "kind": "down", "x": 820, "y": 553, "w": 76, "h": 75, "title": "ANF-1 · Nutsche filter", "sub": "Agitated filter + EtOAc wash", "desc": "Washes the FAME-containing liquid out of the solid cake with ethyl acetate. Slow agitation and pumping — power assumed negligible.", "e": [["Agitation / pumping", "elec", 0]], "s": [["EtOAc wash", "3,459 kg", "PDF"]], "shape": "rect", "group": null, "label": "ANF-1", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "BIOM", "kind": "output", "x": 951, "y": 563, "w": 54, "h": 54, "title": "Biomass + CaSO₄", "sub": "Solid residue", "desc": "Spent cell debris with gypsum.", "e": [], "s": [["Amount", "5,187.2 kg at 50 °C", "PDF"]], "shape": "rect", "group": null, "label": "BIOM", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "FV-1", "kind": "down", "x": 820, "y": 385, "w": 76, "h": 75, "title": "FV-1 · Flash vessel", "sub": "EtOAc removal (stage 1)", "desc": "Vacuum flash that strips most of the ethyl acetate from the FAME. Nitrogen blanket prevents oxidation of unsaturated FAMEs.", "e": [["Heating jacket / coil", "heat", 3015.63], ["Vacuum pump", "elec", 1.5], ["Vapour condenser & cooler", "cool", 3193.8]], "s": [["Conditions", "47 °C · 0.1 bar", "PDF"], ["Feed", "28,718.5 kg (416.5 kg FAME)", "PDF"], ["N₂ blanket", "40 kg", "PDF"], ["EtOAc to air (FV-1 + FV-2)", "46.6 kg", "LCA"]], "shape": "rect", "group": "FV", "label": "FV-1", "gwp": 228.08799799965215, "fos": 3343.786927233231, "wat": 12.18787515595437, "pocp": 16.4577072, "elec": 1.5, "heat": 3015.63, "cool": 3193.8}, {"id": "FV-2", "kind": "down", "x": 951, "y": 385, "w": 76, "h": 75, "title": "FV-2 · Flash vessel", "sub": "EtOAc removal (stage 2)", "desc": "Second, hotter vacuum flash that brings the FAME mixture to 99 % purity.", "e": [["Heating jacket / coil", "heat", 28.08], ["Vacuum pump", "elec", 1.5]], "s": [["Conditions", "120 °C · 0.1 bar", "PDF"], ["FAME purity out", "99 %", "PDF"], ["N₂ blanket", "40 kg", "PDF"]], "shape": "rect", "group": "FV", "label": "FV-2", "gwp": 2.9230606526841054, "fos": 39.84818764047432, "wat": 10.797904456799571, "pocp": 0, "elec": 1.5, "heat": 28.08, "cool": 0}, {"id": "H-7", "kind": "down", "x": 951, "y": 293, "w": 76, "h": 75, "title": "H-7 · Heat exchanger", "sub": "FV-2 vapour condenser", "desc": "Condenses and cools the EtOAc vapour from FV-2 to 25 °C for recycle.", "e": [["Condensing duty", "cool", 8.9]], "s": [], "shape": "rect", "group": "FV", "label": "H-7", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 8.9}, {"id": "H-8", "kind": "down", "x": 951, "y": 157, "w": 76, "h": 75, "title": "H-8 · Heat exchanger", "sub": "FV-3 vapour condenser", "desc": "Condenses and cools the EtOAc vapour from FV-3 to 25 °C for recycle.", "e": [["Condensing duty", "cool", 0.6]], "s": [], "shape": "rect", "group": null, "label": "H-8", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0.6}, {"id": "DC-1", "kind": "down", "x": 1127, "y": 172, "w": 93, "h": 196, "title": "DC-1 · FAME distillation", "sub": "Vacuum distillation column", "desc": "Separates methyl myristate (light key) from the heavier FAMEs (heavy key: methyl palmitate) under deep vacuum.", "e": [["Vacuum pump", "elec", 8]], "s": [["Pressure", "1.5 mbar", "PDF"], ["Reflux · stages", "R = 1.32 · N = 11.7", "PDF"], ["N₂ blanket", "120 kg", "PDF"]], "shape": "rect", "group": "DC1", "label": "DC-1", "gwp": 4.302581780564519, "fos": 46.90372276509197, "wat": 32.63800826581092, "pocp": 0, "elec": 8, "heat": 0, "cool": 0}, {"id": "CD-1", "kind": "down", "x": 1135, "y": 86, "w": 76, "h": 75, "title": "CD-1 · Condenser", "sub": "DC-1 overhead", "desc": "Overhead condenser of the FAME column.", "e": [["Condenser duty", "cool", 10.88]], "s": [], "shape": "rect", "group": "DC1", "label": "CD-1", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 10.88}, {"id": "RB-1", "kind": "down", "x": 1135, "y": 383, "w": 76, "h": 75, "title": "RB-1 · Reboiler", "sub": "DC-1 bottoms", "desc": "Reboiler supplying vapour to the FAME column.", "e": [["Reboiler duty", "heat", 38.38]], "s": [], "shape": "rect", "group": "DC1", "label": "RB-1", "gwp": 2.892614448419821, "fos": 42.444534426392856, "wat": 0.01785646279846736, "pocp": 0, "elec": 0, "heat": 38.38, "cool": 0}, {"id": "FV-3", "kind": "down", "x": 1302, "y": 86, "w": 76, "h": 75, "title": "FV-3 · Final flash", "sub": "Product polishing", "desc": "Final flash that removes residual EtOAc (≈8.8 % in DC-1 overhead) to give 98.5 % methyl myristate. This is the LCA reference process.", "e": [["Cooling jacket / coil", "cool", 6.64]], "s": [["Conditions", "70 °C · 1.5 mbar", "PDF"]], "shape": "rect", "group": "DC1", "label": "FV-3", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 6.64}, {"id": "H-3", "kind": "down", "x": 1302, "y": 232, "w": 76, "h": 75, "title": "H-3 · Product cooler", "sub": "Heat exchanger", "desc": "Cools the methyl myristate product to 25 °C.", "e": [["Cooling duty", "cool", 1.14]], "s": [], "shape": "rect", "group": "DC1", "label": "H-3", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 1.14}, {"id": "MM", "kind": "output", "x": 1438, "y": 244, "w": 54, "h": 52, "title": "Methyl myristate", "sub": "Product · 98.5 %", "desc": "Final product. All LCA results on this page are for one batch, i.e. 45.6 kg of this product.", "e": [], "s": [["Amount per batch", "45.6 kg", "LCA"], ["Purity", "98.5 % (rest methyl palmitate)", "PDF"]], "shape": "rect", "group": null, "label": "MM", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "H-4", "kind": "down", "x": 1302, "y": 383, "w": 76, "h": 75, "title": "H-4 · Bottoms cooler", "sub": "Heat exchanger", "desc": "Cools the heavy FAME mixture leaving DC-1 to 25 °C.", "e": [["Cooling duty", "cool", 45.2]], "s": [], "shape": "rect", "group": "DC1", "label": "H-4", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 45.2}, {"id": "HFAME", "kind": "output", "x": 1438, "y": 394, "w": 54, "h": 52, "title": "Heavy FAME mixture", "sub": "Co-product", "desc": "Heavier FAMEs (C16–C18) with a little unreacted TAG.", "e": [], "s": [["Amount", "415.06 kg at 25 °C", "PDF"]], "shape": "rect", "group": null, "label": "HFAME", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}, {"id": "DC-2", "kind": "down", "x": 1127, "y": 583, "w": 93, "h": 196, "title": "DC-2 · Methanol distillation", "sub": "Atmospheric distillation column", "desc": "Recovers methanol from the aqueous phase for recycle to HR-1. The single largest heat user in the plant, because of the large methanol excess.", "e": [], "s": [["Pressure", "Atmospheric", "PDF"], ["Reflux · stages", "R = 0.945 · N = 11", "PDF"], ["Methanol to air", "71.9 kg", "LCA"], ["Cooling water evaporated", "44.8 m³", "LCA"]], "shape": "rect", "group": "DC2", "label": "DC-2", "gwp": 0.0, "fos": 0.0, "wat": 1924.0526250000005, "pocp": 16.9727778, "elec": 0, "heat": 0, "cool": 0}, {"id": "CD-2", "kind": "down", "x": 1135, "y": 497, "w": 76, "h": 75, "title": "CD-2 · Condenser", "sub": "DC-2 overhead", "desc": "Overhead condenser of the methanol column.", "e": [["Condenser duty", "cool", 135593.03]], "s": [], "shape": "rect", "group": "DC2", "label": "CD-2", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 135593.03}, {"id": "RB-2", "kind": "down", "x": 1135, "y": 789, "w": 76, "h": 75, "title": "RB-2 · Reboiler", "sub": "DC-2 bottoms", "desc": "Reboiler of the methanol column — the dominant heat demand of the whole process.", "e": [["Reboiler duty", "heat", 157976.36]], "s": [], "shape": "rect", "group": "DC2", "label": "RB-2", "gwp": 11906.323643688664, "fos": 174706.43696134002, "wat": 73.49919216720394, "pocp": 0, "elec": 0, "heat": 157976.36, "cool": 0}, {"id": "H-5", "kind": "down", "x": 1302, "y": 497, "w": 76, "h": 75, "title": "H-5 · Methanol cooler", "sub": "Heat exchanger", "desc": "Cools recovered methanol to 25 °C before it is recycled to HR-1.", "e": [["Cooling duty", "cool", 71169.1]], "s": [], "shape": "rect", "group": "DC2", "label": "H-5", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 71169.1}, {"id": "H-6", "kind": "down", "x": 1302, "y": 789, "w": 76, "h": 75, "title": "H-6 · Water cooler", "sub": "Heat exchanger", "desc": "Cools the water leaving the bottom of DC-2 to 25 °C.", "e": [["Cooling duty", "cool", 26837.1]], "s": [], "shape": "rect", "group": "DC2", "label": "H-6", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 26837.1}, {"id": "WW", "kind": "output", "x": 1438, "y": 800, "w": 54, "h": 52, "title": "Water", "sub": "Wastewater", "desc": "Column bottoms — water with traces of glycerol.", "e": [], "s": [["Amount", "308,175.4 kg at 25 °C", "PDF"]], "shape": "rect", "group": null, "label": "WW", "gwp": 0.0, "fos": 0.0, "wat": 0.0, "pocp": 0, "elec": 0, "heat": 0, "cool": 0}], "edges": [["AIR", "C-1", [[38, 308], [38, 345]]], ["C-1", "H-1", [[38, 420], [38, 487]]], ["H-1", "CM-2", [[38, 562], [38, 628]]], ["CM-2", "H-2", [[76, 665], [136, 665]]], ["H-2", "BC-1", [[211, 665], [258, 665], [258, 583]]], ["INOC", "BC-1", [[168, 415], [211, 414]]], ["MOL", "BC-1", [[168, 481], [211, 481]]], ["HYD", "BC-1", [[168, 557], [211, 557]]], ["BC-1", "OFF", [[258, 387], [258, 345]]], ["BC-1", "SDC-1", [[305, 545], [376, 545]]], ["SDC-1", "VD-1", [[414, 508], [414, 458]]], ["SDC-1", "SPENT", [[414, 583], [414, 628]]], ["VD-1", "CD-3", [[414, 383], [414, 332]]], ["CD-3", "WCOND", [[414, 257], [414, 214]]], ["VD-1", "HR-1", [[452, 421], [572, 421]]], ["MEOH", "MREC", [[624, 194], [666, 194], [666, 247]]], ["H2SO4", "HR-1", [[598, 298], [598, 335]]], ["MREC", "HR-1", [[676, 298], [676, 335]]], ["EREC1", "HR-1", [[753, 298], [753, 335]]], ["H-5", "MREC", [[1378, 534], [1548, 534], [1548, 30], [688, 30], [688, 247]]], ["H-8", "EREC1", [[989, 232], [989, 271], [779, 271]]], ["H-7", "EREC1", [[989, 293], [989, 271]]], ["FV-1", "EREC1", [[858, 385], [858, 271]]], ["FV-3", "H-8", [[1340, 86], [1340, 58], [989, 58], [989, 157]]], ["HR-1", "DCT-1", [[610, 506], [610, 555]]], ["CAOH", "DCT-1", [[546, 665], [546, 592], [572, 592]]], ["DCT-1", "FV-1", [[648, 573], [690, 573], [690, 525], [858, 525]]], ["DCT-1", "ANF-1", [[648, 591], [820, 591]]], ["EREC2", "ANF-1", [[811, 642], [858, 642], [858, 628]]], ["ANF-1", "FV-1", [[858, 553], [858, 460]]], ["ANF-1", "BIOM", [[896, 590], [951, 590]]], ["DCT-1", "DC-2", [[610, 630], [610, 680], [1127, 680]]], ["FV-1", "FV-2", [[896, 422], [951, 422]]], ["FV-2", "H-7", [[989, 385], [989, 368]]], ["FV-2", "DC-1", [[1027, 422], [1048, 422], [1048, 270], [1127, 270]]], ["DC-1", "CD-1", [[1173, 172], [1173, 161]]], ["CD-1", "DC-1", [[1135, 124], [1110, 124], [1110, 205], [1127, 205]]], ["CD-1", "FV-3", [[1211, 124], [1302, 124]]], ["FV-3", "H-3", [[1340, 161], [1340, 232]]], ["H-3", "MM", [[1378, 270], [1438, 270]]], ["DC-1", "RB-1", [[1173, 368], [1173, 383]]], ["RB-1", "DC-1", [[1135, 420], [1107, 420], [1107, 350], [1127, 350]]], ["RB-1", "H-4", [[1211, 421], [1302, 421]]], ["H-4", "HFAME", [[1378, 421], [1438, 421]]], ["DC-2", "CD-2", [[1173, 583], [1173, 572]]], ["CD-2", "DC-2", [[1135, 535], [1110, 535], [1110, 615], [1127, 615]]], ["CD-2", "H-5", [[1211, 535], [1302, 535]]], ["DC-2", "RB-2", [[1173, 779], [1173, 789]]], ["RB-2", "DC-2", [[1135, 829], [1107, 829], [1107, 760], [1127, 760]]], ["RB-2", "H-6", [[1211, 829], [1302, 829]]], ["H-6", "WW", [[1378, 829], [1438, 829]]]], "labels": [["Methanol Recycle", 1340, 18], ["EtOAc Recycle", 870, 262], ["FAME Mixture", 1076, 262], ["Organic Phase", 753, 539], ["Solid Phase", 753, 581], ["Aqueous Phase", 676, 673], ["Dry Biomass", 512, 413], ["Water Vapour", 460, 238], ["CO₂", 271, 376]], "meta": {"gwp_total": 28700.460379581174, "fos_total": 357525.340785154, "wat_total": 12386.607384040299, "tot_e": 27415.66, "tot_h": 175950.44999999998, "tot_c": 272226.99, "product_kg": 45.6, "pools": {"elec": 14396.238866941821, "heat": 12947.536806976155, "feed": 577.2280509293231, "solv": 79.03508285315125, "lime": 22.020950747793787, "other": 678.4006211329296}, "feed_gwp": 577.2280509293231}};
+const M = D.meta, NODES = D.nodes, byId = Object.fromEntries(NODES.map(n=>[n.id,n]));
+const svg = document.getElementById('pfd'), panel = document.getElementById('panel');
+const NS = 'http://www.w3.org/2000/svg';
+let mode = 'type', pinned = null;
+
+const fmt = (v,d) => { if (v==null) return '–'; const a=Math.abs(v);
+  const dd = d!=null ? d : (a>=100?0:a>=10?1:a>=1?2:a>0?3:0);
+  return v.toLocaleString('en-US',{minimumFractionDigits:dd, maximumFractionDigits:dd}); };
+const kg = v => v>=1000 ? fmt(v/1000, v>=10000?1:2)+' t' : fmt(v)+' kg';
+const kwhS = v => v>=1000 ? fmt(v/1000, v>=10000?0:1)+' MWh' : fmt(v)+' kWh';
+const GROUPS = {
+  BC:{name:'Fermentation & aeration system', ids:['BC-1','C-1','H-1','CM-2','H-2']},
+  FV:{name:'Flash-vessel system', ids:['FV-1','FV-2','H-7']},
+  DC1:{name:'FAME distillation train', ids:['DC-1','CD-1','RB-1','FV-3','H-3','H-4']},
+  DC2:{name:'Methanol recovery system', ids:['DC-2','CD-2','RB-2','H-5','H-6']}
+};
+const KIND = {up:'Upstream · fermentation', down:'Downstream · recovery & purification', input:'Process input', output:'Process output', recycle:'Recycle stream'};
+
+/* ---------- KPIs ---------- */
+document.getElementById('kpis').innerHTML = [
+  ['var(--accent)', kg(M.gwp_total)+' CO₂-eq', 'Carbon footprint per batch · '+fmt(M.gwp_total/M.product_kg,0)+' kg CO₂-eq per kg product'],
+  ['var(--elec)', fmt(M.tot_e,0)+' kWh', 'Electricity per batch'],
+  ['var(--heat)', fmt(M.tot_h,0)+' kWh', 'Heating per batch'],
+  ['var(--cool)', fmt(M.tot_c,0)+' kWh', 'Cooling per batch'],
+  ['#64748b', fmt(M.fos_total/1000,0)+' GJ', 'Fossil energy use (cradle-to-gate)']
+].map(([c,b,s])=>`<div class="kpi"><b>${b}</b><span><i style="background:${c}"></i>${s}</span></div>`).join('');
+
+/* ---------- colour scales ---------- */
+const RAMPS = { gwp:['#fff7ed','#fdba74','#ea580c','#7c2d12'], elec:['#eff6ff','#93c5fd','#2563eb','#1e3a8a'],
+  heat:['#fef2f2','#fca5a5','#dc2626','#7f1d1d'], cool:['#ecfeff','#67e8f9','#0891b2','#164e63'] };
+const hex = h => [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+function rampAt(stops,t){ t=Math.max(0,Math.min(1,t)); const s=t*(stops.length-1), i=Math.min(Math.floor(s),stops.length-2), f=s-i;
+  const a=hex(stops[i]), b=hex(stops[i+1]); return 'rgb('+a.map((x,k)=>Math.round(x+(b[k]-x)*f)).join(',')+')'; }
+const maxOf = m => Math.max(...NODES.map(n=>n[m]||0));
+function scaleT(m,v){ if(!v||v<=0) return null; const mx=maxOf(m), mn=mx/1e4; return Math.log(Math.max(v,mn)/mn)/Math.log(mx/mn); }
+function fillFor(n){
+  if (mode==='type' || n.kind==='input' || n.kind==='output' || n.kind==='recycle')
+    return n.kind==='up'?'var(--up)': n.kind==='down'?'var(--down)': n.kind==='recycle'?'#fff':'var(--io)';
+  const t=scaleT(mode,n[mode]); return t==null?'#f1f5f9':rampAt(RAMPS[mode],0.08+0.92*t);
+}
+function strokeFor(n){ return n.kind==='up'?'var(--upS)': n.kind==='down'?'var(--downS)': n.kind==='recycle'?'#111':'var(--ioS)'; }
+function valText(n){
+  const v=n[mode]; if (!v) return mode==='gwp'?'0':'–';
+  return mode==='gwp' ? kg(v) : kwhS(v);
+}
+
+/* ---------- draw ---------- */
+const el = (t,a,p)=>{ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); (p||svg).appendChild(e); return e; };
+const defs = el('defs',{});
+['ar','arH'].forEach((id,i)=>{ const m=el('marker',{id:'mm'+id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},defs);
+  el('path',{d:'M0,1 L10,5 L0,9 z',fill:i?'#ea580c':'#334155'},m); });
+const edgeEls = D.edges.map(([a,b,pts])=>{
+  const p = el('polyline',{points:pts.map(q=>q.join(',')).join(' '),class:'e','marker-end':'url(#mmar)'});
+  p.dataset.a=a; p.dataset.b=b; return p; });
+D.labels.forEach(([t,x,y])=>{ const e=el('text',{x,y,class:'lab','text-anchor':'middle'}); e.textContent=t; });
+
+const nodeEls = {};
+NODES.forEach(n=>{
+  const g = el('g',{class:'n',tabindex:0,role:'button','aria-label':n.title});
+  let cx, cy;
+  if (n.shape==='rect'){
+    el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,rx:n.kind==='output'?3:6,class:'sh',stroke:strokeFor(n)},g);
+    cx=n.x+n.w/2; cy=n.y+n.h/2;
+  } else {
+    el('ellipse',{cx:n.x,cy:n.y,rx:n.w,ry:n.h,class:'sh',stroke:strokeFor(n)},g); cx=n.x; cy=n.y;
+  }
+  const big = n.h>150, ioN = n.kind==='input'||n.kind==='output'||n.kind==='recycle';
+  const SHORT={'C-1':'Compressor','CM-2':'Compressor','BC-1':'Bubble Column','SDC-1':'Centrifuge','VD-1':'Vacuum Dryer',
+    'HR-1':'Homogenizer-Reactor','DCT-1':'Decanter','ANF-1':'Nutsche Filter','FV-1':'Flash Vessel','FV-2':'Flash Vessel','FV-3':'Flash Vessel',
+    'DC-1':'Distillation','DC-2':'Distillation','RB-1':'Reboiler','RB-2':'Reboiler','CD-1':'Condenser','CD-2':'Condenser','CD-3':'Condenser'};
+  let lines, sub;
+  if (ioN){ const w=n.title.split(' '); lines=[]; let cur='';
+    w.forEach(x=>{ if((cur+' '+x).trim().length>11 && cur){ lines.push(cur); cur=x; } else cur=(cur+' '+x).trim(); }); lines.push(cur); sub=''; }
+  else { lines=[n.label]; sub=SHORT[n.id]||'Heat Exchanger'; }
+  const fs = big ? (n.w>150?18:13) : ioN ? 8.6 : 11.5, lh = fs*1.1;
+  const y0 = cy - (lines.length-1)*lh/2 - (sub? (big?7:5):0) + (ioN?3:0);
+  let t1; lines.forEach((ln,i)=>{ t1=el('text',{x:cx,y:y0+i*lh,class:'id','text-anchor':'middle'},g); t1.textContent=ln; t1.setAttribute('style','font-size:'+fs+'px'); });
+  const t2 = el('text',{x:cx,y:y0+(big?16:12),class:'sub','text-anchor':'middle'},g);
+  t2.textContent = sub; t2.setAttribute('style','font-size:'+(big?(n.w>150?12:9.5):8.6)+'px');
+  const tv = el('text',{x:cx,y:y0+(big?36:26),class:'val','text-anchor':'middle'},g);
+  if (!big) tv.setAttribute('style','font-size:10px');
+  nodeEls[n.id]={g,sh:g.firstChild,tv,t2};
+  g.addEventListener('mouseenter',()=>{ if(!pinned) show(n.id); });
+  g.addEventListener('focus',()=>show(n.id));
+  g.addEventListener('mouseleave',()=>{ if(!pinned) overview(); });
+  g.addEventListener('click',e=>{ e.stopPropagation(); pin(n.id); });
+  g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pin(n.id);} if(e.key==='Escape') unpin(); });
+});
+svg.addEventListener('click',()=>unpin());
+
+function paint(){
+  NODES.forEach(n=>{ const o=nodeEls[n.id]; o.sh.setAttribute('fill',fillFor(n));
+    const io = n.kind==='input'||n.kind==='output'||n.kind==='recycle';
+    o.tv.textContent = (mode==='type'||io) ? '' : valText(n);
+    const t=scaleT(mode,n[mode]); o.tv.setAttribute('fill', t!=null && t>0.6 ? '#fff' : '#0f172a');
+    o.g.querySelectorAll('text').forEach(tx=>{ if(tx!==o.tv && !io) tx.style.fill = (mode!=='type' && t!=null && t>0.6) ? '#fff' : ''; });
+  });
+  const lg=document.getElementById('legend');
+  if (mode==='type') lg.innerHTML = `<span class="hint">Green: fermentation · Blue: recovery &amp; purification · Yellow: inputs/outputs · White: recycle points. Click a unit to pin it.</span>`;
+  else { const u = mode==='gwp'?'kg CO₂-eq':'kWh', mx=maxOf(mode);
+    lg.innerHTML = `<span>${fmt(mx/1e4,mx/1e4<1?2:0)}</span><div class="ramp" style="background:linear-gradient(90deg,${RAMPS[mode].join(',')})"></div><span>${fmt(mx,0)} ${u}</span><span class="hint">(log scale; grey = none)</span>`; }
+}
+
+function highlight(id){
+  svg.classList.toggle('dim', !!id);
+  NODES.forEach(n=>nodeEls[n.id].g.classList.remove('rel','on'));
+  edgeEls.forEach(e=>{ e.classList.remove('hl'); e.setAttribute('marker-end','url(#mmar)'); });
+  if(!id) return;
+  nodeEls[id].g.classList.add('rel','on');
+  edgeEls.forEach(e=>{ if(e.dataset.a===id||e.dataset.b===id){ e.classList.add('hl'); e.setAttribute('marker-end','url(#mmarH)');
+    nodeEls[e.dataset.a].g.classList.add('rel'); nodeEls[e.dataset.b].g.classList.add('rel'); }});
+}
+
+/* ---------- panel ---------- */
+const TCOL={elec:'var(--elec)',heat:'var(--heat)',cool:'var(--cool)'}, TNAME={elec:'Electricity',heat:'Heating',cool:'Cooling'};
+function show(id){
+  const n=byId[id]; highlight(id);
+  const pct = n.gwp/M.gwp_total*100;
+  let h = `${pinned===id?'<button class="close" id="mmclose">Unpin ✕</button>':''}<div class="p-kind">${KIND[n.kind]}${pinned===id?'<span class="pin">· pinned</span>':''}</div>
+    <div class="p-title">${n.title}</div><div class="p-sub">${n.sub}</div><p class="p-desc">${n.desc}</p>`;
+  const isUnit = n.kind==='up'||n.kind==='down';
+  if (isUnit && n.gwp < 0.05){
+    const why = n.group==='DC2' && n.id==='DC-2' ? 'The column shell itself uses no utilities: its heat demand is booked on the reboiler <b>RB-2</b> and its cooling on <b>CD-2</b>. See the system total below.'
+      : n.id==='ANF-1' ? 'The filter only needs slow agitation and pumping, which the design calculations treat as negligible power.'
+      : 'This unit only <b>removes</b> heat. Cooling is done with cooling water, which the LCA model counts as water use, not as fuel or electricity, so no greenhouse-gas emissions are attributed to it. (Pumps and cooling-tower fans were not included in the energy balance.)';
+    h += `<div class="co2" style="background:#f8fafc;border-color:#e2e8f0"><div class="u">Carbon footprint <span class="src LCA">LCA</span></div>
+      <div class="big" style="font-size:18px">≈ 0 <span class="u">kg CO₂-eq / batch</span></div>
+      <small style="display:block;margin-top:4px">${why}</small></div>`;
+  } else if (isUnit){
+    h += `<div class="co2"><div class="u">Carbon footprint (attributed) <span class="src LCA">LCA</span></div>
+      <div class="big">${fmt(n.gwp, n.gwp<10?1:0)} <span class="u">kg CO₂-eq / batch</span></div>
+      <div class="meter"><div style="width:${Math.max(pct,0.4)}%"></div></div>
+      <small>${fmt(pct,pct<1?2:1)} % of total · ${fmt(n.gwp/M.product_kg,2)} kg CO₂-eq per kg product</small></div>`;
+  }
+  if (isUnit){
+    const c=(v,l)=>`<div class="cell${v?'':' z'}"><b>${v?kwhS(v):'0'}</b><span>${l}</span></div>`;
+    h += `<div class="grid3">${c(n.elec,'Electricity')}${c(n.heat,'Heating')}${c(n.cool,'Cooling')}</div>`;
+    if (n.e.length){
+      h += `<h4>Energy breakdown <span class="src PDF">PDF</span></h4><table>`+n.e.map(([l,t,v])=>`<tr><td><span class="dot" style="background:${TCOL[t]}"></span>${l} <span style="color:var(--ink3)">(${TNAME[t].toLowerCase()})</span></td><td class="r">${v?fmt(v)+' kWh':'negligible'}</td></tr>`).join('')+`</table>`;
+    }
+    const extra=[];
+    if (n.fos>0.5) extra.push(['Fossil energy use (attributed)', fmt(n.fos,0)+' MJ','LCA']);
+    if (n.wat>0.5) extra.push(['Water use (deprivation-weighted)', fmt(n.wat,0)+' m³ world-eq','LCA']);
+    if (n.pocp) extra.push(['Smog formation from direct VOC release', fmt(n.pocp,1)+' kg NMVOC-eq','LCA']);
+    if (extra.length) h += `<h4>Other impacts</h4><table>`+extra.map(([l,v,s])=>`<tr><td>${l}<span class="src ${s}">${s}</span></td><td class="r">${v}</td></tr>`).join('')+`</table>`;
+  }
+  if (n.s.length) h += `<h4>${isUnit?'Design & streams':'Stream data'}</h4><table>`+n.s.map(([l,v,s])=>`<tr><td>${l}<span class="src ${s}">${s}</span></td><td class="r" style="white-space:normal">${v}</td></tr>`).join('')+`</table>`;
+  if (['INOC','MOL','HYD'].includes(id)) h += `<div class="sys">Feedstock supply chains (crops, ammonia, composting) contribute <b>${fmt(M.pools.feed,0)} kg CO₂-eq</b> per batch in the LCA; this is attributed to BC-1, where the feedstocks are consumed.</div>`;
+  if (id==='MM') h += `<div class="sys">Cradle-to-gate footprint: <b>${fmt(M.gwp_total/M.product_kg,0)} kg CO₂-eq per kg</b> methyl myristate (${kg(M.gwp_total)} per 45.6 kg batch).</div>`;
+  if (n.group){ const G=GROUPS[n.group]; const s=k=>G.ids.reduce((a,i)=>a+byId[i][k],0);
+    h += `<div class="sys"><b>${G.name}</b> (${G.ids.join(', ')}): ${fmt(s('gwp'),0)} kg CO₂-eq · ${kwhS(s('elec'))} electricity · ${kwhS(s('heat'))} heating · ${kwhS(s('cool'))} cooling</div>`; }
+  panel.innerHTML = h;
+  const cb=document.getElementById('mmclose'); if(cb) cb.onclick=e=>{e.stopPropagation(); unpin();};
+}
+function overview(){
+  highlight(null);
+  const P=M.pools, parts=[['Electricity (Indian grid)',P.elec,'#2563eb'],['Process heat (gas, coal, oil)',P.heat,'#dc2626'],
+    ['Fermentation feedstocks',P.feed,'#16a34a'],['Solvents & catalyst',P.solv+P.lime,'#9333ea'],['Other background',P.other,'#94a3b8']];
+  const units = NODES.filter(n=>n.gwp>0).sort((a,b)=>b.gwp-a.gwp).slice(0,8), mx=units[0].gwp;
+  panel.innerHTML = `<div class="p-kind">Overview</div><div class="p-title">Where the carbon footprint comes from</div>
+    <p class="p-desc">Hover over a unit in the diagram for its details, or click one to pin it.</p>
+    <h4>By source <span class="src LCA">LCA</span></h4>
+    <div class="stack">${parts.map(([l,v,c])=>`<div style="width:${v/M.gwp_total*100}%;background:${c}" title="${l}"></div>`).join('')}</div>
+    ${parts.map(([l,v,c])=>`<div class="sl"><i style="background:${c}"></i><span>${l}</span><b>${fmt(v/M.gwp_total*100,1)} %</b></div>`).join('')}
+    <h4>Top units (kg CO₂-eq / batch)</h4>
+    <ul class="rank">${units.map(u=>`<li data-id="${u.id}"><b>${u.label}</b><div class="t"><div style="width:${u.gwp/mx*100}%"></div></div><span class="v">${fmt(u.gwp,0)}</span></li>`).join('')}</ul>
+    <div class="sys">Two units dominate: the <b>DC-2 reboiler</b> (heat to recover the large methanol excess) and the <b>HR-1 homogenizer</b> (electricity for cell disruption). Cutting the methanol-to-biomass ratio or recovering heat from the CD-2 condenser are the biggest levers.</div>`;
+  panel.querySelectorAll('.rank li').forEach(li=>{
+    li.onmouseenter=()=>highlight(li.dataset.id); li.onmouseleave=()=>highlight(null);
+    li.onclick=e=>{ e.stopPropagation(); pin(li.dataset.id); }; });
+}
+function pin(id){ pinned = (pinned===id)? null : id; pinned? show(id) : overview(); }
+function unpin(){ pinned=null; overview(); }
+
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{
+  mode=b.dataset.m; document.querySelectorAll('#modes button').forEach(x=>x.setAttribute('aria-pressed',x===b)); paint(); });
+paint(); overview();
+})();
+</script>
+</body>
+</html>

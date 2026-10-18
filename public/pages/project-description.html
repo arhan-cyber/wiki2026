@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Project Description – BIFROST</title>
+<title>Project Description: BIFROST</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ink:#343A40;--blue:#3F94D2;--panel:#FAFAFA;--line:#8FBCE6;--sph:#7B7FE8;--sphA:#4A3FD8}
 html{scroll-behavior:smooth;scroll-padding-top:20px}
 *,*:before,*:after{box-sizing:inherit}
 body{margin:0;font-family:Montserrat,system-ui,sans-serif;font-size:20px;line-height:1.65;color:var(--ink);background:linear-gradient(180deg,#F6F8FB 0%,#D6E6F5 45%,#A5CBEC 100%) fixed;min-height:100vh}
-.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 60px}
-.title{background:var(--panel);border:3px solid var(--line);border-radius:26px 18px 22px 36px/60px 20px 30px 18px;box-shadow:0 0 12px rgba(63,148,210,.35);padding:22px 32px;margin:0 auto 22px;max-width:900px;text-align:center}
-.title h1{margin:0;font-size:32px;line-height:1.2;color:var(--blue);font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 60px}
+.title{background:#FAFAFA;border:7px solid #88C0E6;border-radius:70px;box-shadow:2px 4px 10px #88C0E6;padding:22px 32px;margin:0 auto 22px;max-width:900px;text-align:center}
+.title h1{margin:0;font-size:32px;line-height:1.2;color:#1E1E1E;font-weight:400;font-family:'Inria Serif',Georgia,serif}
 .layout{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start}
 .rail{position:sticky;top:16px;background:var(--panel);padding:18px 0;display:flex;flex-direction:column;align-items:center;gap:0}
 .node{border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;font:inherit;color:#9097A3}
@@ -38,6 +38,7 @@ table{border-collapse:collapse;width:100%;min-width:560px;font-size:18px}
 th,td{border:1.5px solid #C9D6E2;padding:10px 12px;text-align:left;vertical-align:top}
 th{background:#EAF4FC;color:var(--ink)}
 .tabs th{padding:0}
+.tabs th.mh{padding:14px 12px;font-weight:600;background:#EAF4FC}
 .tabs button{all:unset;box-sizing:border-box;display:block;width:100%;padding:14px 12px;cursor:pointer;font-weight:600;transition:background .25s}
 .tabs button:hover,.tabs button:focus-visible{background:#D5E9F8}
 .tabs button.on{background:var(--blue);color:#fff}
@@ -46,7 +47,7 @@ th{background:#EAF4FC;color:var(--ink)}
 .panel{background:#EAF4FC;border-left:5px solid var(--blue);padding:18px 24px;border-radius:0 12px 12px 0;margin-top:16px;animation:pop .35s}
 .panel h4{margin:0 0 6px;font-size:19px;font-weight:600;color:var(--blue)}
 @keyframes pop{from{opacity:0;transform:translateY(-6px)}}
-.g{background:#8DF550}.r{background:#E8352A;color:#fff}.y{background:#FFF44F}
+.g{background:#D7F0D0;color:#24572E}.r{background:#F8D3CF;color:#7A2A22}.y{background:#FCEFC4;color:#6B5310}
 details{border:2px solid #D6E6F5;border-radius:12px;margin:0 0 14px;background:#fff}
 summary{cursor:pointer;padding:14px 20px;font-weight:600;font-size:19px;color:var(--blue);list-style:none;display:flex;justify-content:space-between;gap:12px}
 summary::after{content:"+";font-size:28px;line-height:1;transition:transform .3s}
@@ -109,6 +110,7 @@ details>div{padding:2px 22px 18px}
 details>div>:last-child,details>div li:last-child{margin-bottom:0}
 details:last-of-type{margin-bottom:0}
 #fq{padding-bottom:30px}
+main>section{align-self:stretch}
 main>section{padding-bottom:30px}
 /* animated BIFROST logo */
 .logo-fig{margin:46px auto 26px;max-width:600px;text-align:center}
@@ -128,10 +130,25 @@ main>section{padding-bottom:30px}
 @keyframes breathe{0%,100%{transform:scale(1) rotate(0)}30%{transform:scale(1.045) rotate(1.6deg)}65%{transform:scale(.985) rotate(-1.4deg)}}
 @keyframes halo{0%,100%{opacity:.55;scale:.92}50%{opacity:1;scale:1.12}}
 @keyframes bub{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:.9}100%{opacity:0;transform:translate(var(--dx),-80px) scale(1.1)}}
+.refs{font-size:16px;line-height:1.6;padding-left:26px;margin:0}
+.refs li{margin-bottom:9px}
+#refs h3{margin-top:28px}
+/* cloning walkthrough: captions, numbered steps and the paired insert figures */
+.fig figcaption{font-size:15px;color:#5B6B7B;margin-top:10px;line-height:1.5}
+.steps{counter-reset:st;margin:26px 0 0}
+.step{counter-increment:st;position:relative;padding-left:52px;margin-bottom:26px}
+.step:before{content:counter(st);position:absolute;left:0;top:-2px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--c,#3F94D2);color:#fff;font-weight:700;font-size:17px}
+.step h4{margin:4px 0 10px;font-size:19px;font-weight:600;color:var(--c,#3F94D2)}
+.step>p:last-child{margin-bottom:0}
+.substep{font-weight:600;margin:18px 0 8px;color:#45546B}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:18px 0 0}
+.pair .fig{margin:0}
+@media(max-width:760px){.pair{grid-template-columns:1fr}.step{padding-left:40px}.step:before{width:28px;height:28px;font-size:15px}}
 summary{display:block!important;position:relative;padding-right:56px!important}
 summary::-webkit-details-marker{display:none}
 summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-origin:center}
-</style></head>
+</style><link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400&display=swap" rel="stylesheet">
+</head>
 <body><div class="wrap">
 <div class="title"><h1>Project Description</h1></div>
 <div class="layout">
@@ -147,8 +164,8 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <section id="s1" data-s="0"><hr><h2>1. The Data-Centre Cooling Problem</h2>
 <p>Every prompt typed, video streamed, and cloud file saved somewhere draws down a glass of water you will never see. Data centres are the invisible plumbing of the digital age, and as AI workloads explode, that plumbing is drawing harder than ever, with global water demand from AI projected to reach 4.2 to 6.6 billion cubic metres a year by 2027, which is 1.1 to 1.7 trillion gallons, and more than the total annual water withdrawal of Denmark four to six times over (Li et al., Communications of the ACM, 2025).</p>
 <p>Cooling sits at the centre of this. It is not a side cost of running a data centre; in many facilities it is the single largest non-computational energy draw. And the dominant cooling architecture, the evaporative cooling tower, pays for its water efficiency: fresh water absorbs heat from the server racks and is then cooled by evaporating into the air, consuming that water outright rather than recirculating it.</p>
-<p><b>India is now one of the fastest-growing taps in that system.</b> Installed IT capacity crossed 1.8 GW in the first half of 2026 and is projected to pass 6.7 GW by 2030, against more than US$300 billion in announced investment commitments (Anarock Capital, 2026). Mumbai and the wider MMR region holds 812 MW across 54 facilities, followed by Chennai at 298 MW, Hyderabad at 178 MW and Bengaluru at 137 MW.</p>
-<p><b>So what happens when that growth collides with where the water actually is?</b> The very cities driving India's data centre boom are the same ones running out of water. An S&amp;P Global study expects the squeeze to hit hardest there, with 60 to 80% of India's data centres facing high water stress within this decade. Chennai has already lived through a preview: its main reservoirs nearly ran dry during the 2019 "Day Zero" crisis.</p></section>
+<p><b>India is now one of the fastest-growing taps in that system.</b> In just a few years the country has gone from a minor destination to one of the world's fastest-growing data centre markets. Installed IT capacity crossed 1.8 GW in the first half of 2026 and is projected to pass 6.7 GW by 2030, against more than US$300 billion in announced investment commitments (Anarock Capital, 2026). The build is concentrated in a handful of cities: Mumbai and the wider MMR region holds 812 MW across 54 facilities, followed by Chennai at 298 MW, Hyderabad at 178 MW and Bengaluru at 137 MW.</p>
+<p><b>So what happens when that growth collides with where the water actually is?</b> Here is the irony: the very cities driving India's data centre boom are the same ones running out of water. Mumbai, Chennai, Hyderabad and Bengaluru, the metros pulling in tens of billions of dollars in new campus investment, are also exactly where an S&amp;P Global study expects the squeeze to hit hardest, with 60 to 80% of India's data centres facing high water stress within this decade. Chennai has already lived through a preview: its main reservoirs nearly ran dry during the 2019 "Day Zero" crisis.</p></section>
 
 <section id="s2" data-s="1"><hr><h2>2. Why Immersion Cooling?</h2>
 <p>Immersion cooling submerges server hardware in a thermally conductive, electrically insulating fluid, transferring heat directly from chips to liquid without intermediate heat sinks or moving air.</p>
@@ -157,14 +174,13 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <p><b>This makes the cooling fluid the critical component that determines system performance and not the hardware.</b></p></section>
 
 <section id="s3" data-s="2"><hr><h2>3. What Does the Ideal Coolant Need to Do?</h2>
-<p>A coolant for immersion cooling cannot optimise for just one property. It must be electrically safe, thermally stable, easy to pump, and environmentally responsible — all at once. The Open Compute Project (OCP) provides the reference targets for single-phase immersion cooling.</p>
+<p>A coolant for immersion cooling cannot optimise for just one property. It must be electrically safe, thermally stable, easy to pump, and environmentally responsible, all at once. The Open Compute Project (OCP) publishes the reference targets for single-phase immersion, and every candidate fluid in this project, including ours, is screened against them.</p>
 <h3>The BIFROST Design Matrix</h3>
 <div class="tw"><table class="tabs"><tr id="tabrow"></tr>
 <tr><td><i>Insulate live parts without degrading high-speed signals</i></td><td><i>Stay liquid and stable at operating temperature</i></td><td><i>Circulate through dense hardware on minimal pumping energy</i></td><td><i>Fire-safe across the temperature range, with no lasting footprint</i></td></tr>
 <tr><td>Dielectric strength &gt;6 kV/mm</td><td>Boiling point &gt;150°C</td><td>Viscosity @ 25°C &lt;15 mPa·s</td><td>Flash point &gt;150°C</td></tr>
 <tr><td>Dielectric constant ≤2.3</td><td>Vapour pressure @ 25°C &lt;0.8 kPa</td><td>Density &lt;2000 kg/m³</td><td>Pour point &lt;−30°C</td></tr><tr><td>Loss tangent ≤0.05</td><td>Service life ≥10 years</td><td></td><td>Ozone depletion 0</td></tr><tr><td>Volume resistivity &gt;10¹¹ Ω·cm</td><td></td><td></td><td></td></tr></table></div>
-<p class="hint">Tap a column heading to see why it matters.</p>
-<div id="why" class="panel" aria-live="polite"></div></section>
+</section>
 
 <section id="s4" data-s="3"><hr><h2>4. Why Are Current Coolants Not Enough?</h2>
 <p>Three fluid families dominate the market today, each with a key limitation.</p>
@@ -180,10 +196,10 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 
 </section><section><h2>Why C14?</h2>
 <p>Chain length is the main knob controlling ester coolant properties, and the trade-off is sharp. Every property below moves monotonically with chain length, in opposite directions.</p>
-<div class="tw"><table><caption style="text-align:left;font-weight:700;padding-bottom:8px">Chain-length comparison of saturated methyl esters</caption><tr><th>Methyl ester</th><th>Melting point (°C)</th><th>Boiling point (°C)</th><th>Flash point (°C)</th><th>Viscosity @ 40°C (cSt)</th></tr><tr><td>Caprylate C8</td><td class="g">−40</td><td class="r">236</td><td class="r">~100</td><td class="g">1.22</td></tr><tr><td>Caprate C10</td><td class="g">−13</td><td class="g">260</td><td class="r">~120</td><td class="g">1.73</td></tr><tr><td>Laurate C12</td><td class="g">5</td><td class="g">267–279</td><td class="r">~140</td><td class="g">2.43</td></tr><tr><td>Myristate C14</td><td class="y">18–19</td><td class="g">291–295</td><td class="r">~112</td><td class="g">3.34</td></tr><tr><td>Palmitate C16</td><td class="r">29–30</td><td class="g">302–304</td><td class="g">~160</td><td class="y">4.41</td></tr><tr><td>Stearate C18</td><td class="r">&gt;39</td><td class="g">&gt;310</td><td class="g">~170+</td><td class="r">5.87</td></tr></table></div>
-<p style="font-size:16px"><i>Green = suitable for an open-bath data-hall coolant; red = not suitable; amber = provisional. Our target is to come as close as possible to the design matrix above.</i></p>
+<div class="tw"><table><caption style="text-align:left;font-weight:700;padding-bottom:8px">Chain-length comparison of saturated methyl esters</caption><tr><th>Methyl ester</th><th>Melting point (°C)</th><th>Boiling point (°C)</th><th>Thermal cond. (W/m·K)</th><th>Viscosity @ 40°C (cP)</th><th>Flash point (°C)</th></tr><tr><td>Caprylate C8</td><td class="g">−40</td><td class="r">193</td><td>~0.14–0.17</td><td class="g">1.04</td><td class="r">94</td></tr><tr><td>Caprate C10</td><td class="g">−18</td><td class="g">224</td><td>~0.14–0.17</td><td class="g">1.48</td><td class="r">119</td></tr><tr><td>Laurate C12</td><td class="g">4–5</td><td class="g">262</td><td>~0.14–0.17</td><td class="g">2.08</td><td class="r">136</td></tr><tr><td>Myristate C14</td><td class="y">18–19</td><td class="g">295</td><td>~0.14–0.17</td><td class="g">2.84</td><td class="g">157</td></tr><tr><td>Palmitate C16</td><td class="r">32–35</td><td class="g">~330</td><td>~0.14–0.17</td><td class="y">3.76</td><td class="g">158</td></tr><tr><td>Stearate C18</td><td class="r">37–41</td><td class="g">~370</td><td>~0.14–0.17</td><td class="r">4.99</td><td class="g">159</td></tr></table></div>
+<p style="font-size:16px"><i>Green = suitable for an open-bath data-hall coolant; red = not suitable; amber = provisional. Our target is to come as close as possible to the design matrix above. Thermal conductivity is left uncoloured because it barely moves with chain length; it is the one property that cannot be used to choose between these esters.</i></p>
 <h3>C14 is the balance point</h3>
-<p>It is the longest saturated methyl ester that remains liquid at or near typical operating ambient, melting at 18 to 19 °C against 29 to 30 °C for methyl palmitate and 39 to 40 °C for methyl stearate, while retaining the high boiling point, low volatility and oxidative stability that longer saturated chains provide. It gets those properties without needing the double bonds that give unsaturated esters their low melting points at the cost of oxidative stability.</p>
+<p>It is the longest saturated methyl ester that remains liquid at or near typical operating ambient, melting at 18 to 19 °C against 32 to 35 °C for methyl palmitate and 37 to 41 °C for methyl stearate, while retaining the high boiling point, low volatility and oxidative stability that longer saturated chains provide. It is also the <b>shortest</b> chain whose flash point clears the 150 °C design target, at 157 °C against 136 °C for methyl laurate. It gets those properties without needing the double bonds that give unsaturated esters their low melting points at the cost of oxidative stability.</p>
 <p>This is precisely why our engineering target is chain-length control, not simply "more lipid." Yeast already makes fatty acids in bulk. It makes the wrong ones.</p></section>
 
 <section id="bio"><hr><h2>How yeast builds fatty acids</h2>
@@ -197,7 +213,6 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <p>The reaction chamber is enclosed. The ACP domain swings the growing chain between catalytic centres inside the barrel, and the product only leaves once MPT releases it. In a <b>type II</b> system such as <i>E. coli</i>, chain length is governed by the interplay of three distinct condensing enzymes plus downstream thioesterases, so retargeting means engineering several components at once. In the type I complex, the chain-length decision is concentrated in a single domain on a single gene: the ketoacyl synthase.</p>
 <h3>The KS domain and chain-length control</h3>
 <p>The KS domain accepts the growing acyl chain onto a catalytic cysteine, then condenses it with malonyl-ACP to extend it by two carbons. To do this, it must first accommodate the entire existing chain in a hydrophobic <b>acyl-binding tunnel</b> adjacent to the active site. The depth and volume of that tunnel act as a <b>molecular ruler</b>. Once the chain becomes too long for the pocket, binding is strained, condensation slows, and the competing MPT-mediated transfer to CoA wins out. <b>Shrink the pocket and the product gets shorter.</b></p>
-<p>This is not a hypothesis. Rigouin et al. modelled the <i>Yarrowia lipolytica</i> FAS ketoacyl synthase domain with a C16 acyl substrate, identified isoleucine 1220 as the residue lining the tunnel, and replaced it by TALEN-mediated editing. Bulky aromatic residues at that position shifted production toward myristate, and the best mutant, I1220W, accumulated C14 at 11.6 per cent of total fatty acids against a wild-type background where C14 is a minor side product. A follow-up deleting the elongase YlELO1 in an I1220W strain gave C14 as the sole fatty acid product.</p>
 <h3>From C14 fatty acid to methyl myristate</h3>
 <p>Redirecting FAS gets us to a C14 acyl-CoA and, after hydrolysis, free myristic acid. That is not yet a coolant. The ester bond still has to be formed. The conventional route, <b>chemical transesterification</b>, reintroduces a fossil-derived reagent and a downstream chemical step, which is exactly the dependency we set out to remove.</p>
 <p>Instead, we form the ester <b>inside the cell</b> using <b>DmJHAMT</b>, the juvenile hormone acid O-methyltransferase from <i>Drosophila melanogaster</i>. It takes S-adenosyl methionine (SAM), an abundant native metabolite, as the methyl donor and transfers the methyl group onto the carboxylate of the fatty acid.</p>
@@ -205,9 +220,45 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <p style="margin-top:16px">Because this route draws on the cell's own SAM pool, methyl donor supply is a plausible bottleneck at high flux. Our contingency is <b>co-overexpression of SAM2</b> to regenerate SAM if titre data indicate the methylation step is limiting.</p>
 <h3>Our engineering: FAS2 V1254W</h3>
 <p>Our core wetlab intervention is a <b>single-point mutation in the FAS2 ketoacyl synthase domain: valine 1254 to tryptophan.</b></p>
+<figure class="fig a-wipe" style="max-width:720px"><img src="project-description/v1254w-residues.webp" alt="Valine and tryptophan side chains compared, labelled V1254W"></figure>
 <p><b>The rationale.</b> Valine is small; tryptophan is the bulkiest proteinogenic residue. Substituting one for the other at a position lining the acyl-binding tunnel reduces the accessible tunnel volume without touching the catalytic triad. Chains that would previously have been accommodated at C16 are now sterically disfavoured, so release happens one cycle earlier and output shifts toward C14.</p>
+
+<h3>How did we achieve the mutation?</h3>
+<p>To introduce the mutation, we used <b>p426GPD</b> as a shuttle vector and introduced the required DNA inserts sequentially.</p>
+<div class="steps">
+
+<div class="step"><h4>Designing the mutation</h4>
+<p>A PCR-based mutagenesis strategy was used to generate the DNA fragments required for the mutation. Two inserts were designed: the first contained the modified <b>FAS2 open reading frame (ORF)</b> carrying the V1254W mutation, while the second contained the <b>3′ flanking region</b> required for the intended construct. Primers were designed to amplify the corresponding regions and introduce the required sequences for assembly.</p>
+<figure class="fig a-wipe" style="max-width:600px"><img src="project-description/orf-primer-design.webp" alt="FAS2 ORF with the V1254W mutation marked and forward and reverse primers at each end"></figure>
+<div class="pair">
+<figure class="fig"><img src="project-description/insert-orf-primers.webp" alt="FP1 and RP1 primer binding sites on the mutated FAS2 ORF"><figcaption><b>Insert 1</b>: mutated FAS2 ORF, primers FP1 and RP1.</figcaption></figure>
+<figure class="fig"><img src="project-description/insert-flank-primers.webp" alt="FP2 and RP2 primer binding sites on the 3-prime flanking region"><figcaption><b>Insert 2</b>: 3′ flanking region, primers FP2 and RP2.</figcaption></figure>
+</div></div>
+
+<div class="step"><h4>Sequential restriction digestion and cloning</h4>
+<p class="substep">Step 1: insertion of the mutated FAS2 ORF</p>
+<p>The p426GPD shuttle vector was used as the backbone. The vector was digested using the selected restriction enzyme sites to facilitate insertion of the mutated FAS2 ORF. The first insert was ligated into the vector, generating an <b>intermediate recombinant plasmid</b>.</p>
+<figure class="fig a-wipev" style="max-width:640px"><img src="project-description/digestion-step1.webp" alt="p426GPD cut with KpnI and XhoI, with the FAS2 ORF ligated in to give the intermediate recombinant plasmid"></figure>
+<p class="substep">Step 2: insertion of the 3′ flanking region</p>
+<p>The intermediate plasmid was subsequently subjected to restriction digestion to enable insertion of the 3′ flanking region. This second insert was introduced into the construct, completing the sequential assembly of the required DNA fragments.</p>
+<figure class="fig a-wipev" style="max-width:600px"><img src="project-description/digestion-step2.webp" alt="The intermediate plasmid cut with BamHI and SacI, with the 3-prime flank ligated in to give the final plasmid"></figure></div>
+
+<div class="step"><h4>Final recombinant construct</h4>
+<p>The final plasmid contained the FAS2 ORF carrying the V1254W mutation and the 3′ flanking region within the p426GPD backbone. This construct was prepared for downstream transformation and evaluation of the mutation.</p></div>
+
+<div class="step"><h4>Yeast transformation</h4>
+<p>The final recombinant construct was introduced into <i>Saccharomyces cerevisiae</i> through yeast transformation. The objective was to enable the engineered DNA construct to undergo <b>homologous recombination</b> with the native FAS2 locus, allowing incorporation of the V1254W mutation into the KS domain.</p></div>
+
+<div class="step"><h4>Screening of transformants</h4>
+<p>Following transformation, the yeast cells were screened on <b>SD-URA</b> selective medium. The p426GPD shuttle vector carries the <b>URA3</b> selectable marker, allowing selection of transformants that had acquired the plasmid. Colonies growing on SD-URA medium were selected for further screening.</p>
+<p>Growth on selective medium indicated successful acquisition of the URA3 marker but did not, by itself, confirm the intended genomic mutation. Further validation was required to verify the incorporation of V1254W at the FAS2 locus.</p></div>
+
+</div>
+
 <h3>Our complete engineered pathway</h3>
+<p>Putting the pieces together, the full route from sugar to coolant is:</p>
 <p class="path">Glucose → acetyl-CoA → (ACC1) → malonyl-CoA → (FAS with FAS2 V1254W) → myristoyl-CoA → myristic acid → (DmJHAMT + SAM) → methyl myristate</p>
+<figure class="fig a-wipe" style="max-width:100%"><img src="project-description/engineered-pathway.webp" alt="Glucose to acetyl-CoA to malonyl-CoA through FAS carrying FAS2 V1254W to myristoyl-CoA, myristic acid and, via DmJHAMT and SAM, methyl myristate"></figure>
 <div class="tw"><table><tr><th>Step</th><th>Intervention</th><th>Purpose</th></tr>
 <tr><td>Precursor supply</td><td>Native central metabolism</td><td>Provides acetyl-CoA and malonyl-CoA</td></tr>
 <tr><td>Chain-length control</td><td><b>FAS2 V1254W</b> point mutation</td><td>Narrows the KS acyl tunnel, shifting release from C16/C18 to C14</td></tr>
@@ -232,7 +283,45 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 </section>
 <section id="refs"><hr><h2>References</h2>
 <p style="font-size:16px">Sources cited in the sections above.</p>
-<ol style="font-size:17px;line-height:1.6;padding-left:22px"><li>Li, P. et al. Making AI Less Thirsty. <i>Communications of the ACM</i>, 2025. &mdash; projected AI water demand of 4.2&ndash;6.6 billion m&sup3; a year by 2027.</li><li>Anarock Capital, 2026. &mdash; India&rsquo;s installed data-centre IT capacity, the 2030 projection and the city-level breakdown.</li><li>S&amp;P Global. &mdash; study projecting that 60&ndash;80% of India&rsquo;s data centres face high water stress within this decade.</li><li>Open Compute Project (OCP). &mdash; reference targets for single-phase immersion cooling used in the design matrix.</li><li>Merck. &mdash; product specifications for methyl caprylate (C8) and methyl caprate (C10).</li><li>Sigma-Aldrich. &mdash; product specifications for methyl laurate (C12) and methyl palmitate (C16).</li><li>Barab&aacute;s, I. &amp; Todoru&#539;, A., 2011, Table 14. &mdash; dynamic viscosity of saturated methyl esters.</li><li>Rigouin, C. et al. &mdash; engineering of the <i>Yarrowia lipolytica</i> fatty acid synthase ketoacyl synthase domain; the I1220W mutant accumulating C14 at 11.6% of total fatty acids, and the follow-up Yl<i>ELO1</i> deletion study.</li><li>Protein Data Bank entry 8PRW. &mdash; experimental structure of yeast fatty acid synthase used for the V1254W structural validation.</li></ol></section>
+<h3>Data centres, water and cooling</h3>
+<ol class="refs"><li value="1">Li, P., Yang, J., Islam, M. A. &amp; Ren, S. (2025). Making AI Less &ldquo;Thirsty&rdquo;: Uncovering and Addressing the Secret Water Footprint of AI Models. <i>Communications of the ACM</i>. Preprint: arXiv:2304.03271.</li>
+<li value="2">Anarock Capital (2026). <i>Data Centre: The Blueprint of the Digital Fortress in India.</i> Anarock Capital, India.</li>
+<li value="3">Open Compute Project Foundation. <i>OCP Immersion Requirements Document</i> (Immersion Cooling Requirements, Rev. 2.0). Open Compute Project.</li>
+<li value="4">S&amp;P Global Sustainable1. <i>Insight Report</i>: water-stress evaluation for Indian data centres.</li>
+<li value="5">Down To Earth. Analysis of the 2019 Chennai &ldquo;Day Zero&rdquo; water crisis.</li>
+<li value="6">European Chemicals Agency (ECHA). PFAS restriction proposal and guidance.</li></ol>
+<h3>Coolant properties</h3>
+<ol class="refs"><li value="7">Barab&aacute;s, I. &amp; Todoru&#539;, I.-A. (2011). Biodiesel Quality, Standards and Properties. In: G. Montero &amp; M. Stoytcheva (Eds.), <i>Biodiesel: Quality, Emissions and By-Products</i>, Ch. 1, pp. 3&ndash;28. InTech, Rijeka. DOI: 10.5772/25370. (Table 14: density and viscosity of fatty acid esters.)</li>
+<li value="8">Fan, X. et al. (2018). Thermal conductivity measurements in fatty acid methyl esters. <i>Journal of Chemical Thermodynamics</i>.</li>
+<li value="9">Knothe, G. &amp; Steidley, K. R. (2005). Kinematic viscosity of biodiesel fuel components and related compounds. <i>Fuel</i>, 84(9), 1059&ndash;1065.</li>
+<li value="10">Knothe, G. (2005). Dependence of biodiesel fuel properties on the structure of fatty acid alkyl esters. <i>Fuel Processing Technology</i>, 86(10), 1059&ndash;1070.</li>
+<li value="11">Merck KGaA (Sigma-Aldrich). Product specification sheets for methyl caprylate (C8), methyl caprate (C10), methyl laurate (C12), methyl myristate (C14) and methyl palmitate (C16).</li></ol>
+<h3>Fatty acid synthase architecture and chain-length control</h3>
+<ol class="refs"><li value="12">Leibundgut, M., Maier, T., Jenni, S. &amp; Ban, N. (2008). The multienzyme architecture of eukaryotic fatty acid synthases. <i>Current Opinion in Structural Biology</i>, 18, 714&ndash;725.</li>
+<li value="13">Heath, R. J. &amp; Rock, C. O. (2002). The Claisen condensation in biology. <i>Natural Product Reports</i>, 19, 581&ndash;596.</li>
+<li value="14">Denic, V. &amp; Weissman, J. S. (2007). A molecular caliper mechanism for determining very long-chain fatty acid length. <i>Cell</i>, 130, 663&ndash;677.</li>
+<li value="15">Rigouin, C., Gueroult, M., Croux, C., Dubois, G., Borsenberger, V., Barbe, S., Marty, A., Daboussi, F., Andr&eacute;, I. &amp; Bordes, F. (2017). Production of Medium Chain Fatty Acids by <i>Yarrowia lipolytica</i>: Combining Molecular Design and TALEN to Engineer the Fatty Acid Synthase. <i>ACS Synthetic Biology</i>, 6(10), 1870&ndash;1879.</li>
+<li value="16">Rigouin, C., Croux, C., Borsenberger, V. et al. (2018). Increasing medium chain fatty acids production in <i>Yarrowia lipolytica</i> by metabolic engineering. <i>Microbial Cell Factories</i>, 17, 142. DOI: 10.1186/s12934-018-0989-5.</li>
+<li value="17">Gajewski, J., Pavlovic, R., Fischer, M., Boles, E. &amp; Grininger, M. (2017). Engineering fungal <i>de novo</i> fatty acid synthesis for short chain fatty acid production. <i>Nature Communications</i>, 8, 14650.</li>
+<li value="18">Zhu, Z., Zhou, Y. J., Krivoruchko, A., Grininger, M., Zhao, Z. K. &amp; Nielsen, J. (2017). Expanding the product portfolio of fungal type I fatty acid synthases. <i>Nature Chemical Biology</i>, 13, 360&ndash;362.</li>
+<li value="19">Singh, K. et al. (2023). Structural architecture of fungal fatty acid synthase. <i>Cell</i>.</li>
+<li value="20">Protein Data Bank entry <b>8PRW</b>: Cryo-EM structure of the yeast fatty acid synthase at 1.9&nbsp;&Aring; resolution. RCSB PDB, deposited 12 July 2023. DOI: 10.2210/pdb8prw/pdb.</li>
+<li value="21">UniProt Consortium. UniProtKB entries P19097 (FAS2_YEAST), P39540 (ELO1), P25358 (ELO2) and P40319 (ELO3), <i>Saccharomyces cerevisiae</i> S288c.</li></ol>
+<h3>Fatty acid elongation in yeast</h3>
+<ol class="refs"><li value="22">Tehlivets, O., Scheuringer, K. &amp; Kohlwein, S. D. (2007). Fatty acid synthesis and elongation in yeast. <i>Biochimica et Biophysica Acta</i>, 1771, 255&ndash;270.</li>
+<li value="23">Toke, D. A. &amp; Martin, C. E. (1996). Isolation and characterization of a gene affecting fatty acid elongation in <i>Saccharomyces cerevisiae</i>. <i>Journal of Biological Chemistry</i>, 271, 18413&ndash;18422.</li>
+<li value="24">Oh, C. S., Toke, D. A., Mandala, S. &amp; Martin, C. E. (1997). ELO2 and ELO3, homologues of the <i>S. cerevisiae</i> ELO1 gene, function in fatty acid elongation and are required for sphingolipid formation. <i>Journal of Biological Chemistry</i>, 272, 17376&ndash;17384.</li>
+<li value="25">Dittrich, F., Zajonc, D., H&uuml;hne, K., Hoja, U., Ekici, A., Greiner, E. et al. (1998). Fatty acid elongation in yeast, biochemical characteristics of the enzyme system and isolation of elongation-defective mutants. <i>European Journal of Biochemistry</i>, 252, 477&ndash;485.</li>
+<li value="26">Schneiter, R., Tatzer, V., Gogg, G., Leitner, E. &amp; Kohlwein, S. D. (2000). Elo1p-dependent carboxy-terminal elongation of C14:1&Delta;9 to C16:1&Delta;11 fatty acids in <i>Saccharomyces cerevisiae</i>. <i>Journal of Bacteriology</i>, 182, 3655&ndash;3660.</li></ol>
+<h3>Product accumulation and sink engineering</h3>
+<ol class="refs"><li value="27">Aym&eacute;, L., Jolivet, P., Nicaud, J.-M. &amp; Chardot, T. (2015). Molecular characterization of the <i>Elaeis guineensis</i> medium-chain fatty acid diacylglycerol acyltransferase DGAT1-1 by heterologous expression in <i>Yarrowia lipolytica</i>. <i>PLoS ONE</i>, 10, e0143113.</li></ol>
+<h3>Methyl ester formation</h3>
+<ol class="refs"><li value="28">Niwa, R. et al. (2008). Characterization of juvenile hormone acid O-methyltransferase (DmJHAMT) activity. <i>Insect Biochemistry and Molecular Biology</i>.</li>
+<li value="29">Shinoda, T. &amp; Itoyama, K. (2003). Juvenile hormone acid methyltransferase: a key regulatory enzyme for insect metamorphosis. <i>PNAS</i>, 100(21), 11986&ndash;11991.</li>
+<li value="30">Nawabi, P., Bauer, S., Kyrpides, N. &amp; Lykidis, A. (2011). Engineering <i>Escherichia coli</i> for Biodiesel Production Utilising a Bacterial Fatty Acid Methyltransferase. <i>Applied and Environmental Microbiology</i>, 77(22), 8052&ndash;8061.</li>
+<li value="31">Petronikolou, N. &amp; Nair, S. K. (2015). Biochemical Studies of Mycobacterial Fatty Acid Methyltransferase: A Catalyst for the Enzymatic Production of Biodiesel. <i>Chemistry &amp; Biology</i>, 22(11), 1480&ndash;1490.</li>
+<li value="32">Kalscheuer, R., St&ouml;lting, T. &amp; Steinb&uuml;chel, A. (2006). Microdiesel: <i>Escherichia coli</i> engineered for fuel production. <i>Microbiology</i>, 152(9), 2529&ndash;2536.</li>
+<li value="33">Chen, Y. et al. (2016). Boosting methyl donor flux through SAM2 upregulation. <i>Applied Biochemistry and Biotechnology</i>.</li></ol></section>
 </main></div></div>
 <script>
 const names=["Cooling Problem","Immersion","Ideal Coolant","Current Coolants"];
@@ -251,11 +340,8 @@ setActive(0);
 const secs=[...document.querySelectorAll('section[data-s]')];
 function onScroll(){let a=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*0.4)a=i});setActive(a);rail.classList.toggle("gone",document.getElementById("after4").getBoundingClientRect().top<150)}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-const heads=["Electrical","Thermal","Flow & Handling","Environmental & Safety"];
-const why=[["Protect the electronics","The fluid must insulate live components without compromising high-speed signals."],["Survive the heat","It must remain stable at high operating temperatures without boiling or excessive evaporation."],["Keep the system flowing","Low viscosity means the coolant can circulate through dense hardware with less pumping energy."],["Be safe &amp; sustainable","A practical coolant must have a high flash point, remain usable across temperatures, and minimise environmental impact."]];
-const row=document.getElementById('tabrow'),panel=document.getElementById('why');
-function show(i){[...row.children].forEach((th,k)=>th.firstChild.classList.toggle('on',k===i));panel.innerHTML='<h4>'+why[i][0]+'</h4><p style="margin:0">'+why[i][1]+'</p>';panel.style.animation='none';panel.offsetHeight;panel.style.animation=''}
-heads.forEach((h,i)=>{const th=document.createElement('th');const b=document.createElement('button');b.textContent=h;b.onclick=()=>show(i);th.appendChild(b);row.appendChild(th)});
-show(0);
+const heads=["Electrical ⚡","Thermal 🔥","Flow & Handling 💧","Environmental & Safety 🌱"];
+const row=document.getElementById('tabrow');
+heads.forEach(h=>{const th=document.createElement('th');th.className='mh';th.textContent=h;row.appendChild(th)});
 try{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.25});document.querySelectorAll(".fig,.logo-fig").forEach(f=>io.observe(f))}catch(e){document.querySelectorAll(".fig,.logo-fig").forEach(f=>f.classList.add("in"))}
 </script></body></html>

@@ -10,8 +10,8 @@
   --blue-2: #6d86d8;
   --ink: #23213f;
   width: 100%;
-  background: var(--navy);
-  color: #fff;
+  background: linear-gradient(to bottom, #fafafa 0%, #6db8ea 101.6%);
+  color: #17365d;
   overflow-x: hidden;
 }
 
@@ -32,7 +32,7 @@
   left: 0;
   right: 0;
   height: 50%;
-  background: var(--lavender);
+  background: #d3e9f8;
   overflow: hidden;
   transition: transform 1.15s cubic-bezier(0.77, 0, 0.175, 1);
   z-index: 1;
@@ -41,11 +41,15 @@
 }
 .doorTop {
   top: 0;
+  /* sky blue that runs on across the seam into the bottom half, matching the
+     page's own white-to-blue gradient */
+  background: linear-gradient(to bottom, #f4f9fd 0%, #d3e9f8 100%);
   align-items: flex-end;
   padding-bottom: 42px;
 }
 .doorBottom {
   bottom: 0;
+  background: linear-gradient(to bottom, #d3e9f8 0%, #a6d1ef 100%);
   align-items: flex-end;
   padding-bottom: 8%;
 }
@@ -93,7 +97,7 @@
   letter-spacing: 0.35em;
   text-transform: uppercase;
   font-size: 13px;
-  color: #6b6786;
+  color: #3d5f86;
   animation: pulse 1.8s ease-in-out infinite 1.6s both;
 }
 .door.opened .doorHint {
@@ -160,7 +164,7 @@
   border-radius: 20px;
   overflow: hidden;
   background: #d9d9d9;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 14px 36px rgba(9, 52, 123, 0.25);
   transition: box-shadow 0.35s ease;
 }
 .profCard:hover .profPhotoWrap {
@@ -201,13 +205,9 @@
   font-size: clamp(14px, 1.5vw, 18px);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #fff;
+  color: #17365d;
   text-align: center;
   white-space: nowrap;
-  background: linear-gradient(180deg, #ffffff 0%, #cdd7f0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 /* ESTER reveal — auto-triggered when scrolled into view: the two lines slide
@@ -229,7 +229,7 @@
   font-weight: 800;
   font-size: clamp(22px, 3.4vw, 38px);
   letter-spacing: 0.02em;
-  color: #fff;
+  color: #17365d;
   transform: translateX(-105%);
   opacity: 0;
   transition: transform 2.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -243,7 +243,7 @@
   font-size: clamp(40px, 8vw, 96px);
   letter-spacing: 0.22em;
   padding-left: 0.22em;
-  color: #b9e0c1;
+  color: #3f94d2;
   transform: translateX(105%);
   opacity: 0;
   transition: transform 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
@@ -264,14 +264,14 @@
   letter-spacing: 0.4em;
   text-transform: uppercase;
   font-size: 13px;
-  color: #cfcaf0;
+  color: #17365d;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   transition: color 0.25s;
 }
-.knowMore:hover { color: #fff; }
+.knowMore:hover { color: #3f94d2; }
 .knowMore .chevron {
   font-size: 20px;
   animation: bob 1.6s ease-in-out infinite;
@@ -291,7 +291,7 @@
   width: calc(100% - 48px);
   display: flex;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(9, 52, 123, 0.18);
 }
 .panelMain {
   flex: 1 1 auto;
@@ -570,9 +570,14 @@
 .conclusion {
   position: relative;
   max-width: 1245px;
+  width: calc(100% - 48px);
   margin: 96px auto 40px;
   padding: 40px clamp(24px, 5vw, 72px);
   min-height: 260px;
+  /* card behind the conclusion, matching the white content slab above */
+  background: #fdfcf8;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(9, 52, 123, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -583,12 +588,13 @@
   font-weight: 800;
   font-size: clamp(22px, 3vw, 30px);
   margin-bottom: 16px;
+  color: #3f94d2;
 }
 .conclusion p {
   max-width: 1000px;
   font-size: clamp(14px, 1.6vw, 16px);
   line-height: 1.7;
-  color: #d9d7ee;
+  color: #17365d;
 }
 .conclusion .bigI {
   position: absolute;
@@ -599,7 +605,7 @@
   font-weight: 800;
   font-size: clamp(120px, 16vw, 190px);
   line-height: 1;
-  color: rgba(255, 255, 255, 0.06);
+  color: rgba(23, 54, 93, 0.07);
   pointer-events: none;
 }
 

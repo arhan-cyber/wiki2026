@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synthetic Ester Coolant Map</title>
+<style>
+#cpfd{
+  --ink:#0f172a; --ink2:#475569; --ink3:#64748b; --line:#e2e8f0; --card:#ffffff; --bg:#f8fafc;
+  --step:#a9e2f7; --stepS:#3c9ccc; --io:#fde3a7; --ioS:#e0a73a; --util:#ede9fe; --utilS:#7c3aed; --accent:#ea580c;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink); background:var(--bg); line-height:1.45; padding:20px 16px 28px; box-sizing:border-box;
+}
+#cpfd *{box-sizing:border-box}
+#cpfd h2{font-size:clamp(20px,2.4vw,28px); margin:0 0 4px; letter-spacing:-.01em; font-weight:750}
+#cpfd .lede{color:var(--ink2); margin:0 0 16px; max-width:78ch; font-size:15px}
+#cpfd .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-bottom:14px}
+#cpfd .kpi{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px}
+#cpfd .kpi b{display:block; font-size:20px; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+#cpfd .kpi span{font-size:12px; color:var(--ink3)}
+#cpfd .kpi i{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px}
+#cpfd .bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:6px 0 10px}
+#cpfd .seg{display:inline-flex; background:#e2e8f0; border-radius:9px; padding:3px; flex-wrap:wrap}
+#cpfd .seg button{all:unset; cursor:pointer; padding:6px 11px; border-radius:7px; font-size:13px; color:var(--ink2); font-weight:550}
+#cpfd .seg button[aria-pressed="true"]{background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(15,23,42,.15)}
+#cpfd .seg button:focus-visible{outline:2px solid var(--accent)}
+#cpfd .hint{font-size:12.5px; color:var(--ink3)}
+#cpfd .legend{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink3); flex-wrap:wrap}
+#cpfd .ramp{width:140px; height:10px; border-radius:3px}
+#cpfd .main{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:14px; align-items:start}
+#cpfd .stage{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow-x:auto}
+#cpfd svg.pfd{display:block; width:100%; min-width:720px; height:auto}
+#cpfd .panel{position:sticky; top:12px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; max-height:calc(100vh - 24px); overflow:auto}
+@media (max-width:1100px){ #cpfd .main{grid-template-columns:1fr} #cpfd .panel{position:static; max-height:none} }
+#cpfd .n{cursor:pointer; outline:none}
+#cpfd .n .sh{transition:fill .25s, stroke .2s, opacity .2s; stroke-width:1.4}
+#cpfd .n .id{font-weight:750; fill:var(--ink); pointer-events:none}
+#cpfd .n .sub{fill:#1e293b; font-weight:600; pointer-events:none}
+#cpfd .n .val{font-size:12px; font-weight:700; pointer-events:none; font-variant-numeric:tabular-nums}
+#cpfd .n:hover .sh, #cpfd .n:focus .sh, #cpfd .n.on .sh{stroke:var(--accent)!important; stroke-width:3}
+#cpfd .e{fill:none; stroke:#334155; stroke-width:1.3; transition:stroke .2s, opacity .2s}
+#cpfd .e.u{stroke:#7c3aed; stroke-dasharray:5 4}
+#cpfd .e.hl{stroke:var(--accent); stroke-width:2.6}
+#cpfd svg.dim .n:not(.rel) .sh{opacity:.35}
+#cpfd svg.dim .e:not(.hl){opacity:.25}
+#cpfd .lab{font-size:12.5px; font-weight:650; fill:#1e293b; pointer-events:none}
+#cpfd .lab.u{fill:#6d28d9; font-weight:600; font-size:11.5px}
+#cpfd .p-kind{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink3); font-weight:700}
+#cpfd .p-title{font-size:18px; font-weight:750; margin:2px 0 2px; line-height:1.25}
+#cpfd .p-sub{font-size:13px; color:var(--ink2); margin-bottom:8px}
+#cpfd .p-desc{font-size:13.5px; color:#334155; margin:0 0 12px}
+#cpfd .co2{background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:10px 12px; margin-bottom:12px}
+#cpfd .co2.zero{background:#f8fafc; border-color:#e2e8f0}
+#cpfd .co2 .big{font-size:24px; font-weight:780; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+#cpfd .co2 .u{font-size:12px; color:var(--ink2); font-weight:600}
+#cpfd .meter{height:6px; background:#fde4cc; border-radius:3px; margin:6px 0 4px; overflow:hidden}
+#cpfd .meter > div{height:100%; background:var(--accent); border-radius:3px}
+#cpfd .co2 small{font-size:12px; color:var(--ink2); display:block}
+#cpfd .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px}
+#cpfd .cell{border:1px solid var(--line); border-radius:8px; padding:7px 8px}
+#cpfd .cell b{display:block; font-size:15px; font-variant-numeric:tabular-nums}
+#cpfd .cell span{font-size:11px; color:var(--ink3)}
+#cpfd .cell.z b{color:#94a3b8; font-weight:600}
+#cpfd h4{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink3); margin:14px 0 6px}
+#cpfd table{width:100%; border-collapse:collapse; font-size:13px}
+#cpfd td{padding:5px 0; border-bottom:1px solid #f1f5f9; vertical-align:top}
+#cpfd td.r{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; padding-left:8px; font-weight:600}
+#cpfd .src{font-size:9.5px; font-weight:700; border-radius:4px; padding:1px 5px; margin-left:5px; vertical-align:1px}
+#cpfd .src.LCA{background:#ffedd5; color:#9a3412}
+#cpfd .src.Route{background:#e0f2fe; color:#075985}
+#cpfd .sys{background:#f1f5f9; border-radius:8px; padding:8px 10px; font-size:12.5px; color:#334155; margin-top:12px}
+#cpfd .rank{list-style:none; margin:0; padding:0}
+#cpfd .rank li{display:grid; grid-template-columns:92px 1fr 64px; gap:8px; align-items:center; font-size:12.5px; padding:4px 0; cursor:pointer; border-radius:6px}
+#cpfd .rank li:hover{background:#f8fafc}
+#cpfd .rank .t{height:8px; background:#f1f5f9; border-radius:4px; overflow:hidden}
+#cpfd .rank .t div{height:100%; background:var(--accent)}
+#cpfd .rank .v{text-align:right; font-variant-numeric:tabular-nums; font-weight:650}
+#cpfd .stack{display:flex; height:14px; border-radius:4px; overflow:hidden; margin:6px 0 6px}
+#cpfd .sl{display:grid; grid-template-columns:14px 1fr auto; gap:6px; font-size:12.5px; padding:2px 0}
+#cpfd .sl i{width:10px; height:10px; border-radius:2px; margin-top:4px}
+#cpfd .sl b{font-variant-numeric:tabular-nums}
+#cpfd details{margin-top:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; font-size:13.5px; color:#334155}
+#cpfd summary{cursor:pointer; font-weight:700; color:var(--ink)}
+#cpfd details li{max-width:90ch}
+#cpfd .pin{font-size:11px; color:var(--accent); font-weight:700; margin-left:6px}
+#cpfd .close{all:unset; cursor:pointer; float:right; font-size:12px; color:var(--ink3); padding:2px 6px; border-radius:5px; border:1px solid var(--line)}
+</style>
+</head>
+<body style="margin:0;background:#f8fafc">
+<div id="cpfd">
+  <h2 id="c-title"></h2>
+  <p class="lede" id="c-lede"></p>
+  <div class="kpis" id="kpis"></div>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Colour units by" id="modes">
+      <button data-m="type" aria-pressed="true">Process type</button>
+      <button data-m="gwp" aria-pressed="false">Carbon footprint</button>
+      <button data-m="fos" aria-pressed="false">Fossil energy</button>
+      <button data-m="wat" aria-pressed="false">Water use</button>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="main">
+    <div class="stage"><svg class="pfd" id="pfd" role="img" aria-label="Interactive process flow diagram"></svg></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <details><summary>Data sources &amp; method</summary><ul id="c-method"></ul></details>
+</div>
+<script>
+(function(){
+const D = {"viewBox": "0 0 960 700", "nodes": [{"id": "ELEC", "kind": "util", "shape": "rect", "x": 380, "y": 18, "w": 180, "h": 66, "lines": ["Electricity"], "short": "Grid power", "title": "Electricity", "sub": "Shared utility · grid power", "desc": "Electricity used across the production steps and their direct suppliers. The LCA export gives the impact of the electricity but not the kWh per step, so it is shown as one shared supply.", "facts": [["Grid mix", "Indian regional grids (Chhattisgarh, Maharashtra, Madhya Pradesh, Gujarat) — mostly hard coal and lignite", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "Electricity", "gwp": 1.925211, "fos": 20.94397426930115, "wat": 0.32845811046969775, "luc": 0.0023564547115168272, "top": [["electricity production, hard coal", 0.8764281697211849], ["electricity production, lignite", 0.41230452577317134], ["electricity production, natural gas, combined cycle power plant", 0.06726833495644413], ["heat and power co-generation, natural gas, conventional power plant, 100MW electrical", 0.053925531362220024], ["electricity production, natural gas, conventional power plant", 0.051895055692885474]]}, {"id": "HEAT", "kind": "util", "shape": "rect", "x": 610, "y": 18, "w": 180, "h": 66, "lines": ["Process heat"], "short": "Gas · coal · fuel oil", "title": "Process heat", "sub": "Shared utility · industrial furnaces", "desc": "Heat for reactors and distillation, supplied by natural-gas, hard-coal and light-fuel-oil industrial furnaces. Like electricity, it is not split by step in the LCA export.", "facts": [], "note": null, "zeroWhy": null, "fs": null, "rankName": "Process heat", "gwp": 1.175334, "fos": 10.556077867951771, "wat": 0.01089844566174026, "luc": 0.0, "top": [["heat production, at hard coal industrial furnace 1-10MW", 0.32935051958118894], ["heat production, natural gas, at industrial furnace >100kW", 0.3250605283331052], ["heat production, light fuel oil, at industrial furnace 1MW", 0.2435328611641733], ["heat production, anthracite, at stove 5-15kW", 0.018838660794040247], ["heat production, natural gas, at boiler modulating >100kW", 0.013832758024502456]]}, {"id": "COCO", "kind": "input", "shape": "ellipse", "x": 88, "y": 190, "w": 62, "h": 32, "lines": ["Coconut", "plantation"], "short": null, "title": "Coconut plantation", "sub": "Raw material", "desc": "Coconuts from plantations, the source of the C8–C10 fatty acids. In the LCA model part of this land was recently converted from forest, which releases stored carbon.", "facts": [["Land-use change CO₂", "0.95 kg CO₂-eq per kg of coolant", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "COCO", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "FA-1", "kind": "step", "shape": "rect", "x": 200, "y": 150, "w": 170, "h": 80, "lines": ["FA-1"], "short": "Coconut fatty acids", "title": "FA-1 · Coconut fatty acids", "sub": "Coconut oil → C8–C10 fatty acids (background supply)", "desc": "Coconut oil is pressed, split into fatty acids and fractionated to the short-chain C8–C10 acids that are esterified with TMP. Includes plantation farming, fertiliser and forest-to-cropland conversion.", "facts": [["LCA processes", "coconut production → coconut oil → fatty acid production", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "FA-1 (coconut)", "gwp": 1.816763, "fos": 15.111051011505989, "wat": 30.86875534922752, "luc": 0.9527658450446181, "top": [["clear-cutting, secondary forest to arable land, perennial crop", 0.5423473582750866], ["coconut production, dehusked", 0.39533226022348644], ["clear-cutting, primary forest to arable land, perennial crop", 0.3402249988541529], ["diesel, burned in agricultural machinery", 0.1034444373376866], ["land use change, perennial crop", 0.05558400912996175]]}, {"id": "TMPF", "kind": "input", "shape": "ellipse", "x": 88, "y": 310, "w": 62, "h": 32, "lines": ["Propylene,", "methanol"], "short": null, "title": "Propylene & methanol", "sub": "Raw material", "desc": "Petrochemical feedstocks for TMP: propylene (to n-butyraldehyde) and methanol (to formaldehyde).", "facts": [], "note": null, "zeroWhy": null, "fs": null, "rankName": "TMPF", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "TMP-1", "kind": "step", "shape": "rect", "x": 200, "y": 270, "w": 170, "h": 80, "lines": ["TMP-1"], "short": "Trimethylolpropane", "title": "TMP-1 · Trimethylolpropane", "sub": "Polyol backbone (TMP proxy)", "desc": "n-Butyraldehyde (from propylene) is condensed with formaldehyde (from methanol) to give trimethylolpropane, the three-armed polyol that the fatty acids attach to.", "facts": [["LCA process", "Trimethylolpropane, proxy", "LCA"], ["Route", "aldol condensation + Cannizzaro reaction", "Route"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "TMP-1", "gwp": 0.050433, "fos": 1.4603116041821211, "wat": 0.1331789078174618, "luc": 0.0, "top": [["propylene production", 0.023865011950342983], ["oxidation of methanol", 0.012223356976012732], ["methanol production", 0.004375282440575602], ["chlor-alkali electrolysis, membrane cell", 0.00028750286442650306], ["treatment of waste polypropylene, municipal incineration", 9.075023710470818e-05]]}, {"id": "TOL", "kind": "input", "shape": "ellipse", "x": 88, "y": 430, "w": 62, "h": 32, "lines": ["Toluene +", "H₂SO₄"], "short": null, "title": "Toluene + sulfuric acid", "sub": "Raw material", "desc": "Feedstocks for the pTSA catalyst.", "facts": [], "note": null, "zeroWhy": null, "fs": null, "rankName": "TOL", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "PTSA-1", "kind": "step", "shape": "rect", "x": 200, "y": 390, "w": 170, "h": 80, "lines": ["PTSA-1"], "short": "pTSA catalyst", "title": "PTSA-1 · pTSA catalyst", "sub": "p-Toluenesulfonic acid (proxy)", "desc": "Toluene is sulfonated to p-toluenesulfonic acid, the acid catalyst for the esterification. Used at low dose, so its share is small.", "facts": [["LCA process", "pTSA-proxy (p-toluenesulfonic acid)", "LCA"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "PTSA-1", "gwp": 0.017596, "fos": 0.6993660602227791, "wat": 0.02488908626556965, "luc": 0.0, "top": [["toluene production, liquid", 0.014320837239858122], ["toluene diisocyanate production", 2.3354401119620783e-06], ["2,4-dinitrotoluene production", 1.9945644451803312e-06], ["toluene oxidation", 1.0318971529456727e-13]]}, {"id": "FLU", "kind": "input", "shape": "ellipse", "x": 88, "y": 550, "w": 62, "h": 32, "lines": ["Fluoro-", "chemicals"], "short": null, "title": "Fluorochemicals", "sub": "Raw material", "desc": "Feedstocks for the fluorinated performance additive.", "facts": [], "note": null, "zeroWhy": null, "fs": null, "rankName": "FLU", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "PFAS-1", "kind": "step", "shape": "rect", "x": 200, "y": 510, "w": 170, "h": 80, "lines": ["PFAS-1"], "short": "Fluorinated additive", "title": "PFAS-1 · Fluorinated additive", "sub": "Performance additive (PFAS proxy)", "desc": "Fluorinated additive blended into the finished coolant. Its carbon footprint is tiny, but it releases a persistent PFAS (PFHxA) to water.", "facts": [["LCA process", "PFAS-proxy (fluorinated additive)", "LCA"], ["Direct emission to water", "PFHxA (perfluorohexanoic acid), 4.8 mg per kg of coolant", "LCA"]], "note": null, "zeroWhy": "Only a small amount of additive is used per kg of coolant, so its CO₂ is negligible. Its main concern is the PFHxA emission, a “forever chemical” — see the output box below it.", "fs": null, "rankName": "PFAS-1", "gwp": 0.00033, "fos": 0.006012600955509115, "wat": 0.00029497462503332006, "luc": 0.0, "top": [["carbon tetrachloride production", 0.000165588405971646], ["sulfur hexafluoride production, liquid", 5.82823119948974e-05], ["chlorodifluoromethane production", 1.710196991451871e-05], ["1,1-difluoroethane production, HFC-152a", 1.2785312419379787e-05], ["vinyl fluoride production", 1.2776208231155637e-05]]}, {"id": "SE-1", "kind": "step", "shape": "rect", "x": 470, "y": 140, "w": 200, "h": 460, "lines": ["SE-1"], "short": "Esterification", "title": "SE-1 · Esterification & finishing", "sub": "TMP + fatty acids → synthetic ester", "desc": "TMP and the C8–C10 fatty acids react at high temperature with pTSA catalyst; the water formed is removed to drive the reaction. Excess acid is stripped and neutralised, the ester is filtered and the additive is blended in. The footprint shown covers other chemical inputs; its energy use sits in the shared utilities.", "facts": [["LCA process", "Synthetic ester coolant production (main step)", "LCA"], ["Steps", "esterification → water removal → acid stripping/neutralisation → filtration → additive blending", "Route"]], "note": null, "zeroWhy": null, "fs": null, "rankName": "SE-1", "gwp": 0.185851, "fos": 7.059393934062227, "wat": 0.13346490878858722, "luc": 0.0, "top": [["benzene production", 0.060808589788070105], ["ethylene production, average", 0.049156769944900376], ["butadiene production", 0.014687106374475381], ["xylene production", 0.012717308910635515], ["phenol production, from cumene", 0.003279111051332851]]}, {"id": "PROD", "kind": "output", "shape": "rect", "x": 770, "y": 330, "w": 165, "h": 84, "lines": ["Synthetic ester", "coolant"], "short": "1 kg · product", "title": "Synthetic ester immersion coolant", "sub": "Product · reference flow 1 kg", "desc": "Synthetic ester dielectric coolant, the reference product of this LCA. All values on this page are per 1 kg.", "facts": [["Carbon footprint", "5.17 kg CO₂-eq per kg", "LCA"], ["of which land-use change", "0.96 kg CO₂-eq", "LCA"], ["Fossil energy", "55.8 MJ per kg", "LCA"], ["Water use", "31.5 m³ world-eq per kg", "LCA"]], "note": null, "zeroWhy": null, "fs": 12.5, "rankName": "PROD", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}, {"id": "PFHXA", "kind": "output", "shape": "rect", "x": 205, "y": 625, "w": 160, "h": 58, "lines": ["PFHxA to water"], "short": "4.8 mg per kg", "title": "PFHxA emission to water", "sub": "Direct emission · from PFAS-1", "desc": "Perfluorohexanoic acid released to water from the fluorinated additive. It is a short-chain PFAS: very persistent in the environment.", "facts": [["Amount", "4.8 mg per kg of coolant", "LCA"], ["Freshwater ecotoxicity", "0.00096 CTUe per kg of coolant", "LCA"]], "note": null, "zeroWhy": null, "fs": 12, "rankName": "PFHXA", "gwp": 0, "fos": 0, "wat": 0, "luc": 0, "top": []}], "edges": [["COCO", "FA-1", [[150, 190], [200, 190]]], ["TMPF", "TMP-1", [[150, 310], [200, 310]]], ["TOL", "PTSA-1", [[150, 430], [200, 430]]], ["FLU", "PFAS-1", [[150, 550], [200, 550]]], ["FA-1", "SE-1", [[370, 190], [470, 190]]], ["TMP-1", "SE-1", [[370, 310], [470, 310]]], ["PTSA-1", "SE-1", [[370, 430], [470, 430]]], ["PFAS-1", "SE-1", [[370, 550], [470, 550]]], ["SE-1", "PROD", [[670, 372], [770, 372]]], ["PFAS-1", "PFHXA", [[285, 590], [285, 625]]], ["ELEC", "UTIL", [[470, 84], [470, 112]], 1], ["HEAT", "UTIL", [[700, 84], [700, 112]], 1], ["UTIL", "UTIL", [[180, 112], [700, 112]], 1], ["UTIL", "SE-1", [[570, 112], [570, 140]], 1], ["UTIL", "TMP-1", [[180, 112], [180, 290], [200, 290]], 1], ["UTIL", "PTSA-1", [[180, 290], [180, 410], [200, 410]], 1], ["UTIL", "PFAS-1", [[180, 410], [180, 530], [200, 530]], 1]], "labels": [["C8–C10 acids", 420, 182], ["TMP", 420, 302], ["catalyst", 420, 422], ["additive", 420, 542], ["shared electricity & heat", 330, 104, 1]], "meta": {"title": "Synthetic ester immersion coolant: process & carbon map", "lede": "Hover over (or tap) a box to see its carbon footprint, fossil energy and water use, and the background processes behind them. All values are <b>per 1 kg of synthetic ester immersion coolant</b>, cradle to gate.", "product": "Synthetic ester coolant", "gwp": 5.171518851867536, "parts": [["Electricity (grid)", 1.9252105435940792, "#2563eb"], ["Coconut fatty acids (incl. land-use change)", 1.8167630050919468, "#16a34a"], ["Process heat", 1.175334246092678, "#dc2626"], ["TMP, catalyst, additive & other chemicals", 0.2542110570888324, "#9333ea"]], "takeaway": "<b>Grid electricity</b> (37 %) and the <b>coconut fatty acids</b> (35 %) dominate. About half of the coconut share is land-use change — 0.96 kg CO₂-eq from clearing forest for plantations — which also makes the synthetic ester far more water-intensive (31 m³ world-eq per kg) than a fossil coolant.", "kpis": [["var(--accent)", "5.17 kg CO₂-eq", "Carbon footprint per kg coolant"], ["#2563eb", "1.93 kg CO₂-eq", "from electricity (37 %)"], ["#dc2626", "1.18 kg CO₂-eq", "from process heat (23 %)"], ["#64748b", "55.8 MJ", "Fossil energy use per kg"], ["#0891b2", "31.50 m³", "Water use per kg (deprivation-weighted)"]], "method": ["All impacts come from the openLCA model of the synthetic ester coolant (cradle to gate, version 2.2) (ecoinvent cut-off, EF v3.1), for 1 kg of coolant. Tagged <span class='src LCA'>LCA</span>.", "Process descriptions marked <span class='src Route'>typical route</span> describe the standard industrial chemistry; the LCA itself uses proxy processes for these steps.", "The LCA export lists the impact of every background process but not the electricity (kWh) or heat each step consumes. Electricity and heat are therefore shown as two shared utility boxes, not as kWh per step.", "Each background process was assigned to the box it supplies (for example, ethylene production to LAO-1, coconut farming to FA-1). Fuel extraction and supply chains are split between electricity, heat and petrochemical feedstocks in proportion to their direct emissions, and minor processes (transport, infrastructure) are spread proportionally. The boxes add up exactly to the LCA total.", "Electricity: Indian regional grids (Chhattisgarh, Maharashtra, Madhya Pradesh, Gujarat) — mostly hard coal and lignite."]}};
+const M = D.meta, NODES = D.nodes, byId = Object.fromEntries(NODES.map(n=>[n.id,n]));
+const svg = document.getElementById('pfd'), panel = document.getElementById('panel');
+svg.setAttribute('viewBox', D.viewBox);
+const NS='http://www.w3.org/2000/svg';
+let mode='type', pinned=null;
+document.getElementById('c-title').textContent = M.title;
+document.getElementById('c-lede').innerHTML = M.lede;
+document.getElementById('c-method').innerHTML = M.method.map(x=>`<li>${x}</li>`).join('');
+
+const fmt=(v,d)=>{ if(v==null) return '–'; const a=Math.abs(v);
+  const dd = d!=null?d:(a>=100?0:a>=10?1:a>=1?2:a>=0.01?3:4);
+  return v.toLocaleString('en-US',{minimumFractionDigits:dd,maximumFractionDigits:dd}); };
+const gS = v => v>=1 ? fmt(v,2)+' kg' : v>=0.001 ? fmt(v*1000, v*1000>=10?0:1)+' g' : v>0 ? '<1 g' : '0';
+const UNITS={gwp:'kg CO₂-eq',fos:'MJ',wat:'m³ world-eq'};
+const valS = (m,v)=> m==='gwp'? gS(v) : m==='fos'? fmt(v, v>=10?1:2)+' MJ' : fmt(v, v>=1?2:3)+' m³';
+const KIND={step:'Process step', input:'Raw material', output:'Output', util:'Shared utility'};
+
+document.getElementById('kpis').innerHTML = M.kpis.map(([c,b,s])=>`<div class="kpi"><b>${b}</b><span><i style="background:${c}"></i>${s}</span></div>`).join('');
+
+const RAMPS={gwp:['#fff7ed','#fdba74','#ea580c','#7c2d12'], fos:['#f8fafc','#cbd5e1','#64748b','#1e293b'], wat:['#ecfeff','#67e8f9','#0891b2','#164e63']};
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+function rampAt(st,t){ t=Math.max(0,Math.min(1,t)); const s=t*(st.length-1), i=Math.min(Math.floor(s),st.length-2), f=s-i;
+  const a=hex(st[i]), b=hex(st[i+1]); return 'rgb('+a.map((x,k)=>Math.round(x+(b[k]-x)*f)).join(',')+')'; }
+const maxOf=m=>Math.max(...NODES.map(n=>n[m]||0));
+function scaleT(m,v){ if(!v||v<=0) return null; const mx=maxOf(m), mn=mx/1e3; return Math.log(Math.max(v,mn)/mn)/Math.log(mx/mn); }
+const hasVal = n => n.kind==='step'||n.kind==='util'||(n.kind==='output'&&n.gwp>0);
+function fillFor(n){
+  if (mode==='type' || !hasVal(n)) return n.kind==='step'?'var(--step)': n.kind==='util'?'var(--util)':'var(--io)';
+  const t=scaleT(mode,n[mode]); return t==null?'#f1f5f9':rampAt(RAMPS[mode],0.08+0.92*t);
+}
+const strokeFor=n=> n.kind==='step'?'var(--stepS)': n.kind==='util'?'var(--utilS)':'var(--ioS)';
+
+const el=(t,a,p)=>{ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); (p||svg).appendChild(e); return e; };
+const defs=el('defs',{});
+[['ar','#334155'],['arH','#ea580c'],['arU','#7c3aed']].forEach(([id,c])=>{ const m=el('marker',{id:'cp'+id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},defs);
+  el('path',{d:'M0,1 L10,5 L0,9 z',fill:c},m); });
+const edgeEls = D.edges.map(([a,b,pts,u])=>{
+  const p=el('polyline',{points:pts.map(q=>q.join(',')).join(' '),class:'e'+(u?' u':'')});
+  if (b!=='UTIL') p.setAttribute('marker-end', u?'url(#cparU)':'url(#cpar)');
+  p.dataset.a=a; p.dataset.b=b; p.dataset.u=u?1:0; return p; });
+D.labels.forEach(([t,x,y,u])=>{ const e=el('text',{x,y,class:'lab'+(u?' u':''),'text-anchor':'middle'}); e.textContent=t; });
+
+const nodeEls={};
+NODES.forEach(n=>{
+  const g=el('g',{class:'n',tabindex:0,role:'button','aria-label':n.title});
+  let cx,cy;
+  if(n.shape==='ellipse'){ el('ellipse',{cx:n.x,cy:n.y,rx:n.w,ry:n.h,class:'sh',stroke:strokeFor(n)},g); cx=n.x; cy=n.y; }
+  else { el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,rx:n.kind==='output'?4:8,class:'sh',stroke:strokeFor(n)},g); cx=n.x+n.w/2; cy=n.y+n.h/2; }
+  const lines=n.lines, fs=n.fs||13, lh=fs*1.15, subFs=Math.max(9.5,fs*0.78);
+  const block = lines.length*lh + (n.short? subFs*1.3:0) + (hasVal(n)? 15:0);
+  let y = cy - block/2 + fs*0.85;
+  lines.forEach(l=>{ const t=el('text',{x:cx,y,class:'id','text-anchor':'middle'},g); t.textContent=l; t.style.fontSize=fs+'px'; y+=lh; });
+  let t2=null; if(n.short){ t2=el('text',{x:cx,y:y-lh+subFs*1.35,class:'sub','text-anchor':'middle'},g); t2.textContent=n.short; t2.style.fontSize=subFs+'px'; y+=subFs*1.3; }
+  const tv=el('text',{x:cx,y:y+4,class:'val','text-anchor':'middle'},g);
+  nodeEls[n.id]={g,sh:g.firstChild,tv};
+  g.addEventListener('mouseenter',()=>{ if(!pinned) show(n.id); });
+  g.addEventListener('focus',()=>show(n.id));
+  g.addEventListener('mouseleave',()=>{ if(!pinned) overview(); });
+  g.addEventListener('click',e=>{ e.stopPropagation(); pin(n.id); });
+  g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault(); pin(n.id);} if(e.key==='Escape') unpin(); });
+});
+svg.addEventListener('click',()=>unpin());
+
+function paint(){
+  NODES.forEach(n=>{ const o=nodeEls[n.id]; o.sh.setAttribute('fill',fillFor(n));
+    const show = mode!=='type' && hasVal(n); const t=scaleT(mode,n[mode]);
+    o.tv.textContent = show ? valS(mode,n[mode]||0) : '';
+    const dark = show && t!=null && t>0.6;
+    o.g.querySelectorAll('text').forEach(tx=>tx.style.fill = dark ? '#fff' : '');
+  });
+  const lg=document.getElementById('legend');
+  if(mode==='type') lg.innerHTML=`<span class="hint">Blue: process steps · Purple: shared utilities (dashed = supplies all steps) · Yellow: raw materials &amp; outputs. Click a box to pin it.</span>`;
+  else { const mx=maxOf(mode); lg.innerHTML=`<span>${fmt(mx/1e3)}</span><div class="ramp" style="background:linear-gradient(90deg,${RAMPS[mode].join(',')})"></div><span>${fmt(mx)} ${UNITS[mode]} per kg coolant</span><span class="hint">(log scale; grey = none)</span>`; }
+}
+function highlight(id){
+  svg.classList.toggle('dim',!!id);
+  NODES.forEach(n=>nodeEls[n.id].g.classList.remove('rel','on'));
+  edgeEls.forEach(e=>{ e.classList.remove('hl'); if(e.dataset.b!=='UTIL') e.setAttribute('marker-end', e.dataset.u==='1'?'url(#cparU)':'url(#cpar)'); });
+  if(!id) return;
+  const isU = byId[id].kind==='util';
+  nodeEls[id].g.classList.add('rel','on');
+  edgeEls.forEach(e=>{ const a=e.dataset.a, b=e.dataset.b;
+    if(a===id||b===id||(isU&&a==='UTIL')){ e.classList.add('hl'); if(b!=='UTIL') e.setAttribute('marker-end','url(#cparH)');
+      [a,b].forEach(x=>{ if(byId[x]) nodeEls[x].g.classList.add('rel'); }); }});
+}
+function show(id){
+  const n=byId[id]; highlight(id);
+  let h=`${pinned===id?'<button class="close" id="cpclose">Unpin ✕</button>':''}<div class="p-kind">${KIND[n.kind]}${pinned===id?'<span class="pin">· pinned</span>':''}</div>
+    <div class="p-title">${n.title}</div><div class="p-sub">${n.sub}</div><p class="p-desc">${n.desc}</p>`;
+  if (hasVal(n)){
+    const pct=n.gwp/M.gwp*100;
+    if (n.gwp < M.gwp*0.001 && n.zeroWhy){
+      h+=`<div class="co2 zero"><div class="u">Carbon footprint <span class="src LCA">LCA</span></div><div class="big" style="font-size:18px">${gS(n.gwp)} <span class="u">CO₂-eq per kg coolant</span></div><small>${n.zeroWhy}</small></div>`;
+    } else {
+      h+=`<div class="co2"><div class="u">Carbon footprint (attributed) <span class="src LCA">LCA</span></div>
+        <div class="big">${gS(n.gwp)} <span class="u">CO₂-eq per kg coolant</span></div>
+        <div class="meter"><div style="width:${Math.max(pct,0.4)}%"></div></div><small>${fmt(pct,pct<1?2:1)} % of the ${fmt(M.gwp,2)} kg CO₂-eq total</small></div>`;
+    }
+    const c=(v,s,l)=>`<div class="cell${v>0.0005?'':' z'}"><b>${v>0.0005?s:'0'}</b><span>${l}</span></div>`;
+    h+=`<div class="grid3">${c(n.fos,fmt(n.fos,n.fos>=10?1:2)+' MJ','Fossil energy')}${c(n.wat,fmt(n.wat,n.wat>=1?2:3)+' m³','Water use')}${c(n.luc,gS(n.luc),'Land-use CO₂')}</div>`;
+    if (n.top && n.top.length) h+=`<h4>Largest contributing processes <span class="src LCA">LCA</span></h4><table>`+
+      n.top.map(([p,v])=>`<tr><td>${p}</td><td class="r">${gS(v)}</td></tr>`).join('')+`</table>`;
+  }
+  if (n.facts && n.facts.length) h+=`<h4>Details</h4><table>`+n.facts.map(([l,v,s])=>`<tr><td>${l}${s?`<span class="src ${s}">${s==='Route'?'typical route':s}</span>`:''}</td><td class="r" style="white-space:normal">${v}</td></tr>`).join('')+`</table>`;
+  if (n.note) h+=`<div class="sys">${n.note}</div>`;
+  panel.innerHTML=h;
+  const cb=document.getElementById('cpclose'); if(cb) cb.onclick=e=>{e.stopPropagation(); unpin();};
+}
+function overview(){
+  highlight(null);
+  const parts=M.parts, ranked=NODES.filter(hasVal).filter(n=>n.gwp>0).sort((a,b)=>b.gwp-a.gwp).slice(0,7), mx=ranked[0].gwp;
+  panel.innerHTML=`<div class="p-kind">Overview</div><div class="p-title">Where the carbon footprint comes from</div>
+    <p class="p-desc">Hover over a box in the diagram for details, or click one to pin it.</p>
+    <h4>By source <span class="src LCA">LCA</span></h4>
+    <div class="stack">${parts.map(([l,v,c])=>`<div style="width:${v/M.gwp*100}%;background:${c}" title="${l}"></div>`).join('')}</div>
+    ${parts.map(([l,v,c])=>`<div class="sl"><i style="background:${c}"></i><span>${l}</span><b>${fmt(v/M.gwp*100,1)} %</b></div>`).join('')}
+    <h4>Ranking (CO₂-eq per kg coolant)</h4>
+    <ul class="rank">${ranked.map(u=>`<li data-id="${u.id}"><b>${u.rankName}</b><div class="t"><div style="width:${u.gwp/mx*100}%"></div></div><span class="v">${gS(u.gwp)}</span></li>`).join('')}</ul>
+    <div class="sys">${M.takeaway}</div>`;
+  panel.querySelectorAll('.rank li').forEach(li=>{ li.onmouseenter=()=>highlight(li.dataset.id); li.onmouseleave=()=>highlight(null);
+    li.onclick=e=>{ e.stopPropagation(); pin(li.dataset.id); }; });
+}
+function pin(id){ pinned=(pinned===id)?null:id; pinned?show(id):overview(); }
+function unpin(){ pinned=null; overview(); }
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ mode=b.dataset.m;
+  document.querySelectorAll('#modes button').forEach(x=>x.setAttribute('aria-pressed',x===b)); paint(); });
+paint(); overview();
+})();
+</script>
+</body>
+</html>

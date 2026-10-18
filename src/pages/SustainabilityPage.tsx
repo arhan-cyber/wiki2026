@@ -57,7 +57,7 @@ export default function SustainabilityPage() {
 
       {/* SDG 6 */}
       <div id="sdg-6" className="dummy-section">
-        <h2>SDG 6 — Clean Water and Sanitation</h2>
+        <h2>SDG 6: Clean Water and Sanitation</h2>
 
         <h3>The Problem: Data Centers Are in a Water Crisis, and Creating One</h3>
         <p>
@@ -203,7 +203,7 @@ export default function SustainabilityPage() {
 
       {/* SDG 7 */}
       <div id="sdg-7" className="dummy-section">
-        <h2>SDG 7 — Affordable and Clean Energy</h2>
+        <h2>SDG 7: Affordable and Clean Energy</h2>
 
         <h3>Understanding the Target: Where We Are and Why It Matters</h3>
         <p>
@@ -294,7 +294,7 @@ export default function SustainabilityPage() {
 
       {/* SDG 9 */}
       <div id="sdg-9" className="dummy-section">
-        <h2>SDG 9 — Industry, Innovation and Infrastructure</h2>
+        <h2>SDG 9: Industry, Innovation and Infrastructure</h2>
 
         <h3>The Market Gap Our Project Was Built To Fill</h3>
         <p>
@@ -422,7 +422,7 @@ export default function SustainabilityPage() {
 
       {/* SDG 11 */}
       <div id="sdg-11" className="dummy-section">
-        <h2>SDG 11 — Sustainable Cities and Communities</h2>
+        <h2>SDG 11: Sustainable Cities and Communities</h2>
 
         <h3>Mechanism</h3>
         <p>
@@ -493,7 +493,7 @@ export default function SustainabilityPage() {
 
       {/* SDG 12 */}
       <div id="sdg-12" className="dummy-section">
-        <h2>SDG 12 — Responsible Consumption and Production</h2>
+        <h2>SDG 12: Responsible Consumption and Production</h2>
 
         <h3>The Problem With "Just Disposing of It Properly"</h3>
         <p>
@@ -578,7 +578,7 @@ export default function SustainabilityPage() {
 
       {/* SDG 13 */}
       <div id="sdg-13" className="dummy-section">
-        <h2>SDG 13 — Climate Action</h2>
+        <h2>SDG 13: Climate Action</h2>
 
         <h3>Two Warming Stories: Grid CO<sub>2</sub> and Hyperlocal Heat</h3>
         <p>

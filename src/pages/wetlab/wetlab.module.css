@@ -79,15 +79,74 @@
   background: #fafafa;
   display: flex;
   justify-content: center;
-  padding: 26px 0 30px;
+  padding: 72px 0 40px;
+}
+
+/* The wheel artwork carries only the arrows and connectors; the icon circles,
+   labels and centre hint sit on top as real elements, sized from the wheel's
+   own width (cqw) so they scale with it. */
+.wheelWrap {
+  position: relative;
+  width: min(820px, 80%);
+  container-type: inline-size;
 }
 
 .wheelImg {
   display: block;
-  width: min(860px, 100%);
+  width: 100%;
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.wheelHint {
+  position: absolute;
+  left: 49.5%;
+  top: 47.3%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  pointer-events: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: max(15px, 2.9cqw);
+  line-height: 1.25;
+  text-align: center;
+  color: #5f6c82;
+  white-space: nowrap;
+}
+
+.wheelLabel {
+  position: absolute;
+  width: 17cqw;
+  transform: translate(-50%, -5.115cqw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7cqw;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: max(11px, 1.8cqw);
+  line-height: 1.2;
+  text-align: center;
+  color: #1a2550;
+}
+
+.wheelIcon {
+  width: 10.23cqw;
+  height: 10.23cqw;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(26, 37, 80, 0.16);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.wheelLabel:hover .wheelIcon,
+.wheelLabel:focus-visible .wheelIcon {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(26, 37, 80, 0.24);
 }
 
 /* ---------- PROTOCOLS: sections ---------- */
@@ -113,9 +172,10 @@
   margin-left: 31px;
   font-family: var(--font-mont);
   font-weight: 700;
-  font-size: 32px;
-  line-height: normal;
-  color: #172b4d;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #3f94d2;
   text-transform: uppercase;
 }
 
@@ -280,10 +340,13 @@
 
 .cardHeading {
   font-family: var(--font-mont);
-  font-weight: 800;
-  font-size: 40px;
-  line-height: normal;
-  margin: 0 0 24px;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #3f94d2;
+  margin: 0 0 22px;
 }
 
 /* ---------- parts ---------- */
@@ -350,12 +413,22 @@
   flex-direction: column;
   align-items: center;
 }
+.imagesInCard {
+  margin-top: 30px;
+  box-shadow: none;
+}
+.imagesInCard .slideImg,
+.imagesInCard .caption {
+  max-width: 100%;
+}
 .imagesTitle {
   font-family: var(--font-mont);
-  font-weight: 800;
-  font-size: 35px;
-  line-height: normal;
-  color: #2a3a57;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #3f94d2;
   margin: 0 0 20px;
 }
 /* 4x the previous area (was 296x223) */

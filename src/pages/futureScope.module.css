@@ -1,0 +1,334 @@
+/* Future Scope — from the Figma "future scope" frame. Colours, type and the
+   snaking connector between the scope cards follow cssalllayer.css. */
+
+.panel {
+  background: #fafafa;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(9, 52, 123, 0.12);
+  padding: 40px 44px 48px;
+  font-family: 'Inter', sans-serif;
+  color: #343a40;
+}
+
+.section + .section {
+  margin-top: 44px;
+}
+
+.h1 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.2vw, 42px);
+  line-height: 1.2;
+  color: #2a3a57;
+  margin: 0 0 16px;
+}
+
+.h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(21px, 2vw, 26px);
+  line-height: 1.25;
+  color: #3f94d2;
+  margin: 0 0 14px;
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------- What we have accomplished ---------- */
+
+.dropGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.drop {
+  background: #ebf2ff;
+  border: 1px solid #ebf2ff;
+  border-radius: 19px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.dropBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 14px 18px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #000;
+  text-align: left;
+}
+
+.caret {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 10px solid #1e1e1e;
+  transition: transform 0.2s ease;
+}
+
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+.dropBody {
+  padding: 0 18px 16px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #343a40;
+}
+
+.dropBody p {
+  margin: 0;
+}
+
+/* ---------- Scope cards on a snaking track ---------- */
+
+.track {
+  --bar: 10px;
+  --inset: 30px;
+  position: relative;
+  margin-top: 26px;
+}
+
+.step {
+  position: relative;
+  padding: 0 0 var(--inset);
+  border-bottom: var(--bar) solid transparent;
+}
+
+.step:nth-child(odd) {
+  border-left: var(--bar) solid transparent;
+  border-bottom-left-radius: 22px;
+  padding-left: var(--inset);
+}
+
+.step:nth-child(even) {
+  border-right: var(--bar) solid transparent;
+  border-bottom-right-radius: 22px;
+  padding-right: var(--inset);
+  margin-top: calc(var(--bar) * -1);
+  padding-top: var(--inset);
+}
+
+.step:nth-child(odd):not(:first-child) {
+  margin-top: calc(var(--bar) * -1);
+  padding-top: var(--inset);
+}
+
+/* the line ends beside the last card */
+.step:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.step > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- The flowing drop on the line (ScopeTrack) ---------- */
+
+.trackSvg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.trail {
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.65));
+}
+
+.core {
+  opacity: 0.55;
+}
+
+.bubbles {
+  stroke-dasharray: 0.1 22;
+  opacity: 0.75;
+  animation: bubbleFlow 0.9s linear infinite;
+}
+
+@keyframes bubbleFlow {
+  to {
+    stroke-dashoffset: -22.1;
+  }
+}
+
+.station .stationDot {
+  fill: #fafafa;
+  stroke: #3f94d2;
+  transition: fill 0.35s ease, stroke 0.35s ease;
+}
+
+.station .stationHalo {
+  fill: rgba(34, 211, 238, 0.32);
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stationLit .stationDot {
+  fill: #14c7b4;
+  stroke: #fff;
+}
+
+.stationLit .stationHalo {
+  opacity: 1;
+  transform: scale(1);
+  animation: haloPulse 2.2s ease-in-out 0.45s infinite;
+}
+
+@keyframes haloPulse {
+  50% {
+    opacity: 0.45;
+    transform: scale(1.35);
+  }
+}
+
+.drop {
+  filter: drop-shadow(0 0 7px rgba(56, 189, 248, 0.85)) drop-shadow(0 3px 4px rgba(3, 105, 161, 0.35));
+}
+
+.wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 70%;
+  animation: wobble 1.6s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: scale(1, 1); }
+  30% { transform: scale(1.06, 0.95); }
+  60% { transform: scale(0.96, 1.05); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubbles,
+  .wobble,
+  .stationLit .stationHalo {
+    animation: none;
+  }
+}
+
+.card {
+  background: #eef8f9;
+  border: 2px solid #dceff0;
+  border-radius: 26px;
+  box-shadow: 0 4px 10px #9fc6e9;
+  padding: 22px 26px;
+}
+
+.cardTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #000;
+  margin: 0 0 14px;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1e1e1e;
+  margin: 14px 0 4px;
+}
+
+.label:first-of-type {
+  margin-top: 0;
+}
+
+.card p,
+.card li {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #343a40;
+}
+
+.card p {
+  margin: 0;
+}
+
+.card ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.pending {
+  font-style: italic;
+  color: #6b7b96;
+}
+
+/* ---------- The road ahead ---------- */
+
+.roadBox {
+  background: #fafafa;
+  border: 2px solid #88c0e6;
+  border-radius: 34px;
+  box-shadow: 2px 4px 10px #88c0e6;
+  padding: 24px 30px;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.sign {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.signTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(30px, 3.4vw, 42px);
+  line-height: 1.1;
+  color: #010055;
+  margin: 0;
+}
+
+.signSub {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(17px, 1.8vw, 22px);
+  color: #3f94d2;
+  margin: 6px 0 0;
+}
+
+@media (max-width: 900px) {
+  .dropGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 26px 18px 32px;
+  }
+  .track {
+    --bar: 6px;
+    --inset: 14px;
+  }
+  .card {
+    padding: 18px;
+  }
+}

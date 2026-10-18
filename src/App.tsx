@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import KytPage from './pages/KytPage';
@@ -10,6 +10,7 @@ import ProjectDescriptionPage from './pages/ProjectDescriptionPage';
 import ProjectEngineeringPage from './pages/ProjectEngineeringPage';
 import EntrepreneurshipPage from './pages/EntrepreneurshipPage';
 import NewsPage from './pages/NewsPage';
+import FutureScopePage from './pages/FutureScopePage';
 import ProtocolsPage from './pages/wetlab/ProtocolsPage';
 import NotebookPage from './pages/wetlab/NotebookPage';
 import PartsPage from './pages/wetlab/PartsPage';
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/project/description" element={<ProjectDescriptionPage />} />
         <Route path="/project/engineering" element={<ProjectEngineeringPage />} />
         <Route path="/project/news" element={<NewsPage />} />
+        <Route path="/project/future-scope" element={<FutureScopePage />} />
         <Route path="/human-practices/entrepreneurship" element={<EntrepreneurshipPage />} />
         <Route path="/team/kyt" element={<KytPage />} />
         <Route path="/team/attribution" element={<AttributionPage />} />
@@ -35,14 +37,13 @@ export default function App() {
         <Route path="/wet-lab/notebook" element={<NotebookPage />} />
         <Route path="/wet-lab/parts" element={<PartsPage />} />
         <Route path="/wet-lab/safety" element={<SafetyPage />} />
-        <Route path="/dry-lab" element={<DryLabPage slug="home" />} />
+        <Route path="/dry-lab" element={<Navigate to="/dry-lab/model" replace />} />
         <Route path="/dry-lab/model" element={<DryLabPage slug="model" />} />
         <Route path="/dry-lab/model/:slug" element={<DryLabModelRoute />} />
+        <Route path="/dry-lab/software" element={<DryLabPage slug="software" />} />
         <Route path="/dry-lab/cfd" element={<DryLabPage slug="cfd" />} />
         <Route path="/dry-lab/lca" element={<DryLabPage slug="lca" />} />
-        <Route path="/dry-lab/dbtl" element={<DryLabPage slug="dbtl" />} />
-        <Route path="/dry-lab/software" element={<DryLabPage slug="software" />} />
-        <Route path="/dry-lab/contribution" element={<DryLabPage slug="contribution" />} />
+        <Route path="/dry-lab/contribution" element={<Navigate to="/dry-lab/model" replace />} />
       </Routes>
     </div>
   );

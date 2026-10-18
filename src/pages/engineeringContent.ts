@@ -80,7 +80,7 @@ export const masterStages: Stage[] = [
     tint: '#EDF3FF',
     question: 'How can we alter FAS to shift production toward C14?',
     blocks: [
-      { t: 'h', text: '1. Enzyme Design — Engineering FAS2 for C14 Production' },
+      { t: 'h', text: '1. Enzyme Design: Engineering FAS2 for C14 Production' },
       {
         t: 'p',
         text: 'To shift FAS output from C16/C18 toward C14, we targeted the acyl-binding cavity, which controls fatty-acid chain length.',
@@ -89,14 +89,14 @@ export const masterStages: Stage[] = [
         t: 'p',
         text: 'BLAST and phylogenetic analysis were used to identify variable cavity-lining residues in S. cerevisiae FAS. Candidate mutations were evaluated using molecular docking and molecular dynamics for their predicted C14 versus C16 preference. V1254W was selected as the lead mutation, predicted to reduce cavity volume and favour C14 release.',
       },
-      { t: 'h', text: '2. Chassis Design — Will Yeast Retain C14?' },
+      { t: 'h', text: '2. Chassis Design: Will Yeast Retain C14?' },
       {
         t: 'p',
         text: 'FAS engineering alone may not increase C14 accumulation if the cell subsequently consumes the product. We therefore used genome-scale flux balance analysis (FBA) with the Yeast8/9 model to study C14 metabolism.',
       },
       {
         t: 'p',
-        text: 'We examined competing pathways, particularly peroxisomal beta-oxidation and fatty-acid reactivation, to identify potential routes of C14 loss and distinguish poor production from post-production degradation.',
+        text: 'We examined competing pathways, particularly peroxisomal β-oxidation and fatty-acid reactivation, to identify potential routes of C14 loss and distinguish poor production from post-production degradation.',
       },
     ],
   },
@@ -115,12 +115,12 @@ export const masterStages: Stage[] = [
       { t: 'h', text: '1. Construct Assembly' },
       {
         t: 'p',
-        text: 'The construct was assembled through DBTL cycles, incorporating mutated FAS2, regulatory elements, and the 3-prime homology flank. Restriction digestion and PCR screened constructs, while Sanger sequencing confirmed the final sequence and V1254W mutation.',
+        text: 'The construct was assembled through DBTL cycles, incorporating mutated FAS2, regulatory elements, and the 3′ homology flank. Restriction digestion and PCR screened constructs, while Sanger sequencing confirmed the final sequence and V1254W mutation.',
       },
       { t: 'h', text: '2. Yeast Transformation + Verification' },
       {
         t: 'p',
-        text: 'Transformants were selected using a URA marker. Correct genomic integration was verified using 5-prime and 3-prime junction PCR, with primers spanning the construct-genome boundaries.',
+        text: 'Transformants were selected using a URA marker. Correct genomic integration was verified using 5′ and 3′ junction PCR, with primers spanning the construct–genome boundaries.',
       },
       {
         t: 'ul',
@@ -175,7 +175,7 @@ export const wetlabCycles: Accordion[] = [
       { t: 'h', text: 'Design' },
       {
         t: 'p',
-        text: 'Designed primers targeting the 5-prime and 3-prime ends of the FAS2 ORF. In-silico Tm analysis showed a disparity between the primers, so a 3-point gradient PCR was planned across the predicted annealing temperatures.',
+        text: 'Designed primers targeting the 5′ and 3′ ends of the FAS2 ORF. In-silico Tm analysis showed a disparity between the primers, so a 3-point gradient PCR was planned across the predicted annealing temperatures.',
       },
       { t: 'h', text: 'Build' },
       {
@@ -185,7 +185,7 @@ export const wetlabCycles: Accordion[] = [
       { t: 'h', text: 'Test' },
       {
         t: 'p',
-        text: 'Initial reactions consistently produced faint or absent FAS2 ORF bands. After replacing the PCR reagents and repeating the same gradient, substantially brighter and sharper bands were obtained. The forward primer performed best at 58 degrees C, while the 3-prime reverse primer performed best at 60 degrees C.',
+        text: 'Initial reactions consistently produced faint or absent FAS2 ORF bands. After replacing the PCR reagents and repeating the same gradient, substantially brighter and sharper bands were obtained. The forward primer performed best at 58°C, while the 3′ reverse primer performed best at 60°C.',
       },
       { t: 'h', text: 'Learn' },
       {
@@ -227,12 +227,12 @@ export const wetlabCycles: Accordion[] = [
   },
   {
     id: 'wl3',
-    title: 'DBTL Cycle 3',
+    title: 'DBTL Cycle 3: Directional Cloning of FAS2 insert into p426GPD and Recombinant Plasmid Validation',
     blocks: [
       { t: 'h', text: 'Design' },
       {
         t: 'p',
-        text: 'The intermediate plasmid generated in the previous cycle, containing the FAS2 ORF in place of the CYC1 terminator, was used as the starting backbone for the next assembly. The objective was to replace the existing GAP promoter and incorporate the required 3-prime flank, thereby completing the recombinant construct. The same restriction-ligation strategy used in DBTL Cycle 2 was followed, using compatible restriction sites to remove the existing promoter and introduce the replacement sequence in the desired orientation.',
+        text: 'The intermediate plasmid generated in the previous cycle, containing the FAS2 ORF in place of the CYC1 terminator, was used as the starting backbone for the next assembly. The objective was to replace the existing GAP promoter and incorporate the required 3′ flank, thereby completing the recombinant construct. The same restriction–ligation strategy used in DBTL Cycle 2 was followed, using compatible restriction sites to remove the existing promoter and introduce the replacement sequence in the desired orientation.',
       },
       { t: 'h', text: 'Build' },
       {
@@ -246,7 +246,7 @@ export const wetlabCycles: Accordion[] = [
       },
       {
         t: 'p',
-        text: 'After several iterations of screening and troubleshooting, we confirmed the incorporation of the 3-prime flank into the construct. As a final validation step, the complete plasmid was sent for Sanger sequencing. The sequencing data showed the expected sequence as well as the intended FAS2 mutation, providing sequence-level confirmation that the recombinant plasmid had been correctly assembled.',
+        text: 'After several iterations of screening and troubleshooting, we confirmed the incorporation of the 3′ flank into the construct. As a final validation step, the complete plasmid was sent for Sanger sequencing. The sequencing data showed the expected sequence as well as the intended FAS2 mutation, providing sequence-level confirmation that the recombinant plasmid had been correctly assembled.',
       },
       { t: 'h', text: 'Learn' },
       {
@@ -257,16 +257,16 @@ export const wetlabCycles: Accordion[] = [
   },
   {
     id: 'wl4',
-    title: 'DBTL Cycle 4',
+    title: 'DBTL Cycle 4: Yeast Transformation and Genomic Integration Verification',
     blocks: [
       { t: 'h', text: 'Design' },
       {
         t: 'p',
-        text: 'The validated recombinant plasmid was designed for integration into the Saccharomyces cerevisiae genome through homologous recombination. The construct contained the required 5-prime and 3-prime homology flanks, allowing the plasmid sequence to recombine with the corresponding genomic locus. A URA auxotrophic marker was included in the construct to enable selection of yeast cells that had acquired the plasmid DNA.',
+        text: 'The validated recombinant plasmid was designed for integration into the Saccharomyces cerevisiae genome through homologous recombination. The construct contained the required 5′ and 3′ homology flanks, allowing the plasmid sequence to recombine with the corresponding genomic locus. A URA auxotrophic marker was included in the construct to enable selection of yeast cells that had acquired the plasmid DNA.',
       },
       {
         t: 'p',
-        text: 'To distinguish successful genomic integration from simple acquisition of plasmid DNA, two sets of junction PCR primers were designed. For each flank, one primer was positioned outside the integration construct, within the yeast genome, while the second primer was positioned inside the recombinant plasmid. Separate primer sets were designed for the 5-prime and 3-prime integration junctions.',
+        text: 'To distinguish successful genomic integration from simple acquisition of plasmid DNA, two sets of junction PCR primers were designed. For each flank, one primer was positioned outside the integration construct, within the yeast genome, while the second primer was positioned inside the recombinant plasmid. Separate primer sets were designed for the 5′ and 3′ integration junctions.',
       },
       { t: 'h', text: 'Build' },
       {
@@ -280,11 +280,11 @@ export const wetlabCycles: Accordion[] = [
       },
       {
         t: 'p',
-        text: 'For the 5-prime junction PCR, one primer annealed to the genomic sequence outside the 5-prime homology flank, while the second annealed within the integrated construct. Similarly, for the 3-prime junction PCR, one primer annealed outside the 3-prime homology flank in the genome and the other annealed within the construct.',
+        text: 'For the 5′ junction PCR, one primer annealed to the genomic sequence outside the 5′ homology flank, while the second annealed within the integrated construct. Similarly, for the 3′ junction PCR, one primer annealed outside the 3′ homology flank in the genome and the other annealed within the construct.',
       },
       {
         t: 'p',
-        text: 'Amplicons were obtained for both the 5-prime and 3-prime junctions in the screened colonies. Since each PCR requires a primer located outside the introduced construct, amplification indicates that the construct is physically joined to the corresponding genomic region, rather than merely being present independently in the cell.',
+        text: 'Amplicons were obtained for both the 5′ and 3′ junctions in the screened colonies. Since each PCR requires a primer located outside the introduced construct, amplification indicates that the construct is physically joined to the corresponding genomic region, rather than merely being present independently in the cell.',
       },
       { t: 'h', text: 'Learn' },
       {
@@ -293,7 +293,7 @@ export const wetlabCycles: Accordion[] = [
       },
       {
         t: 'p',
-        text: 'The presence of the expected amplicons at both the 5-prime and 3-prime junctions confirmed successful integration of the recombinant construct into the S. cerevisiae genome, completing the transition from plasmid assembly to the engineered yeast strain.',
+        text: 'The presence of the expected amplicons at both the 5′ and 3′ junctions confirmed successful integration of the recombinant construct into the S. cerevisiae genome, completing the transition from plasmid assembly to the engineered yeast strain.',
       },
     ],
   },
@@ -347,7 +347,7 @@ export const drylabCycles: Accordion[] = [
         t: 'ul',
         items: [
           'Brute-force evaluation of 175 combinations returned a leading set (FAA1 + FAA4, score 0.202529) against 0.202509 for the unedited strain, a margin of 0.010 per cent. GC-MS composition varies by 1-5 per cent between replicates, so no experiment could separate the two.',
-          'Route analysis of the FBA solution showed that the model forms C14:0 only by shortening C16:0 through beta-oxidation. Deletion of POX1 gave exactly zero.',
+          'Route analysis of the FBA solution showed that the model forms C14:0 only by shortening C16:0 through β-oxidation. Deletion of POX1 gave exactly zero.',
           'Benchmarking of the reinforcement-learning agent over 20 seeds showed it found the exact best answer in 10 per cent of runs, against 65 per cent for greedy search and 100 per cent for brute force.',
           'The first structural runs suggested that unconstrained Boltz-2 does not place the ligand and that the acyl chain overlaps M1251. Reruns with five samples reproduced neither observation, so both are treated as dependent on the setup.',
         ],

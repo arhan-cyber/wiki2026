@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { dryLabNav } from '../pages/drylab/drylabPages';
 
 type SubnavItem = {
   label: string;
   href: string;
   /** Section not built yet: render as a non-navigating, muted item. */
   disabled?: boolean;
-  /** Nested sub-tabs, shown in a flyout when the item is hovered or focused. */
-  children?: { label: string; href: string }[];
 };
 
 type NavItem = {
@@ -32,7 +29,7 @@ const navigation: NavItem[] = [
       { label: 'Contribution', href: '#', disabled: true },
       { label: 'Cooling Measurement', href: '#', disabled: true },
       { label: 'News Headlines', href: '/project/news' },
-      { label: 'Future Plans', href: '#', disabled: true },
+      { label: 'Future Scope', href: '/project/future-scope' },
     ],
   },
   {
@@ -49,12 +46,13 @@ const navigation: NavItem[] = [
   },
   {
     label: 'DryLab',
-    href: '/dry-lab',
-    subnav: dryLabNav.map((t) => ({
-      label: t.label,
-      href: t.path,
-      children: t.children?.map((c) => ({ label: c.label, href: c.path })),
-    })),
+    href: '/dry-lab/model',
+    subnav: [
+      { label: 'Modeling', href: '/dry-lab/model' },
+      { label: 'Software', href: '/dry-lab/software' },
+      { label: 'CFD', href: '/dry-lab/cfd' },
+      { label: 'LCA', href: '/dry-lab/lca' },
+    ],
   },
   {
     label: 'HumanPractices',
@@ -140,32 +138,6 @@ export default function Navbar() {
                               >
                                 {subItem.label}
                               </span>
-                            ) : subItem.children?.length ? (
-                              <div className="group/sub relative">
-                                <Link
-                                  to={subItem.href}
-                                  className="flex items-center justify-between rounded-lg py-2.5 text-base text-zinc-800 transition-all duration-200 hover:bg-zinc-50 hover:text-indigo-600 group-hover/sub:bg-zinc-50 group-hover/sub:text-indigo-600 montserrat-semibold"
-                                  style={{ paddingLeft: '24px', paddingRight: '16px' }}
-                                >
-                                  <span>{subItem.label}</span>
-                                  <span aria-hidden="true" className="ml-4 text-xs">▸</span>
-                                </Link>
-                                <div className="invisible absolute left-full top-0 z-30 pl-2 opacity-0 transition group-hover/sub:visible group-hover/sub:opacity-100 group-focus-within/sub:visible group-focus-within/sub:opacity-100">
-                                  <ul className="min-w-60 space-y-1 rounded-xl border border-black/10 bg-white p-2 shadow-lg">
-                                    {subItem.children.map((c) => (
-                                      <li key={c.href}>
-                                        <Link
-                                          to={c.href}
-                                          className="block rounded-lg py-2 text-base text-zinc-800 transition-all duration-200 hover:bg-zinc-50 hover:text-indigo-600 hover:translate-x-1 montserrat-semibold"
-                                          style={{ paddingLeft: '20px', paddingRight: '20px' }}
-                                        >
-                                          {c.label}
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              </div>
                             ) : (
                               <Link
                                 to={subItem.href}
@@ -256,30 +228,13 @@ export default function Navbar() {
                               {subItem.label}
                             </span>
                           ) : (
-                            <>
-                              <Link
-                                to={subItem.href}
-                                onClick={() => setMobileOpen(false)}
-                                className="block py-2 text-base text-zinc-600 hover:text-indigo-600 pl-3 border-l border-zinc-300 hover:border-indigo-500 transition-all duration-150 montserrat-semibold"
-                              >
-                                {subItem.label}
-                              </Link>
-                              {subItem.children?.length ? (
-                                <ul className="ml-3 border-l border-zinc-200">
-                                  {subItem.children.map((c) => (
-                                    <li key={c.href}>
-                                      <Link
-                                        to={c.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        className="block py-1.5 pl-4 text-sm text-zinc-500 hover:text-indigo-600 montserrat-semibold"
-                                      >
-                                        {c.label}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : null}
-                            </>
+                            <Link
+                              to={subItem.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="block py-2 text-base text-zinc-600 hover:text-indigo-600 pl-3 border-l border-zinc-300 hover:border-indigo-500 transition-all duration-150 montserrat-semibold"
+                            >
+                              {subItem.label}
+                            </Link>
                           )}
                         </li>
                       ))}

@@ -681,3 +681,294 @@
     padding: 28px 24px;
   }
 }
+
+/* ─── Flat initiative list (events in EO Flow order, not grouped by LEARN) ─── */
+
+.eventsHeading {
+  scroll-margin-top: 90px;
+  margin: 64px auto 10px;
+  text-align: center;
+  font-family: var(--font-mont);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 32px);
+  color: #09347b;
+}
+
+.eventsLead {
+  max-width: 640px !important;
+  margin: 0 auto 30px;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #3c5a80;
+}
+
+/* The order number that replaces the LEARN grouping. */
+.initNum {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #09347b;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.initBar {
+  gap: 20px;
+  padding-left: 26px;
+}
+
+.initBarText {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.initBarText small {
+  font-weight: 400;
+  font-size: clamp(12px, 1.1vw, 15px);
+  line-height: 1.4;
+  color: #0b4287;
+  opacity: 0.85;
+}
+
+.initTitle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.initHead .initNum {
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+.initMeta {
+  margin: 10px 48px 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #3c5a80;
+}
+
+/* ─── Rich blocks inside a tab panel ─── */
+
+.tableWrap {
+  margin: 14px 0 16px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+
+.table th,
+.table td {
+  padding: 9px 12px;
+  border: 1px solid #c6daf0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background: #e8f2fd;
+  font-weight: 600;
+  color: #09347b;
+}
+
+.table tbody tr:nth-child(even) td {
+  background: #f7fbff;
+}
+
+.quote {
+  margin: 14px 0;
+  padding: 12px 18px;
+  border-left: 4px solid #089cff;
+  border-radius: 0 10px 10px 0;
+  background: #eef6fe;
+}
+
+.quote p {
+  margin: 0;
+  font-style: italic;
+}
+
+.quote cite {
+  display: block;
+  margin-top: 6px;
+  font-size: 14.5px;
+  font-style: normal;
+  color: #4a6a90;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.stat {
+  flex: 1 1 140px;
+  padding: 14px 16px;
+  border: 1px solid #bcd9f5;
+  border-radius: 14px;
+  background: linear-gradient(140deg, #f2f9ff, #e2f0fd);
+}
+
+.statValue {
+  display: block;
+  font-family: var(--font-mont);
+  font-weight: 800;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.1;
+  color: #09347b;
+}
+
+.statLabel {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #3c5a80;
+}
+
+@media (max-width: 760px) {
+  .initBar {
+    height: auto;
+    min-height: 84px;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 26px;
+  }
+  .initNum,
+  .initHead .initNum {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+  }
+  .initArrow {
+    width: 28px;
+    margin: 0;
+  }
+  .initHead {
+    padding: 18px 20px 0;
+  }
+  .initMeta {
+    margin: 10px 20px 0;
+  }
+  .rich {
+    padding: 20px 16px;
+  }
+  .panelBox {
+    min-height: 0;
+    margin: 12px 8px 14px;
+  }
+  .frame {
+    margin: 16px 10px 0;
+  }
+  .stat {
+    flex: 1 1 110px;
+  }
+}
+
+/* ─── Highlighted initiative (AIIM 2026 awards) ─── */
+
+.initStar > .initBar {
+  background: linear-gradient(100deg, #93ccff 0%, #a9d6ff 55%, #ffe7a3 100%);
+  box-shadow: 0 0 0 3px #e5be4a, 0 6px 18px rgba(197, 154, 32, 0.3);
+}
+
+.initStar.initOpen {
+  box-shadow: 0 0 0 3px #e5be4a, 0 6px 20px rgba(197, 154, 32, 0.3);
+}
+
+.initBarName {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+}
+
+.starChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1.5px solid #e5be4a;
+  border-radius: 999px;
+  background: #fff5d4;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #5a4206;
+  white-space: nowrap;
+}
+
+.starBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin: 20px 37px 0;
+  padding: 20px 24px;
+  border: 2px solid #e5be4a;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #fffaf0 0%, #fff0c2 100%);
+  box-shadow: 0 4px 16px rgba(197, 154, 32, 0.25);
+}
+
+.starTrophy {
+  flex: none;
+  font-size: 44px;
+  line-height: 1;
+}
+
+.starText {
+  min-width: 0;
+}
+
+.starTitle {
+  margin: 2px 0 12px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.2;
+  color: #5a4206;
+}
+
+.starBanner .awards {
+  margin-bottom: 12px;
+}
+
+.starNote {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4a3a12;
+}
+
+@media (max-width: 600px) {
+  .starBanner {
+    margin: 16px 16px 0;
+    padding: 16px;
+    gap: 12px;
+  }
+  .starTrophy {
+    font-size: 32px;
+  }
+}

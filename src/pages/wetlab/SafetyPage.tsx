@@ -31,13 +31,12 @@ export default function SafetyPage() {
       index={[
         { id: 'overview', label: 'Overview' },
         { id: 'lab-safety', label: 'Lab Safety' },
-        { id: 'images', label: 'Images' },
         { id: 'references', label: 'References' },
       ]}
     >
       {/* OVERVIEW */}
       <div id="overview" className={`${styles.sCard} ${styles.prose}`} style={{ borderColor: '#b8d9ed' }}>
-        <h2 className={styles.cardHeading} style={{ color: '#3f94d2' }}>
+        <h2 className={styles.cardHeading}>
           OVERVIEW
         </h2>
         <p style={{ marginBottom: 2 }}>
@@ -65,7 +64,7 @@ export default function SafetyPage() {
         className={`${styles.sCard} ${styles.prose}`}
         style={{ borderColor: '#e4f3ee', paddingTop: 30, paddingBottom: 23 }}
       >
-        <h2 className={styles.cardHeading} style={{ color: '#245c53' }}>
+        <h2 className={styles.cardHeading}>
           LAB SAFETY
         </h2>
         <p>
@@ -153,20 +152,19 @@ export default function SafetyPage() {
           iGEM safety expectations and institutional biosafety requirements, ensuring that innovation is accompanied by responsible
           and safe engineering practices.
         </p>
-      </div>
-
-      {/* IMAGES */}
-      <div id="images" className={styles.imagesCard}>
-        <h2 className={styles.imagesTitle}>IMAGES</h2>
-        <img src={slides[slide].src} alt={slides[slide].caption} className={styles.slideImg} />
-        <p className={styles.caption}>{slides[slide].caption}</p>
-        <div className={styles.slideNav}>
-          <button type="button" className={styles.navBtn} aria-label="Previous image" onClick={() => step(-1)}>
-            <span>←</span>
-          </button>
-          <button type="button" className={styles.navBtn} aria-label="Next image" onClick={() => step(1)}>
-            <span>→</span>
-          </button>
+        {/* IMAGES — part of the Lab Safety card */}
+        <div id="images" className={`${styles.imagesCard} ${styles.imagesInCard}`}>
+          <h2 className={styles.imagesTitle}>IMAGES</h2>
+          <img src={slides[slide].src} alt={slides[slide].caption} className={styles.slideImg} />
+          <p className={styles.caption}>{slides[slide].caption}</p>
+          <div className={styles.slideNav}>
+            <button type="button" className={styles.navBtn} aria-label="Previous image" onClick={() => step(-1)}>
+              <span>←</span>
+            </button>
+            <button type="button" className={styles.navBtn} aria-label="Next image" onClick={() => step(1)}>
+              <span>→</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -189,8 +187,8 @@ export default function SafetyPage() {
                   </ul>
                   <h3>Data Center Cooling</h3>
                   <ul>
-                    <li>ASHRAE Technical Committee 9.9 – Thermal Guidelines for Data Processing Environments.</li>
-                    <li>Open Compute Project (OCP) – Advanced Cooling Solutions and Immersion Cooling Guidelines.</li>
+                    <li>ASHRAE Technical Committee 9.9: Thermal Guidelines for Data Processing Environments.</li>
+                    <li>Open Compute Project (OCP): Advanced Cooling Solutions and Immersion Cooling Guidelines.</li>
                   </ul>
                 </div>
               ),
