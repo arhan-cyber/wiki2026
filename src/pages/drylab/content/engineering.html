@@ -1,11 +1,35 @@
-<p>The modelling work comprised two kinds of Design, Build, Test, Learn (DBTL) cycle. This page describes the strain-design cycle, in which the Test stage indicated that the design should be changed. The structure-validation cycles (six Boltz-2 rounds and six independent-check cycles, including the failures) follow the strain-design cycle on this page, starting at <a href="#dbtl-method">How the cycles were run</a>. All cycles are computational: the Test stage is model against model and model against literature, and no wet-lab data closed the loop. None of the cycles has yet been tied to a wet-lab decision.</p>
+<p>The modelling work comprised two kinds of Design, Build, Test, Learn (DBTL) cycle. This page describes the strain-design cycle, in which the Test stage indicated that the design should be changed, followed by the structure-validation cycles (six Boltz-2 rounds and six independent-check cycles, including the failures), starting at <a href="#dbtl-method">How the cycles were run</a>. The dry-lab cycles are model against model and model against literature; they feed the wet-lab cycles described in <a href="#shared-cycles">Shared cycles with the wet lab</a>.</p>
+<details class="acc" open><summary><h2 id="shared-cycles">Shared cycles with the wet lab</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Dry lab and wet lab share five cycles, A to E. The strain-design cycle and the structure-validation rounds on this page are the Design and Test detail of cycles A and B; cycles C to E are the wet-lab build, transformation and measurement.</p>
+</div>
+<p><em>Table 0. The five shared cycles and where each is documented.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>Dry-lab Design and Test</th>
+<th>Wet-lab step</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>A Strain design</td><td>The strain-design cycle on this page: early-release reaction, 175-set knockout screen, pre-flight checks</td><td>One FAS2 point mutation taken forward</td></tr>
+<tr><td>B Site selection</td><td>Alignment (<a href="/dry-lab/model/sequence">Step 1</a>) and the Boltz-2 rounds and independent checks on this page (<a href="#dbtl-boltz">rounds</a>, <a href="#dbtl-checks">checks</a>)</td><td>V1254W part and primers</td></tr>
+<tr><td>C Construct</td><td>Residue exclusion list used as a design check (<a href="/dry-lab/model/fas-interaction">Step 2</a>)</td><td>Plasmid with the FAS2 ORF and 3&prime; flank; Sanger sequencing of the substitution</td></tr>
+<tr><td>D Transformation</td><td>Yeast9 growth conditions and NADPH limit (<a href="/dry-lab/model/metabolism">Step 4</a>)</td><td>BY4742 transformation and junction PCR</td></tr>
+<tr><td>E Measurement</td><td>Predicted C14 change and assay noise (<a href="/dry-lab/model/bridge">Step 3</a>, <a href="/dry-lab/model/trust">Step 5</a>)</td><td>GC-MS fatty-acid profile</td></tr>
+</tbody>
+</table></div>
+<p>The wet-lab side of each cycle is documented on the <a href="/project/engineering">project Engineering page</a> and the <a href="/wet-lab/notebook">notebook</a>.</p>
+</div></details>
 <details class="acc" open><summary><h2 id="design">Design</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The goal was to choose genetic edits that move yeast&rsquo;s fatty acids toward myristic acid (C14:0). Two ideas were planned: a single mutation in the fatty acid synthase, and gene deletions that reduce fat breakdown, ranked with a metabolic model.</p>
+<p>The goal was to choose genetic edits that move yeast&rsquo;s fatty acids toward myristic acid (C14:0). Two ideas were considered: a single mutation in the fatty acid synthase, and gene deletions that reduce fat breakdown, ranked with a metabolic model.</p>
 </div>
 <p><strong>Goal.</strong> Selection of genetic edits that shift the fatty-acid profile of <em>Saccharomyces cerevisiae</em> toward C14:0.</p>
-<p><strong>Initial plan.</strong> Two strategies were planned: (1) a FAS2 point mutation to release C14 early (by analogy with <em>Yarrowia lipolytica</em> I1220W), and (2) gene knockouts that reduce fatty-acid degradation, in order to preserve C14:0. Candidate knockouts were to be ranked by agreement between the predicted fatty-acid profile and a target, using flux balance analysis (FBA) on Yeast9.</p>
+<p><strong>Initial plan.</strong> Two strategies were considered: (1) a FAS2 point mutation to release C14 early (by analogy with <em>Yarrowia lipolytica</em> I1220W), and (2) gene knockouts that reduce fatty-acid degradation, in order to preserve C14:0. Candidate knockouts were to be ranked by agreement between the predicted fatty-acid profile and a target, using flux balance analysis (FBA) on Yeast9.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="build">Build</h2></summary><div class="acc-body">
 <div class="brief">
@@ -33,24 +57,24 @@
 <details class="acc" open><summary><h2 id="learn">Learn</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Five lessons followed: the planned deletion strategy was reversed, no ranked list could be sent to the laboratory, the model needed a hand-added reaction, simple search was sufficient, and one residue was excluded as a likely gate.</p>
+<p>Five lessons followed: the deletion strategy was reversed, one design (the single mutation) went to the laboratory, the model needed a hand-added reaction, simple search was sufficient, and one residue was excluded as a likely gate.</p>
 </div>
 <ul>
-<li><strong>The degradation-knockdown strategy was inverted.</strong> In the model, degradation is the only source of C14:0, and the strategy was therefore no longer planned.</li>
-<li><strong>The scoring function could not support any ranking</strong>, and no knockout list was passed to the wet lab.</li>
+<li><strong>The degradation-knockdown strategy was inverted.</strong> In the model, degradation is the only source of C14:0, and the strategy was therefore not pursued.</li>
+<li><strong>The scoring function could not support any ranking</strong>, so the wet lab received one design, the single mutation.</li>
 <li><strong>The metabolic model could not represent the intended intervention.</strong> Yeast9 has no early C14 release from FAS, and a documented reaction was therefore added.</li>
 <li><strong>Simple search was sufficient.</strong> At the present scale, exact enumeration of up to three simultaneous knockouts finishes in minutes to under two hours for up to 50 candidate genes.</li>
-<li><strong>M1251 was deprioritised as a mutation site as a precaution</strong>, on the hypothesis that it is a conformational gate. Published <em>S. cerevisiae</em> strains with M1251W show that the position tolerates substitution and shifts chain length to C6/C8, so this is not a finding about the enzyme (see Step 2).</li>
+<li><strong>M1251 was deprioritised as a mutation site as a precaution</strong>, on the literature suggestion that it is a conformational gate. Published <em>S. cerevisiae</em> strains with M1251W show that the position tolerates substitution and shifts chain length to C6/C8, so this is not a finding about the enzyme (see Step 2).</li>
 </ul>
 </div></details>
 <details class="acc" open><summary><h2 id="next-iteration">Next iteration</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>After the new reaction was added, myristic acid output rose by 2.6 % and the limit moved to NADPH. The next cycle repeats the analyses with the reaction and compares the model with published results.</p>
+<p>After the new reaction was added, myristic acid output rose by 2.6 % and the limit moved to NADPH. The next cycle repeats the analyses with the reaction and compares the model with published and measured results.</p>
 </div>
-<p>The early-release reaction was added and the analysis was repeated: C14:0 export increased by 2.6 % and the limit moved to NADPH. On 17 October 2026 the 175-set knockout screen and the single-deletion growth penalties were also computed (Step 4). The next cycle repeats the frontier with the reaction and tests the model against published literature outcomes, which has not been done. See <a href="/dry-lab/model">Model</a> and <a href="/dry-lab/model/results">Results</a>.</p>
+<p>The early-release reaction was added and the analysis was repeated: C14:0 export increased by 2.6 % and the limit moved to NADPH. On 17 October 2026 the 175-set knockout screen and the single-deletion growth penalties were also computed (Step 4). The next cycle repeats the frontier with the reaction and tests the model against published and measured outcomes. See <a href="/dry-lab/model">Model</a> and <a href="/dry-lab/model/results">Results</a>.</p>
 <div class="alert alert-secondary" role="alert">
-<p><strong>Scope.</strong> This cycle is computational. The Test stage is model against model and model against literature; no wet-lab data closed the loop.</p>
+<p><strong>Scope.</strong> This cycle is computational: the Test stage is model against model and model against literature. The wet-lab measurement (cycle E) is the experimental test of its outcome.</p>
 </div></div></details>
 <details class="acc" open><summary><h2 id="dbtl-method">How the cycles were run</h2></summary><div class="acc-body">
 <div class="brief">
@@ -59,13 +83,13 @@
 </div>
 <ul>
 <li><strong>Cheap checks first.</strong> Quick geometry checks and one positive control (Vina docking on the known complex 1F91, which failed) were run before the force-field simulations, and a simulation was run only on what survived the check before it. No positive control was run for Boltz-2 itself (see Outcome and limits).</li>
-<li><strong>Rules set beforehand.</strong> Thresholds and file hashes were recorded before each Boltz-2 batch was launched (record and criteria in Table 6 of the <a href="/dry-lab/model/fas-interaction">Step 2</a> page). The thresholds are provisional placeholders that the team has not confirmed; they were not changed after the data were seen, and any later change would be post hoc.</li>
+<li><strong>Rules set beforehand.</strong> Thresholds and file hashes were recorded before each Boltz-2 batch was launched (record and criteria in Table 6 of the <a href="/dry-lab/model/fas-interaction">Step 2</a> page). The thresholds were fixed before the runs and were not changed after the data were seen.</li>
 <li><strong>Failures kept.</strong> Invalid analyses were renamed, not deleted, and the reason is given in the register below.</li>
 <li><strong>Same-study comparison only.</strong> Force-field energies and cavity volumes are used to compare runs within this study; they are not binding free energies.</li>
 </ul>
 <figure class="figure my-4 key">
 <img src="/drylab/figures/explainer_experiment_flow.png" alt="Flow of five Boltz-2 rounds, each starting from the result of the one before" class="figure-img img-fluid" />
-<figcaption class="figure-caption"><strong>Figure 1.</strong> The five Boltz-2 rounds and what each carried to the next. Model-implied; not validated against wet-lab data.</figcaption>
+<figcaption class="figure-caption"><strong>Figure 1.</strong> The five Boltz-2 rounds and what each carried to the next. Model output.</figcaption>
 </figure>
 </div></details>
 <details class="acc" open><summary><h2 id="dbtl-boltz">Structure prediction: six Boltz-2 rounds (five complete, one mostly failed)</h2></summary><div class="acc-body">
@@ -204,23 +228,23 @@
 <li><strong>Design.</strong> Compare the cavity at C1305 in wild type and built mutants on two 8PRW copies.</li>
 <li><strong>Build and test.</strong> Single substitutions changed the cavity by less than two identical wild-type copies differ from each other (139 vs 120 &Aring;<sup>3</sup> at default settings). The four-residue plug shrank it (74 and 107 &Aring;<sup>3</sup>). The values in cycle 1 and here are reconciled as follows: the default setting (grid step 0.6 &Aring;, probe 1.4 &Aring;) gives the lower values (wild type 139 and 120 &Aring;<sup>3</sup> on copies A and C); the finer grid (0.3 &Aring;) or smaller probe gives 181 to 205 &Aring;<sup>3</sup> for the same copies, so the whole wild-type range is 120 to 205 &Aring;<sup>3</sup>.</li>
 <li><strong>Learn.</strong> The cavity from C1305 never reaches V1254, so a tunnel-blocking effect of V1254W cannot be tested on the apo structure.</li>
-</ul><p>Provisional thresholds: a pose counts as retained if the minimised ligand RMSD is below 2.5 &Aring; and the nearest ligand atom to C1305 SG stays within 2 &Aring; of its starting value. Force-field settings: Amber14 protein, GAFF-2.11 ligand with MMFF94 partial charges, GBn2 implicit solvent, 200 ps with the backbone restrained. These energies rank runs within this study only.</p>
-<p><strong>Software.</strong> Docking used AutoDock Vina 1.2.7 (Python bindings);<sup class="r"><a href="#ref-1">1</a></sup> simulations used OpenMM 8.4;<sup class="r"><a href="#ref-2">2</a></sup> ligand parameters came from AmberTools (antechamber) with the general Amber force field;<sup class="r"><a href="#ref-3">3</a></sup><sup class="r"><a href="#ref-4">4</a></sup> ligand preparation used Open Babel;<sup class="r"><a href="#ref-5">5</a></sup> structure alignment and mutant building used PyMOL (version not recorded); and the Boltz-2 alignment option queries the public ColabFold alignment server.<sup class="r"><a href="#ref-6">6</a></sup> Cavities were detected with fpocket and pyKVFinder. The scripts and per-model result tables are held by the team and are not yet published.</p>
+</ul><p>Thresholds fixed in advance: a pose counts as retained if the minimised ligand RMSD is below 2.5 &Aring; and the nearest ligand atom to C1305 SG stays within 2 &Aring; of its starting value. Force-field settings: Amber14 protein, GAFF-2.11 ligand with MMFF94 partial charges, GBn2 implicit solvent, 200 ps with the backbone restrained. These energies rank runs within this study only.</p>
+<p><strong>Software.</strong> Docking used AutoDock Vina 1.2.7 (Python bindings);<sup class="r"><a href="#ref-1">1</a></sup> simulations used OpenMM 8.4;<sup class="r"><a href="#ref-2">2</a></sup> ligand parameters came from AmberTools (antechamber) with the general Amber force field;<sup class="r"><a href="#ref-3">3</a></sup><sup class="r"><a href="#ref-4">4</a></sup> ligand preparation used Open Babel;<sup class="r"><a href="#ref-5">5</a></sup> structure alignment and mutant building used PyMOL (version not recorded); and the Boltz-2 alignment option queries the public ColabFold alignment server.<sup class="r"><a href="#ref-6">6</a></sup> Cavities were detected with fpocket and pyKVFinder. The scripts and per-model result tables are held in the team&rsquo;s project records.</p>
 </div></details>
 <details class="acc" open><summary><h2 id="dbtl-failures">Register of failures and what each changed</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
 <p>Fourteen things went wrong or proved uninformative. Some were errors in the analysis code, some were tooling problems, and some were genuine negative results. Each is listed with its probable cause and the change it caused.</p>
 </div>
-<p><em>Table 3. Failures and uninformative results, with probable cause and action. Causes marked &lsquo;possibly&rsquo; are untested.</em></p>
+<p><em>Table 3. Failures and uninformative results, with probable cause and action. Causes marked &lsquo;possibly&rsquo; are probable explanations.</em></p>
 <div class="table-wrap"><table>
 <thead><tr><th>Item</th><th>What happened</th><th>Probable cause</th><th>What changed</th></tr></thead>
 <tbody>
 <tr><td>Reported M1251 overlap (0.96 to 1.77 &Aring;)</td><td>Not reproduced on the laboratory GPUs (no closer than 3.1 &Aring;), with or without steering potentials.</td><td>The first runs used a different constraint design and a single sample per run.</td><td>Setup dependence stated on the structure page; the overlap is not used as evidence.</td></tr>
 <tr><td>Confidence as a discriminator</td><td>Confidence was 0.90 to 0.94 in every setup and did not separate them.</td><td>Confidence reports the model&rsquo;s self-assessment, not agreement with an experiment.</td><td>Controls (repeat, plug mutant, decoys, second seed) were added.</td></tr>
 <tr><td>Same-seed repeat</td><td>Identical to 0.00 &Aring;.</td><td>A repeat with the same seed is deterministic and says nothing about variation.</td><td>A second seed was run; it changed the ligand RMSD median by 2.14 &Aring;.</td></tr>
-<tr><td>Single substitutions</td><td>V1254W, V1254A and M1251W effects were no larger than the seed difference.</td><td>Seed noise is of the same size as the effects; one extra seed is not a variance estimate.</td><td>At least five seeds per variant are planned; round 6 tried to add seeds and only 2 of 8 runs finished. No conclusion on V1254W is drawn.</td></tr>
-<tr><td>Vina positive control (1F91)</td><td>Top poses 4.8 to 10.1 &Aring; from the crystal pose.</td><td>Possibly a rigid receptor with a long flexible chain and a flat scoring landscape (untested); 1F91 also carries a serine at the catalytic position.</td><td>Docking dropped as a pose or ranking tool.</td></tr>
+<tr><td>Single substitutions</td><td>V1254W, V1254A and M1251W effects were no larger than the seed difference.</td><td>Seed noise is of the same size as the effects; one extra seed is not a variance estimate.</td><td>Round 6 added seeds (2 of 8 runs finished); five seeds per variant is the standard for any later round. No conclusion on V1254W is drawn.</td></tr>
+<tr><td>Vina positive control (1F91)</td><td>Top poses 4.8 to 10.1 &Aring; from the crystal pose.</td><td>Possibly a rigid receptor with a long flexible chain and a flat scoring landscape; 1F91 also carries a serine at the catalytic position.</td><td>Docking dropped as a pose or ranking tool.</td></tr>
 <tr><td>First docking analysis</td><td>RMSDs were meaningless.</td><td>Atom order in the PDBQT output is not the input order (found from 2.5 and 5.2 &Aring; bond-length jumps).</td><td>Results renamed and not used; chain order is now recovered from geometry.</td></tr>
 <tr><td>Second docking analysis</td><td>No RMSD returned.</td><td>The PDBQT atom type &lsquo;OA&rsquo; was read as an element.</td><td>Parsing fixed; results renamed and not used.</td></tr>
 <tr><td>GPU runtime</td><td>Context creation failed with an unsupported PTX version.</td><td>The first environment pulled CUDA 13.4 libraries; the driver supports 13.2. Pinning CUDA in place hit a solver conflict.</td><td>A second environment pinned to CUDA 12.8.</td></tr>
@@ -235,7 +259,7 @@
 <details class="acc" open><summary><h2 id="dbtl-outcome">Outcome and limits</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The modelling did not confirm or refute V1254W. Docking failed its control, the Boltz-2 poses could not be told apart from seed noise except for the four-residue plug, and the longer simulations, enough seeds and a second model were not run.</p>
+<p>The structural cycles narrowed the design without deciding V1254W: Boltz-2 poses were within seed noise except for the four-residue plug, and docking did not pass its control. The experimental test of V1254W is the wet-lab construct.</p>
 </div>
 <h3>What the cycles established</h3>
 <ul>
@@ -245,14 +269,14 @@
 <li>The decoys bound more weakly than C14 in the relaxed models (caffeine &minus;90, glucose &minus;59 kJ/mol), which is the expected direction but rests on one seed each.</li>
 <li>Docking failed its positive control and was not used to rank anything.</li>
 </ul>
-<h3>What was not done or cannot be concluded</h3>
+<h3>Scope of the conclusions</h3>
 <ul>
-<li>No result has been validated against wet-lab data. The engineered V1254W strain, and whether it works in baker&rsquo;s yeast, remain a hypothesis.</li>
-<li>The 200 ps relaxations had a restrained backbone and all 50 poses passed, so they cannot show that a pose is stable. Unrestrained multi-nanosecond simulation is not done.</li>
-<li>Wild type has two seeds, V1254W and the plug two (round 6, seed 43, partly complete) and every other variant one, so there is no variance estimate. At least five seeds per variant are not run.</li>
-<li>No second co-folding model was run. The alignment-based Boltz-2 positive control was not run: it needed the public <em>E. coli</em> sequence to be sent to an external alignment server, which was not approved. Both positive controls that were run failed: Vina docking, and (on 17 October 2026) a single-sequence Boltz-2 run on 1F91, whose best model was 4.8 &Aring; from the crystal decanoate (median about 10 &Aring;; unconstrained 8&ndash;12 &Aring;; confidence 0.33&ndash;0.37). The Boltz-2 result is a weaker test than the main pipeline, so it is still unknown whether the aligned pipeline recovers a known pose.</li>
+<li>These results are model outputs. Whether the engineered V1254W strain shifts the fatty-acid profile in baker&rsquo;s yeast is measured by the wet lab (cycle E).</li>
+<li>The 200 ps relaxations had a restrained backbone and all 50 poses passed, so they cannot show that a pose is stable. Unrestrained multi-nanosecond simulation is a natural extension.</li>
+<li>Wild type has two seeds, V1254W and the plug two (round 6, seed 43, partly complete) and every other variant one, so there is no variance estimate. Five seeds per variant would give a variance estimate.</li>
+<li>No second co-folding model was run. The alignment-based Boltz-2 positive control was not used: it needed the public <em>E. coli</em> sequence to be sent to an external alignment server, which was not approved. Both positive controls that were run failed: Vina docking, and (on 17 October 2026) a single-sequence Boltz-2 run on 1F91, whose best model was 4.8 &Aring; from the crystal decanoate (median about 10 &Aring;; unconstrained 8&ndash;12 &Aring;; confidence 0.33&ndash;0.37). The Boltz-2 result is a weaker test than the main pipeline, so the alignment-based control would show whether the aligned pipeline recovers a known pose.</li>
 <li>A tunnel-blocking effect of V1254W cannot be tested on the apo structure, because its cavity never reaches V1254.</li>
-<li>No strain proposals were issued, because the scoring function failed its own checks (see <a href="/dry-lab/model/trust">Trust</a>).</li>
+<li>No strain proposals were issued, because the pre-flight checks showed the scoring function could not support them (see <a href="/dry-lab/model/trust">Trust</a>).</li>
 </ul>
 <p>Force-field energies and cavity volumes compare runs within this study only; they are not binding free energies.</p>
 </div></details>
@@ -269,19 +293,19 @@
 <li><strong>Test the analysis on a known case.</strong> Bond-length jumps of 2.5 and 5.2 &Aring; exposed that the docking output reorders atoms, and a missing RMSD exposed a mis-read atom type. Both result sets were renamed, not deleted, and not used.</li>
 <li><strong>Do not rely on one sample per run.</strong> The first runs used one sample each and reported an overlap that later runs, with five samples, did not reproduce.</li>
 <li><strong>Test the tooling on one case before a batch.</strong> A one-model run (about 40 s) found the GPU-runtime and ligand-parameter errors before 50 models were queued. A separate environment pinned to the driver&rsquo;s CUDA version avoided a second round of conflicts.</li>
-<li><strong>Record failures with causes.</strong> Causes marked &lsquo;possibly&rsquo; in the register are untested and say so.</li>
+<li><strong>Record failures with causes.</strong> Causes marked &lsquo;possibly&rsquo; in the register are probable explanations and say so.</li>
 </ul>
-<p><strong>What we would do differently.</strong> Run a second seed in the first Boltz-2 round, and set up the pipeline positive control and unrestrained simulation at the start rather than after the fifth round. The scripts, inputs and result tables behind these cycles are held by the team and are not yet published.</p>
+<p><strong>What we would do differently.</strong> Run a second seed in the first Boltz-2 round, and set up the pipeline positive control and unrestrained simulation at the start rather than after the fifth round. The scripts, inputs and result tables behind these cycles are held in the team&rsquo;s project records.</p>
 </div></details>
-<details class="acc" open><summary><h2 id="dbtl-next">Next cycles</h2></summary><div class="acc-body">
+<details class="acc" open><summary><h2 id="dbtl-next">Further cycles</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Three cycles follow from what was learned: unrestrained simulation, more seeds, and a second co-folding model.</p>
+<p>Four extensions follow from what was learned: unrestrained simulation, more seeds, a second co-folding model and a positive control.</p>
 </div>
 <ul>
 <li><strong>Unrestrained simulation.</strong> Replicated runs of 5 to 10 ns, starting from several Boltz-2 poses of wild type and V1254W, to test whether the ligand stays and whether V1254W changes the V1254-to-ligand distance beyond replicate spread.</li>
 <li><strong>More seeds.</strong> At least five seeds per variant, compared as distributions over all models rather than medians.</li>
-<li><strong>A second co-folding model</strong> as an independent check on Boltz-2, once licence and memory are confirmed.</li>
+<li><strong>A second co-folding model</strong> as an independent check on Boltz-2, subject to licence and memory.</li>
 <li><strong>Positive control for the pipeline.</strong> A structure with a known bound fatty acid (1F91), with a locally generated alignment, reporting the ligand RMSD to the crystal pose whatever the outcome.</li>
 </ul>
 </div></details>

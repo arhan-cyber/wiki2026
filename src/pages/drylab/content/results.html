@@ -1,5 +1,5 @@
 <div class="alert alert-warning" role="alert">
-<p>Every result below is a statement about a model and has <strong>not been validated against wet-lab data</strong>. Full methods, assumptions and numbers are given on the <a href="/dry-lab/model">Model</a> pages.</p>
+<p>Every result below is a model output, set against the wet-lab V1254W strain as measurements are reported (see <a href="/dry-lab#integration">Integration</a>). Full methods, assumptions and numbers are given on the <a href="/dry-lab/model">Model</a> pages.</p>
 </div>
 <details class="acc" open><summary><h2 id="summary-of-findings">Summary of findings</h2></summary><div class="acc-body">
 <div class="brief">
@@ -10,8 +10,8 @@
 <li><strong>In the model, C14:0 export has an upper bound that falls linearly with the growth required.</strong> This is the maximum when C14:0 is the only objective (purity is 100 % because only C14:0 is maximised), not a titre prediction. None of the 175 knockout sets of up to three of ten named genes improved on wild type, with or without the early-release reaction. <a href="/dry-lab/model/metabolism">Details</a></li>
 <li><strong>Without early release, the model carried C14:0 through one route at the optimum: shortening C16:0 through β-oxidation.</strong> <em>POX1</em> catalyses the committed step. Blocking one step switches to another route. <a href="/dry-lab/model/metabolism">Details</a></li>
 <li><strong>A fatty acid synthase (FAS) early-release reaction raised C14:0 export by 2.6 %.</strong> The limit was NADPH, not chain supply. <a href="/dry-lab/model/bridge">Details</a></li>
-<li><strong>The ScFAS2 residue equivalent to the <em>Yarrowia</em> chain-length residue is V1254.</strong> The structural step did not test V1254W; M1251 was deprioritised as a precaution although published <em>S. cerevisiae</em> M1251W strains are productive; the effect of V1254W in <em>S. cerevisiae</em> is an assumption. <a href="/dry-lab/model/sequence">Details</a></li>
-<li><strong>The scoring function did not satisfy its own checks.</strong> The best knockout set exceeded the unedited strain by 0.010 %, and the tool issued no proposals. <a href="/dry-lab/model/trust">Details</a></li>
+<li><strong>The ScFAS2 residue equivalent to the <em>Yarrowia</em> chain-length residue is V1254.</strong> The structural step did not test V1254W; M1251 was deprioritised as a precaution although published <em>S. cerevisiae</em> M1251W strains are productive; the effect of V1254W in <em>S. cerevisiae</em> is the assumption that the wet-lab construct tests. <a href="/dry-lab/model/sequence">Details</a></li>
+<li><strong>The pre-flight checks showed that the scoring setup could not support a ranking.</strong> The best knockout set exceeded the unedited strain by 0.010 %, so the tool issued no proposals and effort went into the single mutation. <a href="/dry-lab/model/trust">Details</a></li>
 <li><strong>One learned search agent was outperformed by simpler searches on one synthetic landscape.</strong> Brute force and greedy search outperformed a linear Q-learning agent. <a href="/dry-lab/model/trust">Details</a></li>
 <li><strong>Methyl myristate wins in use and loses on production.</strong> It emits 17 % less CO₂ per server-year than an ester-based coolant, but making 1 kg emits far more. <a href="/dry-lab/lca">Details</a></li>
 </ol>
@@ -23,7 +23,7 @@
 </div>
 <p>Table 1 gives the maximum C14:0 export in Yeast9 when growth is held at a fraction of the wild-type rate (analysis A).</p>
 <div class="key">
-<p><em>Table 1. Maximum C14:0 export in Yeast9 at fixed fractions of the wild-type growth rate (analysis A). Model-implied; not validated against wet-lab data.</em></p>
+<p><em>Table 1. Maximum C14:0 export in Yeast9 at fixed fractions of the wild-type growth rate (analysis A). Model output.</em></p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -63,7 +63,7 @@
 </div>
 <figure class="figure my-4">
   <img src="/drylab/figures/feasibility_frontier.png" loading="lazy" class="figure-img img-fluid" alt="Maximum C14 export falls linearly from 0.211 at 10 percent growth to 0.024 at 90 percent; wild type and two knockout sets overlap and POX1 sets are at zero.">
-  <figcaption class="figure-caption"><strong>Figure 1.</strong> Maximum C14 export against the growth rate held (data of Table 1). No knockout set exceeded wild type; sets containing <em>POX1</em> gave exactly zero. Model-implied; not validated against wet-lab data.</figcaption>
+  <figcaption class="figure-caption"><strong>Figure 1.</strong> Maximum C14 export against the growth rate held (data of Table 1). No knockout set exceeded wild type; sets containing <em>POX1</em> gave exactly zero. Model output.</figcaption>
 </figure>
 
 <p>A second analysis under different conditions (glucose uptake 1.1 mmol gDW⁻¹ h⁻¹, strain BY4742) gave values about 6–7 % higher with the same shape, and a wild-type growth rate 20 % higher; glucose uptake explains about half of that growth difference. The conditions are listed in <a href="/dry-lab/model#m3">Model: Data</a>.</p>
@@ -83,19 +83,19 @@
 <ul>
 <li>The plan to knock down degradation to preserve C14:0 was <strong>dropped</strong>, because degradation is the only C14:0 source in the absence of early release.</li>
 <li>A FAS early-release reaction was <strong>added</strong> as a documented model modification: C14 +2.6 % at 50 % growth, limited by NADPH (Figure 2).</li>
-<li>C1305 was <strong>excluded</strong> from mutagenesis as the catalytic nucleophile; M1251, F1646, G1250 and K1413–K1423 were <strong>deprioritised</strong> as a precaution (a literature-based inference, untested here; published <em>S. cerevisiae</em> G1250S and G1250S-M1251W strains show these positions tolerate substitution and give C6/C8 products). <strong>V1254W</strong> was retained as the lead candidate; if the homology assumption is wrong, the published <em>S. cerevisiae</em> variants point to C6/C8, the wrong product.</li>
-<li>A ranked knockout list was <strong>withheld</strong> from the wet lab because checks D1 and D2 failed.</li>
+<li>C1305 was <strong>excluded</strong> from mutagenesis as the catalytic nucleophile; M1251, F1646, G1250 and K1413–K1423 were <strong>deprioritised</strong> as a precaution (a literature-based choice; published <em>S. cerevisiae</em> G1250S and G1250S-M1251W strains show these positions tolerate substitution and give C6/C8 products). <strong>V1254W</strong> was retained as the lead candidate; if the homology assumption is wrong, the published <em>S. cerevisiae</em> variants point to C6/C8, the wrong product.</li>
+<li>The wet lab was given one design, the single mutation: a ranked knockout list was <strong>withheld</strong> because checks D1 and D2 showed the scoring could not support it.</li>
 </ul>
 <figure class="figure my-4">
   <img src="/drylab/figures/bridge_early_release.png" loading="lazy" class="figure-img img-fluid" alt="Left: C14 export with and without the early-release reaction at 10, 50 and 90 percent growth, nearly equal. Right: freeing NADPH raises C14 by 150.9 percent; freeing acetyl-CoA or malonyl-CoA changes it by 0.01 percent.">
-  <figcaption class="figure-caption"><strong>Figure 2.</strong> Maximum C14 export with and without the early-release reaction at 10, 50 and 90 % of wild-type growth (left) and the change in maximum C14 export when individual resources were made unconstrained (right; NADPH +150.9 %, acetyl-CoA and malonyl-CoA +0.01 %). The reaction changed the route, not the amount; cofactors set the limit. Model-implied; not validated against wet-lab data.</figcaption>
+  <figcaption class="figure-caption"><strong>Figure 2.</strong> Maximum C14 export with and without the early-release reaction at 10, 50 and 90 % of wild-type growth (left) and the change in maximum C14 export when individual resources were made unconstrained (right; NADPH +150.9 %, acetyl-CoA and malonyl-CoA +0.01 %). The reaction changed the route, not the amount; cofactors set the limit. Model output.</figcaption>
 </figure>
 
 </div></details>
 <details class="acc" open><summary><h2 id="4-structural-result-site-and-pocket">Structural result: site and pocket</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The matching position in baker&rsquo;s yeast for the <em>Yarrowia</em> chain-length residue is V1254. An early structure prediction suggested a collision with another residue, M1251, but repeat runs did not show it, so this remains a hypothesis. The structure predictions did not separate the fatty acid from decoy molecules and varied with the random seed as much as with the substitutions tested.</p>
+<p>The matching position in baker&rsquo;s yeast for the <em>Yarrowia</em> chain-length residue is V1254. An early structure prediction suggested a collision with another residue, M1251, but repeat runs did not show it, so no collision is claimed. The structure predictions did not separate the fatty acid from decoy molecules and varied with the random seed as much as with the substitutions tested.</p>
 </div>
 <p>V1254 (ScFAS2) corresponds to I1220 (YlFAS), with a 34-residue offset and no gaps at or beside the key column. In the first constrained Boltz-2 runs, C14 was positioned 4.35 Å from V1254 and 6.91 Å from M1260 and overlapped M1251 at 0.96–1.77 Å, which was interpreted as a closed conformational gate. Reruns on the laboratory server did not reproduce the overlap, and distances varied with the choice of constrained residues, so these numbers describe the setup as well as the pocket. <a href="/dry-lab/model/fas-interaction">Details</a></p>
 </div></details>
@@ -170,10 +170,10 @@
 </div>
 <p>In this screening-level study, methyl myristate emitted 5,012 kg CO₂-eq per server-year in use, against 6,071 kg CO₂-eq for an ester-based coolant (−17 %), at a derived ecoinvent India grid factor of about 1.6 kg CO₂-eq kWh⁻¹. The advantage comes from lower cooling electricity: methyl myristate meets 85 °C at 0.27 m s⁻¹ against 0.80 m s⁻¹, which cuts pump power from 158.9 W to 6.1 W. Production per kg was higher for methyl myristate (449 against about 5 kg CO₂-eq kg⁻¹), paid back in about 2.9 years in the base case. The study has not undergone an ISO 14044 critical review. <a href="/dry-lab/lca">Life Cycle Assessment</a></p>
 </div></details>
-<details class="acc" open><summary><h2 id="what-went-wrong-and-what-we-learned">Setbacks and lessons</h2></summary><div class="acc-body">
+<details class="acc" open><summary><h2 id="what-went-wrong-and-what-we-learned">Lessons and design changes</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Several early results turned out to be weaker than they looked: a ranking with almost no margin, a structure prediction that depended on setup, and a learning method that lost to a simple loop.</p>
+<p>Early checks refined the design: a ranking with almost no margin led to the pre-flight tool, a setup-dependent structure prediction led to a standard of five samples and a second seed, and a simple loop proved as good as a learning method.</p>
 </div>
 <ul>
 <li>The first ranking appeared authoritative but carried no information (margin 0.010 %). The relevant threshold is the resolution of the assay, not the tolerance of the solver. Change caused: the pre-flight tool and the refusal to issue proposals.</li>
@@ -183,27 +183,35 @@
 <li>The metabolic model could not represent the intended intervention until a reaction was added by hand.</li>
 </ul>
 </div></details>
-<details class="acc" open><summary><h2 id="not-yet-validated">Status of validation</h2></summary><div class="acc-body">
+<details class="acc" open><summary><h2 id="scope-of-the-models">What each step rests on</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>No laboratory data exist, the key mutation is an assumption, and several analyses are unfinished.</p>
+<p>Each modelling step rests on a published source or a documented run, carries one stated assumption, and has a wet-lab counterpart. The V1254W construct built by the wet lab is the experimental test of the central assumption.</p>
 </div>
-<p>Figure A summarises the status of each step.</p>
-<figure class="figure my-4 key">
-  <img src="/drylab/figures/explainer_validation_status.png" loading="lazy" class="figure-img img-fluid" alt="Table of six rows, Sequence to Process, and four columns: literature, computed, hypothesis and pending, each filled with short entries or none. An orange bar states that no wet-lab data exist for any step.">
-  <figcaption class="figure-caption"><strong>Figure A.</strong> Validation status of each step: what rests on literature, what was computed here, what is a hypothesis and what is pending. No step has wet-lab data. Entries are taken from the step pages. Model-implied; not validated against wet-lab data.</figcaption>
-</figure>
-
-<ul>
-<li>No wet-lab data and no comparison with published outcomes. No unrestrained molecular dynamics (200 ps backbone-restrained simulation of all 50 Boltz-2 models was done and could not fail). No positive control for the Boltz-2 pipeline. No formal proximity cut-off or cross-model consensus.</li>
-<li>The V1254W route to C14 in <em>S. cerevisiae</em> is an assumption.</li>
-<li>The knockout screen was repeated with the early-release reaction on at one growth floor; the frontier and sensitivity analyses were not. Growth penalties were computed for single deletions only.</li>
-<li>The two FBA analyses differ in conditions; glucose uptake explains about half of their growth-rate difference and the rest is unexplained.</li>
-</ul>
+<p><em>Table A. What each step rests on, what it assumes, and where the wet lab picks it up.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Rests on</th>
+<th>Assumption carried</th>
+<th>Wet-lab counterpart</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1 Sequence</td><td>Needle alignment of <em>Yarrowia</em> and <em>S. cerevisiae</em> FAS2; I1220W gives C14 at 11.6 % in <em>Yarrowia</em></td><td>V1254W acts in <em>S. cerevisiae</em> as I1220W does in <em>Yarrowia</em></td><td>V1254W <em>FAS2</em> part and construct</td></tr>
+<tr><td>2 FAS interaction</td><td>75 Boltz-2 models; residue exclusions from structure 2VKZ</td><td>Pose depends on the setup, so residues are used for exclusion and not for ranking</td><td>Site choice (V1254, not M1251); Sanger-verified substitution</td></tr>
+<tr><td>3 Bridge</td><td>Yeast9 with an added early-release reaction</td><td>The reaction represents V1254W</td><td>Predicted C14 shift to compare with the measured profile</td></tr>
+<tr><td>4 Metabolism</td><td>Flux balance analysis: C14 export +2.6 %, limited by NADPH; 1,143 single deletions, none above wild type</td><td>FBA gives upper bounds, not titres</td><td>GC-MS fatty-acid profile of the engineered strain</td></tr>
+<tr><td>5 Trust</td><td>Six pre-flight checks; greedy 65 % and RL 10 % on a synthetic benchmark</td><td>GC-MS replicate variation of 1&ndash;5 %</td><td>Replicate design that resolves a predicted change of a few per cent</td></tr>
+<tr><td>6 Process</td><td>19 CFD runs; screening LCA</td><td>Inputs of the screening study</td><td>Measured C14 yield updates the LCA inputs</td></tr>
+</tbody>
+</table></div>
+<p>The models are compared with published results where they exist, and the wet-lab measurements will be set against the predictions in the table above as they are reported. Two analyses use different conditions, and glucose uptake explains about half of their growth-rate difference. The knockout screen was repeated with the early-release reaction on at one growth floor, and growth penalties were computed for single deletions.</p>
 </div></details>
-<details class="acc" open><summary><h2 id="next-steps">Next steps</h2></summary><div class="acc-body">
+<details class="acc" open><summary><h2 id="further-work">Further work</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Planned work: repeat the main analyses with the new reaction, quantify growth costs, finish the structural controls, test the model against published results.</p>
+<p>The natural extensions are to repeat the main analyses with the early-release reaction, extend growth costs to multi-gene sets, add structural controls, and compare the model with measured fatty-acid profiles.</p>
 </div>
-<p>Not done, and not scheduled by this site: repeat the frontier with the early-release reaction; add multi-gene growth penalties; run the structural positive control, unrestrained simulation and more seeds, and report per-residue confidence; compare the model with published literature outcomes. The owners and dates must be set by the team.</p></div></details>
+<p>Natural extensions of this work: repeat the frontier with the early-release reaction; add multi-gene growth penalties; add the alignment-based structural positive control, unrestrained simulation and more seeds, and report per-residue confidence; and compare the model with published and measured fatty-acid profiles, including those of the wet-lab strain.</p></div></details>

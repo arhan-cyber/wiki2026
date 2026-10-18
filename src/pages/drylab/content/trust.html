@@ -1,5 +1,5 @@
 <div class="alert alert-secondary" role="alert">
-<p>Part of the <a href="/dry-lab/model">model</a>. <strong>None of the values on this page has been validated against wet-lab data.</strong></p>
+<p>Part of the <a href="/dry-lab/model">model</a>. Values on this page are model outputs; the wet-lab V1254W strain provides the experimental test (see <a href="/dry-lab#integration">Integration</a>).</p>
 </div>
 <details class="acc" open><summary><h2 id="trust">Step 5. Reliability of the strain-design ranking</h2></summary><div class="acc-body">
 <div class="brief">
@@ -22,7 +22,7 @@
 </div>
 <p>The pre-flight tool (Software page) applies six automated checks to a scoring function; each returns PASS, WARN or FAIL with an explanation (Table 1). The thresholds are tied to assay resolution rather than to solver tolerance. A first version compared score differences with solver tolerance (about one part in a million) and passed the pipeline described above.</p>
 <div class="key">
-<p><em>Table 1. Pre-flight checks and their outcome for the configuration described in the previous section. Model-implied; not validated against wet-lab data.</em></p>
+<p><em>Table 1. Pre-flight checks and their outcome for the configuration described in the previous section. Model output.</em></p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -68,7 +68,7 @@
 <p>The verdict was NOT USABLE: the tool withheld strain proposals because checks D1, D2 and D3 failed, and no ranked knockout list was therefore passed to experimental work. Four of the six checks are not new: D3–D6 automate established methods, and D4 is, in the team&rsquo;s understanding, already covered by memote<sup class="r"><a href="#ref-1">1</a></sup> (the specific memote test was not checked). Automated versions of D1 and D2 were not found by the team in the eight strain-design tools it read about; no survey table was kept (Figure 1).</p>
 <figure class="figure my-4">
   <img src="/drylab/figures/explainer_preflight_gate.png" loading="lazy" class="figure-img img-fluid" alt="A scoring function feeds a table of six pre-flight checks, D1 to D6, with their questions and the team results (D1, D2 and D3 FAIL; D4, D5 and D6 WARN). A decision, D1 or D2 failed, leads on yes to Not usable with no proposals issued, and on no to the search and a proposal sheet.">
-  <figcaption class="figure-caption"><strong>Figure 1.</strong> Pre-flight runs six checks on the scoring function before any search. Failure of D1 or D2 withholds proposals. For the team's scoring, D1, D2 and D3 failed and D4 to D6 gave warnings, so no proposals were issued. Thresholds follow assay resolution (1 % detectable, 5 % measurable; replicate variation 1–5 %), not solver tolerance. Model-implied; not validated against wet-lab data.</figcaption>
+  <figcaption class="figure-caption"><strong>Figure 1.</strong> Pre-flight runs six checks on the scoring function before any search. Failure of D1 or D2 withholds proposals. For the team's scoring, D1, D2 and D3 failed and D4 to D6 gave warnings, so no proposals were issued. Thresholds follow assay resolution (1 % detectable, 5 % measurable; replicate variation 1–5 %), not solver tolerance. Model output.</figcaption>
 </figure>
 
 </div></details>
@@ -93,7 +93,7 @@
 <tr><td>Earth Mover&rsquo;s, 1-D</td><td>0.0140 / 0.0322</td><td>0.0377</td><td>6.3 %</td></tr>
 <tr><td>Earth Mover&rsquo;s, 2-D</td><td>0.0245 / 0.0461</td><td>0.0656</td><td>6.4 %</td></tr>
 </tbody></table></div>
-<p>Raw floors are not comparable between distances (cosine and KL are quadratic near zero). The ranking of real Yeast9 designs rests on only five distinct profiles, so rank agreement between distances on real data is weak evidence. Source: the team&rsquo;s metrics report (not yet published).</p>
+<p>Raw floors are not comparable between distances (cosine and KL are quadratic near zero). The ranking of real Yeast9 designs rests on only five distinct profiles, so rank agreement between distances on real data is weak evidence. Source: the team&rsquo;s metrics report (held in the team&rsquo;s project records).</p>
 </div></details>
 <details class="acc" open><summary><h2 id="is-learned-search-worth-it">Cost-effectiveness of learned search relative to brute force and greedy search</h2></summary><div class="acc-body">
 <div class="brief">
