@@ -25,9 +25,6 @@ const navigation: NavItem[] = [
     subnav: [
       { label: 'Description', href: '/project/description' },
       { label: 'Engineering', href: '/project/engineering' },
-      { label: 'Design', href: '#', disabled: true },
-      { label: 'Contribution', href: '#', disabled: true },
-      { label: 'Cooling Measurement', href: '#', disabled: true },
       { label: 'News Headlines', href: '/project/news' },
       { label: 'Future Scope', href: '/project/future-scope' },
     ],
@@ -40,8 +37,6 @@ const navigation: NavItem[] = [
       { label: 'Notebook', href: '/wet-lab/notebook' },
       { label: 'Parts', href: '/wet-lab/parts' },
       { label: 'Safety', href: '/wet-lab/safety' },
-      { label: 'Result', href: '#', disabled: true },
-      { label: 'DBTL', href: '#', disabled: true },
     ],
   },
   {
