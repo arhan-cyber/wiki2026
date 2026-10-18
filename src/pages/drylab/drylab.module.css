@@ -867,8 +867,33 @@
 .content :global(.lca-tile p) { margin: 0; font-size: 0.95em; line-height: 1.45; }
 
 /* Basis boxes hold a table or a figure (the table scrolls inside, so the box may shrink) */
-.content :global(.lca-basis-pair) { align-items: start; }
-.content :global(.lca-basis-pair .cfd-basis-card) { min-width: 0; }
+/* LCA: the two bases sit one above the other, each with its words on the left
+   and its table / chart on the right, so neither card is squeezed into half
+   the width or left with empty space beside a taller neighbour. */
+.content :global(.lca-basis-pair) { grid-template-columns: minmax(0, 1fr); }
+.content :global(.lca-basis-pair .cfd-basis-card) {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  /* tag, heading, text, then a stretchy row that takes up the extra height of
+     the table / chart so the words stay together at the top */
+  grid-template-rows: auto auto auto 1fr;
+  column-gap: 28px;
+  align-items: start;
+}
+.content :global(.lca-basis-pair .cfd-basis-card > *) { grid-column: 1; }
+.content :global(.lca-basis-pair .cfd-basis-card > .cfd-basis-tag) { justify-self: start; }
+.content :global(.lca-basis-pair .cfd-basis-card > .table-wrap),
+.content :global(.lca-basis-pair .cfd-basis-card > figure.cfd-fig) {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  align-self: center;
+  margin: 0;
+}
+.content :global(.lca-basis-pair .table-wrap) { border-radius: 14px; }
+.content :global(.lca-basis-pair table) { font-size: 15px; }
+.content :global(.lca-basis-pair td:nth-child(2)) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.content :global(.lca-basis-pair figure.cfd-fig figcaption) { font-size: 0.85em; }
 .content :global(.cfd-basis-card p + p) { margin-top: 8px; }
 .content :global(.cfd-basis-card .table-wrap) { margin: 12px 0 0; background: #fff; }
 .content :global(.cfd-basis-card figure.cfd-fig) { margin: 12px 0 0; }
@@ -938,7 +963,13 @@
 
 @media (max-width: 900px) {
   .content :global(.lca-tiles) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .content :global(.lca-basis-pair) { grid-template-columns: minmax(0, 1fr); }
+  .content :global(.lca-basis-pair .cfd-basis-card) { grid-template-columns: minmax(0, 1fr); }
+  .content :global(.lca-basis-pair .cfd-basis-card > .table-wrap),
+  .content :global(.lca-basis-pair .cfd-basis-card > figure.cfd-fig) {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 12px;
+  }
 }
 @media (max-width: 760px) {
   .content :global(.lca-boxes.n3) { grid-template-columns: 1fr; }
