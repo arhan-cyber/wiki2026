@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import LiquidIndex, { type LiquidIndexItem } from '../../components/LiquidIndex';
@@ -6,6 +7,7 @@ import TitleCard from '../../components/TitleCard';
 import shell from '../../components/PageShell.module.css';
 import styles from './drylab.module.css';
 import { dryLabPages, modelTabs } from './drylabPages';
+import CfdModels from './CfdModels';
 
 // Each page's HTML is its own lazily loaded chunk.
 const loaders = import.meta.glob('./content/*.html', {
@@ -49,6 +51,13 @@ export default function DryLabPage({ slug }: { slug: string }) {
       return { id: h.id, label: h.textContent?.trim() || `Section ${i + 1}` };
     });
     setToc(items);
+  }, [loaded]);
+
+  // Spots in the page HTML where a live React widget goes (the CFD 3-D models).
+  const [modelMounts, setModelMounts] = useState<HTMLElement[]>([]);
+  useEffect(() => {
+    const el = contentRef.current;
+    setModelMounts(el && loaded ? [...el.querySelectorAll<HTMLElement>('.cfd-3d-mount')] : []);
   }, [loaded]);
 
   const setAllOpen = (open: boolean) => {
@@ -200,6 +209,7 @@ export default function DryLabPage({ slug }: { slug: string }) {
               ) : (
                 <div className={styles.loading} aria-busy="true" />
               )}
+              {modelMounts.map((m, i) => createPortal(<CfdModels />, m, `models-${i}`))}
             </article>
           </div>
 
