@@ -8,7 +8,7 @@ type FooterProps = {
 export default function Footer({ bgColor = '#181830' }: FooterProps) {
   return (
     <footer className={styles.footer} style={{ background: bgColor }}>
-      {/* Animated water waves — positioned at the top of the footer */}
+      {/* Animated water waves, positioned at the top of the footer */}
       <div className={styles.wavesArea}>
         <WaveFooter />
       </div>
@@ -19,7 +19,7 @@ export default function Footer({ bgColor = '#181830' }: FooterProps) {
           {/* Left: iGEM IITB logo */}
           <div className={styles.logoBox}>
             <img
-              src="/igem-iitb-logo.png"
+              src="/igem-iitb-logo.webp"
               alt="iGEM IIT Bombay"
               className={styles.logo}
             />

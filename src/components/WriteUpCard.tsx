@@ -9,7 +9,6 @@ const SECTIONS: Section[] = [
   { label: 'Key Takeaway', key: 'keyTakeaway' },
   { label: 'Contribution', key: 'contribution' },
   { label: 'Implementation', key: 'implementation' },
-  { label: 'References', key: 'references' },
 ];
 
 type Props = {

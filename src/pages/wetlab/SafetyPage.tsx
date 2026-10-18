@@ -5,7 +5,7 @@ import styles from './wetlab.module.css';
 
 // Captions from "wiki wetlab doccumentation.pdf" pages 20–22. Image 1 is the Figma export.
 const slides = [
-  { src: '/wetlab/safety/image1.png', caption: 'LAF cabinet used as a workbench for microbial samples where contamination may be an issue' },
+  { src: '/wetlab/safety/image1.webp', caption: 'LAF cabinet used as a workbench for microbial samples where contamination may be an issue' },
   { src: '/wetlab/safety/pdf-image2.jpeg', caption: 'Gloves were used throughout the experiments for handling all samples and chemicals' },
   { src: '/wetlab/safety/pdf-image3.jpeg', caption: 'All high temperature chemicals were handled using heat resistant gloves' },
   { src: '/wetlab/safety/pdf-image4.jpeg', caption: '70% ethanol was used to disinfect all workbenches before and after experiments daily' },
@@ -28,6 +28,7 @@ export default function SafetyPage() {
   return (
     <PageShell
       title="Safety"
+      art="shield"
       index={[
         { id: 'overview', label: 'Overview' },
         { id: 'lab-safety', label: 'Lab Safety' },
@@ -152,7 +153,7 @@ export default function SafetyPage() {
           iGEM safety expectations and institutional biosafety requirements, ensuring that innovation is accompanied by responsible
           and safe engineering practices.
         </p>
-        {/* IMAGES — part of the Lab Safety card */}
+        {/* IMAGES, part of the Lab Safety card */}
         <div id="images" className={`${styles.imagesCard} ${styles.imagesInCard}`}>
           <h2 className={styles.imagesTitle}>IMAGES</h2>
           <img src={slides[slide].src} alt={slides[slide].caption} className={styles.slideImg} />

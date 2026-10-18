@@ -10,7 +10,7 @@ type Geo = {
   /** SVG path of the line's centreline through every step. */
   d: string;
   bar: number;
-  /** y of each card's title row — a station lights up there once the drop passes. */
+  /** y of each card's title row, a station lights up there once the drop passes. */
   stations: number[];
 };
 

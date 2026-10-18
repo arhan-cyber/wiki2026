@@ -13,7 +13,7 @@ import {
 } from './engineeringContent';
 
 /**
- * Project Engineering — the template the other tabs follow: a tight title band,
+ * Project Engineering, the template the other tabs follow: a tight title band,
  * a sticky left rail that actually navigates, and a wide content column. Every
  * question and DBTL cycle is a working accordion.
  */
@@ -59,7 +59,7 @@ export default function ProjectEngineeringPage() {
   const active = masterStages.find((s) => s.key === stage) ?? masterStages[0];
 
   return (
-    <PageShell title="Project Engineering" index={INDEX} footerBg="#6DB8EA">
+    <PageShell title="Project Engineering" art="gear" index={INDEX}>
       {/* Cycle 0 */}
       <section id="cycle-0" className={styles.panel}>
         <p className={styles.eyebrow}>Cycle 0 :</p>

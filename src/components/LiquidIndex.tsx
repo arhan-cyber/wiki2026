@@ -157,7 +157,7 @@ export default function LiquidIndex({ items, header, className, geometry, childr
     const lastEl = document.getElementById(items[items.length - 1].sectionId);
     const endPos = lastEl ? lastEl.getBoundingClientRect().bottom + window.scrollY : tops[tops.length - 1];
 
-    // Detect bottom of page — guarantee last item activates
+    // Detect bottom of page, guarantee last item activates
     const atBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50;
     if (atBottom) {
       setActive(items.length - 1);
@@ -236,7 +236,7 @@ export default function LiquidIndex({ items, header, className, geometry, childr
 
   return (
     <div className={`sust-page ${className ?? ''}`}>
-      {/* MOBILE NAV — stepper with per-segment connecting lines */}
+      {/* MOBILE NAV, stepper with per-segment connecting lines */}
       <nav className="mobile-index" ref={mobileNavRef}>
         <div className="mobile-track">
           {items.map((it, i) => {

@@ -115,7 +115,7 @@ function ScopeCard({ scope }: { scope: Scope }) {
 
 export default function FutureScopePage() {
   return (
-    <PageShell title="Future Scope" index={INDEX}>
+    <PageShell title="Future Scope" art="map" index={INDEX}>
       <div className={styles.panel}>
         <section className={styles.section}>
           <h2 className={styles.h1}>Building on Our Approach</h2>
@@ -160,7 +160,7 @@ export default function FutureScopePage() {
             <b>robust, productive, and metabolically sustainable yeast chassis</b> for methyl myristate production.
           </p>
           <div className={styles.sign}>
-            <p className={styles.signTitle}>BiFROST:</p>
+            <p className={styles.signTitle}>BiFROST</p>
             <p className={styles.signSub}>Engineering a Sustainable Future</p>
           </div>
         </section>

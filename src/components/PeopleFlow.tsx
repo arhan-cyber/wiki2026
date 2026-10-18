@@ -1,127 +1,109 @@
 import styles from './PeopleFlow.module.css';
 
-type Note = {
+type Box = {
   id: string;
   label: string;
-  /** Position and size on the 715 x 540 reference board, in px. */
+  /** Position and size on the 1100 x 870 reference board, in px. */
   x: number;
   y: number;
   w: number;
   h: number;
+  head: string;
   body: string;
-  bar: string;
-  /** People in the note: label shown, and the id of their write-up (null = no write-up). */
+  edge: string;
+  /** Names shown, and the id of their write-up (null = name only). */
   people: [string, string | null][];
-  muted?: boolean;
 };
 
-// Taken from the team's "People Flow" board.
-const NOTES: Note[] = [
+const BOXES: Box[] = [
   {
-    id: 'wetlab', label: 'WETLABS', x: 82, y: 16, w: 146, h: 172, body: '#fddba8', bar: '#e0b030',
+    id: 'wetlab', label: 'WETLABS', x: 75, y: 82, w: 280, h: 240, head: '#fcd96a', body: '#fff4d1', edge: '#2a2f55',
     people: [
       ['Parth', 'parth'], ['Prachita', 'prachita'], ['Professor Phale', 'prof-phale'], ['Professor Santanu', 'prof-santanu'],
       ['Anushka Alikar', 'anushka-alikar'], ['Professor Balaji', 'balaji'], ['Pratik Makhija', 'pratik-makhija'],
     ],
   },
   {
-    id: 'pis', label: "PI'S", x: 278, y: 14, w: 145, h: 146, body: '#b9e5f8', bar: '#7fb6e0',
+    id: 'pis', label: "PI'S", x: 413, y: 70, w: 275, h: 150, head: '#8fcbf7', body: '#d2eafc', edge: '#2a2f55',
     people: [['Professor Saket', null], ['Professor Rajesh', null]],
   },
   {
-    id: 'drylab', label: 'DRY LABS', x: 505, y: 40, w: 163, h: 148, body: '#e3c8f4', bar: '#c77fd0',
+    id: 'drylab', label: 'DRY LABS', x: 750, y: 100, w: 295, h: 220, head: '#cfa8f5', body: '#ece0fb', edge: '#2a2f55',
     people: [
       ['Professor Yogendra Shastri', 'yogendra-shastri'], ['Professor Sandip', 'prof-sandeep'], ['Professor Suyash', 'prof-suyash'],
       ['Shubham', 'shubham'], ['Rutuja Maam', 'rutuja'],
     ],
   },
   {
-    id: 'product-dev', label: 'PRODUCT DEV', x: 30, y: 196, w: 145, h: 149, body: '#fdb3b8', bar: '#e25a55',
+    id: 'product-dev', label: 'PRODUCT DEV', x: 45, y: 370, w: 308, h: 190, head: '#f9a9c0', body: '#fde3ec', edge: '#2a2f55',
     people: [
       ['Dr. Navratna', 'dr-navratna'], ['Rajesh Vadgama Sir (L’Oréal)', 'rajesh-vagdama'],
       ['Subhendu Sir (Shell)', 'subhendhu'], ['Vaibhav Sai Sir', 'vaibhav-sai'],
     ],
   },
   {
-    id: 'regulations', label: 'REGULATIONS', x: 545, y: 218, w: 145, h: 139, body: '#fdd9a0', bar: '#e0b200',
+    id: 'regulations', label: 'REGULATIONS', x: 755, y: 380, w: 300, h: 120, head: '#fcd96a', body: '#fff4d1', edge: '#2a2f55',
     people: [['ECHA', 'echa']],
   },
   {
-    id: 'alumni', label: 'ALUMNI', x: 278, y: 358, w: 144, h: 139, body: '#c7f0ac', bar: '#4fd262',
+    id: 'alumni', label: 'ALUMNI', x: 255, y: 582, w: 280, h: 210, head: '#a8e6b4', body: '#e1f6e5', edge: '#2a2f55',
     people: [['Husayn', 'husayn'], ['Aditya', 'aditya-ict'], ['Anagdha', 'anagdha'], ['Deepan', 'deepan'], ['Dawar', 'dawar']],
   },
-  // Not on the team's board, but they have write-ups, so they stay reachable here.
   {
-    id: 'others', label: 'OTHERS', x: 545, y: 384, w: 145, h: 148, body: '#e6e6ea', bar: '#a9a9b4', muted: true,
-    people: [['iGEM Denmark', 'igem-denmark']],
+    id: 'others', label: 'OTHERS', x: 615, y: 582, w: 322, h: 210, head: '#b4c8ef', body: '#e1e9f9', edge: '#2a2f55',
+    people: [['Kadambari', null], ['Hrushikesh', null], ['Archana', null], ['iGEM Denmark', 'igem-denmark'], ['Nicola O’Riordan', null]],
   },
 ];
 
-const W = 715;
-const H = 540;
+const W = 1100;
+const H = 870;
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
-// Hand-drawn arrows from the hub to each note (path coordinates are on the same 715 x 540 grid).
-const ARROWS = [
-  'M 268 234 C 246 228 234 216 232 204', // wetlabs
-  'M 362 212 L 362 176', // PIs
-  'M 444 236 C 478 236 500 224 503 206', // dry labs
-  'M 232 268 L 190 268', // product dev
-  'M 488 270 L 532 270', // regulations
-  'M 370 314 L 372 350', // alumni
+// Spokes from the hub (centre 550,430) out to each box.
+const LINES = [
+  'M 450 372 L 355 285', 'M 550 345 L 550 220', 'M 655 368 L 750 305',
+  'M 445 430 L 353 430', 'M 660 430 L 755 430', 'M 500 505 L 430 582', 'M 605 505 L 680 582',
 ];
 
 type Props = { onPick: (id: string) => void };
 
 /**
- * The People Flow board, drawn the way the team sketched it: sticky notes on
- * grid paper, arrows out from a hand-drawn iHP hub. Every name with a write-up
- * opens it.
+ * The People Flow board as a hub-and-spoke chart: the iHP hub in the middle and a
+ * boxed group for each kind of person we spoke to. Names with a write-up open it.
  */
 export default function PeopleFlow({ onPick }: Props) {
   return (
     <div className={styles.paper}>
       <div className={styles.canvas}>
         <svg className={styles.svg} viewBox={`0 0 ${W} ${H}`} aria-hidden>
-          <defs>
-            <marker id="pf-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#1f1f1f" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </marker>
-          </defs>
-          {/* hand-drawn hub: a loose ellipse plus a darker looping stroke */}
-          <ellipse cx="362" cy="252" rx="108" ry="38" fill="none" stroke="#2b2b2b" strokeWidth="1.4" />
-          <path d="M 304 232 C 330 210 412 206 438 234 C 452 250 440 270 410 270 C 430 258 424 240 396 232 C 372 224 340 226 318 238"
-            fill="none" stroke="#1f1f1f" strokeWidth="3.2" strokeLinecap="round" />
-          {ARROWS.map((d) => (
-            <path key={d} d={d} fill="none" stroke="#1f1f1f" strokeWidth="1.7" strokeLinecap="round" markerEnd="url(#pf-head)" />
+          {LINES.map((d) => (
+            <path key={d} d={d} fill="none" stroke="#2a2f55" strokeWidth="2.4" strokeLinecap="round" />
           ))}
         </svg>
-        <span className={styles.hub}>IHP</span>
+        <span className={styles.hub} style={{ left: pct(445, W), top: pct(345, H), width: pct(215, W), height: pct(160, H) }}>
+          IHP
+        </span>
 
-        {NOTES.map((n) => (
+        {BOXES.map((b) => (
           <div
-            key={n.id}
-            className={`${styles.note} ${n.muted ? styles.noteMuted : ''}`}
-            style={{ left: pct(n.x, W), top: pct(n.y, H), width: pct(n.w, W), height: pct(n.h, H) }}
+            key={b.id}
+            className={styles.box}
+            style={{ left: pct(b.x, W), top: pct(b.y, H), width: pct(b.w, W), minHeight: pct(b.h, H), background: b.body }}
           >
-            <div className={styles.shadow} />
-            <div className={styles.sheet} style={{ background: n.body }}>
-              <div className={styles.bar} style={{ background: n.bar }} />
-              <h3 className={styles.label}>{n.label}</h3>
-              <ul className={styles.people}>
-                {n.people.map(([name, id]) => (
-                  <li key={name}>
-                    {id ? (
-                      <button type="button" className={styles.person} onClick={() => onPick(id)}>
-                        {name}
-                      </button>
-                    ) : (
-                      <span className={`${styles.person} ${styles.personStatic}`}>{name}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h3 className={styles.label} style={{ background: b.head }}>{b.label}</h3>
+            <ul className={styles.people}>
+              {b.people.map(([name, id]) => (
+                <li key={name}>
+                  {id ? (
+                    <button type="button" className={styles.person} onClick={() => onPick(id)}>
+                      {name}
+                    </button>
+                  ) : (
+                    <span className={`${styles.person} ${styles.personStatic}`}>{name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>

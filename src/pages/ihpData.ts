@@ -182,8 +182,8 @@ export const writeUps: WriteUp[] = [
   {
     id: 'pratik-makhija',
     name: 'Pratik Makhija',
-    affiliation: 'IISER Pune team member who ran the Jatropha project',
-    purpose: 'Asked how his team ran their Jatropha project, strains, vectors, kits and protocols, to assess feasibility for our own work with Yarrowia lipolytica.',
+    affiliation: 'IISER Pune team member who ran the Jetropha project',
+    purpose: 'Asked how his team ran their Jetropha project, strains, vectors, kits and protocols, to assess feasibility for our own work with Yarrowia lipolytica.',
     keyTakeaway:
       'The team emphasised that for reliable results the Y. lipolytica strain should be sourced from IMTECH (MTCC), Chandigarh, specifically the Po1g strain, a derivative of the W29 lineage, and that it is particularly effective with the pYLEX vector series for genomic integration. On vectors, they highlighted the Yeastern BioKit as an all-in-one solution: pYLEX is the "home" for the gene of interest, designed for precise homologous recombination into the genome, and the kit includes pre-optimised components that simplify transformation, which can otherwise be tricky with non-conventional yeasts. They mentioned using restriction enzymes such as BamHI and PmlI for cloning into the pYLEX backbone, following advice from experts including Dr. Catherine Madzak. On media and growth, cultivation is handled in distinct stages to balance biomass growth against gene induction: standard YPD for general maintenance, then a medium protocol sheet specific to pYLEX for expression and selection, typically YNB without amino acids to maintain selection pressure. They noted pH (around 5.5) and aeration are critical, and explored using perfluorodecalin to enhance oxygen availability, which significantly boosted their lipid and enzyme yields. They also suggested keeping a strict components table for consistency across batches, glucose for normal growth and glycerol for induction, ammonium sulfate or urea as nitrogen source (limitation triggers lipids), EDTA, ZnSO4, MnSO4 and FeSO4 as trace elements, and leucine (LEU2) or uracil (URA3) as selection marker depending on the pYLEX variant. Their mentors, including Dr. Sunish Radhakrishnan, advised that codon optimisation for the Y. lipolytica bias is essential, as rare codons from other species often lead to failed western blots or low protein expression.',
     contribution: 'Shared the strain source, vector system, kits, media staging and protocol details from running a comparable project, giving us a concrete picture of what working with Y. lipolytica would require.',
@@ -264,7 +264,7 @@ export const writeUps: WriteUp[] = [
     affiliation: 'Professor in metabolic engineering',
     // TODO (team): an earlier version of this write-up also recorded advice on alternatives to
     // cuphea, ordering mutated yeast strains from the reference papers rather than mutating from
-    // scratch, and the feasibility of a metazoan FAS. Those points are not in the Drive document —
+    // scratch, and the feasibility of a metazoan FAS. Those points are not in the Drive document -
     // confirm whether they belong here or to a separate meeting.
     purpose:
       'Our project aimed to engineer a microbial system capable of producing methyl myristate, a potential sustainable dielectric coolant. Our proposed strategy involved multiple genetic modifications, including gene incorporation and deletion, to enable in vivo methylation and improve product formation. We consulted him to understand how these modifications could affect metabolic flux, cellular energy requirements, organism fitness and overall product yield, and to explore alternative approaches for obtaining C14 fatty acids, including using a thioesterase to release them from fatty acyl-CoA intermediates.',

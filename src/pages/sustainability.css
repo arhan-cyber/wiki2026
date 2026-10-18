@@ -28,9 +28,10 @@
 
 /* ---------- LEFT INDEX ---------- */
 .sust-index {
-  position: fixed;
+  position: sticky;
   top: 72px;
-  left: 0;
+  flex: none;
+  align-self: flex-start;
   width: 460px;
   height: calc(100vh - 72px);
   overflow: hidden;
@@ -180,7 +181,9 @@
 
 /* ---------- RIGHT CONTENT ---------- */
 .sust-content {
-  margin-left: 460px;
+  flex: 1;
+  min-width: 0;
+  margin-left: 0;
   padding: 48px 56px 80px;
 }
 
@@ -342,13 +345,13 @@
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1100px) {
   .sust-index { width: 380px; }
-  .sust-content { margin-left: 380px; padding: 36px 28px 60px; }
+  .sust-content { margin-left: 0; padding: 36px 28px 60px; }
 }
 
 @media (max-width: 768px) {
   .sust-index { display: none; }
   .sust-layout { flex-direction: column; }
-  .sust-content { margin-left: 0; padding: 24px 16px 48px; }
+  .sust-content { flex: none; width: 100%; margin-left: 0; padding: 24px 16px 48px; }
   .dummy-section { padding: 32px 0; scroll-margin-top: 150px; }
   .dummy-section h2 { font-size: 1.65rem; margin-bottom: 1rem; }
   .dummy-section h3 { font-size: 1.15rem; margin-top: 1.6rem; }

@@ -39,7 +39,7 @@ export default function IhpPage() {
   // ESTER reveal auto-plays once it scrolls into view: the two lines slide in
   // from the edges and ease into the centre. Requires a minimum amount of
   // scroll first (it sits inside the 100vh hero, so it's already in view on
-  // load — without this it would fire instantly with no scroll at all). Once
+  // load, without this it would fire instantly with no scroll at all). Once
   // both conditions are met it fires once and the animation runs to
   // completion on its own, independent of further scrolling.
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function IhpPage() {
     requestAnimationFrame(step);
   };
 
-  // Every write-up is always fully expanded — no collapse/expand state — so
+  // Every write-up is always fully expanded, no collapse/expand state, so
   // clicking a node just scrolls straight to it.
   const scrollToWriteUp = (id: string) => {
     smoothScrollTo(document.getElementById(`writeup-${id}`), 'start');
@@ -127,18 +127,18 @@ export default function IhpPage() {
             <figure className={styles.profCard}>
               <div
                 className={styles.profPhotoWrap}
-                style={{ ['--photo-src' as string]: "url('/members/profRajesh.png')" }}
+                style={{ ['--photo-src' as string]: "url('/members/profRajesh.webp')" }}
               >
-                <img src="/members/profRajesh.png" alt="Prof. Rajesh Patkar" className={styles.profPhoto} />
+                <img src="/members/profRajesh.webp" alt="Prof. Rajesh Patkar" className={styles.profPhoto} />
               </div>
               <figcaption className={styles.profName}>Prof. Rajesh Patkar</figcaption>
             </figure>
             <figure className={styles.profCard}>
               <div
                 className={styles.profPhotoWrap}
-                style={{ ['--photo-src' as string]: "url('/members/profSaket.png')" }}
+                style={{ ['--photo-src' as string]: "url('/members/profSaket.webp')" }}
               >
-                <img src="/members/profSaket.png" alt="Prof. Saket Choudhary" className={styles.profPhoto} />
+                <img src="/members/profSaket.webp" alt="Prof. Saket Choudhary" className={styles.profPhoto} />
               </div>
               <figcaption className={styles.profName}>Prof. Saket Choudhary</figcaption>
             </figure>
@@ -187,7 +187,7 @@ export default function IhpPage() {
             </div>
             <p className={styles.networkOpenCue}>Click to open full write up</p>
 
-            {/* Individual write-ups — always fully expanded, no collapse */}
+            {/* Individual write-ups, always fully expanded, no collapse */}
             <h2 className={styles.writeHeading}>Individual write-ups</h2>
             {groups.map((g) => (
               <section key={g.id} className={styles.groupSection}>

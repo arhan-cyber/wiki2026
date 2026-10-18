@@ -208,12 +208,12 @@
 </ul>
 <p>In total, 75 models were generated. The earlier Colab runs used one sample and constraints that were not fully recorded, so they are not directly comparable. Figure A outlines the workflow and Figure B the two constraint designs. Figure 1 shows the distances obtained, Figure 2 the confidence scores and Figure 3 the comparison across chain lengths. Figure 4 shows one model as an example.</p>
 <figure class="figure my-4">
-  <img src="/drylab/figures/explainer_boltz_pipeline.png" loading="lazy" class="figure-img img-fluid" alt="Flow chart. Row 1: inputs (535-residue KS domain, myristic acid), constraint design, Boltz-2 run (15 runs, 75 models) and outputs, each marked computed. Then measurement of distances and confidence, a grey diamond gate labelled pending that asks whether controls behave, and a comparison of setups. A grey box of proposed controls, marked pending and not run, feeds the gate; a no branch says to fix the setup.">
+  <img src="/drylab/figures/explainer_boltz_pipeline.webp" loading="lazy" class="figure-img img-fluid" alt="Flow chart. Row 1: inputs (535-residue KS domain, myristic acid), constraint design, Boltz-2 run (15 runs, 75 models) and outputs, each marked computed. Then measurement of distances and confidence, a grey diamond gate labelled pending that asks whether controls behave, and a comparison of setups. A grey box of proposed controls, marked pending and not run, feeds the gate; a no branch says to fix the setup.">
   <figcaption class="figure-caption"><strong>Figure A.</strong> Boltz-2 workflow for the KS domain. Inputs, constraint design, 15 runs (75 models), measurement and comparison were done <strong>[computed]</strong>. Positive and negative controls and a gate that would decide whether poses are interpreted are planned and have not been run <strong>[pending]</strong>; no numeric thresholds exist yet, and the comparison reported here was made without the gate. The C16 and C22 chain-length runs described below were done and are separate from these planned controls. Model-implied; not validated against wet-lab data.</figcaption>
 </figure>
 
 <figure class="figure my-4">
-  <img src="/drylab/figures/explainer_constraint_designs.png" loading="lazy" class="figure-img img-fluid" alt="Two panels. Design A, soft contact on C1305 (7 runs): M1251 at 3.1 to 6.3 angstrom and M1260 at 15 to 17 angstrom from the C14 chain, neither constrained. Design B, forced contacts on M1251 and M1260 (8 runs): M1251 at 3.1 to 6.3 angstrom and M1260 at 3.9 to 6.5 angstrom.">
+  <img src="/drylab/figures/explainer_constraint_designs.webp" loading="lazy" class="figure-img img-fluid" alt="Two panels. Design A, soft contact on C1305 (7 runs): M1251 at 3.1 to 6.3 angstrom and M1260 at 15 to 17 angstrom from the C14 chain, neither constrained. Design B, forced contacts on M1251 and M1260 (8 runs): M1251 at 3.1 to 6.3 angstrom and M1260 at 3.9 to 6.5 angstrom.">
   <figcaption class="figure-caption"><strong>Figure B.</strong> Two constraint designs on the same KS-domain input. With a soft contact on C1305 (7 runs) the C14 chain lay 15–17 Å from M1260; with forced contacts on M1251 and M1260 (8 runs) it lay 3.9–6.5 Å. M1251 stayed 3.1–6.3 Å away in both, no clash was seen, and confidence (0.90–0.94) did not separate the designs. Schematic of constraints and measured distances, not of geometry. Model-implied; not validated against wet-lab data.</figcaption>
 </figure>
 
@@ -258,7 +258,7 @@
 <li><strong>[pending]</strong> No energy-minimised ligand-bound state was produced, so no model represents a relaxed pocket.</li>
 </ul>
 <figure class="figure my-4">
-  <img src="/drylab/figures/boltz_pocket_c14.png" loading="lazy" class="figure-img img-fluid" alt="Cartoon of the KS pocket with C14 in blue sticks. M1251 (orange), V1254 (red) and M1260 (green) are drawn as sticks with dashed distance lines of 4.3, 8.9 and 4.6 angstrom.">
+  <img src="/drylab/figures/boltz_pocket_c14.webp" loading="lazy" class="figure-img img-fluid" alt="Cartoon of the KS pocket with C14 in blue sticks. M1251 (orange), V1254 (red) and M1260 (green) are drawn as sticks with dashed distance lines of 4.3, 8.9 and 4.6 angstrom.">
   <figcaption class="figure-caption"><strong>Figure 4.</strong> C14 (blue) in the highest-confidence model of the run that forced M1251 and M1260 as contacts. Closest-atom distances: M1251 (orange), 4.3 Å; V1254 (red), 8.9 Å; M1260 (green), 4.6 Å; neighbouring residues in grey. One model of five is shown; the others differ. Boltz-2 prediction, not an experimental structure.</figcaption>
 </figure>
 

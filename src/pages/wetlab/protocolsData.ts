@@ -317,7 +317,7 @@ export const sections: ProtocolSection[] = [
               {
                 text: 'Pipetting Technique:',
                 sub: [
-                  // TODO: the PDF reads "for volumes 1 µL" — a comparison symbol (≤ / <) appears to be missing.
+                  // TODO: the PDF reads "for volumes 1 µL", a comparison symbol (≤ / <) appears to be missing.
                   'Use a low-volume micropipette for volumes 1 µL.',
                   'Depress the plunger only to the first stop (single click) to aspirate.',
                   'When dispensing, dip the tip directly into the liquid mix and stir gently once or twice to ensure complete release.',
@@ -498,7 +498,7 @@ export const sections: ProtocolSection[] = [
           { t: 'p', text: 'Prepare two separate reactions. We will use a 50 µL volume for both to ensure high DNA concentration for the final ligation.' },
           {
             t: 'table',
-            // TODO: PDF header reads "S1 (2257 kb bp ORF)" — unit needs confirming.
+            // TODO: PDF header reads "S1 (2257 kb bp ORF)", unit needs confirming.
             head: ['Component', 'Tube 1: S1 (2257 kb bp ORF)', 'Tube 2: Intermediate Plasmid (I)'],
             rows: [
               ['DNA Template', '30–40 µL (Purified ORF)', '10 µL (Intermediate Plasmid)'],

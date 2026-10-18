@@ -23,7 +23,7 @@ const newParts = [
     'Basic',
     'CDS',
     'FAS2 V1254W',
-    // TODO: PDF says "Wild type FAS1" for the FAS2 V1254W part — confirm.
+    // TODO: PDF says "Wild type FAS1" for the FAS2 V1254W part, confirm.
     'Wild type FAS1 with a point mutation at position 1254 converting valine to tryptophan. This increases the proportion of C14 fatty acids produced',
   ],
 ];
@@ -71,12 +71,13 @@ export default function PartsPage() {
   return (
     <PageShell
       title="Parts"
+      art="dna"
       index={[
         { id: 'new-parts', label: 'New Parts' },
         { id: 'existing-parts', label: 'Existing Parts' },
       ]}
     >
-      {/* New Parts — its own curved box */}
+      {/* New Parts, its own curved box */}
       <div id="new-parts" className={styles.panel}>
         <div className={`${styles.partsBody} ${styles.prose}`}>
           <h2 className={styles.cardHeading}>New Parts</h2>
@@ -104,7 +105,7 @@ export default function PartsPage() {
         </div>
       </div>
 
-      {/* Existing Parts — its own curved box */}
+      {/* Existing Parts, its own curved box */}
       <div id="existing-parts" className={styles.panel}>
         <div className={`${styles.partsBody} ${styles.prose}`}>
           <h2 className={styles.cardHeading}>Existing Parts</h2>

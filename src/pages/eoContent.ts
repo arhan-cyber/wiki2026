@@ -19,7 +19,7 @@ export type EventItem = {
   /** One line under the title: date, partner or format. */
   meta?: string;
   photos?: string[];
-  /** A result worth seeing before opening any tab — shown as a banner at the top. */
+  /** A result worth seeing before opening any tab, shown as a banner at the top. */
   highlight?: { title: string; awards: string[]; note?: string };
   tabs: Partial<Record<Tab, Block[]>>;
 };
@@ -166,7 +166,7 @@ export const EVENTS: EventItem[] = [
   // 2 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'AIIM 2026: All India iGEM Meet',
-    meta: 'IIT Madras · Best Human Practices and Best Overall Team',
+    meta: 'Best Human Practices and Best Overall Team',
     highlight: {
       title: 'Two awards at AIIM 2026',
       awards: ['Best Human Practices (iHP) Award', 'Best Overall Team Award'],
@@ -366,9 +366,9 @@ export const EVENTS: EventItem[] = [
       'What We Did': [
         { t: 'p', text: 'We architected SynBio Explorers around an intuitive scientific storyline: investigate, isolate, visualise, engineer.' },
         { t: 'table', head: ['Experiment', 'What students did', 'What it showed'], rows: [
-          ['01 DNA extraction 🧬', 'Lysed banana cell walls, precipitated genomic material and spooled visible white strands of DNA into test tubes', 'The textbook became tangible: DNA stopped being an abstract drawing and became a real structure they could hold'],
-          ['02 Chromatography 🎨', 'Spotted pigment mixtures onto paper and watched capillary action separate uniform ink into its constituent colours', 'Demystified the invisible: how analytical scientists break complex mixtures apart to uncover hidden building blocks'],
-          ['03 Microscopy 🔬', 'Prepared wet mounts, operated fine focus knobs and resolved living cellular architecture beneath ordinary surfaces', 'Reframed reality: the microscopic realm out of the textbook and into sharp focus'],
+          ['01 DNA extraction', 'Lysed banana cell walls, precipitated genomic material and spooled visible white strands of DNA into test tubes', 'The textbook became tangible: DNA stopped being an abstract drawing and became a real structure they could hold'],
+          ['02 Chromatography', 'Spotted pigment mixtures onto paper and watched capillary action separate uniform ink into its constituent colours', 'Demystified the invisible: how analytical scientists break complex mixtures apart to uncover hidden building blocks'],
+          ['03 Microscopy', 'Prepared wet mounts, operated fine focus knobs and resolved living cellular architecture beneath ordinary surfaces', 'Reframed reality: the microscopic realm out of the textbook and into sharp focus'],
         ] },
         { t: 'ul', items: [
           ['The custom activity booklet.', 'An illustrated field workbook of visual puzzles, conceptual maps and thought experiments, designed to take home and revisit, not a worksheet of definitions.'],

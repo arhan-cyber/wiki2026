@@ -3,17 +3,8 @@ import PageShell from '../components/PageShell';
 import styles from './eo.module.css';
 import { EVENTS, HUBS, SUBTABS, SUBTAB_PROMPTS, type Block, type EventItem, type Tab } from './eoContent';
 
-// Photo strip geometry, as fractions of the strip (from the Figma: 826px wide,
-// later photos overlap the earlier ones).
-const PHOTO_SLOTS = [
-  { left: 0, width: 43.58 },
-  { left: 38.5, width: 28.21 },
-  { left: 64.53, width: 22.52 },
-  { left: 80.87, width: 19.13 },
-];
-
 // Team photos for the gallery card.
-const TEAM_PHOTOS = ['/eo/team.jpg', '/team_pic.png', '/eo/team2.jpg', '/eo/team3.png'];
+const TEAM_PHOTOS = ['/eo/team.jpg', '/team_pic.webp', '/eo/team2.webp', '/eo/team3.webp'];
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 
@@ -43,10 +34,10 @@ function smoothScrollTo(id: string, offset = 90, duration = 900) {
 
 // ─── Gallery ("images slide by slide") ───────────────────────────────────────
 
-function Gallery() {
+function Gallery({ photos = TEAM_PHOTOS, label = 'Team photos', compact = false }: { photos?: string[]; label?: string; compact?: boolean }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
-  const n = TEAM_PHOTOS.length;
+  const n = photos.length;
   const go = (d: number) => setI((prev) => (prev + d + n) % n);
 
   // Slide on its own every few seconds, unless hovered or the user prefers less motion.
@@ -59,18 +50,18 @@ function Gallery() {
 
   return (
     <div
-      className={styles.gallery}
+      className={`${styles.gallery} ${compact ? styles.galleryCompact : ''}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       aria-roledescription="carousel"
-      aria-label="Team photos"
+      aria-label={label}
     >
       <div className={styles.galleryTrack} style={{ transform: `translateX(-${i * 100}%)` }}>
-        {TEAM_PHOTOS.map((src, idx) => (
+        {photos.map((src, idx) => (
           <div key={src} className={styles.gallerySlide} aria-hidden={idx !== i}>
-            <img src={src} alt={`iGEM IIT Bombay team ${idx + 1}`} />
+            <img src={src} alt={`${label} ${idx + 1}`} />
           </div>
         ))}
       </div>
@@ -81,7 +72,7 @@ function Gallery() {
         →
       </button>
       <div className={styles.galleryDots}>
-        {TEAM_PHOTOS.map((src, idx) => (
+        {photos.map((src, idx) => (
           <button
             key={src}
             type="button"
@@ -165,9 +156,6 @@ function Blocks({ blocks }: { blocks: Block[] }) {
               <ul key={i} className={styles.awards}>
                 {b.items.map((a) => (
                   <li key={a}>
-                    <span className={styles.awardMedal} aria-hidden>
-                      🏅
-                    </span>
                     {a}
                   </li>
                 ))}
@@ -186,7 +174,7 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
   return (
     <div
       id={eventId(item.name)}
-      className={`${styles.init} ${isOpen ? styles.initOpen : ''} ${item.highlight ? styles.initStar : ''}`}
+      className={`${styles.init} ${isOpen ? styles.initOpen : ''} ${item.highlight ? styles.initStar : ''} ${item.name.startsWith('BioTL') ? styles.initBlueGreen : ''}`}
     >
       {isOpen ? (
         <div className={styles.initHead}>
@@ -210,7 +198,7 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
               {item.name}
               {item.highlight && (
                 <span className={styles.starChip}>
-                  <span aria-hidden>🏆</span> Award winner
+                  Award winner
                 </span>
               )}
             </span>
@@ -224,17 +212,11 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
         <div className={styles.initBody}>
           {item.highlight && (
             <div className={styles.starBanner}>
-              <span className={styles.starTrophy} aria-hidden>
-                🏆
-              </span>
               <div className={styles.starText}>
                 <p className={styles.starTitle}>{item.highlight.title}</p>
                 <ul className={styles.awards}>
                   {item.highlight.awards.map((a) => (
                     <li key={a}>
-                      <span className={styles.awardMedal} aria-hidden>
-                        🏅
-                      </span>
                       {a}
                     </li>
                   ))}
@@ -245,19 +227,7 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
           )}
           {item.meta && <p className={styles.initMeta}>{item.meta}</p>}
 
-          {item.photos && (
-            <div className={styles.photos}>
-              {item.photos.map((src, k) => (
-                <img
-                  key={src}
-                  src={src}
-                  alt=""
-                  className={styles.photo}
-                  style={{ left: `${PHOTO_SLOTS[k].left}%`, width: `${PHOTO_SLOTS[k].width}%` }}
-                />
-              ))}
-            </div>
-          )}
+          {item.photos && <Gallery photos={item.photos} label={`${item.name} photos`} compact />}
 
           <div className={styles.frame}>
             <div className={styles.tabs} role="tablist" aria-label={`${item.name} details`}>
@@ -275,7 +245,16 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
               ))}
             </div>
             <div className={styles.panelBox}>
-              {blocks?.length ? <Blocks blocks={blocks} /> : <p className={styles.prompt}>{SUBTAB_PROMPTS[subtab]}</p>}
+              {blocks?.length ? (
+                subtab === 'References' ? (
+                  <details className={styles.refDrop}>
+                    <summary>Files, slides and references</summary>
+                    <Blocks blocks={blocks} />
+                  </details>
+                ) : (
+                  <Blocks blocks={blocks} />
+                )
+              ) : <p className={styles.prompt}>{SUBTAB_PROMPTS[subtab]}</p>}
             </div>
           </div>
         </div>
@@ -300,13 +279,14 @@ export default function EducationPage() {
   return (
     <PageShell
       title="Educational Outreach"
+      art="book"
+      noIndex
       index={INDEX}
-      shellMaxWidth={1230}
       intro={<Gallery />}
       pageStyle={{ background: 'linear-gradient(175.575deg, #fafafa 0%, #6db8ea 82.027%)' }}
     >
       <div className={styles.box}>
-        {/* LEARN process selector — the process itself, not a way of sorting events. */}
+        {/* LEARN process selector, the process itself, not a way of sorting events. */}
         <h2 id="learn-process" className={styles.learnHeading}>
           The E in EO. We Derived Our Own process: <b>LEARN</b>
         </h2>
@@ -341,6 +321,24 @@ export default function EducationPage() {
             <p>{sel.desc}</p>
           </div>
           <img className={styles.detailIcon} src={`/eo/icons/${sel.letter}.png`} alt="" aria-hidden />
+        </div>
+
+        {/* The order we ran things in. */}
+        <div className={styles.flow} aria-label="Order of our initiatives">
+          {EVENTS.map((ev, i) => (
+            <button
+              key={ev.name}
+              type="button"
+              className={styles.flowStep}
+              onClick={() => {
+                setOpen(ev.name);
+                window.setTimeout(() => smoothScrollTo(eventId(ev.name)), 60);
+              }}
+            >
+              <span className={styles.flowNum}>{i + 1}</span>
+              <span className={styles.flowName}>{ev.name}</span>
+            </button>
+          ))}
         </div>
 
         {/* Every initiative, in the order we ran them. */}

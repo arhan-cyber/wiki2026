@@ -224,7 +224,7 @@
 
 .content {
   font-family: var(--font-mont);
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1.65;
   color: #343a40;
   overflow-wrap: break-word;
@@ -240,7 +240,7 @@
 }
 
 .content :global(em) {
-  font-style: italic;
+  font-style: normal;
 }
 
 .content :global(a) {
@@ -977,3 +977,11 @@
 @media (max-width: 520px) {
   .content :global(.lca-tiles) { grid-template-columns: 1fr; }
 }
+
+.content :global(*) { font-style: normal; }
+.content :global(details.lca-glow > summary) {
+  background: #e4f3ee;
+  box-shadow: 0 0 0 2px #63aea6, 0 0 22px rgba(99, 174, 166, 0.65);
+}
+
+.content :global(img.lca-static) { display: block; width: 100%; height: auto; margin: 14px 0 6px; border-radius: 14px; }
