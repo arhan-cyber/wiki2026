@@ -268,7 +268,7 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
                 items={[
                   {
                     id: 'docs',
-                    title: `Documents and data (${item.docs.length} ${item.docs.length === 1 ? 'file' : 'files'})`,
+                    title: `Event Archive (${item.docs.length} ${item.docs.length === 1 ? 'file' : 'files'})`,
                     content: <DocViewer docs={item.docs} />,
                   },
                 ]}

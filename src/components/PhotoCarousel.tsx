@@ -14,8 +14,7 @@ type Props = { photos: string[]; label?: string };
 /**
  * A strip of event photos with the first one wide. Every few seconds the wide
  * photo slides out to the left, the rest move up a place (the new first one
- * widening), and the next photo slides in at the right. Pauses on hover and
- * when the visitor prefers reduced motion.
+ * widening), and the next photo slides in at the right.
  */
 export default function PhotoCarousel({ photos, label }: Props) {
   const n = photos.length;
@@ -31,14 +30,16 @@ export default function PhotoCarousel({ photos, label }: Props) {
   const t = tiles.length;
 
   const [offset, setOffset] = useState(0);
-  const [paused, setPaused] = useState(false);
 
+  // Starts as soon as the card opens and keeps going: no pause on hover (the
+  // cursor is usually right over the strip after clicking the card open).
+  // With reduced motion the photos still change, just without the slide
+  // (the transition is switched off in the CSS).
   useEffect(() => {
-    if (n < 2 || paused) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (n < 2) return;
     const id = window.setInterval(() => setOffset((o) => (o + 1) % t), STEP_MS);
     return () => window.clearInterval(id);
-  }, [n, t, paused]);
+  }, [n, t]);
 
   if (n === 0) return null;
   if (n === 1) {
@@ -53,12 +54,7 @@ export default function PhotoCarousel({ photos, label }: Props) {
   const lefts = widths.map((_, i) => widths.slice(0, i).reduce((a, b) => a + b, 0));
 
   return (
-    <div
-      className={styles.strip}
-      aria-label={label}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div className={styles.strip} aria-label={label}>
       {tiles.map((src, i) => {
         const rel = (i - offset + t) % t;
         let style: CSSProperties;
