@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import PageShell from '../components/PageShell';
+import PhotoCarousel from '../components/PhotoCarousel';
+import Accordion from '../components/Accordion';
+import DocViewer from '../components/DocViewer';
 import styles from './eo.module.css';
 import { EVENTS, HUBS, SUBTABS, SUBTAB_PROMPTS, type Block, type EventItem, type Tab } from './eoContent';
 
@@ -227,7 +230,7 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
           )}
           {item.meta && <p className={styles.initMeta}>{item.meta}</p>}
 
-          {item.photos && <Gallery photos={item.photos} label={`${item.name} photos`} compact />}
+          {item.photos && <PhotoCarousel photos={item.photos} label={`${item.name} photos`} />}
 
           <div className={styles.frame}>
             <div className={styles.tabs} role="tablist" aria-label={`${item.name} details`}>
@@ -257,6 +260,22 @@ function Initiative({ item, index, isOpen, onToggle }: { item: EventItem; index:
               ) : <p className={styles.prompt}>{SUBTAB_PROMPTS[subtab]}</p>}
             </div>
           </div>
+
+          {item.docs?.length ? (
+            <div className={styles.docs}>
+              <Accordion
+                alignStart
+                items={[
+                  {
+                    id: 'docs',
+                    title: `Documents and data (${item.docs.length} ${item.docs.length === 1 ? 'file' : 'files'})`,
+                    content: <DocViewer docs={item.docs} />,
+                  },
+                ]}
+                theme={{ bar: '#fafafa', barText: '#09347b', body: '#ffffff', accent: '#089cff' }}
+              />
+            </div>
+          ) : null}
         </div>
       )}
     </div>
