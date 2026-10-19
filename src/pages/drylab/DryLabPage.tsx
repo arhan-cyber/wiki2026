@@ -219,8 +219,7 @@ export default function DryLabPage({ slug }: { slug: string }) {
               <h4>IIT Bombay iGEM 2026</h4>
               <p>
                 Every figure on this site is a statement about a model. None of it has been validated against
-                wet-lab data. Status labels on each page say what is computed, taken from literature, a hypothesis,
-                or pending.
+                wet-lab data.
               </p>
             </div>
             <div>

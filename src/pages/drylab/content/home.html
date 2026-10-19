@@ -1,25 +1,151 @@
-<div class="alert alert-warning" role="alert">
-<p><strong>Draft status.</strong> This site presents the modelling results as they currently stand. All results are statements about models. <strong>None has been validated against wet-lab data.</strong> Unfinished items are identified on the relevant pages.</p>
+<p><strong>Welcome to the Dry Lab.</strong> This is the computational half of our project: the modelling behind a yeast that could make myristic acid for a bio-based data-centre coolant. The work starts from one residue of fatty acid synthase and ends at a coolant&rsquo;s life cycle, and the pages follow that order. The wet lab built the V1254W construct that these models point to; <a href="#integration">Integration</a> below shows how the two labs fit together. Start with the <a href="/dry-lab/model">Model</a> overview, then read <a href="/dry-lab/cfd">CFD</a> for the cooling performance and <a href="/dry-lab/lca">LCA</a> for the footprint. The <a href="/dry-lab/model/engineering">Engineering</a> page lists every cycle we ran and what each changed. Each section opens on a short summary and expands on click.</p>
+<p><strong>Summary.</strong> The IIT Bombay iGEM 2026 dry-lab team modelled the engineering of <em>Saccharomyces cerevisiae</em> to produce a C14:0-rich fatty-acid product (myristic acid) that can be esterified to methyl myristate, a bio-based immersion coolant for data centres. Five linked modelling steps and two downstream analyses (CFD and LCA) were built, from a single residue of fatty acid synthase to a coolant life cycle assessment. Sequence alignment identified V1254 as the residue equivalent to the <em>Yarrowia</em> chain-length residue, and that is the mutation the wet lab built. In the metabolic model, an early-release reaction increased C14 export by 2.6 %, limited by NADPH; none of the 175 knockout sets of up to three of ten named genes exceeded the wild type, so effort went into the single mutation. In use, methyl myristate keeps a 1,200 W server below 85 &deg;C at about a third of the flow of commercial coolants and emits 17 % less CO&#8322;-eq per server-year.</p>
+<details class="acc" open><summary><h2 id="integration">Integration with the wet lab</h2></summary><div class="acc-body">
+<div class="brief">
+<div class="brief-h">In brief</div>
+<p>Dry lab and wet lab work through the same five design cycles, A to E. Each model feeds a wet-lab step, and the measured C14 profile closes the loop back to the models and the life cycle assessment.</p>
 </div>
-<p><strong>Summary.</strong> The IIT Bombay iGEM 2026 dry-lab team modelled the engineering of <em>Saccharomyces cerevisiae</em> to produce a C14:0-rich fatty-acid product (myristic acid) that can be esterified to methyl myristate, a bio-based immersion coolant for data centres. Six linked models were built, from a single residue of fatty acid synthase to a coolant life cycle assessment. In the metabolic model, C14:0 was formed only by shortening C16:0, no gene knockout set exceeded the wild type, and an early-release reaction increased C14 export by 2.6 %. The team&rsquo;s scoring function did not satisfy its own checks, so no strain proposals were issued. The central mutation (V1254W) is an assumption by homology and is untested in <em>S. cerevisiae</em>.</p>
+<p>The two labs share one project question: can a single FAS2 mutation shift yeast fatty acids toward C14? The models chose the site and set the expectations; the wet lab built the construct and measures the result. Our structure-validation rounds are the Design and Test detail of cycles A and B (see <a href="/dry-lab/model/engineering#shared-cycles">Engineering</a>).</p>
+<figure class="figure my-4 key">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" role="img" aria-labelledby="int-t int-d" style="width:100%;height:auto;font-family:Arial,Helvetica,sans-serif">
+<title id="int-t">How the dry-lab models and the wet-lab experiments connect</title>
+<desc id="int-d">Five shared design-build-test-learn cycles, A to E. For each cycle the dry-lab model is shown above and the wet-lab step below. Step 6, CFD and LCA, takes the measured C14 yield as an input.</desc>
+<defs><marker id="int-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4b5563"/></marker></defs>
+<rect width="1200" height="690" fill="#ffffff"/>
+<text x="25" y="30" font-size="22" font-weight="700" fill="#1f2937">One design cycle, two labs</text>
+<text x="25" y="52" font-size="14" fill="#4b5563">Each cycle pairs a dry-lab model (top) with the wet-lab step it informs (bottom).</text>
+<rect x="25" y="74" width="214" height="160" rx="8" fill="#e8f0fb" stroke="#1f5fa8" stroke-width="2"/>
+<rect x="25" y="74" width="214" height="26" rx="8" fill="#1f5fa8"/><rect x="25" y="88" width="214" height="12" fill="#1f5fa8"/>
+<text x="35" y="92" font-size="14" font-weight="700" fill="#fff">DRY LAB  ·  Steps 3-5</text>
+<text x="35" y="122" font-size="14" fill="#1f2937">Early-release reaction:</text>
+<text x="35" y="142" font-size="14" fill="#1f2937">+2.6 % C14 export,</text>
+<text x="35" y="162" font-size="14" fill="#1f2937">NADPH-limited. 175</text>
+<text x="35" y="182" font-size="14" fill="#1f2937">knockout sets: none beat</text>
+<text x="35" y="202" font-size="14" fill="#1f2937">wild type</text>
+<rect x="25" y="258" width="214" height="34" rx="17" fill="#f1f3f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="132.0" y="281" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Cycle A: Strain design</text>
+<rect x="25" y="316" width="214" height="150" rx="8" fill="#e3f4ed" stroke="#17785a" stroke-width="2"/>
+<rect x="25" y="316" width="214" height="26" rx="8" fill="#17785a"/><rect x="25" y="330" width="214" height="12" fill="#17785a"/>
+<text x="35" y="334" font-size="14" font-weight="700" fill="#fff">WET LAB  ·  Strategy</text>
+<text x="35" y="364" font-size="14" fill="#1f2937">One FAS2 point mutation</text>
+<text x="35" y="384" font-size="14" fill="#1f2937">is taken forward; effort</text>
+<text x="35" y="404" font-size="14" fill="#1f2937">goes into the V1254W</text>
+<text x="35" y="424" font-size="14" fill="#1f2937">route</text>
+<line x1="132.0" y1="234" x2="132.0" y2="256" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="132.0" y1="292" x2="132.0" y2="314" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="241" y1="275" x2="258" y2="275" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<rect x="261" y="74" width="214" height="160" rx="8" fill="#e8f0fb" stroke="#1f5fa8" stroke-width="2"/>
+<rect x="261" y="74" width="214" height="26" rx="8" fill="#1f5fa8"/><rect x="261" y="88" width="214" height="12" fill="#1f5fa8"/>
+<text x="271" y="92" font-size="14" font-weight="700" fill="#fff">DRY LAB  ·  Steps 1-2</text>
+<text x="271" y="122" font-size="14" fill="#1f2937">Alignment maps I1220 to</text>
+<text x="271" y="142" font-size="14" fill="#1f2937">V1254; Boltz-2 pocket and</text>
+<text x="271" y="162" font-size="14" fill="#1f2937">residue exclusions (C1305,</text>
+<text x="271" y="182" font-size="14" fill="#1f2937">M1251, G1250)</text>
+<rect x="261" y="258" width="214" height="34" rx="17" fill="#f1f3f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="368.0" y="281" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Cycle B: Site selection</text>
+<rect x="261" y="316" width="214" height="150" rx="8" fill="#e3f4ed" stroke="#17785a" stroke-width="2"/>
+<rect x="261" y="316" width="214" height="26" rx="8" fill="#17785a"/><rect x="261" y="330" width="214" height="12" fill="#17785a"/>
+<text x="271" y="334" font-size="14" font-weight="700" fill="#fff">WET LAB  ·  Parts and primers</text>
+<text x="271" y="364" font-size="14" fill="#1f2937">BBa_26Z1ZAUT: FAS2</text>
+<text x="271" y="384" font-size="14" fill="#1f2937">V1254W; ORF and flank</text>
+<text x="271" y="404" font-size="14" fill="#1f2937">primers</text>
+<line x1="368.0" y1="234" x2="368.0" y2="256" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="368.0" y1="292" x2="368.0" y2="314" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="477" y1="275" x2="494" y2="275" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<rect x="497" y="74" width="214" height="160" rx="8" fill="#e8f0fb" stroke="#1f5fa8" stroke-width="2"/>
+<rect x="497" y="74" width="214" height="26" rx="8" fill="#1f5fa8"/><rect x="497" y="88" width="214" height="12" fill="#1f5fa8"/>
+<text x="507" y="92" font-size="14" font-weight="700" fill="#fff">DRY LAB  ·  Step 2</text>
+<text x="507" y="122" font-size="14" fill="#1f2937">Design check: the</text>
+<text x="507" y="142" font-size="14" fill="#1f2937">substitution avoids the</text>
+<text x="507" y="162" font-size="14" fill="#1f2937">excluded residues</text>
+<rect x="497" y="258" width="214" height="34" rx="17" fill="#f1f3f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="604.0" y="281" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Cycle C: Construct</text>
+<rect x="497" y="316" width="214" height="150" rx="8" fill="#e3f4ed" stroke="#17785a" stroke-width="2"/>
+<rect x="497" y="316" width="214" height="26" rx="8" fill="#17785a"/><rect x="497" y="330" width="214" height="12" fill="#17785a"/>
+<text x="507" y="334" font-size="14" font-weight="700" fill="#fff">WET LAB  ·  Plasmid</text>
+<text x="507" y="364" font-size="14" fill="#1f2937">FAS2 ORF (about 2.2 kb)</text>
+<text x="507" y="384" font-size="14" fill="#1f2937">and 3′ flank in p426GPD;</text>
+<text x="507" y="404" font-size="14" fill="#1f2937">Sanger confirms the</text>
+<text x="507" y="424" font-size="14" fill="#1f2937">V1254W substitution</text>
+<line x1="604.0" y1="234" x2="604.0" y2="256" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="604.0" y1="292" x2="604.0" y2="314" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="713" y1="275" x2="730" y2="275" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<rect x="733" y="74" width="214" height="160" rx="8" fill="#e8f0fb" stroke="#1f5fa8" stroke-width="2"/>
+<rect x="733" y="74" width="214" height="26" rx="8" fill="#1f5fa8"/><rect x="733" y="88" width="214" height="12" fill="#1f5fa8"/>
+<text x="743" y="92" font-size="14" font-weight="700" fill="#fff">DRY LAB  ·  Step 4</text>
+<text x="743" y="122" font-size="14" fill="#1f2937">Yeast9 growth conditions;</text>
+<text x="743" y="142" font-size="14" fill="#1f2937">NADPH as the next limit</text>
+<rect x="733" y="258" width="214" height="34" rx="17" fill="#f1f3f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="840.0" y="281" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Cycle D: Transformation</text>
+<rect x="733" y="316" width="214" height="150" rx="8" fill="#e3f4ed" stroke="#17785a" stroke-width="2"/>
+<rect x="733" y="316" width="214" height="26" rx="8" fill="#17785a"/><rect x="733" y="330" width="214" height="12" fill="#17785a"/>
+<text x="743" y="334" font-size="14" font-weight="700" fill="#fff">WET LAB  ·  Host strain</text>
+<text x="743" y="364" font-size="14" fill="#1f2937">BY4742 transformed,</text>
+<text x="743" y="384" font-size="14" fill="#1f2937">URA3 selection,</text>
+<text x="743" y="404" font-size="14" fill="#1f2937">junction PCR screening</text>
+<line x1="840.0" y1="234" x2="840.0" y2="256" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="840.0" y1="292" x2="840.0" y2="314" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="949" y1="275" x2="966" y2="275" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<rect x="969" y="74" width="214" height="160" rx="8" fill="#e8f0fb" stroke="#1f5fa8" stroke-width="2"/>
+<rect x="969" y="74" width="214" height="26" rx="8" fill="#1f5fa8"/><rect x="969" y="88" width="214" height="12" fill="#1f5fa8"/>
+<text x="979" y="92" font-size="14" font-weight="700" fill="#fff">DRY LAB  ·  Steps 4-5</text>
+<text x="979" y="122" font-size="14" fill="#1f2937">Predicted +2.6 % C14;</text>
+<text x="979" y="142" font-size="14" fill="#1f2937">assay noise 1-5 %, so</text>
+<text x="979" y="162" font-size="14" fill="#1f2937">replicates should resolve</text>
+<text x="979" y="182" font-size="14" fill="#1f2937">a change of that size</text>
+<rect x="969" y="258" width="214" height="34" rx="17" fill="#f1f3f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="1076.0" y="281" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Cycle E: Measurement</text>
+<rect x="969" y="316" width="214" height="150" rx="8" fill="#e3f4ed" stroke="#17785a" stroke-width="2"/>
+<rect x="969" y="316" width="214" height="26" rx="8" fill="#17785a"/><rect x="969" y="330" width="214" height="12" fill="#17785a"/>
+<text x="979" y="334" font-size="14" font-weight="700" fill="#fff">WET LAB  ·  GC-MS</text>
+<text x="979" y="364" font-size="14" fill="#1f2937">Fatty-acid profile of the</text>
+<text x="979" y="384" font-size="14" fill="#1f2937">engineered strain, set</text>
+<text x="979" y="404" font-size="14" fill="#1f2937">against the prediction</text>
+<line x1="1076.0" y1="234" x2="1076.0" y2="256" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<line x1="1076.0" y1="292" x2="1076.0" y2="314" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<rect x="25" y="510" width="1150" height="86" rx="8" fill="#fff7e6" stroke="#b7791f" stroke-width="2"/>
+<text x="39" y="536" font-size="14" font-weight="700" fill="#1f2937">STEP 6  ·  PROCESS (CFD and LCA)</text>
+<text x="39" y="560" font-size="14" fill="#1f2937">Methyl myristate keeps a 1,200 W server below 85 °C at 0.27 m/s against 0.80 m/s for two commercial coolants, and emits 17 % less CO₂-eq per server-year.</text>
+<text x="39" y="582" font-size="14" fill="#1f2937">The measured C14 yield from cycle E is the input that updates the production side of the life cycle assessment.</text>
+<line x1="1076.0" y1="466" x2="1076.0" y2="508" stroke="#4b5563" stroke-width="2" marker-end="url(#int-ar)"/>
+<text x="1084.0" y="494" font-size="13" fill="#4b5563">C14 yield</text>
+</svg>
+  <figcaption class="figure-caption"><strong>Figure 1.</strong> The five shared design cycles. Top row: the dry-lab model behind each cycle. Bottom row: the wet-lab step it informs. Step 6 (CFD and LCA) uses the measured C14 yield as an input.</figcaption>
+</figure>
+<p><em>Table 1. Where each dry-lab step is used.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dry-lab step</th>
+<th>Fed into</th>
+<th>Cycle</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><a href="/dry-lab/model/sequence">1 Sequence</a></td><td>The V1254W site, and the FAS2 V1254W part and primers built by the wet lab</td><td>B</td></tr>
+<tr><td><a href="/dry-lab/model/fas-interaction">2 FAS interaction</a></td><td>The residue exclusion list and the substitution check for the construct</td><td>B, C</td></tr>
+<tr><td><a href="/dry-lab/model/bridge">3 Bridge</a></td><td>The expected C14 change, to be compared with the measured profile</td><td>E</td></tr>
+<tr><td><a href="/dry-lab/model/metabolism">4 Metabolism</a></td><td>The single-mutation strategy and NADPH as the next limit</td><td>A, D</td></tr>
+<tr><td><a href="/dry-lab/model/trust">5 Trust</a></td><td>No knockout list, and a replicate design sized to the assay</td><td>A, E</td></tr>
+<tr><td><a href="/dry-lab/model/process">6 Process</a></td><td>The product target; the measured C14 yield updates the LCA inputs</td><td>E</td></tr>
+</tbody>
+</table></div>
+<p>The predicted change in C14 is a few per cent, and GC-MS replicate variation is 1&ndash;5 % (Trust), so the comparison needs replicates that resolve a change of that size. The wet-lab construct validation is on the <a href="/project/results">Project Results</a> page, and the fatty-acid profile will be reported there; what the dry lab offers other teams is on <a href="/project/contribution">Project Contribution</a> and <a href="/dry-lab/contribution">Dry Lab Contribution</a>.</p>
+</div></details>
 <details class="acc" open><summary><h2 id="what-our-modelling-did">Overview of the modelling work</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>One question was asked at six scales, from a single amino acid to a coolant&rsquo;s life cycle, and each step passed a result to the next. The key assumption, that one mutation can make yeast release the 14-carbon fatty acid early, is untested. <strong>[hypothesis]</strong></p>
+<p>One question was asked at several scales, from a single amino acid to a coolant&rsquo;s life cycle, and each step passed a result to the next. The key assumption, that one mutation can make yeast release the 14-carbon fatty acid early, is the one the wet-lab construct tests.</p>
 </div>
-<p>The modelling addressed one question at three scales and then examined whether the answer was reliable and worth acting upon (Figure 1):</p>
+<p>The modelling addressed one question at several scales and then examined whether the answer was reliable and worth acting upon (five modelling steps, with CFD and LCA grouped as the sixth, &lsquo;Process&rsquo;):</p>
 <ol>
 <li><strong>Sequence.</strong> Which residue of yeast fatty acid synthase (FAS) controls chain length?</li>
-<li><strong>FAS interaction.</strong> Does the binding pocket of the enzyme accommodate a C14 chain, and which residues should remain unaltered?</li>
+<li><strong>FAS interaction.</strong> Does the binding pocket of the enzyme accommodate a C14 chain, and which residues should remain unaltered? (The pose descriptions depend on the setup, so the residue exclusion list is the result used.)</li>
 <li><strong>Bridge.</strong> Can a genome-scale metabolic model represent that mutation?</li>
 <li><strong>Metabolism.</strong> What can the whole cell reach, at what cost to growth, and by which route?</li>
 <li><strong>Trust.</strong> Does the scoring of candidate designs measure anything, and is a learned search better than a simple one?</li>
 <li><strong>Process.</strong> Is the product suitable for its intended use, and how does it compare with other coolants?</li>
 </ol>
-<figure class="figure my-4 key">
-  <img src="/drylab/figures/explainer_overview.webp" loading="lazy" class="figure-img img-fluid" alt="Six cards in two rows: Sequence, FAS interaction, Bridge, Metabolism, Trust and Process, read left to right in row 1 and right to left in row 2. Each card lists input, method, result and status tags. A dashed arrow from Bridge to Metabolism notes that Step 4 ran without the early-release reaction added in Step 3.">
-  <figcaption class="figure-caption"><strong>Figure 1.</strong> The six modelling steps, with the input, method, result and status of each. Steps 1 to 3 assume that V1254W releases C14 in <em>S. cerevisiae</em> (assumption A1, a hypothesis). The Step 4 analyses were run without the early-release reaction added in Step 3; the rerun is pending. Process results are screening level and the choice of coolant is pending. Figures and identifiers shown are those reported on the step pages. Model-implied; not validated against wet-lab data.</figcaption>
-</figure>
 
 </div></details>
 <details class="acc" open><summary><h2 id="where-to-read-what">Guide to the pages</h2></summary><div class="acc-body">
@@ -45,8 +171,8 @@
 <td><a href="/dry-lab/model/results">Results</a></td>
 </tr>
 <tr>
-<td>The design cycle</td>
-<td><a href="/dry-lab/model/engineering">Engineering</a></td>
+<td>The design cycles, including every structural round and failure</td>
+<td><a href="/dry-lab/model/engineering">Engineering</a> (strain-design and structure-validation cycles)</td>
 </tr>
 <tr>
 <td>The tool that other teams can run on their own models</td>
@@ -58,35 +184,22 @@
 </tr>
 <tr>
 <td>The coolant life cycle assessment</td>
-<td><a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a></td>
+<td><a href="/dry-lab/lca">Life Cycle Assessment</a></td>
 </tr>
 </tbody>
 </table></div>
 </div></details>
-<details class="acc" open><summary><h2 id="how-to-read-the-status-labels">Status labels</h2></summary><div class="acc-body">
-<div class="brief">
-<div class="brief-h">In brief</div>
-<p>Every claim is tagged as computed, from the literature, a hypothesis or pending, so that results can be told apart from ideas.</p>
-</div>
-<p>Every claim on this site carries one of four labels:</p>
-<ul>
-<li><strong>[computed]</strong> produced in this study; the numbers originate from the team&rsquo;s own code or documents.</li>
-<li><strong>[literature]</strong> taken from a published source, which is cited.</li>
-<li><strong>[hypothesis]</strong> a reasoned explanation that has not been tested.</li>
-<li><strong>[pending]</strong> planned or in progress; no result is available.</li>
-</ul>
-</div></details>
 <details class="acc" open><summary><h2 id="three-things-to-know-first">Key points</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>The main outcome is largely negative: no gene deletion helped and the team&rsquo;s own ranking failed its checks. The key mutation is an assumption, and the coolant case is not settled. <strong>[computed]</strong></p>
+<p>The models chose the V1254W route, predicted a modest C14 gain limited by NADPH, and showed that methyl myristate is the better coolant in use. The wet-lab construct tests the central assumption.</p>
 </div>
 <ol>
-<li><strong>The principal result is predominantly negative.</strong> In the metabolic model, no gene knockout set exceeded wild-type C14:0 production, and the scoring setup of the team did not satisfy its checks. Both outcomes are reported.</li>
-<li><strong>The mutation route is an assumption.</strong> The proposal that a FAS2 point mutation can release C14 in <em>S. cerevisiae</em> rests on a <em>Yarrowia lipolytica</em> result<sup class="r"><a href="#ref-1">1</a></sup> and not on <em>S. cerevisiae</em> data. All downstream numbers are conditional on it.</li>
-<li><strong>The coolant case is not settled.</strong> The screening life cycle assessment favours methyl myristate in use under some assumptions and not others, and a separate coolant-selection analysis recommends isopropyl myristate on operability grounds. See <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a>.</li>
+<li><strong>The models selected one mutation.</strong> In the metabolic model none of the 175 knockout sets of up to three of ten named genes exceeded wild-type C14:0 production (with and without the early-release reaction), and the pre-flight checks showed the scoring setup could not support a ranked list. Effort went into the V1254W route. These results describe one model under stated conditions, not a strain.</li>
+<li><strong>The mutation route has a precedent and an experimental test.</strong> The proposal that a FAS2 point mutation can release C14 in <em>S. cerevisiae</em> rests on a <em>Yarrowia lipolytica</em> result<sup class="r"><a href="#ref-1">1</a></sup>, and the wet-lab V1254W construct is its test in <em>S. cerevisiae</em>. All downstream numbers are conditional on it.</li>
+<li><strong>Methyl myristate wins in use and loses on production.</strong> The screening life cycle assessment gives 5,012 kg CO₂-eq per server-year against 6,071 for an ester-based coolant (−17 %), with 6.1 W against 158.9 W of pump power, while making 1 kg emits 449 kg CO₂-eq against about 5. See <a href="/dry-lab/lca">Life Cycle Assessment</a>.</li>
 </ol><h2 id="references">References</h2>
 <ol class="ref-list"><li id="ref-1">Rigouin C, Gueroult M, Croux C, Dubois G, Borsenberger V, Barbe S, Marty A, Daboussi F, André I, Bordes F (2017). Production of medium chain fatty acids by Yarrowia lipolytica: combining molecular design and TALEN to engineer the fatty acid synthase. <em>ACS Synthetic Biology</em> 6:1870-1879. <a href="https://doi.org/10.1021/acssynbio.7b00034">doi:10.1021/acssynbio.7b00034</a></li></ol>
 <h3 id="source-table">Source table</h3>
-<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Rigouin C (2017)</td><td><a href="#three-things-to-know-first">Key points</a>: I1220W in Y. lipolytica (abstract)</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="table table-sm ref-table"><thead><tr><th>#</th><th>Reference</th><th>Supports (where in this page)</th></tr></thead><tbody><tr><td>1</td><td>Rigouin C (2017)</td><td><a href="#three-things-to-know-first">Key points</a> : I1220W in Y. lipolytica (only the abstract was checked against the source)</td></tr></tbody></table></div>
 </div></details>

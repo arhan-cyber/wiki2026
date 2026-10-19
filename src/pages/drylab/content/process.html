@@ -1,23 +1,57 @@
 <div class="alert alert-secondary" role="alert">
-<p>Part of the <a href="/dry-lab/model">model</a>. Status labels: <strong>[computed]</strong> produced in this study; <strong>[literature]</strong> taken from a published source; <strong>[hypothesis]</strong> reasoned but untested; <strong>[pending]</strong> not completed. <strong>None of the values on this page has been validated against wet-lab data.</strong></p>
+<p>Part of the <a href="/dry-lab/model">model</a>. Values on this page are model outputs; the wet-lab V1254W strain provides the experimental test (see <a href="/dry-lab#integration">Integration</a>).</p>
 </div>
 <details class="acc" open><summary><h2 id="process">Step 6. Process level</h2></summary><div class="acc-body">
 <div class="brief">
 <div class="brief-h">In brief</div>
-<p>Heat-flow simulations suggest the candidate coolant, methyl myristate, keeps a 1,200 W server below 85 °C at a lower flow than two reference coolants. A screening life cycle assessment gives a footprint that depends on the electricity grid, and a separate comparison favours a related ester on practical grounds. All of this is modelled. <strong>[computed]</strong></p>
+<p>In simulation, methyl myristate keeps a 1,200 W server below 85 &deg;C at about a third of the flow of two commercial coolants. In use it emits 17 % less CO&#8322;-eq per server-year; making it emits far more per kilogram.</p>
 </div>
-<p>This step connects the strain to its intended use. Full detail is given on the <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a> page; the modelling components are summarised here.</p>
-</div></details>
-<details class="acc" open><summary><h2 id="summary">Summary of process-level analyses</h2></summary><div class="acc-body">
-<div class="brief">
-<div class="brief-h">In brief</div>
-<p>Three analyses were run: a heat-flow simulation, a screening life cycle assessment and a coolant comparison. None has been tested experimentally, and the choice between the two candidate coolants has not been recorded. <strong>[pending]</strong></p>
-</div>
-<ul>
-<li><strong>Computational fluid dynamics (CFD) [computed].</strong> Seventeen OpenFOAM simulations (chtMultiRegionFoam, steady state, three-dimensional conjugate heat transfer, constant fluid properties) were run for a 1,200 W server immersed in each coolant. At the same flow (0.42 m/s), the hottest component reached 78.1 °C with methyl myristate, compared with 87.2 °C (mineral oil) and 88.0 °C (ester-based coolant). Methyl myristate remained below 85 °C at 0.27 m/s, whereas the other two coolants required 0.80 m/s.</li>
-<li><strong>Life cycle assessment (LCA) [computed, screening level].</strong> The production footprint of methyl myristate per kilogram was far higher than that of the commercial coolants at present, whereas in use it can reduce cooling electricity. Whether the net result favours methyl myristate depends on the grid carbon factor. Caveats are given on the Life Cycle Assessment page.</li>
-<li><strong>Coolant selection [computed, data-limited].</strong> A separate comparison of methyl myristate and isopropyl myristate rated methyl myristate about 9 % higher on thermal figures of merit, a difference within the estimated uncertainty. Isopropyl myristate was recommended on operability grounds, because methyl myristate melts at about 18 °C, which leaves about 2 °C of margin at a 20 °C inlet. Neither ester can be certified for energised immersion until dielectric breakdown voltage, volume resistivity and pour point have been measured. <strong>[pending]</strong> The team&rsquo;s decision between the two has not been recorded on this site.</li>
-</ul>
+<p>This step connects the strain to its intended use as an immersion coolant. The full analyses are on the <a href="/dry-lab/cfd">CFD</a> and <a href="/dry-lab/lca">LCA</a> pages; the results are summarised here.</p>
+<p><em>Table 1. Process-level results for methyl myristate (MM) against an ester-based and a mineral-oil-based coolant.</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Methyl myristate</th>
+<th>Ester-based</th>
+<th>Mineral-oil-based</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hottest server part at equal flow, 0.42 m/s (&deg;C)</td>
+<td>78.1</td>
+<td>88.0</td>
+<td>87.2</td>
+</tr>
+<tr>
+<td>Flow needed to stay at or below 85 &deg;C (m/s)</td>
+<td>0.27</td>
+<td>0.80</td>
+<td>0.80</td>
+</tr>
+<tr>
+<td>Pump power at that flow (W)</td>
+<td>6.1</td>
+<td>158.9</td>
+<td>158.8</td>
+</tr>
+<tr>
+<td>CO&#8322;-eq per server-year, chiller (kg)</td>
+<td>5,012</td>
+<td>6,071</td>
+<td>6,055</td>
+</tr>
+<tr>
+<td>Production footprint (kg CO&#8322;-eq per kg of coolant)</td>
+<td>449</td>
+<td>5.25</td>
+<td>about 1.5 (screening value)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Computational fluid dynamics.</strong> Three-dimensional conjugate heat-transfer simulations in OpenFOAM (19 runs) compared the coolants for a 1,200 W server in one tank geometry. Methyl myristate meets the 85 &deg;C limit at 0.27 m/s; the other coolants need 0.80 m/s. Details are on the <a href="/dry-lab/cfd">CFD</a> page.</p>
+<p><strong>Life cycle assessment.</strong> The screening study counts raw materials to factory gate, plus cooling electricity in use. Methyl myristate emits 17 % less CO&#8322;-eq per server-year than the ester-based coolant on the India grid factor (about 1.6 kg CO&#8322;-eq per kWh), and the extra production CO&#8322; is paid back in about 2.9 years. Making 1 kg emits 449 kg CO&#8322;-eq (632 in the first process design) against about 5 for ester-based coolants. The study has not been critically reviewed under ISO 14044. Details are on the <a href="/dry-lab/lca">LCA</a> page.</p>
 </div></details>
 <hr />
-<p><strong>Previous:</strong> <a href="/dry-lab/model/trust">Step 5 Trust</a> · <strong>Next:</strong> <a href="/dry-lab/model/life-cycle-assessment">Life Cycle Assessment</a></p>
+<p><strong>Previous:</strong> <a href="/dry-lab/model/trust">Step 5 Trust</a> &middot; <strong>Next:</strong> <a href="/dry-lab/cfd">CFD</a></p>
