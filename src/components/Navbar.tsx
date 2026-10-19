@@ -25,6 +25,8 @@ const navigation: NavItem[] = [
     subnav: [
       { label: 'Description', href: '/project/description' },
       { label: 'Engineering', href: '/project/engineering' },
+      { label: 'Results', href: '/project/results' },
+      { label: 'Contribution', href: '/project/contribution' },
       { label: 'News Headlines', href: '/project/news' },
       { label: 'Future Scope', href: '/project/future-scope' },
     ],

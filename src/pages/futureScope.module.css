@@ -41,10 +41,17 @@
 /* ---------- What we have accomplished ---------- */
 
 .dropGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
-  align-items: start;
+  align-items: flex-start;
+}
+
+/* five boxes: three in the first row, two centred below */
+.dropGrid > * {
+  flex: 0 1 calc((100% - 32px) / 3);
+  min-width: 0;
 }
 
 .drop {
@@ -274,6 +281,20 @@
   list-style: disc;
 }
 
+.goal {
+  margin: 0 0 14px !important;
+  padding: 10px 14px;
+  border-left: 4px solid #14c7b4;
+  border-radius: 0 12px 12px 0;
+  background: #dff6f2;
+  color: #12403a !important;
+}
+
+.subList {
+  margin-top: 4px !important;
+  list-style: circle !important;
+}
+
 .pending {
   font-style: italic;
   color: #6b7b96;
@@ -315,8 +336,8 @@
 }
 
 @media (max-width: 900px) {
-  .dropGrid {
-    grid-template-columns: 1fr;
+  .dropGrid > * {
+    flex-basis: 100%;
   }
 }
 

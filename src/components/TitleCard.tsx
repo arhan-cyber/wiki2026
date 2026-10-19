@@ -9,6 +9,8 @@ const ICONS: Record<string, string> = {
   'Project Engineering': 'Engineering_DBTL',
   'Educational Outreach': 'Education',
   'Future Scope': 'Future_Scope',
+  'Results': 'Result',
+  'Contribution': 'Contribution',
   'Modeling': 'Model_Name_Yeast',
   'Software': 'Design',
   'CFD': 'CFD',
