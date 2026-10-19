@@ -147,6 +147,7 @@ main>section{padding-bottom:30px}
 summary{display:block!important;position:relative;padding-right:56px!important}
 summary::-webkit-details-marker{display:none}
 summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-origin:center}
+#fq{width:100%!important;max-width:none!important;align-self:stretch!important;box-sizing:border-box}
 </style><link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400&display=swap" rel="stylesheet">
 </head>
 <body><div class="wrap">
@@ -230,10 +231,7 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 <div class="step"><h4>Designing the mutation</h4>
 <p>A PCR-based mutagenesis strategy was used to generate the DNA fragments required for the mutation. Two inserts were designed: the first contained the modified <b>FAS2 open reading frame (ORF)</b> carrying the V1254W mutation, while the second contained the <b>3′ flanking region</b> required for the intended construct. Primers were designed to amplify the corresponding regions and introduce the required sequences for assembly.</p>
 <figure class="fig a-wipe" style="max-width:600px"><img src="project-description/orf-primer-design.webp" alt="FAS2 ORF with the V1254W mutation marked and forward and reverse primers at each end"></figure>
-<div class="pair">
-<figure class="fig"><img src="project-description/insert-orf-primers.webp" alt="FP1 and RP1 primer binding sites on the mutated FAS2 ORF"><figcaption><b>Insert 1</b>: mutated FAS2 ORF, primers FP1 and RP1.</figcaption></figure>
-<figure class="fig"><img src="project-description/insert-flank-primers.webp" alt="FP2 and RP2 primer binding sites on the 3-prime flanking region"><figcaption><b>Insert 2</b>: 3′ flanking region, primers FP2 and RP2.</figcaption></figure>
-</div></div>
+</div>
 
 <div class="step"><h4>Sequential restriction digestion and cloning</h4>
 <p class="substep">Step 1: insertion of the mutated FAS2 ORF</p>
@@ -255,9 +253,6 @@ summary::after{position:absolute;right:22px;top:50%;translate:0 -50%;transform-o
 
 </div>
 
-<h3>Our complete engineered pathway</h3>
-<p>Putting the pieces together, the full route from sugar to coolant is:</p>
-<p class="path">Glucose → acetyl-CoA → (ACC1) → malonyl-CoA → (FAS with FAS2 V1254W) → myristoyl-CoA → myristic acid → (DmJHAMT + SAM) → methyl myristate</p>
 <figure class="fig a-wipe" style="max-width:100%"><img src="project-description/engineered-pathway.webp" alt="Glucose to acetyl-CoA to malonyl-CoA through FAS carrying FAS2 V1254W to myristoyl-CoA, myristic acid and, via DmJHAMT and SAM, methyl myristate"></figure>
 <div class="tw"><table><tr><th>Step</th><th>Intervention</th><th>Purpose</th></tr>
 <tr><td>Precursor supply</td><td>Native central metabolism</td><td>Provides acetyl-CoA and malonyl-CoA</td></tr>
@@ -340,7 +335,7 @@ setActive(0);
 const secs=[...document.querySelectorAll('section[data-s]')];
 function onScroll(){let a=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*0.4)a=i});setActive(a);rail.classList.toggle("gone",document.getElementById("after4").getBoundingClientRect().top<150)}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-const heads=["Electrical ⚡","Thermal 🔥","Flow & Handling 💧","Environmental & Safety 🌱"];
+const heads=["Electrical","Thermal","Flow & Handling","Environmental & Safety"];
 const row=document.getElementById('tabrow');
 heads.forEach(h=>{const th=document.createElement('th');th.className='mh';th.textContent=h;row.appendChild(th)});
 try{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.25});document.querySelectorAll(".fig,.logo-fig").forEach(f=>io.observe(f))}catch(e){document.querySelectorAll(".fig,.logo-fig").forEach(f=>f.classList.add("in"))}

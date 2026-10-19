@@ -10,7 +10,7 @@
   --blue-2: #6d86d8;
   --ink: #23213f;
   width: 100%;
-  background: linear-gradient(to bottom, #fafafa 0%, #6db8ea 101.6%);
+  background: #d3e9f8;
   color: #17365d;
   overflow-x: hidden;
 }
@@ -122,6 +122,12 @@
 /* ------------------------------------------------------------------ Hero */
 .hero {
   min-height: 100vh;
+  max-width: 1245px;
+  width: calc(100% - 48px);
+  margin: 90px auto 0;
+  min-height: calc(100vh - 130px);
+  background: transparent;
+  border-radius: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,7 +142,7 @@
   font-weight: 700;
   font-size: clamp(22px, 3.2vw, 38px);
   line-height: 1.25;
-  color: #efedfb;
+  color: #17365d;
 }
 .profRow {
   display: flex;
@@ -575,9 +581,8 @@
   padding: 40px clamp(24px, 5vw, 72px);
   min-height: 260px;
   /* card behind the conclusion, matching the white content slab above */
-  background: #fdfcf8;
+  background: transparent;
   border-radius: 28px;
-  box-shadow: 0 10px 30px rgba(9, 52, 123, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: center;

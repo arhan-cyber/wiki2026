@@ -482,22 +482,6 @@
   padding-bottom: 27px;
 }
 
-.photos {
-  position: relative;
-  aspect-ratio: 826 / 240;
-  margin: 25px 37px 0;
-  border-radius: 30px;
-  background: #fafafa;
-  overflow: hidden;
-}
-
-.photo {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  object-fit: cover;
-}
-
 .frame {
   margin: 20px 22px 0 23px;
   border: 1px solid #09347b;
@@ -970,5 +954,83 @@
   }
   .starTrophy {
     font-size: 32px;
+  }
+}
+
+/* carousel inside an initiative */
+.galleryCompact {
+  aspect-ratio: 16 / 7;
+  margin: 20px 37px 0;
+  width: auto;
+}
+
+/* BioTL: shiny blue and green, like the AIIM bar */
+.initBlueGreen > .initBar {
+  background: linear-gradient(100deg, #93ccff 0%, #9fe3d0 60%, #8fe3a8 100%);
+  box-shadow: 0 0 0 3px #4fb99f, 0 6px 18px rgba(63, 160, 140, 0.35);
+}
+.initBlueGreen.initOpen {
+  box-shadow: 0 0 0 3px #4fb99f, 0 6px 20px rgba(63, 160, 140, 0.35);
+}
+
+/* order-of-events flowchart */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 30px;
+  margin: 28px 37px 8px;
+}
+.flowStep {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  border: 2px solid #88c0e6;
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: #17365d;
+  text-align: left;
+}
+.flowStep:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -24px;
+  top: 50%;
+  width: 18px;
+  border-top: 2px solid #88c0e6;
+}
+.flowStep:hover { background: #eaf4fe; }
+.flowNum {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #65b3f9;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.refDrop > summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #ebf2ff;
+  margin-bottom: 12px;
+}
+
+/* Documents dropdown at the bottom of an event card */
+.docs {
+  margin: 18px 22px 0 23px;
+}
+@media (max-width: 600px) {
+  .docs {
+    margin: 16px 16px 0;
   }
 }

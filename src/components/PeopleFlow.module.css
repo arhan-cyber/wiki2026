@@ -1,27 +1,14 @@
-/* The People Flow board. Everything is positioned in percentages of the
-   715 x 540 reference sketch and text scales with the board (cqw), so it stays
-   sharp and identical in proportion at any width. */
-
 .paper {
-  max-width: 980px;
-  margin: 0 auto;
-  border-radius: 14px;
-  overflow: hidden;
-  background-color: #fbfbfb;
-  /* grid paper */
-  background-image:
-    linear-gradient(rgba(150, 150, 150, 0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(150, 150, 150, 0.22) 1px, transparent 1px),
-    linear-gradient(rgba(150, 150, 150, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(150, 150, 150, 0.1) 1px, transparent 1px);
-  background-size: 70px 70px, 70px 70px, 14px 14px, 14px 14px;
-  box-shadow: 0 6px 22px rgba(9, 52, 123, 0.18);
+  width: 100%;
+  background: #f9f8f4;
+  border-radius: 22px;
+  padding: 10px;
 }
 
 .canvas {
   position: relative;
   width: 100%;
-  aspect-ratio: 715 / 540;
+  aspect-ratio: 1100 / 870;
   container-type: inline-size;
 }
 
@@ -30,119 +17,73 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
 }
 
 .hub {
   position: absolute;
-  left: 50.4%;
-  top: 46.6%;
-  transform: translate(-50%, -50%);
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
-  font-weight: 300;
-  font-size: 5.2cqw;
-  letter-spacing: 0.04em;
-  color: #2b2b2b;
-}
-
-.note {
-  position: absolute;
-}
-
-/* grey curl showing behind the left edge of each sticky note */
-.shadow {
-  position: absolute;
-  left: -3%;
-  top: 6%;
-  width: 100%;
-  height: 100%;
-  background: #9d9d9d;
-  opacity: 0.7;
-  clip-path: polygon(0 0, 30% 0, 20% 100%, 4% 96%);
-}
-
-.sheet {
-  position: absolute;
-  inset: 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-  /* slightly peeled bottom-right corner */
-  clip-path: polygon(0 0, 100% 0, 99% 80%, 96% 96%, 88% 100%, 3% 99%);
-  padding: 0 4%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background: #a8dcb4;
+  border: 2.5px solid #2a2f55;
+  border-radius: 26px;
+  font-weight: 800;
+  font-size: 7.6cqw;
+  color: #1a2550;
 }
 
-.bar {
+.box {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 11%;
+  border: 2.5px solid #2a2f55;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 0 rgba(42, 47, 85, 0.15);
 }
 
 .label {
-  margin: 15% 0 3%;
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
-  font-weight: 300;
-  font-size: 3.2cqw;
-  line-height: 1.05;
-  letter-spacing: 0.015em;
-  color: #2a2a2a;
+  margin: 0;
+  padding: 1.1cqw 0;
   text-align: center;
-  white-space: nowrap;
+  font-weight: 800;
+  font-size: 2.2cqw;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
+  border-bottom: 1.5px solid rgba(42, 47, 85, 0.45);
 }
 
 .people {
-  list-style: none;
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 1.2cqw 1.4cqw 1.4cqw 3.2cqw;
+  list-style: disc;
+}
+
+.people li {
+  font-size: 1.75cqw;
+  line-height: 1.5;
+  color: #1a2550;
 }
 
 .person {
   background: none;
   border: 0;
-  padding: 0 0.8cqw;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
-  font-weight: 400;
-  font-size: max(8px, 1.42cqw);
-  line-height: 1.22;
-  color: #2a2a2a;
-  text-align: center;
-  white-space: nowrap;
 }
 
-.person:hover {
+button.person:hover,
+button.person:focus-visible {
   text-decoration: underline;
-  color: #09347b;
+  color: #1c5fa8;
 }
 
-.person:focus-visible {
-  outline: 2px solid #3f94d2;
-  border-radius: 3px;
-}
-
-.noteMuted .label {
-  font-size: 2.8cqw;
-}
-
-@media (max-width: 560px) {
-  .person {
-    font-size: 8px;
-  }
-}
-
-/* Named on the board but without a write-up (the PIs): plain text, not a link. */
 .personStatic {
-  display: inline-block;
   cursor: default;
 }
 
-.personStatic:hover {
-  text-decoration: none;
-  color: #2a2a2a;
+@media (max-width: 640px) {
+  .people li { font-size: 2.4cqw; }
+  .label { font-size: 2.8cqw; }
 }

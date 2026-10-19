@@ -1,0 +1,253 @@
+/* Results and Contribution (Project tab). Same panel, type and colours as
+   Future Scope; each topic sits in its own tinted section card. */
+
+.panel {
+  background: #fafafa;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(9, 52, 123, 0.12);
+  padding: 40px 44px 48px;
+  font-family: 'Inter', sans-serif;
+  color: #343a40;
+}
+
+.lead {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.h1 {
+  margin: 0 0 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
+  color: #2a3a57;
+}
+
+/* ---------- Section cards ---------- */
+
+.card {
+  margin-top: 30px;
+  padding: 28px 30px 30px;
+  border: 2px solid;
+  border-left-width: 8px;
+  border-radius: 26px;
+  scroll-margin-top: 96px;
+}
+
+.blue { background: #eef5fd; border-color: #3f94d2; }
+.teal { background: #e8f6f3; border-color: #2a9d8f; }
+.violet { background: #f1f0fd; border-color: #7b7fe8; }
+.amber { background: #fdf6e7; border-color: #d9a441; }
+
+.cardTitle {
+  margin: 0 0 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(21px, 2.1vw, 26px);
+  line-height: 1.25;
+  color: #17365d;
+}
+
+.cardIntro {
+  margin: 0 0 6px;
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+
+.h3 {
+  margin: 24px 0 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.35;
+  color: #1f3f6b;
+}
+
+.card p,
+.card li {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.card p {
+  margin: 0 0 10px;
+}
+
+.card ul {
+  margin: 0 0 10px;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+/* ---------- Figures ---------- */
+
+.figure {
+  margin: 14px 0 18px;
+}
+
+.figure img,
+.figure video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #d7e5f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.figure video {
+  width: 100%;
+}
+
+.figure figcaption {
+  margin-top: 8px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #4a5a72;
+}
+
+.figPair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.figPair .figure {
+  margin: 14px 0 6px;
+}
+
+/* ---------- Tables ---------- */
+
+.tableWrap {
+  margin: 12px 0 16px;
+  overflow-x: auto;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.table th,
+.table td {
+  padding: 9px 12px;
+  border: 1px solid #c6daf0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background: #e8f2fd;
+  font-weight: 600;
+  color: #09347b;
+}
+
+.table tr.hl td {
+  background: #e2f5ec;
+  font-weight: 700;
+  color: #1d5e3a;
+}
+
+.tableNote {
+  margin: -8px 0 14px !important;
+  font-size: 14px !important;
+  color: #4a5a72;
+}
+
+/* ---------- Bits ---------- */
+
+.more {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #0b62c4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.stat {
+  margin: 4px 0 14px !important;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #c9e6dc;
+  font-size: 16.5px !important;
+}
+
+.booklets {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 14px 0 6px;
+}
+
+.booklet {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding: 16px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #e3dcc6;
+}
+
+.booklet img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.booklet h4 {
+  margin: 0 0 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #3d2f0a;
+}
+
+.booklet p {
+  font-size: 15px !important;
+}
+
+.hope {
+  margin-top: 30px;
+  padding: 22px 26px;
+  border: 2px solid #88c0e6;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 2px 4px 10px #c4def2;
+}
+
+.hope p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .panel {
+    padding: 26px 18px 32px;
+  }
+  .card {
+    padding: 20px 16px 22px;
+    border-left-width: 6px;
+  }
+  .figPair,
+  .booklets {
+    grid-template-columns: 1fr;
+  }
+  .booklet {
+    grid-template-columns: 90px minmax(0, 1fr);
+  }
+}

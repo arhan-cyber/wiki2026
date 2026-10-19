@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
+import LiquidIndex, { type LiquidIndexItem } from '../../components/LiquidIndex';
+import TitleCard from '../../components/TitleCard';
+import shell from '../../components/PageShell.module.css';
 import styles from './drylab.module.css';
 import { dryLabPages, modelTabs } from './drylabPages';
+import CfdModels from './CfdModels';
 
 // Each page's HTML is its own lazily loaded chunk.
 const loaders = import.meta.glob('./content/*.html', {
@@ -36,7 +41,6 @@ export default function DryLabPage({ slug }: { slug: string }) {
   // Index entries for the left panel: the article's own h2 headings, given
   // stable ids so the panel can scroll to them.
   const [toc, setToc] = useState<{ id: string; label: string }[]>([]);
-  const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
     const el = contentRef.current;
@@ -47,23 +51,14 @@ export default function DryLabPage({ slug }: { slug: string }) {
       return { id: h.id, label: h.textContent?.trim() || `Section ${i + 1}` };
     });
     setToc(items);
-    setActiveId(items[0]?.id ?? '');
   }, [loaded]);
 
+  // Spots in the page HTML where a live React widget goes (the CFD 3-D models).
+  const [modelMounts, setModelMounts] = useState<HTMLElement[]>([]);
   useEffect(() => {
-    if (!toc.length) return;
-    const onScroll = () => {
-      let current = toc[0].id;
-      for (const t of toc) {
-        const el = document.getElementById(t.id);
-        if (el && el.getBoundingClientRect().top <= 140) current = t.id;
-      }
-      setActiveId(current);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [toc]);
+    const el = contentRef.current;
+    setModelMounts(el && loaded ? [...el.querySelectorAll<HTMLElement>('.cfd-3d-mount')] : []);
+  }, [loaded]);
 
   const setAllOpen = (open: boolean) => {
     contentRef.current?.querySelectorAll<HTMLDetailsElement>('details.acc').forEach((d) => {
@@ -150,37 +145,40 @@ export default function DryLabPage({ slug }: { slug: string }) {
 
   const ready = loaded?.slug === slug;
 
+  const ICONS = [
+    <><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 8h6M9 12h6M9 16h4" /></>,
+    <><path d="M4 19V9M10 19V4M16 19v-7M22 19H2" /></>,
+    <><circle cx="12" cy="12" r="3.5" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></>,
+    <><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z" /></>,
+    <><path d="M3 12h4l3-7 4 14 3-7h4" /></>,
+    <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 10h18M9 4v16" /></>,
+  ];
+  const ACCENTS = ['#38BDF8', '#22D3EE', '#3B9EFF', '#3B82F6', '#4F7BF0', '#6366F1'];
+  const indexItems: LiquidIndexItem[] = (toc.length ? toc : [{ id: 'dl-top', label: page.title }]).map((t, i) => ({
+    num: String(i + 1).padStart(2, '0'),
+    label: t.label,
+    subtitle: '',
+    sectionId: t.id,
+    accent: ACCENTS[i % ACCENTS.length],
+    icon: ICONS[i % ICONS.length],
+  }));
+  const ART: Record<string, string> = { model: 'chart', software: 'code', cfd: 'flow', lca: 'leaf' };
+
   return (
     // Pages always read in full: the draft's Brief/Full switch and the
     // expand/collapse-all bar are not shown.
     <main className={styles.page}>
-      <header className={styles.hero}>
-        <div className={styles.titleCard}>
-          <div className={styles.titleInner}>
-            <h1 className={styles.title}>{page.title}</h1>
-          </div>
-        </div>
-        <p className={styles.subtitle}>{page.subtitle}</p>
-      </header>
-
-      <div className={styles.row}>
-        <aside className={styles.rail} aria-label="On this page">
-          <p className={styles.railHeading}>On this page</p>
-          <ul className={styles.railList}>
-            {toc.map((t) => (
-              <li key={t.id}>
-                <button
-                  type="button"
-                  className={`${styles.railLink} ${activeId === t.id ? styles.railLinkActive : ''}`}
-                  onClick={() => document.getElementById(t.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                >
-                  {t.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </aside>
-        <div className={styles.column}>
+      <LiquidIndex
+        items={indexItems}
+        className={shell.grad}
+        header={
+          <>
+            <TitleCard title={page.title} art={ART[slug.split('-')[0]] ?? 'chart'} />
+            <p className={styles.subtitle}>{page.subtitle}</p>
+          </>
+        }
+      >
+        <div className={styles.column} id="dl-top">
           {MODEL_SLUGS.has(slug) && (
             <nav aria-label="Model sections">
               <ul className={styles.tabs}>
@@ -211,6 +209,7 @@ export default function DryLabPage({ slug }: { slug: string }) {
               ) : (
                 <div className={styles.loading} aria-busy="true" />
               )}
+              {modelMounts.map((m, i) => createPortal(<CfdModels />, m, `models-${i}`))}
             </article>
           </div>
 
@@ -247,14 +246,14 @@ export default function DryLabPage({ slug }: { slug: string }) {
             </div>
           </section>
         </div>
-      </div>
+      </LiquidIndex>
 
       <Footer bgColor="transparent" />
     </main>
   );
 }
 
-/** /dry-lab/model/:slug — one of the model sub-pages; anything else goes to the overview. */
+/** /dry-lab/model/:slug, one of the model sub-pages; anything else goes to the overview. */
 export function DryLabModelRoute() {
   const { slug = '' } = useParams();
   if (slug === 'model' || !MODEL_SLUGS.has(slug)) return <Navigate to="/dry-lab/model" replace />;

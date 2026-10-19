@@ -224,7 +224,7 @@
 
 .content {
   font-family: var(--font-mont);
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1.65;
   color: #343a40;
   overflow-wrap: break-word;
@@ -240,7 +240,7 @@
 }
 
 .content :global(em) {
-  font-style: italic;
+  font-style: normal;
 }
 
 .content :global(a) {
@@ -976,4 +976,102 @@
 }
 @media (max-width: 520px) {
   .content :global(.lca-tiles) { grid-template-columns: 1fr; }
+}
+
+.content :global(*) { font-style: normal; }
+.content :global(details.lca-glow > summary) {
+  background: #e4f3ee;
+  box-shadow: 0 0 0 2px #63aea6, 0 0 22px rgba(99, 174, 166, 0.65);
+}
+
+.content :global(img.lca-static) { display: block; width: 100%; height: auto; margin: 14px 0 6px; border-radius: 14px; }
+
+/* ---------- CFD Figure 3: interactive 3-D models (CfdModels.tsx) ---------- */
+
+.models {
+  border: 1px solid #cfe0ee;
+  border-radius: 18px;
+  background: #fff;
+  padding: 14px;
+  font-family: var(--font-mont);
+}
+
+.modelTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modelTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1.5px solid #b8d9ed;
+  border-radius: 99px;
+  background: #f5f9fd;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #172b4d;
+  cursor: pointer;
+}
+
+.modelTab:hover {
+  background: #e8f2fd;
+}
+
+.modelTabOn {
+  border-color: #3f94d2;
+  background: #3f94d2;
+  color: #fff;
+}
+
+.modelTemp {
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.modelTempOk {
+  background: #dff3e7;
+  color: #1d5e3a;
+}
+
+.modelTempHot {
+  background: #fbe1dc;
+  color: #8c3a2b;
+}
+
+.modelStage {
+  position: relative;
+  margin-top: 12px;
+  height: clamp(320px, 52vw, 520px);
+  border-radius: 14px;
+  background: radial-gradient(ellipse at 50% 40%, #ffffff 0%, #eef4fa 100%);
+  overflow: hidden;
+}
+
+.modelViewer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+}
+
+.modelNote {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-size: 15px;
+  color: #4a5a72;
+}
+
+.modelHint {
+  margin: 10px 2px 0 !important;
+  font-size: 13px !important;
+  color: #4a5a72;
 }

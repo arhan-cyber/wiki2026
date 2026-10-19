@@ -141,7 +141,7 @@ export default function ProtocolsPage() {
   };
 
   return (
-    <PageShell title="Protocols" index={[{ id: 'wheel', label: 'Protocol wheel' }, ...sections.map((s) => ({ id: s.id, label: s.title }))]}>
+    <PageShell title="Protocols" art="flask" index={[{ id: 'wheel', label: 'Protocol wheel' }, ...sections.map((s) => ({ id: s.id, label: s.title }))]}>
       <div id="wheel" className={styles.wheelCard}>
         <div className={styles.wheelWrap}>
         <img

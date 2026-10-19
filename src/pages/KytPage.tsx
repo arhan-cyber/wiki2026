@@ -18,8 +18,8 @@ const groups: Group[] = [
     label: 'Project Investigators',
     role: 'Principal Investigator',
     members: [
-      { name: 'Prof. Saket Choudhary', photo: '/members/profSaket.png', objectPosition: 'center 100%', zoom: 1.3 },
-      { name: 'Prof. Rajesh Patkar', photo: '/members/profRajesh.png', objectPosition: 'center 0%' },
+      { name: 'Prof. Saket Choudhary', photo: '/members/profSaket.webp', objectPosition: 'center 100%', zoom: 1.3 },
+      { name: 'Prof. Rajesh Patkar', photo: '/members/profRajesh.webp', objectPosition: 'center 0%' },
     ],
   },
   {
@@ -38,8 +38,8 @@ const groups: Group[] = [
     members: [
       { name: 'Durva Sachin Saraf', photo: '/members/durva.jpg', objectPosition: 'center 0%' },
       { name: 'Madhur', photo: '/members/madhur.jpg', objectPosition: 'center 60%', zoom: 1.1 },
-      { name: 'Ranit S Sooraj', photo: '/members/ranit.jpg', objectPosition: 'center 40%', zoom: 1.2 },
-      { name: 'Hardika Jain', photo: '/members/hardika-jain.png', objectPosition: 'center 40%', zoom: 1.1 },
+      { name: 'Ranit S Sooraj', photo: '/members/ranit.webp', objectPosition: 'center 40%', zoom: 1.2 },
+      { name: 'Hardika Jain', photo: '/members/hardika-jain.webp', objectPosition: 'center 40%', zoom: 1.1 },
       { name: 'Aayush Gupta', photo: '/members/aayush-gupta.jpg', objectPosition: 'center 10%' },
       { name: 'Abhinav Gupta', photo: '/members/abhinav.jpg', objectPosition: 'center 50%' },
       { name: 'Manish S', photo: '/members/manish.jpg', objectPosition: 'center 30%', zoom: 1.1 },
@@ -52,11 +52,11 @@ const groups: Group[] = [
     members: [
       { name: 'Arhan Khade', photo: '/members/arhan.jpg', objectPosition: 'center 0%' },
       { name: 'Bipra Bhanu Mohanty', photo: '/members/bipra-bhanu-mohanty.jpg', objectPosition: 'center 15%' },
-      { name: 'Ishaan Chhaya', photo: '/members/ishaan.jpg', objectPosition: 'center 10%' },
+      { name: 'Ishaan Chhaya', photo: '/members/ishaan.webp', objectPosition: 'center 10%' },
       { name: 'Pratik Rahul Ingle', photo: '/members/pratik.jpeg', objectPosition: 'center 10%' },
-      { name: 'Siddhant Chowdhary', photo: '/members/siddhant.jpg', objectPosition: 'center 50%', zoom: 2 },
+      { name: 'Siddhant Chowdhary', photo: '/members/siddhant.webp', objectPosition: 'center 50%', zoom: 2 },
       { name: 'Ekansh', photo: '/members/ekansh.jpg', objectPosition: 'center 20%', zoom: 1.7 },
-      { name: 'Gururatna Upadhyay', photo: '/members/guru.png', objectPosition: 'center 20%', zoom: 1.2 },
+      { name: 'Gururatna Upadhyay', photo: '/members/guru.webp', objectPosition: 'center 20%', zoom: 1.2 },
     ],
   },
   {
@@ -64,10 +64,10 @@ const groups: Group[] = [
     label: 'Human Practices',
     role: 'Human Practices',
     members: [
-      { name: 'Yashika', photo: '/members/yashika.jpg', objectPosition: 'center 40%', zoom: 1.3 },
-      { name: 'Arnav Oza', photo: '/members/arnav.jpg', objectPosition: 'center 30%' },
+      { name: 'Yashika', photo: '/members/yashika.webp', objectPosition: 'center 40%', zoom: 1.3 },
+      { name: 'Arnav Oza', photo: '/members/arnav.webp', objectPosition: 'center 30%' },
       { name: 'Tanish Jain', photo: '/members/tanish.jpg', objectPosition: 'center 10%', zoom: 1.1 },
-      { name: 'Shinjini Jain', photo: '/members/shinjini.jpg', objectPosition: 'center top' },
+      { name: 'Shinjini Jain', photo: '/members/shinjini.webp', objectPosition: 'center top' },
       { name: 'Latisha Meena', photo: '/members/latisha.jpg', objectPosition: 'center top' },
       { name: 'Mitali Arya', photo: '/members/mitali.jpg', objectPosition: 'center 20%' },
     ],
@@ -77,9 +77,9 @@ const groups: Group[] = [
     label: 'Web',
     role: 'Web & Design',
     members: [
-      { name: 'Sagnik Dey', photo: '/members/sagnik_dey.png', objectPosition: 'center 0%' },
+      { name: 'Sagnik Dey', photo: '/members/sagnik_dey.webp', objectPosition: 'center 0%' },
       { name: 'Nisarg Rathod', photo: '/members/nisarg-rathod.jpeg', objectPosition: 'center 3%', zoom: 1.3 },
-      { name: 'Aryan Prasad', photo: '/members/aryan-prasad.png', objectPosition: 'center 35%' },
+      { name: 'Aryan Prasad', photo: '/members/aryan-prasad.webp', objectPosition: 'center 35%' },
     ],
   },
 ];
@@ -153,7 +153,7 @@ export default function KytPage() {
       </div>
 
       <div className={styles.photo}>
-        <img src="/team_pic.png" alt="The iGEM IIT Bombay 2026 team" />
+        <img src="/team_pic.webp" alt="The iGEM IIT Bombay 2026 team" />
       </div>
 
       <main>

@@ -13,16 +13,24 @@ export type Block =
 
 export type Tab = 'Purpose' | 'Who We Reached' | 'What We Did' | 'Key Takeaway' | 'Feedback' | 'References';
 
+export type Doc = { title: string; file: string };
+
 export type EventItem = {
   /** Short title shown on the bar. */
   name: string;
   /** One line under the title: date, partner or format. */
   meta?: string;
   photos?: string[];
-  /** A result worth seeing before opening any tab — shown as a banner at the top. */
+  /** PDFs and CSVs shown in the Documents dropdown at the bottom of the card. */
+  docs?: Doc[];
+  /** A result worth seeing before opening any tab, shown as a banner at the top. */
   highlight?: { title: string; awards: string[]; note?: string };
   tabs: Partial<Record<Tab, Block[]>>;
 };
+
+/** Photos for an event, copied from "day 3/eo images" as public/eo/events/<slug>/01.jpg… */
+const shots = (slug: string, n: number) =>
+  Array.from({ length: n }, (_, i) => `/eo/events/${slug}/${String(i + 1).padStart(2, '0')}.jpg`);
 
 export const SUBTABS: Tab[] = ['Purpose', 'Who We Reached', 'What We Did', 'Key Takeaway', 'Feedback', 'References'];
 
@@ -71,6 +79,8 @@ export const EVENTS: EventItem[] = [
   // 1 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'BioTL: BioTinkerers’ Laboratory',
+    docs: [{ title: 'BioTL proposal deck', file: '/eo/docs/biotl/biotl-deck.pdf' }, { title: 'BioTL floor plan', file: '/eo/docs/biotl/floor-plan.pdf' }],
+    photos: shots('biotl', 5),
     meta: 'A permanent student-run tinkering lab · MoU signed 11 March 2026 · @biotl.iitb',
     tabs: {
       Purpose: [
@@ -166,7 +176,9 @@ export const EVENTS: EventItem[] = [
   // 2 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'AIIM 2026: All India iGEM Meet',
-    meta: 'IIT Madras · Best Human Practices and Best Overall Team',
+    docs: [{ title: 'Research poster', file: '/eo/docs/aiim/research-poster.pdf' }, { title: 'Judging presentation', file: '/eo/docs/aiim/judging-presentation.pdf' }],
+    photos: shots('aiim', 18),
+    meta: 'Best Human Practices and Best Overall Team',
     highlight: {
       title: 'Two awards at AIIM 2026',
       awards: ['Best Human Practices (iHP) Award', 'Best Overall Team Award'],
@@ -241,6 +253,7 @@ export const EVENTS: EventItem[] = [
   // 3 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'SYNBIOCON 2026',
+    photos: shots('synbiocon', 19),
     meta: 'iGEM IIT Bombay × iGEM IIT Kharagpur · 7–8 March 2026 · synbiocon2026.in',
     tabs: {
       Purpose: [
@@ -342,6 +355,8 @@ export const EVENTS: EventItem[] = [
   // 4 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'SynBio Explorers at AECS No. 3',
+    docs: [{ title: 'Activity booklet', file: '/eo/docs/aecs/activity-booklet.pdf' }, { title: 'Chromatography session slides', file: '/eo/docs/aecs/chromatography-slides.pdf' }, { title: 'iGEM introduction slides', file: '/eo/docs/aecs/igem-introduction.pdf' }],
+    photos: shots('aecs', 13),
     meta: 'Atomic Energy Central School No. 3 · 80+ Grade 8 students · our flagship school visit',
     tabs: {
       Purpose: [
@@ -366,9 +381,9 @@ export const EVENTS: EventItem[] = [
       'What We Did': [
         { t: 'p', text: 'We architected SynBio Explorers around an intuitive scientific storyline: investigate, isolate, visualise, engineer.' },
         { t: 'table', head: ['Experiment', 'What students did', 'What it showed'], rows: [
-          ['01 DNA extraction 🧬', 'Lysed banana cell walls, precipitated genomic material and spooled visible white strands of DNA into test tubes', 'The textbook became tangible: DNA stopped being an abstract drawing and became a real structure they could hold'],
-          ['02 Chromatography 🎨', 'Spotted pigment mixtures onto paper and watched capillary action separate uniform ink into its constituent colours', 'Demystified the invisible: how analytical scientists break complex mixtures apart to uncover hidden building blocks'],
-          ['03 Microscopy 🔬', 'Prepared wet mounts, operated fine focus knobs and resolved living cellular architecture beneath ordinary surfaces', 'Reframed reality: the microscopic realm out of the textbook and into sharp focus'],
+          ['01 DNA extraction', 'Lysed banana cell walls, precipitated genomic material and spooled visible white strands of DNA into test tubes', 'The textbook became tangible: DNA stopped being an abstract drawing and became a real structure they could hold'],
+          ['02 Chromatography', 'Spotted pigment mixtures onto paper and watched capillary action separate uniform ink into its constituent colours', 'Demystified the invisible: how analytical scientists break complex mixtures apart to uncover hidden building blocks'],
+          ['03 Microscopy', 'Prepared wet mounts, operated fine focus knobs and resolved living cellular architecture beneath ordinary surfaces', 'Reframed reality: the microscopic realm out of the textbook and into sharp focus'],
         ] },
         { t: 'ul', items: [
           ['The custom activity booklet.', 'An illustrated field workbook of visual puzzles, conceptual maps and thought experiments, designed to take home and revisit, not a worksheet of definitions.'],
@@ -412,8 +427,9 @@ export const EVENTS: EventItem[] = [
   // 5 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'GnaanU 2026',
+    docs: [{ title: 'Blood testing session slides', file: '/eo/docs/gnaanu/blood-testing-slides.pdf' }],
+    photos: shots('gnaanu', 9),
     meta: 'GnaanU (NGO) × iGEM IIT Bombay × IITB Biology Club · classes 6–8 · 16 January 2026',
-    photos: ['/eo/pas/photo1.jpg', '/eo/pas/photo2.jpg', '/eo/pas/photo3.jpg', '/eo/pas/photo4.jpg'],
     tabs: {
       Purpose: [
         { t: 'ul', items: [
@@ -471,6 +487,7 @@ export const EVENTS: EventItem[] = [
   // 6 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'TechConnect at TechFest',
+    photos: shots('techconnect', 3),
     meta: 'IIT Bombay TechFest: Asia’s largest technology fest · 1,000+ stall visitors',
     tabs: {
       Purpose: [
@@ -591,6 +608,7 @@ export const EVENTS: EventItem[] = [
   // 8 ─────────────────────────────────────────────────────────────────────────
   {
     name: 'Do IITB Freshers Know SynBio?',
+    photos: shots('freshers', 3),
     meta: 'Hostel 16 mess, dinner, 5 October 2026 · 40+ on-camera interviews',
     tabs: {
       Purpose: [
@@ -648,6 +666,7 @@ export const EVENTS: EventItem[] = [
   // 10 ────────────────────────────────────────────────────────────────────────
   {
     name: 'Know Your Lab: iGEM IITB × EnPOWER',
+    photos: shots('know-your-lab', 10),
     meta: 'A social-media poster series on two BSBE labs · 1,000+ views',
     tabs: {
       Purpose: [
@@ -698,6 +717,7 @@ export const EVENTS: EventItem[] = [
   // 11 ────────────────────────────────────────────────────────────────────────
   {
     name: 'The FAS Booklet: First Edition',
+    docs: [{ title: 'The FAS Booklet, first edition', file: '/eo/docs/fas-booklet/fas-booklet.pdf' }],
     meta: 'A Field Guide to Fungal Fatty Acid Synthase · emailed to 100+ readers',
     tabs: {
       Purpose: [
@@ -771,6 +791,7 @@ export const EVENTS: EventItem[] = [
   // 12 ────────────────────────────────────────────────────────────────────────
   {
     name: 'Gene Cloning Simulation Website 2.0',
+    photos: shots('gene-cloning', 3),
     meta: '400+ students · igem-simulation-beta.vercel.app',
     tabs: {
       Purpose: [
@@ -831,6 +852,7 @@ export const EVENTS: EventItem[] = [
   // 14 ────────────────────────────────────────────────────────────────────────
   {
     name: 'Internal AI Audit',
+    docs: [{ title: 'Survey responses (names removed)', file: '/eo/docs/ai-audit/responses.csv' }],
     meta: '19 team members across all 5 subsystems',
     tabs: {
       Purpose: [
@@ -887,6 +909,8 @@ export const EVENTS: EventItem[] = [
   // 15 ────────────────────────────────────────────────────────────────────────
   {
     name: 'Junicorn by 100 GIGA',
+    docs: [{ title: 'Junicorn pitch deck', file: '/eo/docs/junicorn/junicorn-pitch.pdf' }],
+    photos: shots('junicorn', 1),
     meta: 'Dayananda Sagar University, International StartUp Fair · a cohort of 40 girl founders',
     tabs: {
       Purpose: [
